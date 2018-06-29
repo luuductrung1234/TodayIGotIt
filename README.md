@@ -1,10 +1,10 @@
-![Logo](documents/logo1.png)
+![Logo](documents/logo2.png)
 
 
 ---
 
 #  TodayIGotIt
-:mortar_board: Today I Got It is a online learning webapp (inspired from Freecodecamp)
+:mortar_board: Today I Got It is a online learning webapp (inspired from [**Freecodecamp**](https://github.com/freeCodeCamp/freeCodeCamp))
 
 ---
 
