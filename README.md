@@ -1,5 +1,6 @@
 # :mortar_board: TodayIGotIt
 Today I Got It is a online learning webapp (inspired from Freecodecamp)
+![Logo](documents/logo1.png)
 
 ---
 
