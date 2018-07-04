@@ -29,6 +29,7 @@
 - Xem các khoá học và tiến trình học (thống kê, report, goal, archivement) trên dashboard
 - Thông báo khi có trả lời của người dạy
 - Thông báo khi có chat từ người dạy
+- Gởi feedback.
 
 ---
 
