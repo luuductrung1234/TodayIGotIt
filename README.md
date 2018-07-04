@@ -43,6 +43,15 @@
 
 ---
 
+
+### Cho phép admin
+- Quản lí đăng tải khóa học.
+- Xem feedback của người học.
+- Xem thống kê các khóa học hiện có, sô người học, số người đã đăng kí, số người quan tâm(khi add wishlist).
+- Thông báo khi có feedback.
+
+---
+
 ### Nâng cao
 - Deploy dữ liệu lên cloud
 - Tối ưu hoá dường truyền tải dữ liệu (nhất là các video)
