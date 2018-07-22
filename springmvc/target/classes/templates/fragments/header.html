@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="header(currentUser)">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-header">
+            <a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">
+                <img style="width: 60px; height: 60px;" th:src="@{images/logostyle.png}" alt="TiGi_logo">
+                <!--<div class="logo">-->
+                <!--</div>-->
+            </a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/customers">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item" th:if="${currentUser} != null">
+                    <a class="nav-link" href="/user/show">Dashboard</a>
+                </li>
+            </ul>
+            <div th:if="${currentUser} == null">
+                <form class="form-inline" action="/user/login">
+                    <input class="form-control mr-sm-2" name="username" type="text" placeholder="Username"
+                           aria-label="username">
+                    <input class="form-control mr-sm-2" name="password" type="password" aria-label="password">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Login</button>
+                    &nbsp;
+                    <a class="btn btn-info my-2 my-sm-0" href="/user/new">Register</a>
+                </form>
+            </div>
+            <div th:if="${currentUser} != null">
+                <form class="form-inline" action="/user/logout">
+                    <div class="navbar-text">
+                        <a href="javascript:void(0)" data-toggle="search">
+                            <i style="font-size: 25px" class="text-info fas fa-search"></i>
+                        </a>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="navbar-text">
+                        <a href="#">
+                            <i style="font-size: 25px" class="text-info fas fa-shopping-cart">
+                                <span class="label"> 23 </span>
+                            </i>
+                        </a>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="navbar-text text-info">
+                        <span th:text="${currentUser.customer.firstName}"></span>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Demo</title>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"
+          media="screen">
+    <link rel="stylesheet" media="screen"
+          href="../../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
+
+
+<main role="main">
+    <div class="container">
+        <h2>Product Form</h2>
+        <div>
+            <form class="col-sm-8"
+                  th:object="${product}" th:action="@{/product}" method="post">
+                <div class="form-group">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{version}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputProductDesc" th:field="*{description}" required/>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputProductPrice">Price:</label>
+                    <input type="text" class="form-control" id="inputProductPrice" th:field="*{price}" required/>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputProductImage">Image URL:</label>
+                    <input type="text" class="form-control" id="inputProductImage" th:field="*{imageUrl}"/>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+</main>
+</body>
+</html>

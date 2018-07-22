@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Demo</title>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"
+          media="screen">
+    <link rel="stylesheet" media="screen"
+          href="../../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
+
+<main role="main">
+    <div class="container">
+        <div class="jumbotron ">
+            <h1 class="display-4">Customers View</h1>
+            <p class="lead">This is a simple Spring Web Application that used to manage Customers</p>
+            <hr class="my-4">
+            <div th:if="${currentUser} == null">
+                <p>There are many special benefit for our user. Let create your own account to join with us!</p>
+                <a class="btn btn-success btn-lg"
+                   style="width: 150px;"
+                   href="user/new" role="button">
+                    Register
+                </a>
+            </div>
+            <div th:if="${currentUser} != null">
+                <p>There a all customer who join our program. Let view their information and contact</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div th:if="${message} != null">
+                <div class="alert alert-danger" role="alert">
+                    <p th:text="${message}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" th:if="${not #lists.isEmpty(customers)}">
+            <h2>List</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>PhoneNumber</th>
+                    <th align="center">&nbsp;</th>
+                </tr>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.id}"></td>
+                    <td th:text="${customer.firstName}"></td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.phoneNumber}"></td>
+                    <td align="center">
+                        <a class="btn btn-primary" href="#">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

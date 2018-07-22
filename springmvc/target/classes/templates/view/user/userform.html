@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Demo</title>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"
+          media="screen">
+    <link rel="stylesheet" media="screen"
+          href="../../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
+
+<main role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Registration Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <form class="col-sm-8"
+                  th:object="${user}" th:action="@{/user}" method="post">
+                <div class="form-group">
+                    <input type="hidden" th:field="*{id}">
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputUsername">Username:</label>
+                    <input type="text" class="form-control" id="inputUsername" th:field="*{username}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputPassword">Password:</label>
+                    <input type="password" class="form-control" id="inputPassword" th:field="*{password}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerFirstName">First Name:</label>
+                    <input type="text" class="form-control" id="inputCustomerFirstName" th:field="*{customer.firstName}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerLastName">Last Name:</label>
+                    <input type="text" class="form-control" id="inputCustomerLastName" th:field="*{customer.lastName}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerEmail">Email:</label>
+                    <input type="email" class="form-control" id="inputCustomerEmail" th:field="*{customer.email}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerPhone">Phone Number:</label>
+                    <input type="number" class="form-control" id="inputCustomerPhone" th:field="*{customer.phoneNumber}"
+                           required>
+                </div>
+                <div class="address mb-2 alert alert-secondary">
+                    <h3>Billing Address:</h3>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillAddress1">Address Line 1:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillAddress1"
+                               th:field="*{customer.billingAddress.addressLine1}"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillAddress2">Address Line 2:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillAddress2"
+                               th:field="*{customer.billingAddress.addressLine2}">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillCity">City:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillCity"
+                               th:field="*{customer.billingAddress.city}"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillState">State:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillState"
+                               th:field="*{customer.billingAddress.state}"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillZipCode">ZipCode:</label>
+                        <input type="number" class="form-control" id="inputCustomerBillZipCode"
+                               th:field="*{customer.billingAddress.zipCode}"
+                               required>
+                    </div>
+                </div>
+                <div class="address mb-2 alert alert-dark">
+                    <h3>Shipping Address:</h3>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipAddress1">Address Line 1:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipAddress1"
+                               th:field="*{customer.shippingAddress.addressLine1}"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipAddress2">Address Line 2:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipAddress2"
+                               th:field="*{customer.shippingAddress.addressLine1}">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipCity">City:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipCity"
+                               th:field="*{customer.shippingAddress.city}"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipState">State:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipState"
+                               th:field="*{customer.shippingAddress.state}"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipZipCode">ZipCode:</label>
+                        <input type="number" class="form-control" id="inputCustomerShipZipCode"
+                               th:field="*{customer.shippingAddress.zipCode}"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+</main>
+</body>
+</html>

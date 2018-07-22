@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="footer">
+    <footer class="footer text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>SpringMVC example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+            <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting
+                started guide</a>.</p>
+        </div>
+    </footer>
+
+
+    <!-- Scripting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"
+            th:src="@{/webjars/jquery/3.3.1/dist/jquery.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            th:src="@{/webjars/popper.js/1.14.3/dist/popper.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.4/holder.min.js"
+            th:src="@{/webjars/holderjs/2.9.4/holder.min.js}"></script>
+    <script src="js/ct-navbar.js"
+            th:src="@{js/ct-navbar.js}"></script>
+
+</div>
+
+</body>
+</html>

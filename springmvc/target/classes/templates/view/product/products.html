@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Demo</title>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"
+          media="screen">
+    <link rel="stylesheet" media="screen"
+          href="../../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
+<main role="main">
+    <div class="container">
+        <div class="jumbotron ">
+            <h1 class="display-4">Products View</h1>
+            <p class="lead">This is a simple Spring Web Application that used to manage Products</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-lg"
+               style="width: 150px;"
+               href="product/new" role="button">
+                <i style="font-size: 20px;" class="fas fa-plus-circle"></i>
+            </a>
+        </div>
+
+        <div class="row">
+            <div th:if="${message} != null">
+                <div class="alert alert-danger" role="alert">
+                    <p th:text="${message}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" th:if="${not #lists.isEmpty(products)}">
+            <h2>List</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image URL</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.imageUrl}"></td>
+                    <td class="row">
+                        <a class="btn btn-primary col-sm-3"
+                           th:href="${'product/' + product.id}">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        &nbsp;
+                        <a class="btn btn-warning col-sm-3"
+                           th:href="${'product/edit/' + product.id}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        &nbsp;
+                        <a class="btn btn-danger col-sm-3"
+                           th:href="${'product/delete/' + product.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+</main>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC Demo</title>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"
+          media="screen">
+    <link rel="stylesheet" media="screen"
+          href="../../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
+
+
+<main role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Update Information Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <form class="col-sm-8"
+                  th:action="@{/user/uptInfo}" method="post">
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerFirstName">First Name:</label>
+                    <input type="text" class="form-control" id="inputCustomerFirstName"
+                           th:value="${currentUser.customer.firstName}"
+                           name="firstname"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerLastName">Last Name:</label>
+                    <input type="text" class="form-control" id="inputCustomerLastName"
+                           th:value="${currentUser.customer.lastName}"
+                           name="lastname"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerEmail">Email:</label>
+                    <input type="email" class="form-control" id="inputCustomerEmail"
+                           th:value="${currentUser.customer.email}"
+                           name="email"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCustomerPhone">Phone Number:</label>
+                    <input type="number" class="form-control" id="inputCustomerPhone"
+                           th:value="${currentUser.customer.phoneNumber}"
+                           name="phonenumber"
+                           required>
+                </div>
+                <div class="address mb-2 alert alert-secondary">
+                    <h3>Billing Address:</h3>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillAddress1">Address Line 1:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillAddress1"
+                               th:value="${currentUser.customer.billingAddress.addressLine1}"
+                               name="billAddressLine1"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillAddress2">Address Line 2:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillAddress2"
+                               th:value="${currentUser.customer.billingAddress.addressLine2}"
+                               name="billAddressLine2">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillCity">City:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillCity"
+                               th:value="${currentUser.customer.billingAddress.city}"
+                               name="billCity"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillState">State:</label>
+                        <input type="text" class="form-control" id="inputCustomerBillState"
+                               th:value="${currentUser.customer.billingAddress.state}"
+                               name="billState"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerBillZipCode">ZipCode:</label>
+                        <input type="number" class="form-control" id="inputCustomerBillZipCode"
+                               th:value="${currentUser.customer.billingAddress.zipCode}"
+                               name="billZipCode"
+                               required>
+                    </div>
+                </div>
+                <div class="address mb-2 alert alert-dark">
+                    <h3>Shipping Address:</h3>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipAddress1">Address Line 1:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipAddress1"
+                               th:value="${currentUser.customer.shippingAddress.addressLine1}"
+                               name="shipAddressLine1"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipAddress2">Address Line 2:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipAddress2"
+                               th:value="${currentUser.customer.shippingAddress.addressLine2}"
+                               name="shipAddressLine2">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipCity">City:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipCity"
+                               th:value="${currentUser.customer.shippingAddress.city}"
+                               name="shipCity"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipState">State:</label>
+                        <input type="text" class="form-control" id="inputCustomerShipState"
+                               th:value="${currentUser.customer.shippingAddress.state}"
+                               name="shipState"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold;" for="inputCustomerShipZipCode">ZipCode:</label>
+                        <input type="number" class="form-control" id="inputCustomerShipZipCode"
+                               th:value="${currentUser.customer.shippingAddress.zipCode}"
+                               name="shipZipCode"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+</main>
+</body>
+</html>
