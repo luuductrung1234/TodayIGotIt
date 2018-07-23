@@ -1,7 +1,7 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
-import ldt.springframework.springmvc.domain.Product;
-import ldt.springframework.springmvc.services.ProductService;
+import ldt.springframework.springmvc.domain.Course;
+import ldt.springframework.springmvc.services.CourseService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,8 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class ProductServiceJpaDAOImpl extends AbstractJpaDAOService
-                                        implements ProductService {
+public class CourseServiceJpaDAOImpl extends AbstractJpaDAOService
+                                        implements CourseService {
 
     // =======================================
     // =          Business Methods           =
@@ -27,34 +27,34 @@ public class ProductServiceJpaDAOImpl extends AbstractJpaDAOService
     @Override
     public List<?> listAll() {
         EntityManager em = emf.createEntityManager();
-        List<Product> result = em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
+        List<Course> result = em.createQuery("SELECT c FROM Course c", Course.class).getResultList();
         em.close();
 
         return result;
     }
 
     @Override
-    public Product getById(Integer id) {
+    public Course getById(Integer id) {
         EntityManager em = emf.createEntityManager();
-        Product result = em.find(Product.class, id);
+        Course result = em.find(Course.class, id);
         em.close();
 
         return result;
     }
 
     @Override
-    public Product saveOrUpdate(Product product) {
+    public Course saveOrUpdate(Course course) {
         EntityManager em = emf.createEntityManager();
 
-        Product savedProduct = null;
+        Course savedCourse = null;
         try {
-            savedProduct = this.doInTransaction(em, () -> em.merge(product));
+            savedCourse = this.doInTransaction(em, () -> em.merge(course));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         em.close();
-        return savedProduct;
+        return savedCourse;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ProductServiceJpaDAOImpl extends AbstractJpaDAOService
 
         try {
             this.doInTransaction(em, () -> {
-                em.remove(em.find(Product.class, id));
+                em.remove(em.find(Course.class, id));
                 return null;
             });
         } catch (Exception e) {

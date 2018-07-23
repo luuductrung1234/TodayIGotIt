@@ -11,22 +11,33 @@
           media="screen">
     <link rel="stylesheet" media="screen"
           href="../../../static/css/spring-core.css"
-          th:href="@{css/spring-core.css}">
+          th:href="@{/css/spring-core.css}">
+
+    <!-- XNavbar -->
+    <link href="css/pe-icon-7-stroke.css" rel="stylesheet"
+          th:href="@{/css/pe-icon-7-stroke.css}"/>
+    <link href="css/ct-navbar.css" rel="stylesheet"
+          th:href="@{/css/ct-navbar.css}"/>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
           integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+    <!-- Google Map -->
+    <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
 <main role="main">
     <div class="container">
         <div class="jumbotron ">
-            <h1 class="display-4">Products View</h1>
-            <p class="lead">This is a simple Spring Web Application that used to manage Products</p>
+            <h1 class="display-4">Course View</h1>
+            <p class="lead">This is a simple Spring Web Application that used to manage Courses</p>
             <hr class="my-4">
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
             <a class="btn btn-primary btn-lg"
                style="width: 150px;"
-               href="product/new" role="button">
+               href="course/new" role="button">
                 <i style="font-size: 20px;" class="fas fa-plus-circle"></i>
             </a>
         </div>
@@ -39,7 +50,7 @@
             </div>
         </div>
 
-        <div class="row" th:if="${not #lists.isEmpty(products)}">
+        <div class="row" th:if="${not #lists.isEmpty(courses)}">
             <h2>List</h2>
             <table class="table table-striped">
                 <tr>
@@ -49,24 +60,24 @@
                     <th>Image URL</th>
                     <th>Action</th>
                 </tr>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.id}"></td>
-                    <td th:text="${product.description}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.imageUrl}"></td>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}"></td>
+                    <td th:text="${course.description}"></td>
+                    <td th:text="${course.price}"></td>
+                    <td th:text="${course.imageUrl}"></td>
                     <td class="row">
                         <a class="btn btn-primary col-sm-3"
-                           th:href="${'product/' + product.id}">
+                           th:href="${'course/' + course.id}">
                             <i class="fas fa-info-circle"></i>
                         </a>
                         &nbsp;
                         <a class="btn btn-warning col-sm-3"
-                           th:href="${'product/edit/' + product.id}">
+                           th:href="${'course/edit/' + course.id}">
                             <i class="fas fa-edit"></i>
                         </a>
                         &nbsp;
                         <a class="btn btn-danger col-sm-3"
-                           th:href="${'product/delete/' + product.id}">
+                           th:href="${'course/delete/' + course.id}">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>

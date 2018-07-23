@@ -44,7 +44,7 @@ public abstract class AbstractMapService {
 
     public DomainObject saveOrUpdateDomainObject(DomainObject domainObject){
         if(domainObject != null){
-            // generate new product's key
+            // generate new course's key
             if(domainObject.getId() == null){
                 domainObject.setId(this.genNextKey());
             }

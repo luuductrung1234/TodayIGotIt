@@ -22,7 +22,7 @@ public class CartDetails extends AbstractDomainEntity{
     private Cart cart;
 
     @OneToOne
-    private Product product;
+    private Course course;
 
 
     // =======================================
@@ -32,10 +32,10 @@ public class CartDetails extends AbstractDomainEntity{
     public CartDetails(){
     }
 
-    public CartDetails(Integer quantity, Cart cart, Product product){
+    public CartDetails(Integer quantity, Cart cart, Course course){
         this.quantity = quantity;
         this.cart = cart;
-        this.product = product;
+        this.course = course;
     }
 
 
@@ -51,12 +51,12 @@ public class CartDetails extends AbstractDomainEntity{
         this.cart = cart;
     }
 
-    public Product getProduct() {
-        return product;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Integer getQuantity() {

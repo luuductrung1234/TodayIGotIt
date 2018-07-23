@@ -1,10 +1,10 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
+import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.domain.Order;
 import ldt.springframework.springmvc.domain.OrderDetails;
-import ldt.springframework.springmvc.domain.Product;
 import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.ProductService;
+import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class UserWithOrderServiceJpaDAOImpl {
     private UserService userService;
 
     @Autowired
-    private ProductService productService;
+    private CourseService courseService;
 
 
     // =======================================
@@ -72,25 +72,25 @@ public class UserWithOrderServiceJpaDAOImpl {
         user.setUsername("sadwindsang2002");
         user.setPassword("sang123");
 
-        List<Product> storeProducts = (List<Product>) productService.listAll();
+        List<Course> storeCourses = (List<Course>) courseService.listAll();
 
         user.addOrders(new Order());
         OrderDetails orderItemOne = new OrderDetails();
-        orderItemOne.setProduct(storeProducts.get(0));
+        orderItemOne.setCourse(storeCourses.get(0));
         user.getOrders().get(0).addOrderDetails(orderItemOne);
         OrderDetails orderItemTwo = new OrderDetails();
-        orderItemTwo.setProduct(storeProducts.get(1));
+        orderItemTwo.setCourse(storeCourses.get(1));
         user.getOrders().get(0).addOrderDetails(orderItemTwo);
 
         user.addOrders(new Order());
         OrderDetails orderItemThree = new OrderDetails();
-        orderItemThree.setProduct(storeProducts.get(3));
+        orderItemThree.setCourse(storeCourses.get(3));
         user.getOrders().get(1).addOrderDetails(orderItemThree);
         OrderDetails orderItemFour = new OrderDetails();
-        orderItemFour.setProduct(storeProducts.get(4));
+        orderItemFour.setCourse(storeCourses.get(4));
         user.getOrders().get(1).addOrderDetails(orderItemFour);
         OrderDetails orderItemFive = new OrderDetails();
-        orderItemFive.setProduct(storeProducts.get(1));
+        orderItemFive.setCourse(storeCourses.get(1));
         user.getOrders().get(1).addOrderDetails(orderItemFive);
 
         User savedUser = userService.saveOrUpdate(user);
@@ -129,25 +129,25 @@ public class UserWithOrderServiceJpaDAOImpl {
         user.setUsername("sadwindsang2002");
         user.setPassword("sang123");
 
-        List<Product> storeProducts = (List<Product>) productService.listAll();
+        List<Course> storeCourses = (List<Course>) courseService.listAll();
 
         user.addOrders(new Order());
         OrderDetails orderItemOne = new OrderDetails();
-        orderItemOne.setProduct(storeProducts.get(0));
+        orderItemOne.setCourse(storeCourses.get(0));
         user.getOrders().get(0).addOrderDetails(orderItemOne);
         OrderDetails orderItemTwo = new OrderDetails();
-        orderItemTwo.setProduct(storeProducts.get(1));
+        orderItemTwo.setCourse(storeCourses.get(1));
         user.getOrders().get(0).addOrderDetails(orderItemTwo);
 
         user.addOrders(new Order());
         OrderDetails orderItemThree = new OrderDetails();
-        orderItemThree.setProduct(storeProducts.get(3));
+        orderItemThree.setCourse(storeCourses.get(3));
         user.getOrders().get(1).addOrderDetails(orderItemThree);
         OrderDetails orderItemFour = new OrderDetails();
-        orderItemFour.setProduct(storeProducts.get(4));
+        orderItemFour.setCourse(storeCourses.get(4));
         user.getOrders().get(1).addOrderDetails(orderItemFour);
         OrderDetails orderItemFive = new OrderDetails();
-        orderItemFive.setProduct(storeProducts.get(1));
+        orderItemFive.setCourse(storeCourses.get(1));
         user.getOrders().get(1).addOrderDetails(orderItemFive);
 
         User savedUser = userService.saveOrUpdate(user);
@@ -194,25 +194,25 @@ public class UserWithOrderServiceJpaDAOImpl {
         user.setUsername("sadwindsang2002");
         user.setPassword("sang123");
 
-        List<Product> storeProducts = (List<Product>) productService.listAll();
+        List<Course> storeCourses = (List<Course>) courseService.listAll();
 
         user.addOrders(new Order());
         OrderDetails orderItemOne = new OrderDetails();
-        orderItemOne.setProduct(storeProducts.get(0));
+        orderItemOne.setCourse(storeCourses.get(0));
         user.getOrders().get(0).addOrderDetails(orderItemOne);
         OrderDetails orderItemTwo = new OrderDetails();
-        orderItemTwo.setProduct(storeProducts.get(1));
+        orderItemTwo.setCourse(storeCourses.get(1));
         user.getOrders().get(0).addOrderDetails(orderItemTwo);
 
         user.addOrders(new Order());
         OrderDetails orderItemThree = new OrderDetails();
-        orderItemThree.setProduct(storeProducts.get(3));
+        orderItemThree.setCourse(storeCourses.get(3));
         user.getOrders().get(1).addOrderDetails(orderItemThree);
         OrderDetails orderItemFour = new OrderDetails();
-        orderItemFour.setProduct(storeProducts.get(4));
+        orderItemFour.setCourse(storeCourses.get(4));
         user.getOrders().get(1).addOrderDetails(orderItemFour);
         OrderDetails orderItemFive = new OrderDetails();
-        orderItemFive.setProduct(storeProducts.get(1));
+        orderItemFive.setCourse(storeCourses.get(1));
         user.getOrders().get(1).addOrderDetails(orderItemFive);
 
         User savedUser = userService.saveOrUpdate(user);

@@ -1,8 +1,8 @@
 package ldt.springframework.springmvc.services.mapservice;
 
+import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.domain.DomainObject;
-import ldt.springframework.springmvc.domain.Product;
-import ldt.springframework.springmvc.services.ProductService;
+import ldt.springframework.springmvc.services.CourseService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,13 @@ import java.util.*;
 
 @Service
 @Profile("map")
-public class ProductServiceMapImpl extends AbstractMapService implements ProductService {
+public class CourseServiceMapImpl extends AbstractMapService implements CourseService {
 
     // =======================================
     // =        Constructors Section         =
     // =======================================
 
-    public ProductServiceMapImpl() {
+    public CourseServiceMapImpl() {
     }
 
 
@@ -37,13 +37,13 @@ public class ProductServiceMapImpl extends AbstractMapService implements Product
     }
 
     @Override
-    public Product getById(Integer id){
-        return (Product) super.getById(id);
+    public Course getById(Integer id){
+        return (Course) super.getById(id);
     }
 
     @Override
-    public Product saveOrUpdate(Product product){
-        return (Product) super.saveOrUpdateDomainObject(product);
+    public Course saveOrUpdate(Course course){
+        return (Course) super.saveOrUpdateDomainObject(course);
     }
 
     @Override

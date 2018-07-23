@@ -1,7 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a252fab0-87cc-4f07-b5ee-dfad1ae370ea" name="Default" comment="" />
+    <list default="true" id="a252fab0-87cc-4f07-b5ee-dfad1ae370ea" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/TestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/CartDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/CartDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/OrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/OrderDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/jpaservice/ProductServiceJpaDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/jpaservice/CourseServiceJpaDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/mapservice/AbstractMapService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/mapservice/AbstractMapService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/mapservice/ProductServiceMapImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/mapservice/CourseServiceMapImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/customer/customers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/customer/customers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/product/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/course/course.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/product/productform.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/course/courseForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/product/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/course/courses.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/user/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/user/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/user/updateInfoForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/user/updateInfoForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/user/updatePasswordForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/user/updatePasswordForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/user/updateUsernameForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/user/updateUsernameForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view/user/userform.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view/user/userform.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/controller/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/controller/CourseControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/ProductServiceJpaDAOImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/CourseServiceJpaDAOImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserServiceJpaDAOImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserServiceJpaDAOImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserWithCartServiceJpaDAOImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserWithCartServiceJpaDAOImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserWithOrderServiceJpaDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserWithOrderServiceJpaDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/controller/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/controller/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/controller/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/domain/CartDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/domain/CartDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/domain/OrderDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/domain/OrderDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/domain/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/services/ProductService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/services/jpaservice/ProductServiceJpaDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ldt/springframework/springmvc/services/mapservice/ProductServiceMapImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/view/product/product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/view/product/productform.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/view/product/products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/controller/ProductControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/ProductServiceJpaDAOImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/jpaservice/UserServiceJpaDAOImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/jpaservice/UserServiceJpaDAOImplTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/jpaservice/UserWithCartServiceJpaDAOImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/jpaservice/UserWithCartServiceJpaDAOImplTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/jpaservice/UserWithOrderServiceJpaDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ldt/springframework/springmvc/services/jpaservice/UserWithOrderServiceJpaDAOImpl.class" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,8 +63,51 @@
   <component name="FavoritesManager">
     <favorites_list name="springmvc" />
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#a#0;n#p#1;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#a#0;n#p#1;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#a#1;n#p#1;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/Course.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/controller/CourseControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/jpaservice/CourseServiceJpaDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/CourseController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/IndexController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/CourseServiceJpaDAOImplTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/customer/customers.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/user/dashboard.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/user/updateInfoForm.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/user/updatePasswordForm.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/user/updateUsernameForm.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/user/userform.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/course/courseForm.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/course/courses.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/view/course/course.html" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -80,6 +173,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="bootstrap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -105,6 +207,26 @@
               <item name="springmvc" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="jpaservice" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="mapservice" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -123,6 +245,103 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="fragments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="course" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="customer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springmvc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="springmvc" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="jpaservice" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -132,6 +351,11 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SearchEverywhereHistoryKey" value="bo&#9;FILE&#9;file:///Users/ldt/Documents/SourceCode/Git/TodayIGotIt/springmvc/src/main/java/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -151,9 +375,124 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.SpringmvcApplication">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="UserWithOrderServiceJpaDAOImpl.testAddAndRemoveCartDetails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ldt.springframework.springmvc.services.jpaservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="ldt.springframework.springmvc.services.jpaservice" />
+      <option name="MAIN_CLASS_NAME" value="ldt.springframework.springmvc.services.jpaservice.UserWithOrderServiceJpaDAOImpl" />
+      <option name="METHOD_NAME" value="testAddAndRemoveCartDetails" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UserWithOrderServiceJpaDAOImpl.testAddAndRemoveEntireOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ldt.springframework.springmvc.services.jpaservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="ldt.springframework.springmvc.services.jpaservice" />
+      <option name="MAIN_CLASS_NAME" value="ldt.springframework.springmvc.services.jpaservice.UserWithOrderServiceJpaDAOImpl" />
+      <option name="METHOD_NAME" value="testAddAndRemoveEntireOrder" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UserWithOrderServiceJpaDAOImpl.testAddOrderToUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ldt.springframework.springmvc.services.jpaservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="ldt.springframework.springmvc.services.jpaservice" />
+      <option name="MAIN_CLASS_NAME" value="ldt.springframework.springmvc.services.jpaservice.UserWithOrderServiceJpaDAOImpl" />
+      <option name="METHOD_NAME" value="testAddOrderToUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UserWithOrderServiceJpaDAOImpl.testAddOrderWithOrderDetails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ldt.springframework.springmvc.services.jpaservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="ldt.springframework.springmvc.services.jpaservice" />
+      <option name="MAIN_CLASS_NAME" value="ldt.springframework.springmvc.services.jpaservice.UserWithOrderServiceJpaDAOImpl" />
+      <option name="METHOD_NAME" value="testAddOrderWithOrderDetails" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UserWithOrderServiceJpaDAOImpl.testGetUserCartWithCartDetails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ldt.springframework.springmvc.services.jpaservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="ldt.springframework.springmvc.services.jpaservice" />
+      <option name="MAIN_CLASS_NAME" value="ldt.springframework.springmvc.services.jpaservice.UserWithOrderServiceJpaDAOImpl" />
+      <option name="METHOD_NAME" value="testGetUserCartWithCartDetails" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -197,6 +536,23 @@
       <properties />
       <listeners />
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.SpringmvcApplication" />
+      <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddOrderToUser" />
+      <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddOrderWithOrderDetails" />
+      <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddAndRemoveCartDetails" />
+      <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddAndRemoveEntireOrder" />
+      <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testGetUserCartWithCartDetails" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testGetUserCartWithCartDetails" />
+        <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddAndRemoveEntireOrder" />
+        <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddAndRemoveCartDetails" />
+        <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddOrderWithOrderDetails" />
+        <item itemvalue="JUnit.UserWithOrderServiceJpaDAOImpl.testAddOrderToUser" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -212,8 +568,40 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="CourseServiceJpaDAOImplTest_testDeleteProduct - 2018.07.23 at 13h 20m 55s.xml">
+      <configuration name="CourseServiceJpaDAOImplTest.testDeleteProduct" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithCartServiceJpaDAOImplTest_testAddCartToUser - 2018.07.23 at 13h 22m 05s.xml">
+      <configuration name="UserWithCartServiceJpaDAOImplTest.testAddCartToUser" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithCartServiceJpaDAOImplTest_testAddCartWithCartDetails - 2018.07.23 at 13h 22m 15s.xml">
+      <configuration name="UserWithCartServiceJpaDAOImplTest.testAddCartWithCartDetails" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithCartServiceJpaDAOImplTest_testAddAndRemoveCartWithCartDetails - 2018.07.23 at 13h 22m 23s.xml">
+      <configuration name="UserWithCartServiceJpaDAOImplTest.testAddAndRemoveCartWithCartDetails" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithCartServiceJpaDAOImplTest_testGetUserCartWithCartDetails - 2018.07.23 at 13h 22m 38s.xml">
+      <configuration name="UserWithCartServiceJpaDAOImplTest.testGetUserCartWithCartDetails" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithOrderServiceJpaDAOImpl_testAddOrderToUser - 2018.07.23 at 13h 22m 59s.xml">
+      <configuration name="UserWithOrderServiceJpaDAOImpl.testAddOrderToUser" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithOrderServiceJpaDAOImpl_testAddOrderWithOrderDetails - 2018.07.23 at 13h 23m 08s.xml">
+      <configuration name="UserWithOrderServiceJpaDAOImpl.testAddOrderWithOrderDetails" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithOrderServiceJpaDAOImpl_testAddAndRemoveCartDetails - 2018.07.23 at 13h 23m 18s.xml">
+      <configuration name="UserWithOrderServiceJpaDAOImpl.testAddAndRemoveCartDetails" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithOrderServiceJpaDAOImpl_testAddAndRemoveEntireOrder - 2018.07.23 at 13h 23m 30s.xml">
+      <configuration name="UserWithOrderServiceJpaDAOImpl.testAddAndRemoveEntireOrder" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserWithOrderServiceJpaDAOImpl_testGetUserCartWithCartDetails - 2018.07.23 at 13h 23m 40s.xml">
+      <configuration name="UserWithOrderServiceJpaDAOImpl.testGetUserCartWithCartDetails" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1069000" />
+    <option name="totallyTimeSpent" value="6871000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -225,7 +613,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="8" y="30" width="868" height="1111" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
@@ -237,27 +626,54 @@
       <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
-      <window_info id="TODO" order="8" sideWeight="0.37796086" side_tool="true" visible="true" weight="0.30992737" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.39926064" />
+      <window_info id="TODO" order="8" sideWeight="0.3780037" side_tool="true" visible="true" weight="0.13631523" />
+      <window_info anchor="bottom" id="Messages" weight="0.32994455" />
       <window_info anchor="right" id="Palette&#9;" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="2" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Run" order="8" />
+      <window_info anchor="bottom" id="Run" order="8" weight="0.35942328" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Spring" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="6" sideWeight="0.62203914" visible="true" weight="0.30992737" />
+      <window_info active="true" content_ui="combo" id="Project" order="6" sideWeight="0.6219963" visible="true" weight="0.13631523" />
       <window_info anchor="right" id="Bean Validation" />
       <window_info id="Web" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="7" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.32994455" />
       <window_info anchor="right" id="Theme Preview" />
       <window_info id="Favorites" order="5" sideWeight="0.5005149" side_tool="true" weight="0.30992737" />
+      <window_info id="Designer" order="1" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Run" order="8" />
+      <window_info anchor="bottom" id="Spring" order="4" />
+      <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info id="Favorites" order="5" sideWeight="0.5005149" side_tool="true" weight="0.30992737" />
+      <window_info anchor="bottom" id="Terminal" order="5" />
+      <window_info id="Capture Tool" order="0" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
+      <window_info id="TODO" order="8" sideWeight="0.37796086" side_tool="true" visible="true" weight="0.30992737" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Java Enterprise" order="2" />
+      <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info active="true" content_ui="combo" id="Project" order="6" sideWeight="0.62203914" visible="true" weight="0.30992737" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Message" order="6" />
+      <window_info id="Web" order="4" side_tool="true" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="7" />
+      <window_info anchor="right" id="Bean Validation" order="3" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +681,238 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/OrderDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/domain/CartDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/CourseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/jpaservice/AbstractJpaDAOService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/mapservice/AbstractMapService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-178">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/CourseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/controller/CustomerControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="192" column="44" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/controller/CourseControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="92" column="62" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/bootstrap/SpringDataBaseBootstrap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/jpaservice/CourseServiceJpaDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserServiceJpaDAOImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-444">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserWithCartServiceJpaDAOImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1403">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/jpaservice/UserWithOrderServiceJpaDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/controller/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ldt/springframework/springmvc/services/CourseServiceJpaDAOImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="74" column="39" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ldt/springframework/springmvc/services/mapservice/CourseServiceMapImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/user/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/user/updateInfoForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/user/updatePasswordForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/user/userform.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/course/courseForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+          <folding>
+            <element signature="n#style#0;n#label#0;n#div#1;n#form#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/course/courses.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/course/course.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/user/updateUsernameForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/view/customer/customers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#a#0;n#p#1;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#a#0;n#p#1;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#a#1;n#p#1;n#div#0;n#section#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
