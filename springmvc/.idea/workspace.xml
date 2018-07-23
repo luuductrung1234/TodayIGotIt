@@ -208,12 +208,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1532319628373</updated>
-      <workItem from="1532319632705" duration="233000" />
+      <workItem from="1532319632705" duration="472000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="233000" />
+    <option name="totallyTimeSpent" value="472000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="8" y="30" width="868" height="1111" extended-state="0" />
