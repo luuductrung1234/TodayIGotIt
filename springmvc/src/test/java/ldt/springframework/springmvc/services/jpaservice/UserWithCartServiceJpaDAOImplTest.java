@@ -2,9 +2,9 @@ package ldt.springframework.springmvc.services.jpaservice;
 
 import ldt.springframework.springmvc.domain.Cart;
 import ldt.springframework.springmvc.domain.CartDetails;
-import ldt.springframework.springmvc.domain.Product;
+import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.ProductService;
+import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ public class UserWithCartServiceJpaDAOImplTest {
     private UserService userService;
 
     @Autowired
-    private ProductService productService;
+    private CourseService courseService;
 
 
     // =======================================
@@ -71,14 +71,14 @@ public class UserWithCartServiceJpaDAOImplTest {
 
         user.setCart(new Cart());
 
-        List<Product> storeProducts = (List<Product>) productService.listAll();
+        List<Course> storeCourses = (List<Course>) courseService.listAll();
 
         CartDetails cartItemOne = new CartDetails();
-        cartItemOne.setProduct(storeProducts.get(0));
+        cartItemOne.setCourse(storeCourses.get(0));
         user.getCart().addCartDetail(cartItemOne);
 
         CartDetails cartItemTwo = new CartDetails();
-        cartItemTwo.setProduct(storeProducts.get(1));
+        cartItemTwo.setCourse(storeCourses.get(1));
         user.getCart().addCartDetail(cartItemTwo);
 
         User savedUser = userService.saveOrUpdate(user);
@@ -101,14 +101,14 @@ public class UserWithCartServiceJpaDAOImplTest {
 
         user.setCart(new Cart());
 
-        List<Product> storeProducts = (List<Product>) productService.listAll();
+        List<Course> storeCourses = (List<Course>) courseService.listAll();
 
         CartDetails cartItemOne = new CartDetails();
-        cartItemOne.setProduct(storeProducts.get(0));
+        cartItemOne.setCourse(storeCourses.get(0));
         user.getCart().addCartDetail(cartItemOne);
 
         CartDetails cartItemTwo = new CartDetails();
-        cartItemTwo.setProduct(storeProducts.get(1));
+        cartItemTwo.setCourse(storeCourses.get(1));
         user.getCart().addCartDetail(cartItemTwo);
 
         User savedUser = userService.saveOrUpdate(user);

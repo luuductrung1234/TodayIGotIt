@@ -2,12 +2,11 @@ package ldt.springframework.springmvc.bootstrap;
 
 import ldt.springframework.springmvc.domain.*;
 import ldt.springframework.springmvc.enums.OrderStatus;
+import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.CustomerService;
-import ldt.springframework.springmvc.services.ProductService;
 import ldt.springframework.springmvc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +36,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
     // =======================================
 
     @Autowired
-    private ProductService productService;
+    private CourseService courseService;
 
     @Autowired
     private CustomerService customerService;
@@ -52,49 +51,49 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        this.loadProduct();
+        this.loadCourse();
         this.loadUser();
         this.loadCurrentCart();
         this.loadOrderHistory();
     }
 
-    private void loadProduct() {
-        Product product1 = new Product();
-        product1.setDescription("Product 1");
-        product1.setPrice(new BigDecimal("12.99"));
-        product1.setImageUrl("http://example.com/product1");
-        productService.saveOrUpdate(product1);
+    private void loadCourse() {
+        Course course1 = new Course();
+        course1.setDescription("Course 1");
+        course1.setPrice(new BigDecimal("12.99"));
+        course1.setImageUrl("http://example.com/course1");
+        courseService.saveOrUpdate(course1);
 
 
-        Product product2 = new Product();
-        product2.setDescription("Product 2");
-        product2.setPrice(new BigDecimal("9.99"));
-        product2.setImageUrl("http://example.com/product2");
-        productService.saveOrUpdate(product2);
+        Course course2 = new Course();
+        course2.setDescription("Course 2");
+        course2.setPrice(new BigDecimal("9.99"));
+        course2.setImageUrl("http://example.com/course2");
+        courseService.saveOrUpdate(course2);
 
-        Product product3 = new Product();
-        product3.setDescription("Product 3");
-        product3.setPrice(new BigDecimal("10.09"));
-        product3.setImageUrl("http://example.com/product3");
-        productService.saveOrUpdate(product3);
+        Course course3 = new Course();
+        course3.setDescription("Course 3");
+        course3.setPrice(new BigDecimal("10.09"));
+        course3.setImageUrl("http://example.com/course3");
+        courseService.saveOrUpdate(course3);
 
-        Product product4 = new Product();
-        product4.setDescription("Product 4");
-        product4.setPrice(new BigDecimal("34.99"));
-        product4.setImageUrl("http://example.com/product4");
-        productService.saveOrUpdate(product4);
+        Course course4 = new Course();
+        course4.setDescription("Course 4");
+        course4.setPrice(new BigDecimal("34.99"));
+        course4.setImageUrl("http://example.com/course4");
+        courseService.saveOrUpdate(course4);
 
-        Product product5 = new Product();
-        product5.setDescription("Product 5");
-        product5.setPrice(new BigDecimal("14.08"));
-        product5.setImageUrl("http://example.com/product5");
-        productService.saveOrUpdate(product5);
+        Course course5 = new Course();
+        course5.setDescription("Course 5");
+        course5.setPrice(new BigDecimal("14.08"));
+        course5.setImageUrl("http://example.com/course5");
+        courseService.saveOrUpdate(course5);
 
-        Product product6 = new Product();
-        product6.setDescription("Product 6");
-        product6.setPrice(new BigDecimal("20.05"));
-        product6.setImageUrl("http://example.com/product6");
-        productService.saveOrUpdate(product6);
+        Course course6 = new Course();
+        course6.setDescription("Course 6");
+        course6.setPrice(new BigDecimal("20.05"));
+        course6.setImageUrl("http://example.com/course6");
+        courseService.saveOrUpdate(course6);
     }
 
     private void loadUser() {
@@ -144,53 +143,53 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
     private void loadCurrentCart(){
         List<User> users = (List<User>) userService.listAll();
-        List<Product> products = (List<Product>) productService.listAll();
+        List<Course> courses = (List<Course>) courseService.listAll();
 
         users.get(0).setCart(new Cart());
         users.get(0).getCart()
-                .addCartDetail(new CartDetails(1, users.get(0).getCart(), products.get(0)));
+                .addCartDetail(new CartDetails(1, users.get(0).getCart(), courses.get(0)));
         users.get(0).getCart()
-                .addCartDetail(new CartDetails(2, users.get(0).getCart(), products.get(1)));
+                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(1)));
         users.get(0).getCart()
-                .addCartDetail(new CartDetails(2, users.get(0).getCart(), products.get(2)));
+                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(2)));
         userService.saveOrUpdate(users.get(0));
 
 
         users.get(1).setCart(new Cart());
         users.get(1).getCart()
-                .addCartDetail(new CartDetails(1, users.get(1).getCart(), products.get(1)));
+                .addCartDetail(new CartDetails(1, users.get(1).getCart(), courses.get(1)));
         users.get(1).getCart()
-                .addCartDetail(new CartDetails(4, users.get(1).getCart(), products.get(3)));
+                .addCartDetail(new CartDetails(4, users.get(1).getCart(), courses.get(3)));
         users.get(1).getCart()
-                .addCartDetail(new CartDetails(3, users.get(1).getCart(), products.get(2)));
+                .addCartDetail(new CartDetails(3, users.get(1).getCart(), courses.get(2)));
         userService.saveOrUpdate(users.get(1));
 
 
         users.get(2).setCart(new Cart());
         users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), products.get(4)));
+                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(4)));
         users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), products.get(1)));
+                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(1)));
         users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), products.get(2)));
+                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(2)));
         userService.saveOrUpdate(users.get(2));
 
 
         users.get(3).setCart(new Cart());
         users.get(3).getCart()
-                .addCartDetail(new CartDetails(1, users.get(3).getCart(), products.get(0)));
+                .addCartDetail(new CartDetails(1, users.get(3).getCart(), courses.get(0)));
         users.get(3).getCart()
-                .addCartDetail(new CartDetails(4, users.get(3).getCart(), products.get(1)));
+                .addCartDetail(new CartDetails(4, users.get(3).getCart(), courses.get(1)));
         users.get(3).getCart()
-                .addCartDetail(new CartDetails(2, users.get(3).getCart(), products.get(2)));
+                .addCartDetail(new CartDetails(2, users.get(3).getCart(), courses.get(2)));
         users.get(3).getCart()
-                .addCartDetail(new CartDetails(3, users.get(3).getCart(), products.get(5)));
+                .addCartDetail(new CartDetails(3, users.get(3).getCart(), courses.get(5)));
         userService.saveOrUpdate(users.get(3));
     }
 
     private void loadOrderHistory(){
         List<User> users = (List<User>) userService.listAll();
-        List<Product> products = (List<Product>) productService.listAll();
+        List<Course> courses = (List<Course>) courseService.listAll();
 
         users.get(0).addOrders(new Order(users.get(0),
                         users.get(0).getCustomer().getShippingAddress(),
@@ -201,15 +200,15 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                         new Date(),
                         OrderStatus.NEW));
         users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(0), products.get(2)));
+                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(0), courses.get(2)));
         users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(0), products.get(1)));
+                .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(0), courses.get(1)));
         users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(4, users.get(0).getOrders().get(0), products.get(2)));
+                .addOrderDetails(new OrderDetails(4, users.get(0).getOrders().get(0), courses.get(2)));
         users.get(0).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(1), products.get(4)));
+                .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(1), courses.get(4)));
         users.get(0).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(1), products.get(1)));
+                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(1), courses.get(1)));
         userService.saveOrUpdate(users.get(0));
 
 
@@ -222,17 +221,17 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                         new Date(),
                         OrderStatus.NEW));
         users.get(1).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), products.get(5)));
+                .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), courses.get(5)));
         users.get(1).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(0), products.get(2)));
+                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(0), courses.get(2)));
         users.get(1).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), products.get(1)));
+                .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), courses.get(1)));
         users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(6, users.get(1).getOrders().get(1), products.get(4)));
+                .addOrderDetails(new OrderDetails(6, users.get(1).getOrders().get(1), courses.get(4)));
         users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(1), products.get(2)));
+                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(1), courses.get(2)));
         users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(1, users.get(1).getOrders().get(1), products.get(3)));
+                .addOrderDetails(new OrderDetails(1, users.get(1).getOrders().get(1), courses.get(3)));
         userService.saveOrUpdate(users.get(1));
 
 
@@ -241,11 +240,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                         new Date(),
                         OrderStatus.NEW));
         users.get(2).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(2).getOrders().get(0), products.get(1)));
+                .addOrderDetails(new OrderDetails(2, users.get(2).getOrders().get(0), courses.get(1)));
         users.get(2).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), products.get(4)));
+                .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), courses.get(4)));
         users.get(2).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), products.get(2)));
+                .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), courses.get(2)));
         userService.saveOrUpdate(users.get(2));
     }
 }

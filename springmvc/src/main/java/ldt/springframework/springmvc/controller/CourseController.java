@@ -1,9 +1,8 @@
 package ldt.springframework.springmvc.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import ldt.springframework.springmvc.domain.Product;
+import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.ProductService;
+import ldt.springframework.springmvc.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 
 /*
@@ -23,13 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-public class ProductController {
+public class CourseController {
 
     // =======================================
     // =           Injection Point           =
     // =======================================
 
-    private ProductService productService;
+    private CourseService courseService;
 
 
     // =======================================
@@ -44,71 +42,71 @@ public class ProductController {
     // =          Business Methods           =
     // =======================================
 
-    @RequestMapping("/products")
+    @RequestMapping("/courses")
     public String listProducts(HttpServletRequest request, Model model){
         if(!failure){
             model.addAttribute("message", null);
         }else{
             model.addAttribute("message", msg);
         }
-        model.addAttribute("products", productService.listAll());
+        model.addAttribute("courses", courseService.listAll());
         model.addAttribute("currentUser", request.getSession().getAttribute("curUser"));
         failure = false;
 
-        return "view/product/products";
+        return "view/course/courses";
     }
 
-    @RequestMapping("/product/{id}")
-    public String getProductById(@PathVariable Integer id, HttpServletRequest request, Model model){
-        model.addAttribute("product", productService.getById(id));
+    @RequestMapping("/course/{id}")
+    public String getCourseById(@PathVariable Integer id, HttpServletRequest request, Model model){
+        model.addAttribute("course", courseService.getById(id));
         model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
 
-        return "view/product/product";
+        return "view/course/course";
     }
 
-    @RequestMapping("/product/new")
-    public String newProduct(HttpServletRequest request, Model model){
-        model.addAttribute("product", new Product());
+    @RequestMapping("/course/new")
+    public String newCourse(HttpServletRequest request, Model model){
+        model.addAttribute("course", new Course());
         model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
 
-        return "view/product/productform";
+        return "view/course/courseForm";
     }
 
-    @RequestMapping("product/edit/{id}")
-    public String editProduct(@PathVariable Integer id, HttpServletRequest request, Model model){
-        model.addAttribute("product", productService.getById((id)));
+    @RequestMapping("/course/edit/{id}")
+    public String editCourse(@PathVariable Integer id, HttpServletRequest request, Model model){
+        model.addAttribute("course", courseService.getById((id)));
         model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
 
-        return "view/product/productform";
+        return "view/course/courseForm";
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String saveOrUpdateProduct(Product product){
+    @RequestMapping(value = "/course", method = RequestMethod.POST)
+    public String saveOrUpdateCourse(Course course){
         try{
-            Product savedProduct = productService.saveOrUpdate(product);
+            Course savedCourse = courseService.saveOrUpdate(course);
             failure = false;
 
-            return "redirect:product/" + savedProduct.getId();
+            return "redirect:course/" + savedCourse.getId();
         }catch (Exception ex){
             msg = "Save fail! Something went wrong!";
             failure = true;
         }
 
-        return "redirect:/products";
+        return "redirect:/courses";
     }
 
 
-    @RequestMapping("product/delete/{id}")
+    @RequestMapping("course/delete/{id}")
     public String deleteProduct(@PathVariable Integer id, Model model){
         try{
-            productService.delete(id);
+            courseService.delete(id);
             failure = false;
         }catch (Exception ex){
             msg = "Delete fail! Something went wrong!";
             failure = true;
         }
 
-        return "redirect:/products";
+        return "redirect:/courses";
     }
 
 
@@ -117,7 +115,7 @@ public class ProductController {
     // =======================================
 
     @Autowired
-    public void setProductService(ProductService productService){
-        this.productService = productService;
+    public void setCourseService(CourseService courseService){
+        this.courseService = courseService;
     }
 }

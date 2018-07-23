@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 
 
 @Entity
-public class Product extends AbstractDomainEntity {
+public class Course extends AbstractDomainEntity {
 
     // =======================================
     // =          Attribute Section          =
@@ -34,10 +34,10 @@ public class Product extends AbstractDomainEntity {
     // =        Constructors Section         =
     // =======================================
 
-    public Product() {
+    public Course() {
     }
 
-    public Product(Integer id, String description, BigDecimal price, String imageUrl) {
+    public Course(Integer id, String description, BigDecimal price, String imageUrl) {
         this.id = id;
         this.description = description;
         this.price = price;

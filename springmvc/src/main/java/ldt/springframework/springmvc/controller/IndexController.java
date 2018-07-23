@@ -1,7 +1,7 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.domain.Product;
-import ldt.springframework.springmvc.services.ProductService;
+import ldt.springframework.springmvc.domain.Course;
+import ldt.springframework.springmvc.services.CourseService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class IndexController {
     // =======================================
 
     @Autowired
-    private ProductService productService;
+    private CourseService courseService;
 
 
 
@@ -36,10 +36,10 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model){
-        List<Product> products = (List<Product>) productService.listAll();
+        List<Course> courses = (List<Course>) courseService.listAll();
 
         model.addAttribute("currentUser", request.getSession().getAttribute("curUser"));
-        model.addAttribute("products", products);
+        model.addAttribute("courses", courses);
 
         return "index";
     }

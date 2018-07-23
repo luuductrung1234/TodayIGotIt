@@ -29,35 +29,28 @@
 <body>
 <div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
 
+
 <main role="main">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h2>Update Password Form</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div th:if="${message} != null">
-                <div class="alert alert-danger" role="alert">
-                    <p th:text="${message}"></p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+        <h2>Course Form</h2>
+        <div>
             <form class="col-sm-8"
-                  th:action="@{/user/uptPassword}" method="post">
+                  th:object="${course}" th:action="@{/course}" method="post">
                 <div class="form-group">
                     <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{version}">
                 </div>
                 <div class="form-group">
-                    <label style="font-weight: bold;" for="inputPassword">Password:</label>
-                    <input type="password" class="form-control" id="inputPassword" name="password"
-                           required>
+                    <label style="font-weight: bold;" for="inputCourseDesc">Description:</label>
+                    <input type="text" class="form-control" id="inputCourseDesc" th:field="*{description}" required/>
                 </div>
                 <div class="form-group">
-                    <label style="font-weight: bold;" for="inputConfirmPassword">Confirm Password:</label>
-                    <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword"
-                           required>
+                    <label style="font-weight: bold;" for="inputCoursePrice">Price:</label>
+                    <input type="text" class="form-control" id="inputCoursePrice" th:field="*{price}" required/>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight: bold;" for="inputCourseImage">Image URL:</label>
+                    <input type="text" class="form-control" id="inputCourseImage" th:field="*{imageUrl}"/>
                 </div>
 
                 <div class="form-group">

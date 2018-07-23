@@ -24,7 +24,7 @@ public class OrderDetails extends AbstractDomainEntity{
     private Order order;
 
     @OneToOne
-    private Product product;
+    private Course course;
 
 
     // =======================================
@@ -34,10 +34,10 @@ public class OrderDetails extends AbstractDomainEntity{
     public OrderDetails(){
     }
 
-    public OrderDetails(Integer quantity, Order order, Product product){
+    public OrderDetails(Integer quantity, Order order, Course course){
         this.quantity = quantity;
         this.order = order;
-        this.product = product;
+        this.course = course;
     }
 
 
@@ -53,12 +53,12 @@ public class OrderDetails extends AbstractDomainEntity{
         this.order = order;
     }
 
-    public Product getProduct() {
-        return product;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Integer getQuantity() {
