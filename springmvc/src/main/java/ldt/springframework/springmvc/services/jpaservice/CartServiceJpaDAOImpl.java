@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 /*
@@ -135,5 +136,40 @@ public class CartServiceJpaDAOImpl extends AbstractJpaDAOService
         }
 
         return result;
+    }
+
+    @Override
+    public BigDecimal calculateTotalPrice(Cart cart){
+        BigDecimal total = new BigDecimal(0);
+        for (CartDetails cd:
+                cart.getCartDetails()) {
+            BigDecimal quan = new BigDecimal(cd.getQuantity());
+            total = total.add(cd.getCourse().getPrice().multiply(quan));
+        }
+
+        return total;
+    }
+
+    @Override
+    public boolean cartIsEmpty(Cart cart) {
+        int count = 0;
+        if(cart.getCartDetails().isEmpty()){
+            return true;
+        }
+
+        for (CartDetails cd:
+                cart.getCartDetails()) {
+            count += cd.getQuantity();
+        }
+        return count == 0;
+    }
+
+    @Override
+    public void clearCart(User user) {
+        for (CartDetails cd:
+                user.getCart().getCartDetails()) {
+            cd.setCart(null);
+        }
+        user.getCart().setCartDetails(null);
     }
 }

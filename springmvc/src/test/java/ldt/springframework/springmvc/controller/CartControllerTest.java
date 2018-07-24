@@ -3,16 +3,12 @@ package ldt.springframework.springmvc.controller;
 import ldt.springframework.springmvc.domain.Order;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.enums.OrderStatus;
-import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockServletContext;
@@ -23,7 +19,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
-import java.util.Date;
 import java.util.HashMap;
 
 import static org.hamcrest.Matchers.hasProperty;
@@ -44,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @ActiveProfiles("jpadao")
-public class UserCartControllerTest {
+public class CartControllerTest {
 
     // =======================================
     // =           Injection Point           =
@@ -75,7 +70,7 @@ public class UserCartControllerTest {
 
         Assert.assertNotNull(servletContext);
         Assert.assertTrue(servletContext instanceof MockServletContext);
-        Assert.assertNotNull(wac.getBean("userCartController"));
+        Assert.assertNotNull(wac.getBean("cartController"));
     }
 
     @Test

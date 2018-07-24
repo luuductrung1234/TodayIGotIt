@@ -84,14 +84,67 @@ public class OrderServiceJpaDAOImpl extends AbstractJpaDAOService
     // =======================================
 
     @Override
-    public BigDecimal totalPrice(Order order){
+    public BigDecimal calculateTotalPrice(Order order){
         BigDecimal total = new BigDecimal(0);
         for (OrderDetails od:
              order.getOrderDetails()) {
             BigDecimal quan = new BigDecimal(od.getQuantity());
-            total.add(od.getCourse().getPrice().multiply(quan));
+            total = total.add(od.getCourse().getPrice().multiply(quan));
         }
 
         return total;
+    }
+
+    @Override
+    public void increaseQuantity(Order order, Integer courseId) {
+        for (OrderDetails od:
+                order.getOrderDetails()) {
+            if(od.getCourse().getId().equals(courseId)){
+                int quantity = od.getQuantity() + 1;
+                od.setQuantity(quantity);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void decreaseQuantity(Order order, Integer courseId) {
+        for (OrderDetails od:
+                order.getOrderDetails()) {
+            if(od.getCourse().getId().equals(courseId)){
+                int quantity = od.getQuantity() - 1;
+                if(quantity == 0){
+                    removeFromOrder(order, courseId);
+                }else {
+                    od.setQuantity(quantity);
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void removeFromOrder(Order order, Integer courseId) {
+        for (OrderDetails od:
+                order.getOrderDetails()) {
+            if(od.getCourse().getId().equals(courseId)){
+                order.removeOrderDetail(od);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public boolean orderIsEmpty(Order order) {
+        int count = 0;
+        if(order.getOrderDetails().isEmpty()){
+            return true;
+        }
+
+        for (OrderDetails od:
+                order.getOrderDetails()) {
+            count += od.getQuantity();
+        }
+        return count == 0;
     }
 }

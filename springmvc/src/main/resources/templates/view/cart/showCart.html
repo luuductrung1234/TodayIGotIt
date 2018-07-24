@@ -33,13 +33,18 @@
 <main role="main">
     <div class="container">
         <div class="jumbotron ">
-            <h1 class="display-4">Prepare Payment</h1>
+            <h1 class="display-4">Cart View</h1>
             <p class="lead">Just few more click you can own a new course, and start learning immediately</p>
             <hr class="my-4">
-            <p>please verify for orders before continue!</p>
+            <p></p>
+            <a class="btn btn-success btn-lg"
+               style="width: 150px;"
+               href="/user/checkout" role="button">
+                Check Out
+            </a>
         </div>
 
-        <div class="row" th:if="${not #lists.isEmpty(order.orderDetails)}">
+        <div class="row" th:if="${not #lists.isEmpty(cart.cartDetails)}">
             <h2>List</h2>
             <table class="table table-striped">
                 <tr>
@@ -48,25 +53,23 @@
                     <th>Price ($)</th>
                     <th align="center">&nbsp;</th>
                 </tr>
-                <tr th:each="orderdetails : ${order.orderDetails}">
-                    <td th:text="${orderdetails.course.description}"></td>
-                    <td th:text="${orderdetails.quantity}"></td>
-                    <td th:text="${orderdetails.course.price * orderdetails.quantity}"></td>
-                    <td>
-                        <a class="btn btn-primary col-sm-4"
-                           th:href="${'/user/order/plus/' + orderdetails.course.id}">
-                            <i class="fas fa-plus"></i>
+                <tr th:each="cartdetails : ${cart.cartDetails}">
+                    <td th:text="${cartdetails.course.description}"></td>
+                    <td th:text="${cartdetails.quantity}"></td>
+                    <td th:text="${cartdetails.course.price * cartdetails.quantity}"></td>
+                    <td class="row">
+                        <a class="btn btn-success col-sm-5"
+                           th:href="${'/user/buynow/' + cartdetails.course.id}">
+                            Buy Now
                         </a>
                         &nbsp;
-                        <a class="btn btn-primary col-sm-4"
-                           th:href="${'/user/order/minus/' + orderdetails.course.id}">
-                            <i class="fas fa-minus"></i>
-                        </a>
-                        &nbsp;
-                        <a class="btn btn-danger col-sm-2"
-                           th:href="${'/user/order/removefromorder/' + orderdetails.course.id}">
-                            <i class="fas fa-times"></i>
-                        </a>
+                        <form
+                                th:action="${'/user/removefromcart/' + cartdetails.course.id}">
+                            <input type="hidden" value="/user/showcart" name="currentPath">
+                            <button type="submit" class="btn btn-danger col-sm-12">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -75,23 +78,11 @@
                     <td style="font-weight: bold; font-size: 20px;">Totals:</td>
                     <td style="font-weight: bold; font-size: 20px;" th:text="'$' + ${totalPrice}"></td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a class="btn btn-success col-sm-12"
-                           style="width: 150px;"
-                           href="/user/order/pay" role="button">
-                            Pay
-                        </a>
-                    </td>
-                </tr>
             </table>
         </div>
     </div>
 </main>
 
-    <div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

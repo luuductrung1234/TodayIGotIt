@@ -103,6 +103,13 @@ public class User extends AbstractDomainEntity{
         cart.setUser(this);
     }
 
+    public Cart removeCart(Cart cart){
+        this.cart = null;
+        cart.setUser(null);
+
+        return cart;
+    }
+
     public List<Order> getOrders() {
         return orders;
     }

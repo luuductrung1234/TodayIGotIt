@@ -6,6 +6,8 @@ import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.UserService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -64,6 +66,11 @@ public class UserServiceMapImpl extends AbstractMapService
 
     @Override
     public void updateCurrentUserDataToSession(HttpServletRequest request, CartService cartService, Integer userId) {
+
+    }
+
+    @Override
+    public void updateLogoutUserToSession(WebRequest request, SessionStatus status) {
 
     }
 }

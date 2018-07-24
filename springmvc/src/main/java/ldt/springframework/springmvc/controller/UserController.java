@@ -71,8 +71,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/logout")
     public String logout(WebRequest request, SessionStatus status) {
-        status.setComplete();
-        request.removeAttribute("curUser", WebRequest.SCOPE_SESSION);
+        userService.updateLogoutUserToSession(request, status);
 
         return "redirect:/";
     }

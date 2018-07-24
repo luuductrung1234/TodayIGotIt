@@ -7,6 +7,8 @@ import ldt.springframework.springmvc.services.sercurity.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -129,5 +131,14 @@ public class UserServiceJpaDAOImpl extends AbstractJpaDAOService
         request.getSession().setAttribute("curUser", currentUser);
         request.getSession().setAttribute("curUserFirstName", currentUser.getCustomer().getFirstName());
         request.getSession().setAttribute("curUserCartCount", cartService.getContentCount(currentUser));
+    }
+
+    @Override
+    public void updateLogoutUserToSession(WebRequest request, SessionStatus status){
+        status.setComplete();
+        request.removeAttribute("curUser", WebRequest.SCOPE_SESSION);
+        request.removeAttribute("curUserFirstName", WebRequest.SCOPE_SESSION);
+        request.removeAttribute("curUserCartCount", WebRequest.SCOPE_SESSION);
+        request.removeAttribute("curUserOrder", WebRequest.SCOPE_SESSION);
     }
 }

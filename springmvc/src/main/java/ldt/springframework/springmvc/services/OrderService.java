@@ -12,5 +12,13 @@ import java.math.BigDecimal;
  */
 
 public interface OrderService extends CRUDService<Order> {
-    BigDecimal totalPrice(Order order);
+    BigDecimal calculateTotalPrice(Order order);
+
+    void increaseQuantity(Order order, Integer courseId);
+
+    void decreaseQuantity(Order order, Integer courseId);
+
+    void removeFromOrder(Order order, Integer courseId);
+
+    boolean orderIsEmpty(Order order);
 }

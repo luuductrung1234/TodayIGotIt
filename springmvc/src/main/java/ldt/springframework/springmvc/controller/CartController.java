@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-public class UserCartController {
+public class CartController {
 
     // =======================================
     // =           Injection Point           =
@@ -38,8 +38,6 @@ public class UserCartController {
     @Autowired
     private CourseService courseService;
 
-    @Autowired
-    private OrderService orderService;
 
 
     // =======================================
@@ -87,44 +85,35 @@ public class UserCartController {
         return "redirect:" + currentPath;
     }
 
-
-    @RequestMapping("/user/checkout")
-    public String checkOut(HttpServletRequest request, Model model){
-
+    @RequestMapping("/user/showcart")
+    public String showCart(HttpServletRequest request, Model model){
         User currentUser = (User) request.getSession().getAttribute("curUser");
         if(currentUser == null){
             return "redirect:/";
         }
 
-        // convert current user cart to new order
-        Order newOrder = cartService.convertCartToOrder(currentUser.getCart(), currentUser);
+        model.addAttribute("cart", currentUser.getCart());
+        model.addAttribute("totalPrice", cartService.calculateTotalPrice(currentUser.getCart()));
 
-        model.addAttribute("order", newOrder);
-        model.addAttribute("totalPrice", orderService.totalPrice(newOrder));
-
-        return "view/order/preparePayment";
+        return "view/cart/showCart";
     }
 
-    @RequestMapping("/user/buynow/{id}")
-    public String buyNow(@PathVariable("id") Integer courseId,
-                         HttpServletRequest request,
-                         Model model){
-
+    @RequestMapping("/user/clearcart")
+    public String clearCart(HttpServletRequest request, Model model){
         User currentUser = (User) request.getSession().getAttribute("curUser");
         if(currentUser == null){
             return "redirect:/";
         }
-        Course course = courseService.getById(courseId);
 
-        // create a temp cart
-        Cart newCart = new Cart();
-        newCart.addCartDetail(new CartDetails(1, course));
-        // convert temp cart to new order
-        Order newOrder = cartService.convertCartToOrder(newCart, currentUser);
-        model.addAttribute("totalPrice", orderService.totalPrice(newOrder));
+        Cart delCart = currentUser.removeCart(currentUser.getCart());
+        userService.saveOrUpdate(currentUser);
 
-        model.addAttribute("order", newOrder);
+        // Update current user data
+        currentUser = userService.getById(currentUser.getId());
+        currentUser.setCart(new Cart());
+        userService.saveOrUpdate(currentUser);
+        userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
 
-        return "view/order/preparePayment";
+        return "redirect:/";
     }
 }
