@@ -2,6 +2,7 @@ package ldt.springframework.springmvc.controller;
 
 import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.domain.User;
+import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.CustomerService;
 import ldt.springframework.springmvc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class UserController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    CartService cartService;
+
 
     // =======================================
     // =          Attribute Section          =
@@ -47,19 +51,18 @@ public class UserController {
 
 
     // =======================================
-    // =           Request Mappin            =
+    // =           Request Mapping           =
     // =======================================
-
 
     @RequestMapping(value = "/user/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         HttpServletRequest request,
-                        Model model){
+                        Model model) {
 
         User loginUser = userService.login(username, password);
-        if(loginUser != null){
-            request.getSession().setAttribute("curUser", loginUser);
+        if (loginUser != null) {
+            userService.updateLoginUserDataToSession(request, cartService, loginUser);
         }
 
 
@@ -67,7 +70,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/logout")
-    public String logout(WebRequest request, SessionStatus status){
+    public String logout(WebRequest request, SessionStatus status) {
         status.setComplete();
         request.removeAttribute("curUser", WebRequest.SCOPE_SESSION);
 
@@ -76,23 +79,23 @@ public class UserController {
 
 
     @RequestMapping("/user/show")
-    public String showUserDetails(HttpServletRequest request, Model model){
-        if(failure){
+    public String showUserDetails(HttpServletRequest request, Model model) {
+        if (failure) {
             model.addAttribute("message", msg);
             this.stateReset();
         }
 
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser != null){
+        if (currentUser != null) {
             model.addAttribute("currentUser", currentUser);
             return "view/user/dashboard";
-        }else{
+        } else {
             return "redirect:/";
         }
     }
 
     @RequestMapping("/user/new")
-    public String newUser(HttpServletRequest request, Model model){
+    public String newUser(HttpServletRequest request, Model model) {
 
         User newUser = new User();
         newUser.setCustomer(new Customer());
@@ -103,12 +106,11 @@ public class UserController {
     }
 
     @RequestMapping("/user/edit/info/{id}")
-    public String editUserInfo(@PathVariable Integer id, HttpServletRequest request, Model model){
+    public String editUserInfo(@PathVariable Integer id, HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null)
-        {
+        if (currentUser == null) {
             return "redirect:/";
         }
         model.addAttribute("currentUser", currentUser);
@@ -117,12 +119,11 @@ public class UserController {
     }
 
     @RequestMapping("/user/edit/username/{id}")
-    public String editUserUsername(@PathVariable Integer id, HttpServletRequest request, Model model){
+    public String editUserUsername(@PathVariable Integer id, HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null)
-        {
+        if (currentUser == null) {
             return "redirect:/";
         }
         model.addAttribute("currentUser", currentUser);
@@ -131,17 +132,16 @@ public class UserController {
     }
 
     @RequestMapping("/user/edit/password/{id}")
-    public String editUserPassword(@PathVariable Integer id, HttpServletRequest request, Model model){
+    public String editUserPassword(@PathVariable Integer id, HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
-        if(failure){
+        if (failure) {
             model.addAttribute("message", msg);
             this.stateReset();
         }
 
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null)
-        {
+        if (currentUser == null) {
             return "redirect:/";
         }
         model.addAttribute("currentUser", currentUser);
@@ -150,10 +150,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String saveOrUpdateUser(User user){
-        try{
+    public String saveOrUpdateUser(User user) {
+        try {
             userService.saveOrUpdate(user);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             msg = "Save fail! Something went wrong!";
             failure = true;
         }
@@ -164,15 +164,13 @@ public class UserController {
     @RequestMapping(value = "/user/uptPassword", method = RequestMethod.POST)
     public String updatePassword(@RequestParam("confirmPassword") String confirmPassword,
                                  @RequestParam("password") String password,
-                                 HttpServletRequest request){
+                                 HttpServletRequest request) {
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null)
-        {
+        if (currentUser == null) {
             return "redirect:/";
         }
 
-        if(!confirmPassword.equals(password))
-        {
+        if (!confirmPassword.equals(password)) {
             msg = "Confirm Password Not Match!";
             failure = true;
             return "redirect:/user/edit/password/" + currentUser.getId();
@@ -185,10 +183,9 @@ public class UserController {
 
     @RequestMapping(value = "/user/uptUsername", method = RequestMethod.POST)
     public String updateUsername(@RequestParam("username") String username,
-                                 HttpServletRequest request){
+                                 HttpServletRequest request) {
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null)
-        {
+        if (currentUser == null) {
             return "redirect:/";
         }
 
@@ -212,11 +209,10 @@ public class UserController {
                              @RequestParam("shipCity") String shipCity,
                              @RequestParam("shipState") String shipState,
                              @RequestParam("shipZipCode") String shipZipCode,
-                             HttpServletRequest request){
+                             HttpServletRequest request) {
 
         User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null)
-        {
+        if (currentUser == null) {
             return "redirect:/";
         }
 
@@ -235,9 +231,9 @@ public class UserController {
         currentUser.getCustomer().getShippingAddress().setState(shipState);
         currentUser.getCustomer().getShippingAddress().setZipCode(shipZipCode);
 
-        try{
+        try {
             customerService.saveOrUpdate(currentUser.getCustomer());
-        }catch (Exception ex){
+        } catch (Exception ex) {
             msg = "Save fail! Something went wrong!";
             failure = true;
         }
@@ -246,11 +242,11 @@ public class UserController {
     }
 
     @RequestMapping("/user/delete/{id}")
-    public String deleteCustomer(@PathVariable Integer id, Model model){
-        try{
+    public String deleteCustomer(@PathVariable Integer id, Model model) {
+        try {
             userService.delete(id);
             stateReset();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             msg = "Delete fail! Something went wrong!";
             failure = true;
         }
@@ -258,19 +254,13 @@ public class UserController {
         return "redirect:/user/logout";
     }
 
-    @RequestMapping("/user/addtocart/{id}")
-    public String addToCart(@PathVariable Integer productId,
-                            @RequestParam("currentPath") String currentPath,
-                            Model model){
-
-        // TODO: implement User Add To Cart
-
-        return currentPath;
-    }
 
 
+    // =======================================
+    // =          Business Methods           =
+    // =======================================
 
-    private void stateReset(){
+    private void stateReset() {
         this.msg = "";
         this.failure = false;
     }

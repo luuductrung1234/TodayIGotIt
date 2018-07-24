@@ -40,6 +40,12 @@ public class OrderDetails extends AbstractDomainEntity{
         this.course = course;
     }
 
+    public OrderDetails(Integer quantity, Course course){
+        this.quantity = quantity;
+        this.course = course;
+    }
+
+
 
     // =======================================
     // =         Getters & Setters           =

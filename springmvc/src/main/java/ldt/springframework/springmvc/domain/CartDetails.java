@@ -38,6 +38,11 @@ public class CartDetails extends AbstractDomainEntity{
         this.course = course;
     }
 
+    public CartDetails(Integer quantity, Course course){
+        this.quantity = quantity;
+        this.course = course;
+    }
+
 
     // =======================================
     // =         Getters & Setters           =

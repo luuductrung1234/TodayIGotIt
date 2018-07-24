@@ -194,11 +194,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(0).addOrders(new Order(users.get(0),
                         users.get(0).getCustomer().getShippingAddress(),
                         new Date(),
-                        OrderStatus.NEW));
+                        OrderStatus.SHIPPED));
         users.get(0).addOrders(new Order(users.get(0),
                         users.get(0).getCustomer().getShippingAddress(),
                         new Date(),
-                        OrderStatus.NEW));
+                        OrderStatus.SHIPPED));
         users.get(0).getOrders().get(0)
                 .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(0), courses.get(2)));
         users.get(0).getOrders().get(0)
@@ -215,11 +215,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(1).addOrders(new Order(users.get(1),
                         users.get(1).getCustomer().getShippingAddress(),
                         new Date(),
-                        OrderStatus.NEW));
+                        OrderStatus.SHIPPED));
         users.get(1).addOrders(new Order(users.get(1),
                         users.get(1).getCustomer().getShippingAddress(),
                         new Date(),
-                        OrderStatus.NEW));
+                        OrderStatus.SHIPPED));
         users.get(1).getOrders().get(0)
                 .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), courses.get(5)));
         users.get(1).getOrders().get(0)
@@ -238,7 +238,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(2).addOrders(new Order(users.get(2),
                         users.get(2).getCustomer().getShippingAddress(),
                         new Date(),
-                        OrderStatus.NEW));
+                        OrderStatus.SHIPPED));
         users.get(2).getOrders().get(0)
                 .addOrderDetails(new OrderDetails(2, users.get(2).getOrders().get(0), courses.get(1)));
         users.get(2).getOrders().get(0)

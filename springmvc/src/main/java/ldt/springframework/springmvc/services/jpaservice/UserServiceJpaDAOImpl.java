@@ -1,6 +1,7 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
 import ldt.springframework.springmvc.domain.User;
+import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.UserService;
 import ldt.springframework.springmvc.services.sercurity.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /*
@@ -85,7 +87,7 @@ public class UserServiceJpaDAOImpl extends AbstractJpaDAOService
                 if(user.getPassword() != null){
                     user.setEncryptedPassowrd(encryptionService.encryptString(user.getPassword()));
                 }
-                ;
+
                 return em.merge(user);
             });
         } catch (Exception e) {
@@ -110,5 +112,22 @@ public class UserServiceJpaDAOImpl extends AbstractJpaDAOService
         }
 
         em.close();
+    }
+
+    @Override
+    public void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser) {
+        // there is a login action
+        request.getSession().setAttribute("curUser", loginUser);
+        request.getSession().setAttribute("curUserFirstName", loginUser.getCustomer().getFirstName());
+        request.getSession().setAttribute("curUserCartCount", cartService.getContentCount(loginUser));
+    }
+
+    @Override
+    public void updateCurrentUserDataToSession(HttpServletRequest request, CartService cartService, Integer userId) {
+        // there is a update action for the current user, who is already login
+        User currentUser = this.getById(userId);
+        request.getSession().setAttribute("curUser", currentUser);
+        request.getSession().setAttribute("curUserFirstName", currentUser.getCustomer().getFirstName());
+        request.getSession().setAttribute("curUserCartCount", cartService.getContentCount(currentUser));
     }
 }

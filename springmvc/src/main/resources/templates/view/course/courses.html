@@ -27,7 +27,7 @@
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div th:replace="fragments/header :: header(currentUser = ${currentUser})"></div>
+<div th:replace="fragments/header :: header"></div>
 <main role="main">
     <div class="container">
         <div class="jumbotron ">
@@ -58,7 +58,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Image URL</th>
-                    <th>Action</th>
+                    <th align="center">&nbsp;</th>
                 </tr>
                 <tr th:each="course : ${courses}">
                     <td th:text="${course.id}"></td>

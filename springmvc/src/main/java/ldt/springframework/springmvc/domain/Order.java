@@ -57,6 +57,12 @@ public class Order  extends AbstractDomainEntity{
         this.orderStatus = orderStatus;
     }
 
+    public Order(Address shipToAddress, Date dateShipped, OrderStatus orderStatus){
+        this.shipToAddress = shipToAddress;
+        this.dateShipped = dateShipped;
+        this.orderStatus = orderStatus;
+    }
+
 
     // =======================================
     // =         Getters & Setters           =

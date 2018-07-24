@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Spring MVC Demo</title>
+    <title>Title</title>
+
 
     <!-- External Stylesheet -->
     <link rel="stylesheet"
@@ -27,60 +28,52 @@
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
 </head>
 <body>
+
 <div th:replace="fragments/header :: header"></div>
 <main role="main">
     <div class="container">
         <div class="jumbotron ">
-            <h1 class="display-4">Course View</h1>
-            <p class="lead">This is a simple Spring Web Application that used to manage Courses</p>
+            <h1 class="display-4">Prepare Payment</h1>
+            <p class="lead">Just few more click you can own a new course, and start learning immediately</p>
             <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p>please verify for orders before continue!</p>
             <a class="btn btn-primary btn-lg"
                style="width: 150px;"
-               href="course/new" role="button">
-                <i style="font-size: 20px;" class="fas fa-plus-circle"></i>
+               href="#" role="button">
+                Pay
             </a>
         </div>
 
-        <div class="row">
-            <div th:if="${message} != null">
-                <div class="alert alert-danger" role="alert">
-                    <p th:text="${message}"></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" th:if="${not #lists.isEmpty(courses)}">
+        <div class="row" th:if="${not #lists.isEmpty(order.orderDetails)}">
             <h2>List</h2>
             <table class="table table-striped">
                 <tr>
-                    <th>Id</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Image URL</th>
+                    <th>Course Name</th>
+                    <th>Quantity</th>
+                    <th>Price ($)</th>
                     <th align="center">&nbsp;</th>
                 </tr>
-                <tr th:each="course : ${courses}">
-                    <td th:text="${course.id}"></td>
-                    <td th:text="${course.description}"></td>
-                    <td th:text="${course.price}"></td>
-                    <td th:text="${course.imageUrl}"></td>
+                <tr th:each="orderdetails : ${order.orderDetails}">
+                    <td th:text="${orderdetails.course.description}"></td>
+                    <td th:text="${orderdetails.quantity}"></td>
+                    <td th:text="${orderdetails.course.price * orderdetails.quantity}"></td>
                     <td class="row">
-                        <a class="btn btn-primary col-sm-3"
-                           th:href="${'course/' + course.id}">
-                            <i class="fas fa-info-circle"></i>
+                        <a class="btn btn-success col-sm-4"
+                           th:href="${'user/buynow/' + orderdetails.course.id}">
+                            Buy Now
                         </a>
                         &nbsp;
-                        <a class="btn btn-warning col-sm-3"
-                           th:href="${'course/edit/' + course.id}">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        &nbsp;
-                        <a class="btn btn-danger col-sm-3"
-                           th:href="${'course/delete/' + course.id}">
+                        <a class="btn btn-danger col-sm-4"
+                           th:href="${'user/removefromcart/' + orderdetails.course.id}">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="font-weight: bold; font-size: 20px;">Totals:</td>
+                    <td style="font-weight: bold; font-size: 20px;" th:text="${totalPrice}"></td>
                 </tr>
             </table>
         </div>
@@ -88,6 +81,5 @@
 
 
     <div th:replace="fragments/footer :: footer"></div>
-</main>
 </body>
 </html>

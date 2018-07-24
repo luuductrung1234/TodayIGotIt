@@ -2,10 +2,12 @@ package ldt.springframework.springmvc.services.mapservice;
 
 import ldt.springframework.springmvc.domain.DomainObject;
 import ldt.springframework.springmvc.domain.User;
+import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.UserService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /*
@@ -53,5 +55,15 @@ public class UserServiceMapImpl extends AbstractMapService
         }
 
         return null;
+    }
+
+    @Override
+    public void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser) {
+
+    }
+
+    @Override
+    public void updateCurrentUserDataToSession(HttpServletRequest request, CartService cartService, Integer userId) {
+
     }
 }
