@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Repository
-@Profile("jpadao")
+@Profile("jpadao-pure")
 public class CourseRepositoryJpaDAOImpl extends AbstractJpaDAORepository
         implements CourseRepository {
 

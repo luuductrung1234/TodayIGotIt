@@ -35,7 +35,7 @@
 
 ### Cho phép người dạy (cân nhân tính năng này bổ sung sau)
 - Đăng kí, tạo tài khoản
-- Đăng tải các khoá học
+- Đăng tải các khoá học, (cập nhật nội dung mới của khoá học và tự động thông báo thay đổi đó cho các học viên đã mua course)
 - Hỗ trợ người dạy tạo các test case, bài tập, cấu trúc bài học, tài liệu, video, hình ảnh
 - Xem các khoá học đã đăng, thống kê đánh giá, lượt mua (đăng kí), repost trên dashboard 
 - Thông báo khi có bình luận của người học

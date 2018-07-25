@@ -107,6 +107,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.197" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.46" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:bootstrap:4.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:popper.js:1.14.1" level="project" />

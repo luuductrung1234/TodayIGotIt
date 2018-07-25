@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Repository
-@Profile("jpadao")
+@Profile("jpadao-pure")
 public class CustomerRepositoryJpaDAOImpl extends AbstractJpaDAORepository
         implements CustomerRepository {
 

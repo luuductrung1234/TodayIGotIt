@@ -5,6 +5,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 /*
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
+@EnableJpaRepositories("ldt.springframework.springmvc.data")
 public class WebConfiguration {
     @Bean
     ServletRegistrationBean h2servletRegistration(){

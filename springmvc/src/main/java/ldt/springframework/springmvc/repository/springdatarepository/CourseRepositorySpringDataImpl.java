@@ -1,54 +1,61 @@
-package ldt.springframework.springmvc.services.jpaservice;
+package ldt.springframework.springmvc.repository.springdatarepository;
 
+import ldt.springframework.springmvc.data.CourseSpringData;
 import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.repository.CourseRepository;
-import ldt.springframework.springmvc.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
  * author: Luu Duc Trung
  * https://github.com/luuductrung1234
  * ---
- * 7/17/18
+ * 7/25/18
  */
 
-@Service
-@Profile(value = "jpadao")
-public class CourseServiceJpaDAOImpl implements CourseService {
+@Repository
+@Profile(value = {"springdatajpa", "jpadao"})
+public class CourseRepositorySpringDataImpl implements CourseRepository {
 
     // =======================================
     // =           Injection Point           =
     // =======================================
 
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseSpringData courseSpringData;
 
 
     // =======================================
-    // =          Business Methods           =
+    // =            CRUD Methods             =
     // =======================================
 
     @Override
     public List<?> listAll() {
-        return courseRepository.listAll();
+        List<Course> courses = new ArrayList<>();
+        courseSpringData.findAll().forEach(courses::add);
+
+        return courses;
     }
 
     @Override
     public Course getById(Integer id) {
-        return courseRepository.getById(id);
+        if(courseSpringData.findById(id).isPresent()){
+            return courseSpringData.findById(id).get();
+        }
+        return null;
     }
 
     @Override
     public Course saveOrUpdate(Course course) {
-        return courseRepository.saveOrUpdate(course);
+        return courseSpringData.save(course);
     }
 
     @Override
     public void delete(Integer id) {
-        courseRepository.delete(id);
+        courseSpringData.deleteById(id);
     }
 }
