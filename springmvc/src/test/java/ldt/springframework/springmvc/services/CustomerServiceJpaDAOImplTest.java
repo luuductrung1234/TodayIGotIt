@@ -3,6 +3,7 @@ package ldt.springframework.springmvc.services;
 import ldt.springframework.springmvc.domain.Address;
 import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.domain.User;
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class CustomerServiceJpaDAOImplTest {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private UserService userService;
+
 
     // =======================================
     // =            Testing Unit             =
@@ -59,11 +63,15 @@ public class CustomerServiceJpaDAOImplTest {
 
     @Test
     public void testCreateNewCustomer() throws Exception{
+        User newUser = new User();
         Customer newCustomer = new Customer(null, "Sang", "Duong", "sangthanhduong02@gmail.com",
                 "03939343434",
                 new Address("44/102 TP p4" , "", "Ben Tre", "South" , "493934"),
                 new Address("44/102 TP p4" , "", "Ben Tre", "South" , "493934"));
-        Customer savedCustomer = customerService.saveOrUpdate(newCustomer);
+
+        newUser.setCustomer(newCustomer);
+        User savedUser = userService.saveOrUpdate(newUser);
+        Customer savedCustomer = savedUser.getCustomer();
 
         // check generated ID
         assert savedCustomer.getId() == 5;
@@ -84,7 +92,6 @@ public class CustomerServiceJpaDAOImplTest {
         utpCustomer.setVersion(0);
         Customer savedCustomer = customerService.saveOrUpdate(utpCustomer);
 
-        List<Customer> customers = (List<Customer>) customerService.listAll();
         // check returned customer after save
         assert savedCustomer.getId() == 1;
         assert savedCustomer.getFirstName().equals("Tuyen");
@@ -104,7 +111,8 @@ public class CustomerServiceJpaDAOImplTest {
 
 
         // check again
-        Customer customer = customerService.getById(1);
+        User user = userService.getById(1);
+        Customer customer = user.getCustomer();
         assert customer.getId() == 1;
         assert customer.getFirstName().equals("Tuyen");
         assert customer.getLastName().equals("Luu");
@@ -124,7 +132,7 @@ public class CustomerServiceJpaDAOImplTest {
 
     @Test
     public void testDeleteCustomer(){
-        customerService.delete(3);
+        userService.delete(3);
 
         // check amount of customers
         List<Customer> customers = (List<Customer>) customerService.listAll();

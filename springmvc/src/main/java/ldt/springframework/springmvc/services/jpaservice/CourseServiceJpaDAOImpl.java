@@ -1,11 +1,12 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
 import ldt.springframework.springmvc.domain.Course;
+import ldt.springframework.springmvc.repository.CourseRepository;
 import ldt.springframework.springmvc.services.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /*
@@ -17,8 +18,15 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class CourseServiceJpaDAOImpl extends AbstractJpaDAOService
-                                        implements CourseService {
+public class CourseServiceJpaDAOImpl implements CourseService {
+
+    // =======================================
+    // =           Injection Point           =
+    // =======================================
+
+    @Autowired
+    private CourseRepository courseRepository;
+
 
     // =======================================
     // =          Business Methods           =
@@ -26,50 +34,21 @@ public class CourseServiceJpaDAOImpl extends AbstractJpaDAOService
 
     @Override
     public List<?> listAll() {
-        EntityManager em = emf.createEntityManager();
-        List<Course> result = em.createQuery("SELECT c FROM Course c", Course.class).getResultList();
-        em.close();
-
-        return result;
+        return courseRepository.listAll();
     }
 
     @Override
     public Course getById(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        Course result = em.find(Course.class, id);
-        em.close();
-
-        return result;
+        return courseRepository.getById(id);
     }
 
     @Override
     public Course saveOrUpdate(Course course) {
-        EntityManager em = emf.createEntityManager();
-
-        Course savedCourse = null;
-        try {
-            savedCourse = this.doInTransaction(em, () -> em.merge(course));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        em.close();
-        return savedCourse;
+        return courseRepository.saveOrUpdate(course);
     }
 
     @Override
     public void delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            this.doInTransaction(em, () -> {
-                em.remove(em.find(Course.class, id));
-                return null;
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        em.close();
+        courseRepository.delete(id);
     }
 }

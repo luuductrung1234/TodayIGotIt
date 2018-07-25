@@ -38,14 +38,14 @@ public class CourseServiceJpaDAOImplTest {
     // =======================================
 
     @Test
-    public void testListProducts() throws Exception{
+    public void testListCourses() throws Exception{
         List<Course> courses = (List<Course>) courseService.listAll();
 
         assert courses.size() == 6;
     }
 
     @Test
-    public void testGetProductByid() throws Exception{
+    public void testGetCourseByid() throws Exception{
         Course course = courseService.getById(1);
 
         assert course.getId() == 1;
@@ -54,7 +54,7 @@ public class CourseServiceJpaDAOImplTest {
     }
 
     @Test
-    public void testCreateNewProduct() throws Exception{
+    public void testCreateNewCourse() throws Exception{
         Course newCourse = new Course(null, "Course 7", new BigDecimal("7.89"), "example.com/product7");
         Course savedCourse = courseService.saveOrUpdate(newCourse);
 
@@ -67,26 +67,26 @@ public class CourseServiceJpaDAOImplTest {
     }
 
     @Test
-    public void testEditProduct() throws Exception{
-        Course uptCourse = new Course(2, "Course 2 (Updated)", new BigDecimal("1.11"), "example.com/product1");
+    public void testEditCourse() throws Exception{
+        Course uptCourse = new Course(2, "Course 2 (Updated)", new BigDecimal("1.11"), "example.com/product2new");
         uptCourse.setVersion(0);
         Course savedCourse = courseService.saveOrUpdate(uptCourse);
 
         assert savedCourse.getId() == 2;
-        assert savedCourse.getDescription().equals("Course 1 (Updated)");
+        assert savedCourse.getDescription().equals("Course 2 (Updated)");
         assert savedCourse.getPrice().equals(new BigDecimal("1.11"));
-        assert savedCourse.getImageUrl().equals("example.com/product1");
+        assert savedCourse.getImageUrl().equals("example.com/product2new");
 
         // test again
         Course course = courseService.getById(2);
         assert course.getId() == 2;
-        assert course.getDescription().equals("Course 1 (Updated)");
+        assert course.getDescription().equals("Course 2 (Updated)");
         assert course.getPrice().equals(new BigDecimal("1.11"));
-        assert course.getImageUrl().equals("example.com/product1");
+        assert course.getImageUrl().equals("example.com/product2new");
     }
 
     @Test
-    public void testDeleteProduct() throws Exception{
+    public void testDeleteCourse() throws Exception{
 
         Course newCourse = new Course(null, "Course 7", new BigDecimal("7.89"), "example.com/product7");
         Course savedCourse = courseService.saveOrUpdate(newCourse);

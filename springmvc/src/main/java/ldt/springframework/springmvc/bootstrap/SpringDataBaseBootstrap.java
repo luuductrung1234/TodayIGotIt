@@ -1,9 +1,12 @@
 package ldt.springframework.springmvc.bootstrap;
 
 import ldt.springframework.springmvc.domain.*;
+import ldt.springframework.springmvc.domain.security.Role;
 import ldt.springframework.springmvc.enums.OrderStatus;
+import ldt.springframework.springmvc.enums.RoleType;
 import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.CustomerService;
+import ldt.springframework.springmvc.services.RoleService;
 import ldt.springframework.springmvc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -44,6 +47,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
 
     // =======================================
     // =          Business Methods           =
@@ -55,6 +61,8 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         this.loadUser();
         this.loadCurrentCart();
         this.loadOrderHistory();
+        this.loadRoles();
+        this.assignUsersToDefaultRole();
     }
 
     private void loadCourse() {
@@ -246,5 +254,30 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(2).getOrders().get(0)
                 .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), courses.get(2)));
         userService.saveOrUpdate(users.get(2));
+    }
+
+    private void loadRoles(){
+        Role role1 = new Role(RoleType.STUDENT);
+        roleService.saveOrUpdate(role1);
+
+        Role role2 = new Role(RoleType.ADMIN);
+        roleService.saveOrUpdate(role2);
+
+        Role role3 = new Role(RoleType.TEACHER);
+        roleService.saveOrUpdate(role3);
+    }
+
+    private void assignUsersToDefaultRole(){
+        List<Role> roles = (List<Role>) roleService.listAll();
+        List<User> users = (List<User>) userService.listAll();
+
+        roles.forEach(role -> {
+            if(role.getType().equals(RoleType.STUDENT)){
+                users.forEach(user -> {
+                    user.addRole(role);
+                    userService.saveOrUpdate(user);
+                });
+            }
+        });
     }
 }

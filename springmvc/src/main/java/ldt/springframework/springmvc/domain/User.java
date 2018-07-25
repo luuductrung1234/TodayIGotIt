@@ -1,6 +1,7 @@
 package ldt.springframework.springmvc.domain;
 
 
+import ldt.springframework.springmvc.domain.security.Role;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -47,6 +48,15 @@ public class User extends AbstractDomainEntity{
             orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Order> orders = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable
+    @LazyCollection(LazyCollectionOption.FALSE)
+    // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id"),
+    //     inverseJoinColumns = @joinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+
 
 
     // =======================================
@@ -126,5 +136,28 @@ public class User extends AbstractDomainEntity{
     public void removeOrders(Order order){
         this.orders.remove(order);
         order.setUser(null);
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role){
+        if(!this.roles.contains(role)){
+            this.roles.add(role);
+        }
+
+        if(!role.getUsers().contains(this)){
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role){
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
 }

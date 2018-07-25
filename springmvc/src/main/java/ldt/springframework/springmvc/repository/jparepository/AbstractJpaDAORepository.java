@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.services.jpaservice;
+package ldt.springframework.springmvc.repository.jparepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,9 +9,9 @@ import java.util.concurrent.Callable;
  * author: Luu Duc Trung
  * https://github.com/luuductrung1234
  * ---
- * 7/18/18
+ * 7/25/18
  */
-public class AbstractJpaDAOService {
+public class AbstractJpaDAORepository {
 
     // =======================================
     // =           Injection Point           =

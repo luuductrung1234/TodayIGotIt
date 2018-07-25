@@ -2,12 +2,12 @@ package ldt.springframework.springmvc.services.jpaservice;
 
 import ldt.springframework.springmvc.domain.Order;
 import ldt.springframework.springmvc.domain.OrderDetails;
+import ldt.springframework.springmvc.repository.OrderRepository;
 import ldt.springframework.springmvc.services.OrderService;
-import org.aspectj.weaver.ast.Or;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,61 +21,39 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class OrderServiceJpaDAOImpl extends AbstractJpaDAOService
+public class OrderServiceJpaDAOImpl
     implements OrderService {
 
     // =======================================
-    // =          Business Methods           =
+    // =           Injection Point           =
+    // =======================================
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+
+    // =======================================
+    // =            CRUD Methods             =
     // =======================================
 
     @Override
     public List<?> listAll() {
-        EntityManager em = emf.createEntityManager();
-        List<Order> result = em.createQuery("SELECT o FROM Order o", Order.class).getResultList();
-        em.close();
-
-        return result;
+        return orderRepository.listAll();
     }
 
     @Override
     public Order getById(Integer id) {
-        EntityManager em = emf.createEntityManager();
-        Order result = em.find(Order.class, id);
-        em.close();
-
-        return result;
+        return orderRepository.getById(id);
     }
 
     @Override
     public Order saveOrUpdate(Order order) {
-        EntityManager em = emf.createEntityManager();
-
-        Order savedOrder = null;
-        try {
-            savedOrder = this.doInTransaction(em,() -> em.merge(order));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        em.close();
-        return savedOrder;
+        return orderRepository.saveOrUpdate(order);
     }
 
     @Override
     public void delete(Integer id) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            this.doInTransaction(em,() -> {
-                em.remove(em.find(Order.class, id));
-
-                return null;
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        em.close();
+        orderRepository.delete(id);
     }
 
 

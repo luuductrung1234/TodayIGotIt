@@ -1,8 +1,8 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
-import ldt.springframework.springmvc.domain.Customer;
-import ldt.springframework.springmvc.repository.CustomerRepository;
-import ldt.springframework.springmvc.services.CustomerService;
+import ldt.springframework.springmvc.domain.security.Role;
+import ldt.springframework.springmvc.repository.RoleRepository;
+import ldt.springframework.springmvc.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -13,42 +13,42 @@ import java.util.List;
  * author: Luu Duc Trung
  * https://github.com/luuductrung1234
  * ---
- * 7/17/18
+ * 7/25/18
  */
 
 @Service
 @Profile("jpadao")
-public class CustomerServiceJpaDAOImpl implements CustomerService {
+public class RoleServiceJpaDAOImpl implements RoleService {
 
     // =======================================
     // =           Injection Point           =
     // =======================================
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private RoleRepository roleRepository;
 
 
     // =======================================
-    // =          Business Methods           =
+    // =            CRUD Methods             =
     // =======================================
 
     @Override
     public List<?> listAll() {
-        return customerRepository.listAll();
+        return roleRepository.listAll();
     }
 
     @Override
-    public Customer getById(Integer id) {
-        return customerRepository.getById(id);
+    public Role getById(Integer id) {
+        return roleRepository.getById(id);
     }
 
     @Override
-    public Customer saveOrUpdate(Customer customer){
-        return customerRepository.saveOrUpdate(customer);
+    public Role saveOrUpdate(Role role) {
+        return roleRepository.saveOrUpdate(role);
     }
 
     @Override
     public void delete(Integer id) {
-        customerRepository.delete(id);
+        roleRepository.delete(id);
     }
 }
