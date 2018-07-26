@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.services;
 
+import ldt.springframework.springmvc.commands.CourseForm;
 import ldt.springframework.springmvc.domain.Course;
 
 /*
@@ -10,4 +11,5 @@ import ldt.springframework.springmvc.domain.Course;
  */
 
 public interface CourseService extends CRUDService<Course>{
+    Course saveOrUpdateCourseForm(CourseForm courseForm);
 }

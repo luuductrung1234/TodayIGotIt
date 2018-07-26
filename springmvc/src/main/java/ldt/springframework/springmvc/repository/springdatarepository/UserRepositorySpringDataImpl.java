@@ -75,7 +75,7 @@ public class UserRepositorySpringDataImpl implements UserRepository {
 
     @Override
     public User saveOrUpdate(User user) {
-        if(user.getPassword() != null){
+        if(user.getPassword() != null && !user.getPassword().isEmpty()){
             user.setEncryptedPassowrd(encryptionService.encryptString(user.getPassword()));
         }
         return userSpringData.save(user);

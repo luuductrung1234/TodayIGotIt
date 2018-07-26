@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.controller;
 
+import ldt.springframework.springmvc.controller.security.CurrentUserSecurity;
 import ldt.springframework.springmvc.domain.*;
 import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.CourseService;
@@ -38,6 +39,8 @@ public class CartController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private CurrentUserSecurity currentUserSecurity;
 
 
     // =======================================
@@ -50,19 +53,17 @@ public class CartController {
                             HttpServletRequest request,
                             Model model){
 
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null){
-            return "redirect:/";
-        }
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            Course course = courseService.getById(courseId);
+            cartService.addToCart(currentUser, course);
+            userService.saveOrUpdate(currentUser);
 
-        Course course = courseService.getById(courseId);
-        cartService.addToCart(currentUser, course);
-        userService.saveOrUpdate(currentUser);
+            // Update current user data
+            userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
 
-        // Update current user data
-        userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
-
-        return "redirect:" + currentPath;
+            return "redirect:" + currentPath;
+        });
     }
 
     @RequestMapping("/user/removefromcart/{id}")
@@ -71,49 +72,45 @@ public class CartController {
                             HttpServletRequest request,
                             Model model){
 
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null){
-            return "redirect:/";
-        }
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            cartService.removeFromCart(currentUser, courseId);
+            userService.saveOrUpdate(currentUser);
 
-        cartService.removeFromCart(currentUser, courseId);
-        userService.saveOrUpdate(currentUser);
+            // Update current user data
+            userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
 
-        // Update current user data
-        userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
-
-        return "redirect:" + currentPath;
+            return "redirect:" + currentPath;
+        });
     }
 
     @RequestMapping("/user/showcart")
     public String showCart(HttpServletRequest request, Model model){
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null){
-            return "redirect:/";
-        }
 
-        model.addAttribute("cart", currentUser.getCart());
-        model.addAttribute("totalPrice", cartService.calculateTotalPrice(currentUser.getCart()));
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            model.addAttribute("cart", currentUser.getCart());
+            model.addAttribute("totalPrice", cartService.calculateTotalPrice(currentUser.getCart()));
 
-        return "view/cart/showCart";
+            return "view/cart/showCart";
+        });
     }
 
     @RequestMapping("/user/clearcart")
     public String clearCart(HttpServletRequest request, Model model){
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if(currentUser == null){
+
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            currentUser.removeCart(currentUser.getCart());
+            userService.saveOrUpdate(currentUser);
+
+            // Update current user data
+            currentUser = userService.getById(currentUser.getId());
+            currentUser.setCart(new Cart());
+            userService.saveOrUpdate(currentUser);
+            userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
+
             return "redirect:/";
-        }
-
-        Cart delCart = currentUser.removeCart(currentUser.getCart());
-        userService.saveOrUpdate(currentUser);
-
-        // Update current user data
-        currentUser = userService.getById(currentUser.getId());
-        currentUser.setCart(new Cart());
-        userService.saveOrUpdate(currentUser);
-        userService.updateCurrentUserDataToSession(request, cartService, currentUser.getId());
-
-        return "redirect:/";
+        });
     }
 }

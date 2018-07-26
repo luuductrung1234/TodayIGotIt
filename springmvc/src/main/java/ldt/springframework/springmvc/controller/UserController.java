@@ -1,5 +1,8 @@
 package ldt.springframework.springmvc.controller;
 
+import ldt.springframework.springmvc.commands.UserForm;
+import ldt.springframework.springmvc.commands.converters.UserFormConverter;
+import ldt.springframework.springmvc.controller.security.CurrentUserSecurity;
 import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.services.CartService;
@@ -41,6 +44,12 @@ public class UserController {
     @Autowired
     CartService cartService;
 
+    @Autowired
+    UserFormConverter userFormConverter;
+
+    @Autowired
+    CurrentUserSecurity currentUserSecurity;
+
 
     // =======================================
     // =          Attribute Section          =
@@ -51,7 +60,7 @@ public class UserController {
 
 
     // =======================================
-    // =           Request Mapping           =
+    // =             GET Methods             =
     // =======================================
 
     @RequestMapping(value = "/user/login")
@@ -64,7 +73,6 @@ public class UserController {
         if (loginUser != null) {
             userService.updateLoginUserDataToSession(request, cartService, loginUser);
         }
-
 
         return "redirect:/";
     }
@@ -84,54 +92,45 @@ public class UserController {
             this.stateReset();
         }
 
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser != null) {
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
             model.addAttribute("currentUser", currentUser);
             return "view/user/dashboard";
-        } else {
-            return "redirect:/";
-        }
+        });
     }
 
     @RequestMapping("/user/new")
-    public String newUser(HttpServletRequest request, Model model) {
+    public String newUser(Model model) {
 
-        User newUser = new User();
-        newUser.setCustomer(new Customer());
-        model.addAttribute("user", newUser);
-        model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
+        model.addAttribute("user", new UserForm());
 
-        return "view/user/userform";
+        return "view/user/userForm";
     }
 
-    @RequestMapping("/user/edit/info/{id}")
-    public String editUserInfo(@PathVariable Integer id, HttpServletRequest request, Model model) {
+    @RequestMapping("/user/edit/info")
+    public String editUserInfo(HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("currentUser", currentUser);
-
-        return "view/user/updateInfoForm";
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            model.addAttribute("currentUser", userFormConverter.revert(currentUser));
+            return "view/user/updateInfoForm";
+        });
     }
 
-    @RequestMapping("/user/edit/username/{id}")
-    public String editUserUsername(@PathVariable Integer id, HttpServletRequest request, Model model) {
+    @RequestMapping("/user/edit/username")
+    public String editUserUsername(HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("currentUser", currentUser);
-
-        return "view/user/updateUsernameForm";
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            model.addAttribute("currentUser", userFormConverter.revert(currentUser));
+            return "view/user/updateUsernameForm";
+        });
     }
 
-    @RequestMapping("/user/edit/password/{id}")
-    public String editUserPassword(@PathVariable Integer id, HttpServletRequest request, Model model) {
+    @RequestMapping("/user/edit/password")
+    public String editUserPassword(HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
         if (failure) {
@@ -139,105 +138,11 @@ public class UserController {
             this.stateReset();
         }
 
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-        model.addAttribute("currentUser", currentUser);
-//
-        return "view/user/updatePasswordForm";
-    }
-
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String saveOrUpdateUser(User user) {
-        try {
-            userService.saveOrUpdate(user);
-        } catch (Exception ex) {
-            msg = "Save fail! Something went wrong!";
-            failure = true;
-        }
-
-        return "redirect:/user/show";
-    }
-
-    @RequestMapping(value = "/user/uptPassword", method = RequestMethod.POST)
-    public String updatePassword(@RequestParam("confirmPassword") String confirmPassword,
-                                 @RequestParam("password") String password,
-                                 HttpServletRequest request) {
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-
-        if (!confirmPassword.equals(password)) {
-            msg = "Confirm Password Not Match!";
-            failure = true;
-            return "redirect:/user/edit/password/" + currentUser.getId();
-        }
-        currentUser.setPassword(password);
-        saveOrUpdateUser(currentUser);
-
-        return "redirect:/user/logout";
-    }
-
-    @RequestMapping(value = "/user/uptUsername", method = RequestMethod.POST)
-    public String updateUsername(@RequestParam("username") String username,
-                                 HttpServletRequest request) {
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-
-        currentUser.setUsername(username);
-
-        return saveOrUpdateUser(currentUser);
-    }
-
-    @RequestMapping(value = "/user/uptInfo", method = RequestMethod.POST)
-    public String updateInfo(@RequestParam("firstname") String firstName,
-                             @RequestParam("lastname") String lastName,
-                             @RequestParam("email") String email,
-                             @RequestParam("phonenumber") String phoneNumber,
-                             @RequestParam("billAddressLine1") String billAddressLine1,
-                             @RequestParam("billAddressLine2") String billAddressLine2,
-                             @RequestParam("billCity") String billCity,
-                             @RequestParam("billState") String billState,
-                             @RequestParam("billZipCode") String billZipCode,
-                             @RequestParam("shipAddressLine1") String shipAddressLine1,
-                             @RequestParam("shipAddressLine2") String shipAddressLine2,
-                             @RequestParam("shipCity") String shipCity,
-                             @RequestParam("shipState") String shipState,
-                             @RequestParam("shipZipCode") String shipZipCode,
-                             HttpServletRequest request) {
-
-        User currentUser = (User) request.getSession().getAttribute("curUser");
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-
-        currentUser.getCustomer().setFirstName(firstName);
-        currentUser.getCustomer().setLastName(lastName);
-        currentUser.getCustomer().setEmail(email);
-        currentUser.getCustomer().setPhoneNumber(phoneNumber);
-        currentUser.getCustomer().getBillingAddress().setAddressLine1(billAddressLine1);
-        currentUser.getCustomer().getBillingAddress().setAddressLine2(billAddressLine2);
-        currentUser.getCustomer().getBillingAddress().setCity(billCity);
-        currentUser.getCustomer().getBillingAddress().setState(billState);
-        currentUser.getCustomer().getBillingAddress().setZipCode(billZipCode);
-        currentUser.getCustomer().getShippingAddress().setAddressLine1(shipAddressLine1);
-        currentUser.getCustomer().getShippingAddress().setAddressLine2(shipAddressLine2);
-        currentUser.getCustomer().getShippingAddress().setCity(shipCity);
-        currentUser.getCustomer().getShippingAddress().setState(shipState);
-        currentUser.getCustomer().getShippingAddress().setZipCode(shipZipCode);
-
-        try {
-            customerService.saveOrUpdate(currentUser.getCustomer());
-        } catch (Exception ex) {
-            msg = "Save fail! Something went wrong!";
-            failure = true;
-        }
-
-        return "redirect:/user/show";
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            model.addAttribute("currentUser", userFormConverter.revert(currentUser));
+            return "view/user/updatePasswordForm";
+        });
     }
 
     @RequestMapping("/user/delete/{id}")
@@ -251,6 +156,75 @@ public class UserController {
         }
 
         return "redirect:/user/logout";
+    }
+
+
+
+    // =======================================
+    // =            POST Methods             =
+    // =======================================
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public String saveOrUpdateUser(UserForm userForm) {
+        try {
+            userService.saveOrUpdateUserForm(userForm);
+        } catch (Exception ex) {
+            msg = "Save fail! Something went wrong!";
+            failure = true;
+        }
+
+        return "redirect:/user/show";
+    }
+
+    @RequestMapping(value = "/user/uptPassword", method = RequestMethod.POST)
+    public String updatePassword(UserForm userForm, HttpServletRequest request) {
+
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
+                msg = "Confirm Password Not Match!";
+                failure = true;
+                return "redirect:/user/edit/password/";
+            }
+
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            userForm.setUserCart(currentUser.getCart());
+            saveOrUpdateUser(userForm);
+
+            return "redirect:/user/logout";
+        });
+    }
+
+    @RequestMapping(value = "/user/uptUsername", method = RequestMethod.POST)
+    public String updateUsername(UserForm userForm,
+                                 HttpServletRequest request) {
+
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            User currentUser = (User) request.getSession().getAttribute("curUser");
+            userForm.setUserCart(currentUser.getCart());
+            saveOrUpdateUser(userForm);
+
+            return "redirect:/user/logout";
+        });
+    }
+
+    @RequestMapping(value = "/user/uptInfo", method = RequestMethod.POST)
+    public String updateInfo(UserForm userForm,
+                             HttpServletRequest request) {
+
+        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            try {
+                User currentUser = (User) request.getSession().getAttribute("curUser");
+                userForm.setUserCart(currentUser.getCart());
+                customerService.saveOrUpdateUserForm(userForm);
+            } catch (Exception ex) {
+                msg = "Save fail! Something went wrong!";
+                failure = true;
+            }
+
+            userService.updateCurrentUserDataToSession(request, cartService,userForm.getUserId());
+
+            return "redirect:/user/show";
+        });
     }
 
 

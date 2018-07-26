@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.services.mapservice;
 
+import ldt.springframework.springmvc.commands.UserForm;
 import ldt.springframework.springmvc.domain.DomainObject;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.services.CartService;
@@ -72,5 +73,10 @@ public class UserServiceMapImpl extends AbstractMapService
     @Override
     public void updateLogoutUserToSession(WebRequest request, SessionStatus status) {
 
+    }
+
+    @Override
+    public User saveOrUpdateUserForm(UserForm userForm) {
+        return null;
     }
 }

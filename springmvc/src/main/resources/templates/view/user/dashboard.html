@@ -30,6 +30,8 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
+<!-- TODO: modify thymeleaf CurrentUser session bean reference -->
+
 <main role="main">
     <div class="container">
         <section class="jumbotron text-center">
@@ -38,11 +40,11 @@
                     Example</h1>
                 <p class="lead text-muted">You now have a membership from us, Enjoy!</p>
                 <p>
-                    <a th:href="${'/user/edit/username/' + currentUser.id}" class="btn btn-primary my-2">Update
+                    <a href="/user/edit/username/" class="btn btn-primary my-2">Update
                         Username</a>
-                    <a th:href="${'/user/edit/password/' + currentUser.id}" class="btn btn-warning my-2">Update
+                    <a href="/user/edit/password/" class="btn btn-warning my-2">Update
                         Password</a>
-                    <a th:href="${'/user/edit/info/' + currentUser.id}" class="btn btn-info my-2">Update Information</a>
+                    <a href="/user/edit/info/" class="btn btn-info my-2">Update Information</a>
                 </p>
             </div>
         </section>

@@ -35,7 +35,7 @@ public class IndexController {
     // =======================================
 
     @RequestMapping("/")
-    public String index(HttpServletRequest request, Model model){
+    public String index(Model model, HttpServletRequest request){
         List<Course> courses = (List<Course>) courseService.listAll();
 
         model.addAttribute("currentUser", request.getSession().getAttribute("curUser"));

@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.services.mapservice;
 
+import ldt.springframework.springmvc.commands.CourseForm;
 import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.domain.DomainObject;
 import ldt.springframework.springmvc.services.CourseService;
@@ -49,5 +50,10 @@ public class CourseServiceMapImpl extends AbstractMapService implements CourseSe
     @Override
     public void delete(Integer id){
         super.deleteDomainObject(id);
+    }
+
+    @Override
+    public Course saveOrUpdateCourseForm(CourseForm courseForm) {
+        return null;
     }
 }

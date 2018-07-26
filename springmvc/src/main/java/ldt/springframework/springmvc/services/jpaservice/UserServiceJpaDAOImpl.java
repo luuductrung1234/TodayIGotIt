@@ -1,5 +1,9 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
+import ldt.springframework.springmvc.commands.UserForm;
+import ldt.springframework.springmvc.commands.converters.UserFormConverter;
+import ldt.springframework.springmvc.commands.converters.UserFormConverterImpl;
+import ldt.springframework.springmvc.domain.Cart;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.repository.UserRepository;
 import ldt.springframework.springmvc.services.CartService;
@@ -32,6 +36,9 @@ public class UserServiceJpaDAOImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserFormConverter userFormConverter;
+
 
     // =======================================
     // =            CRUD Methods             =
@@ -56,7 +63,6 @@ public class UserServiceJpaDAOImpl implements UserService {
     public void delete(Integer id) {
         userRepository.delete(id);
     }
-
 
 
     // =======================================
@@ -91,5 +97,23 @@ public class UserServiceJpaDAOImpl implements UserService {
         request.removeAttribute("curUserFirstName", WebRequest.SCOPE_SESSION);
         request.removeAttribute("curUserCartCount", WebRequest.SCOPE_SESSION);
         request.removeAttribute("curUserOrder", WebRequest.SCOPE_SESSION);
+    }
+
+    @Override
+    public User saveOrUpdateUserForm(UserForm userForm) {
+        User newUser = userFormConverter.convert(userForm);
+
+        //enhance if saved
+        if(newUser.getId() != null){
+            User existingUser = getById(newUser.getId());
+
+            //set enabled flag from db
+            newUser.setVisible(existingUser.getVisible());
+        }else{
+            newUser.setCart(new Cart());
+        }
+
+        return saveOrUpdate(newUser);
+
     }
 }

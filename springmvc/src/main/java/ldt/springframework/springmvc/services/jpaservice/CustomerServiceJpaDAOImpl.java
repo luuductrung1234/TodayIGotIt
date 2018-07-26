@@ -1,6 +1,9 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
+import ldt.springframework.springmvc.commands.UserForm;
+import ldt.springframework.springmvc.commands.converters.UserFormConverter;
 import ldt.springframework.springmvc.domain.Customer;
+import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.repository.CustomerRepository;
 import ldt.springframework.springmvc.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class CustomerServiceJpaDAOImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private UserFormConverter userFormConverter;
+
 
     // =======================================
     // =          Business Methods           =
@@ -50,5 +56,12 @@ public class CustomerServiceJpaDAOImpl implements CustomerService {
     @Override
     public void delete(Integer id) {
         customerRepository.delete(id);
+    }
+
+    @Override
+    public Customer saveOrUpdateUserForm(UserForm userForm) {
+        User newUser = userFormConverter.convert(userForm);
+
+        return saveOrUpdate(newUser.getCustomer());
     }
 }
