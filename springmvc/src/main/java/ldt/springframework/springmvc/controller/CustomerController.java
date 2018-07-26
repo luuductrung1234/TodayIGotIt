@@ -45,23 +45,21 @@ public class CustomerController {
     // =======================================
 
     @RequestMapping("/customers")
-    public String listCustomers(HttpServletRequest request, Model model){
+    public String listCustomers(Model model){
         if(!failure){
             model.addAttribute("message", null);
         }else{
             model.addAttribute("message", msg);
         }
         model.addAttribute("customers", customerService.listAll());
-        model.addAttribute("currentUser", request.getSession().getAttribute("curUser"));
         failure = false;
 
         return "view/customer/customers";
     }
 
     @RequestMapping("/customer/edit/{id}")
-    public String editCustomer(@PathVariable Integer id, HttpServletRequest request, Model model){
+    public String editCustomer(@PathVariable Integer id, Model model){
         model.addAttribute("customer", customerService.getById(id));
-        model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
 
         return "customer/customerform";
     }

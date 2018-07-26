@@ -61,7 +61,7 @@ public class UserRepositoryJpaDAOImpl extends AbstractJpaDAORepository
         User savedUser = null;
         try {
             savedUser = this.doInTransaction(em, () -> {
-                if(user.getPassword() != null){
+                if(user.getPassword() != null && !user.getPassword().isEmpty()){
                     user.setEncryptedPassowrd(encryptionService.encryptString(user.getPassword()));
                 }
 

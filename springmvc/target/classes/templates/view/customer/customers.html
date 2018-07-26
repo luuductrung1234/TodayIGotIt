@@ -36,7 +36,7 @@
             <h1 class="display-4">Customers View</h1>
             <p class="lead">This is a simple Spring Web Application that used to manage Customers</p>
             <hr class="my-4">
-            <div th:if="${currentUser} == null">
+            <div th:if="${#session.getAttribute('curUser')} == null">
                 <p>There are many special benefit for our user. Let create your own account to join with us!</p>
                 <a class="btn btn-success btn-lg"
                    style="width: 150px;"
@@ -44,7 +44,7 @@
                     Register
                 </a>
             </div>
-            <div th:if="${currentUser} != null">
+            <div th:if="${#session.getAttribute('curUser')} != null">
                 <p>There a all customer who join our program. Let view their information and contact</p>
             </div>
         </div>

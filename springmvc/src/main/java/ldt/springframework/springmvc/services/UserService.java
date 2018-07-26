@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.services;
 
+import ldt.springframework.springmvc.commands.UserForm;
 import ldt.springframework.springmvc.domain.User;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
@@ -21,4 +22,6 @@ public interface UserService extends CRUDService<User>{
     void updateCurrentUserDataToSession(HttpServletRequest request, CartService cartService, Integer userId);
 
     void updateLogoutUserToSession(WebRequest request, SessionStatus status);
+
+    User saveOrUpdateUserForm(UserForm userForm);
 }

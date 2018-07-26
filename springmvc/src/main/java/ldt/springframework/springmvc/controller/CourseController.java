@@ -1,5 +1,7 @@
 package ldt.springframework.springmvc.controller;
 
+import ldt.springframework.springmvc.commands.CourseForm;
+import ldt.springframework.springmvc.commands.converters.CourseFormConverter;
 import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.services.CourseService;
@@ -27,7 +29,11 @@ public class CourseController {
     // =           Injection Point           =
     // =======================================
 
+    @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private CourseFormConverter courseFormConverter;
 
 
     // =======================================
@@ -43,47 +49,43 @@ public class CourseController {
     // =======================================
 
     @RequestMapping("/courses")
-    public String listProducts(HttpServletRequest request, Model model){
+    public String listProducts(Model model){
         if(!failure){
             model.addAttribute("message", null);
         }else{
             model.addAttribute("message", msg);
         }
         model.addAttribute("courses", courseService.listAll());
-        model.addAttribute("currentUser", request.getSession().getAttribute("curUser"));
         failure = false;
 
         return "view/course/courses";
     }
 
     @RequestMapping("/course/{id}")
-    public String getCourseById(@PathVariable Integer id, HttpServletRequest request, Model model){
+    public String getCourseById(@PathVariable Integer id, Model model){
         model.addAttribute("course", courseService.getById(id));
-        model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
 
         return "view/course/course";
     }
 
     @RequestMapping("/course/new")
-    public String newCourse(HttpServletRequest request, Model model){
-        model.addAttribute("course", new Course());
-        model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
+    public String newCourse(Model model){
+        model.addAttribute("course", new CourseForm());
 
         return "view/course/courseForm";
     }
 
     @RequestMapping("/course/edit/{id}")
-    public String editCourse(@PathVariable Integer id, HttpServletRequest request, Model model){
-        model.addAttribute("course", courseService.getById((id)));
-        model.addAttribute("currentUser", (User) request.getSession().getAttribute("curUser"));
+    public String editCourse(@PathVariable Integer id, Model model){
+        model.addAttribute("course", courseFormConverter.revert(courseService.getById((id))));
 
         return "view/course/courseForm";
     }
 
     @RequestMapping(value = "/course", method = RequestMethod.POST)
-    public String saveOrUpdateCourse(Course course){
+    public String saveOrUpdateCourse(CourseForm course){
         try{
-            Course savedCourse = courseService.saveOrUpdate(course);
+            Course savedCourse = courseService.saveOrUpdateCourseForm(course);
             failure = false;
 
             return "redirect:course/" + savedCourse.getId();
@@ -107,15 +109,5 @@ public class CourseController {
         }
 
         return "redirect:/courses";
-    }
-
-
-    // =======================================
-    // =         Getters & Setters           =
-    // =======================================
-
-    @Autowired
-    public void setCourseService(CourseService courseService){
-        this.courseService = courseService;
     }
 }

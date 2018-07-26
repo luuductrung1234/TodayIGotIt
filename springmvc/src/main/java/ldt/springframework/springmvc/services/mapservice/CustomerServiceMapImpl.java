@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.services.mapservice;
 
+import ldt.springframework.springmvc.commands.UserForm;
 import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.domain.DomainObject;
 import ldt.springframework.springmvc.services.CustomerService;
@@ -49,5 +50,10 @@ public class CustomerServiceMapImpl extends AbstractMapService implements Custom
     @Override
     public void delete(Integer id) {
         super.deleteDomainObject(id);
+    }
+
+    @Override
+    public Customer saveOrUpdateUserForm(UserForm userForm) {
+        return null;
     }
 }

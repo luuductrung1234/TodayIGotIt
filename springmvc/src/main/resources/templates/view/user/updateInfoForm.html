@@ -29,6 +29,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
+<!-- TODO: modify thymeleaf use UserForm to input -->
 
 <main role="main">
     <div class="container">
@@ -39,33 +40,40 @@
         </div>
         <div class="row">
             <form class="col-sm-8"
-                  th:action="@{/user/uptInfo}" method="post">
+                  th:object="${currentUser}" th:action="@{/user/uptInfo}" method="post">
+                <div class="form-group">
+                    <input type="hidden" th:field="*{userId}">
+                    <input type="hidden" th:field="*{userVersion}">
+                    <input type="hidden" th:field="*{userName}">
+                    <input type="hidden" th:field="*{passwordEncrypted}">
+                    <input type="hidden" th:field="*{passwordText}">
+                    <input type="hidden" th:field="*{passwordTextConf}">
+
+                    <input type="hidden" th:field="*{customerId}">
+                    <input type="hidden" th:field="*{customerVersion}">
+                </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerFirstName">First Name:</label>
                     <input type="text" class="form-control" id="inputCustomerFirstName"
-                           th:value="${currentUser.customer.firstName}"
-                           name="firstname"
+                           th:field="*{firstName}"
                            required>
                 </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerLastName">Last Name:</label>
                     <input type="text" class="form-control" id="inputCustomerLastName"
-                           th:value="${currentUser.customer.lastName}"
-                           name="lastname"
+                           th:field="*{lastName}"
                            required>
                 </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerEmail">Email:</label>
                     <input type="email" class="form-control" id="inputCustomerEmail"
-                           th:value="${currentUser.customer.email}"
-                           name="email"
+                           th:field="*{email}"
                            required>
                 </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerPhone">Phone Number:</label>
                     <input type="number" class="form-control" id="inputCustomerPhone"
-                           th:value="${currentUser.customer.phoneNumber}"
-                           name="phonenumber"
+                           th:field="*{phoneNumber}"
                            required>
                 </div>
                 <div class="address mb-2 alert alert-secondary">
@@ -73,35 +81,30 @@
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillAddress1">Address Line 1:</label>
                         <input type="text" class="form-control" id="inputCustomerBillAddress1"
-                               th:value="${currentUser.customer.billingAddress.addressLine1}"
-                               name="billAddressLine1"
+                               th:field="*{billingAddress.addressLine1}"
                                required>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillAddress2">Address Line 2:</label>
                         <input type="text" class="form-control" id="inputCustomerBillAddress2"
-                               th:value="${currentUser.customer.billingAddress.addressLine2}"
-                               name="billAddressLine2">
+                               th:field="*{billingAddress.addressLine2}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillCity">City:</label>
                         <input type="text" class="form-control" id="inputCustomerBillCity"
-                               th:value="${currentUser.customer.billingAddress.city}"
-                               name="billCity"
+                               th:field="*{billingAddress.city}"
                                required>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillState">State:</label>
                         <input type="text" class="form-control" id="inputCustomerBillState"
-                               th:value="${currentUser.customer.billingAddress.state}"
-                               name="billState"
+                               th:field="*{billingAddress.state}"
                                required>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillZipCode">ZipCode:</label>
                         <input type="number" class="form-control" id="inputCustomerBillZipCode"
-                               th:value="${currentUser.customer.billingAddress.zipCode}"
-                               name="billZipCode"
+                               th:field="*{billingAddress.zipCode}"
                                required>
                     </div>
                 </div>
@@ -110,35 +113,30 @@
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipAddress1">Address Line 1:</label>
                         <input type="text" class="form-control" id="inputCustomerShipAddress1"
-                               th:value="${currentUser.customer.shippingAddress.addressLine1}"
-                               name="shipAddressLine1"
+                               th:field="*{shippingAddress.addressLine1}"
                                required>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipAddress2">Address Line 2:</label>
                         <input type="text" class="form-control" id="inputCustomerShipAddress2"
-                               th:value="${currentUser.customer.shippingAddress.addressLine2}"
-                               name="shipAddressLine2">
+                               th:field="*{shippingAddress.addressLine2}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipCity">City:</label>
                         <input type="text" class="form-control" id="inputCustomerShipCity"
-                               th:value="${currentUser.customer.shippingAddress.city}"
-                               name="shipCity"
+                               th:field="*{shippingAddress.city}"
                                required>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipState">State:</label>
                         <input type="text" class="form-control" id="inputCustomerShipState"
-                               th:value="${currentUser.customer.shippingAddress.state}"
-                               name="shipState"
+                               th:field="*{shippingAddress.state}"
                                required>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipZipCode">ZipCode:</label>
                         <input type="number" class="form-control" id="inputCustomerShipZipCode"
-                               th:value="${currentUser.customer.shippingAddress.zipCode}"
-                               name="shipZipCode"
+                               th:field="*{shippingAddress.zipCode}"
                                required>
                     </div>
                 </div>

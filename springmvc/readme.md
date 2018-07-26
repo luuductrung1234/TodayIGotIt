@@ -15,3 +15,6 @@ When the request come to the Spring Application
 >- the **Controller** handle something and call the correct **Service**
 >- the **Service** handle some business logic and then delegate the data management to the **Repository**
 >- the **Repository** use the SpringDataJPA framework's API (in ```ldt.springframework.springmvc.data``` package) to talk to **Database**
+
+When user input the form
+>- the Command Object (in ```ldt.springframework.springmvc.commands```) will validate the input data
