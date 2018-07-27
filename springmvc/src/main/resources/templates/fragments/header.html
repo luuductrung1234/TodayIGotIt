@@ -31,30 +31,30 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/TigiProject">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/customers">Customers</a>
+                    <a class="nav-link" href="/TigiProject/customers">Customers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/courses">Courses</a>
+                    <a class="nav-link" href="/TigiProject/courses">Courses</a>
                 </li>
                 <li class="nav-item" th:if="${#session.getAttribute('curUser')} != null">
-                    <a class="nav-link" href="/user/show">Dashboard</a>
+                    <a class="nav-link" href="/TigiProject/user/show">Dashboard</a>
                 </li>
             </ul>
             <div th:if="${#session.getAttribute('curUser')} == null">
-                <form class="form-inline" action="/user/login">
+                <form class="form-inline" action="/TigiProject/user/login">
                     <input class="form-control mr-sm-2" name="username" type="text" placeholder="Username"
                            aria-label="username">
                     <input class="form-control mr-sm-2" name="password" type="password" aria-label="password">
                     <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Login</button>
                     &nbsp;
-                    <a class="btn btn-info my-2 my-sm-0" href="/user/new">Register</a>
+                    <a class="btn btn-info my-2 my-sm-0" href="/TigiProject/user/new">Register</a>
                 </form>
             </div>
             <div th:if="${#session.getAttribute('curUser')} != null">
-                <form class="form-inline" action="/user/logout">
+                <form class="form-inline" action="/TigiProject/user/logout">
                     <div class="navbar-text">
                         <a href="javascript:void(0)" data-toggle="search">
                             <i style="font-size: 25px" class="text-info fas fa-search"></i>
@@ -63,7 +63,7 @@
                     &nbsp;
                     &nbsp;
                     <div class="navbar-text">
-                        <a href="/user/showcart">
+                        <a href="/TigiProject/user/showcart">
                             <i style="font-size: 25px" class="text-info fas fa-shopping-cart">
                                 <span class="label" th:text="${#session.getAttribute('curUserCartCount')}">23</span>
                             </i>

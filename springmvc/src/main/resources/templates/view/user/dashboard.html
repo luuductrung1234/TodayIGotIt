@@ -40,11 +40,11 @@
                     Example</h1>
                 <p class="lead text-muted">You now have a membership from us, Enjoy!</p>
                 <p>
-                    <a href="/user/edit/username/" class="btn btn-primary my-2">Update
+                    <a href="/TigiProject/user/edit/username/" class="btn btn-primary my-2">Update
                         Username</a>
-                    <a href="/user/edit/password/" class="btn btn-warning my-2">Update
+                    <a href="/TigiProject/user/edit/password/" class="btn btn-warning my-2">Update
                         Password</a>
-                    <a href="/user/edit/info/" class="btn btn-info my-2">Update Information</a>
+                    <a href="/TigiProject/user/edit/info/" class="btn btn-info my-2">Update Information</a>
                 </p>
             </div>
         </section>
@@ -149,7 +149,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="alert alert-danger" role="alert">
-                    <form class="input-group mb-3 mt-3" th:action="${'/user/delete/' + currentUser.getId()}">
+                    <form class="input-group mb-3 mt-3" th:action="${'/TigiProject/user/delete/' + currentUser.getId()}">
                         <input style="color: red;" type="text" class="form-control" value="Danger Zone!"
                                aria-label="delete account" aria-describedby="button-addon2" disabled>
                         <div class="input-group-append">

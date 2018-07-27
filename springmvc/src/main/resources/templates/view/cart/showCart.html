@@ -39,7 +39,7 @@
             <p></p>
             <a class="btn btn-success btn-lg"
                style="width: 150px;"
-               href="/user/checkout" role="button">
+               href="/TigiProject/user/checkout" role="button">
                 Check Out
             </a>
         </div>
@@ -59,12 +59,12 @@
                     <td th:text="${cartdetails.course.price * cartdetails.quantity}"></td>
                     <td class="row">
                         <a class="btn btn-success col-sm-5"
-                           th:href="${'/user/buynow/' + cartdetails.course.id}">
+                           th:href="${'/TigiProject/user/buynow/' + cartdetails.course.id}">
                             Buy Now
                         </a>
                         &nbsp;
                         <form
-                                th:action="${'/user/removefromcart/' + cartdetails.course.id}">
+                                th:action="${'/TigiProject/user/removefromcart/' + cartdetails.course.id}">
                             <input type="hidden" value="/user/showcart" name="currentPath">
                             <button type="submit" class="btn btn-danger col-sm-12">
                                 <i class="fas fa-times"></i>

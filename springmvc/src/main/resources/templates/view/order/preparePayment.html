@@ -54,17 +54,17 @@
                     <td th:text="${orderdetails.course.price * orderdetails.quantity}"></td>
                     <td>
                         <a class="btn btn-primary col-sm-4"
-                           th:href="${'/user/order/plus/' + orderdetails.course.id}">
+                           th:href="${'/TigiProject/user/order/plus/' + orderdetails.course.id}">
                             <i class="fas fa-plus"></i>
                         </a>
                         &nbsp;
                         <a class="btn btn-primary col-sm-4"
-                           th:href="${'/user/order/minus/' + orderdetails.course.id}">
+                           th:href="${'/TigiProject/user/order/minus/' + orderdetails.course.id}">
                             <i class="fas fa-minus"></i>
                         </a>
                         &nbsp;
                         <a class="btn btn-danger col-sm-2"
-                           th:href="${'/user/order/removefromorder/' + orderdetails.course.id}">
+                           th:href="${'/TigiProject/user/order/removefromorder/' + orderdetails.course.id}">
                             <i class="fas fa-times"></i>
                         </a>
                     </td>
@@ -82,7 +82,7 @@
                     <td>
                         <a class="btn btn-success col-sm-12"
                            style="width: 150px;"
-                           href="/user/order/pay" role="button">
+                           href="/TigiProject/user/order/pay" role="button">
                             Pay
                         </a>
                     </td>

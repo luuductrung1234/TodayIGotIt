@@ -37,7 +37,7 @@
             <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
             <a class="btn btn-primary btn-lg"
                style="width: 150px;"
-               href="course/new" role="button">
+               href="/TigiProject/course/new" role="button">
                 <i style="font-size: 20px;" class="fas fa-plus-circle"></i>
             </a>
         </div>
@@ -67,17 +67,17 @@
                     <td th:text="${course.imageUrl}"></td>
                     <td class="row">
                         <a class="btn btn-primary col-sm-3"
-                           th:href="${'course/' + course.id}">
+                           th:href="${'/TigiProject/course/' + course.id}">
                             <i class="fas fa-info-circle"></i>
                         </a>
                         &nbsp;
                         <a class="btn btn-warning col-sm-3"
-                           th:href="${'course/edit/' + course.id}">
+                           th:href="${'/TigiProject/course/edit/' + course.id}">
                             <i class="fas fa-edit"></i>
                         </a>
                         &nbsp;
                         <a class="btn btn-danger col-sm-3"
-                           th:href="${'course/delete/' + course.id}">
+                           th:href="${'/TigiProject/course/delete/' + course.id}">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>

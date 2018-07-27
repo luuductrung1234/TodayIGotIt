@@ -35,7 +35,7 @@
         <h2>Course Form</h2>
         <div>
             <form class="col-sm-8"
-                  th:object="${course}" th:action="@{/course}" method="post">
+                  th:object="${course}" th:action="@{/TigiProject/course}" method="post">
                 <div class="form-group">
                     <input type="hidden" th:field="*{courseId}">
                     <input type="hidden" th:field="*{courseVersion}">

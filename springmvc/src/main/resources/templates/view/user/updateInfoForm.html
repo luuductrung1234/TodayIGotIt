@@ -38,9 +38,20 @@
                 <h2>Update Information Form</h2>
             </div>
         </div>
+
         <div class="row">
             <form class="col-sm-8"
-                  th:object="${currentUser}" th:action="@{/user/uptInfo}" method="post">
+                  th:object="${userForm}" th:action="@{/user/uptInfo}" method="post">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <ul th:each="err : ${#fields.detailedErrors('*')}">
+                        <li th:if="${err.getFieldName() != 'passwordText' && err.getFieldName() != 'passwordTextConf'}">
+                            <span style="font-weight: bold;" th:text="${err.getFieldName()}"></span> : <span th:text="${err.getMessage()}"></span>
+                        </li>
+                    </ul>
+                </div>
+
+
                 <div class="form-group">
                     <input type="hidden" th:field="*{userId}">
                     <input type="hidden" th:field="*{userVersion}">
@@ -55,57 +66,49 @@
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerFirstName">First Name:</label>
                     <input type="text" class="form-control" id="inputCustomerFirstName"
-                           th:field="*{firstName}"
-                           required>
+                           th:field="*{firstName}">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerLastName">Last Name:</label>
                     <input type="text" class="form-control" id="inputCustomerLastName"
-                           th:field="*{lastName}"
-                           required>
+                           th:field="*{lastName}">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerEmail">Email:</label>
                     <input type="email" class="form-control" id="inputCustomerEmail"
-                           th:field="*{email}"
-                           required>
+                           th:field="*{email}">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: bold;" for="inputCustomerPhone">Phone Number:</label>
                     <input type="number" class="form-control" id="inputCustomerPhone"
-                           th:field="*{phoneNumber}"
-                           required>
+                           th:field="*{phoneNumber}">
                 </div>
                 <div class="address mb-2 alert alert-secondary">
                     <h3>Billing Address:</h3>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillAddress1">Address Line 1:</label>
                         <input type="text" class="form-control" id="inputCustomerBillAddress1"
-                               th:field="*{billingAddress.addressLine1}"
-                               required>
+                               th:field="*{billingAddressLine1}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillAddress2">Address Line 2:</label>
                         <input type="text" class="form-control" id="inputCustomerBillAddress2"
-                               th:field="*{billingAddress.addressLine2}">
+                               th:field="*{billingAddressLine2}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillCity">City:</label>
                         <input type="text" class="form-control" id="inputCustomerBillCity"
-                               th:field="*{billingAddress.city}"
-                               required>
+                               th:field="*{billingCity}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillState">State:</label>
                         <input type="text" class="form-control" id="inputCustomerBillState"
-                               th:field="*{billingAddress.state}"
-                               required>
+                               th:field="*{billingState}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerBillZipCode">ZipCode:</label>
                         <input type="number" class="form-control" id="inputCustomerBillZipCode"
-                               th:field="*{billingAddress.zipCode}"
-                               required>
+                               th:field="*{billingZipCode}">
                     </div>
                 </div>
                 <div class="address mb-2 alert alert-dark">
@@ -113,31 +116,27 @@
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipAddress1">Address Line 1:</label>
                         <input type="text" class="form-control" id="inputCustomerShipAddress1"
-                               th:field="*{shippingAddress.addressLine1}"
-                               required>
+                               th:field="*{shippingAddressLine1}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipAddress2">Address Line 2:</label>
                         <input type="text" class="form-control" id="inputCustomerShipAddress2"
-                               th:field="*{shippingAddress.addressLine2}">
+                               th:field="*{shippingAddressLine2}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipCity">City:</label>
                         <input type="text" class="form-control" id="inputCustomerShipCity"
-                               th:field="*{shippingAddress.city}"
-                               required>
+                               th:field="*{shippingCity}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipState">State:</label>
                         <input type="text" class="form-control" id="inputCustomerShipState"
-                               th:field="*{shippingAddress.state}"
-                               required>
+                               th:field="*{shippingState}">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold;" for="inputCustomerShipZipCode">ZipCode:</label>
                         <input type="number" class="form-control" id="inputCustomerShipZipCode"
-                               th:field="*{shippingAddress.zipCode}"
-                               required>
+                               th:field="*{shippingZipCode}">
                     </div>
                 </div>
 
