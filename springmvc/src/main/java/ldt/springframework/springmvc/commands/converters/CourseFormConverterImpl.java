@@ -4,6 +4,8 @@ import ldt.springframework.springmvc.commands.CourseForm;
 import ldt.springframework.springmvc.domain.Course;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 /*
  * author: Luu Duc Trung
  * https://github.com/luuductrung1234
@@ -19,7 +21,7 @@ public class CourseFormConverterImpl implements CourseFormConverter {
         Course course = new Course(
             source.getCourseId(),
             source.getDescription(),
-            source.getPrice(),
+            new BigDecimal(source.getPrice()),
             source.getImageUrl()
         );
         course.setVersion(source.getCourseVersion());
@@ -33,7 +35,7 @@ public class CourseFormConverterImpl implements CourseFormConverter {
         courseForm.setCourseId(source.getId());
         courseForm.setDescription(source.getDescription());
         courseForm.setImageUrl(source.getImageUrl());
-        courseForm.setPrice(source.getPrice());
+        courseForm.setPrice(source.getPrice().toString());
         courseForm.setCourseVersion(source.getVersion());
 
         return courseForm;

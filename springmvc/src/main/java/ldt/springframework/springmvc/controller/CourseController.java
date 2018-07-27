@@ -8,11 +8,13 @@ import ldt.springframework.springmvc.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /*
  * author: Luu Duc Trung
@@ -70,20 +72,26 @@ public class CourseController {
 
     @RequestMapping("/course/new")
     public String newCourse(Model model){
-        model.addAttribute("course", new CourseForm());
+        model.addAttribute("courseForm", new CourseForm());
 
         return "view/course/courseForm";
     }
 
     @RequestMapping("/course/edit/{id}")
     public String editCourse(@PathVariable Integer id, Model model){
-        model.addAttribute("course", courseFormConverter.revert(courseService.getById((id))));
+        model.addAttribute("courseForm", courseFormConverter.revert(courseService.getById((id))));
 
         return "view/course/courseForm";
     }
 
     @RequestMapping(value = "/course", method = RequestMethod.POST)
-    public String saveOrUpdateCourse(CourseForm course){
+    public String saveOrUpdateCourse(@Valid CourseForm course,
+                                     BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            return "view/course/courseForm";
+        }
+
         try{
             Course savedCourse = courseService.saveOrUpdateCourseForm(course);
             failure = false;

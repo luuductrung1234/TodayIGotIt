@@ -1,5 +1,8 @@
 package ldt.springframework.springmvc.commands;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
 /*
@@ -20,10 +23,16 @@ public class CourseForm {
 
     private Integer courseVersion;
 
+    @NotEmpty
     private String description;
 
-    private BigDecimal price;
 
+    @NotEmpty
+    @Min(1)
+    @Pattern(regexp="(^$|[0-9]{1,6})")
+    private String price;
+
+    @NotEmpty
     private String imageUrl;
 
 
@@ -48,11 +57,11 @@ public class CourseForm {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
