@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /*
  * author: Luu Duc Trung
@@ -27,6 +28,7 @@ public class UserForm {
     private Integer userId;
     private Integer userVersion;
     @NotEmpty
+    @Size(min = 10, max = 200)
     private String userName;
     @NotEmpty
     private String passwordText;

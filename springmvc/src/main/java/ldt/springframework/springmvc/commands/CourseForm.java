@@ -1,5 +1,7 @@
 package ldt.springframework.springmvc.commands;
 
+import org.hibernate.validator.constraints.URL;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -33,6 +35,7 @@ public class CourseForm {
     private String price;
 
     @NotEmpty
+    @URL
     private String imageUrl;
 
 
