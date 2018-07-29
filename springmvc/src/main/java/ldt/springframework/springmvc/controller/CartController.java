@@ -1,11 +1,10 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.controller.security.CurrentUserSecurity;
 import ldt.springframework.springmvc.domain.*;
 import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.CourseService;
-import ldt.springframework.springmvc.services.OrderService;
 import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.springmvc.services.sercurity.TiGiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +39,7 @@ public class CartController {
     private CourseService courseService;
 
     @Autowired
-    private CurrentUserSecurity currentUserSecurity;
+    private TiGiAuthService tiGiAuthService;
 
 
     // =======================================
@@ -53,7 +52,7 @@ public class CartController {
                             HttpServletRequest request,
                             Model model){
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             Course course = courseService.getById(courseId);
             cartService.addToCart(currentUser, course);
@@ -72,7 +71,7 @@ public class CartController {
                             HttpServletRequest request,
                             Model model){
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             cartService.removeFromCart(currentUser, courseId);
             userService.saveOrUpdate(currentUser);
@@ -87,7 +86,7 @@ public class CartController {
     @RequestMapping("/user/showcart")
     public String showCart(HttpServletRequest request, Model model){
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             model.addAttribute("cart", currentUser.getCart());
             model.addAttribute("totalPrice", cartService.calculateTotalPrice(currentUser.getCart()));
@@ -99,7 +98,7 @@ public class CartController {
     @RequestMapping("/user/clearcart")
     public String clearCart(HttpServletRequest request, Model model){
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             currentUser.removeCart(currentUser.getCart());
             userService.saveOrUpdate(currentUser);

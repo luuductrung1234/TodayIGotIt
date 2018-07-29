@@ -63,7 +63,7 @@ public class CourseController {
         return "view/course/courses";
     }
 
-    @RequestMapping("/course/{id}")
+    @RequestMapping("/course/show/{id}")
     public String getCourseById(@PathVariable Integer id, Model model){
         model.addAttribute("course", courseService.getById(id));
 

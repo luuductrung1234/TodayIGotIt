@@ -16,5 +16,28 @@ When the request come to the Spring Application
 >- the **Service** handle some business logic and then delegate the data management to the **Repository**
 >- the **Repository** use the SpringDataJPA framework's API (in ```ldt.springframework.springmvc.data``` package) to talk to **Database**
 
-When user input the form
->- the Command Object (in ```ldt.springframework.springmvc.commands```) will validate the input data
+When the data show to UI or when user input the form
+>- the Command Object (in ```ldt.springframework.springmvc.commands```) work likes a temple interface that contain the data and show to UI
+>- Use the Command Object help us hide the actual Entity object's data from user interact directly
+
+
+The Security in this app implement
+>- Authentication xác định danh tính người dùng
+>- Authorization là quyền và khả năng
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

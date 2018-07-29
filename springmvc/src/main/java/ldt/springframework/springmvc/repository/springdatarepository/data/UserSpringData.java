@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.data;
+package ldt.springframework.springmvc.repository.springdatarepository.data;
 
 import ldt.springframework.springmvc.domain.User;
 import org.springframework.data.repository.CrudRepository;

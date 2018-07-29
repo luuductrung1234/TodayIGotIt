@@ -1,6 +1,6 @@
 package ldt.springframework.springmvc.repository.springdatarepository;
 
-import ldt.springframework.springmvc.data.UserSpringData;
+import ldt.springframework.springmvc.repository.springdatarepository.data.UserSpringData;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.repository.UserRepository;
 import ldt.springframework.springmvc.services.sercurity.EncryptionService;
@@ -55,6 +55,11 @@ public class UserRepositorySpringDataImpl implements UserRepository {
         }catch (Exception ex){
             return null;
         }
+    }
+
+    @Override
+    public User findByUserName(String username) {
+        return userSpringData.findByUsername(username);
     }
 
     @Override

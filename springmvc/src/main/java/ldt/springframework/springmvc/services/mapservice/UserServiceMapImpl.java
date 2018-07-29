@@ -12,6 +12,8 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /*
  * author: Luu Duc Trung
@@ -24,7 +26,7 @@ import java.util.List;
 @Service
 @Profile("map")
 public class UserServiceMapImpl extends AbstractMapService
-                                implements UserService {
+        implements UserService {
     @Override
     public List<DomainObject> listAll() {
         return super.listAll();
@@ -49,16 +51,29 @@ public class UserServiceMapImpl extends AbstractMapService
     public User login(String username, String password) {
 
         List<DomainObject> users = listAll();
-        for (DomainObject domainObject: users){
+        for (DomainObject domainObject : users) {
             User user = (User) domainObject;
 
-            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 return user;
             }
         }
 
         return null;
     }
+
+    @Override
+    public User findByUserName(String userName) {
+        Optional returnUser = domainMap.values().stream().filter(new Predicate<DomainObject>() {
+            @Override
+            public boolean test(DomainObject domainObject) {
+                return false;
+            }
+        }).findFirst();
+
+        return (User) returnUser.get();
+    }
+
 
     @Override
     public void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser) {

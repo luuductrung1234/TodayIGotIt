@@ -1,6 +1,6 @@
 package ldt.springframework.springmvc.repository.springdatarepository;
 
-import ldt.springframework.springmvc.data.OrderSpringData;
+import ldt.springframework.springmvc.repository.springdatarepository.data.OrderSpringData;
 import ldt.springframework.springmvc.domain.Order;
 import ldt.springframework.springmvc.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;

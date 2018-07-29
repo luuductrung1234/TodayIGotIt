@@ -1,6 +1,6 @@
 package ldt.springframework.springmvc.repository.springdatarepository;
 
-import ldt.springframework.springmvc.data.CartSpringData;
+import ldt.springframework.springmvc.repository.springdatarepository.data.CartSpringData;
 import ldt.springframework.springmvc.domain.Cart;
 import ldt.springframework.springmvc.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;

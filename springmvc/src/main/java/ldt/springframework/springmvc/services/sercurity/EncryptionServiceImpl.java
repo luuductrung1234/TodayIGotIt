@@ -1,7 +1,8 @@
 package ldt.springframework.springmvc.services.sercurity;
 
-import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -20,16 +21,20 @@ public class EncryptionServiceImpl implements EncryptionService {
     // =           Injection Point           =
     // =======================================
 
-    @Autowired
-    private StrongPasswordEncryptor strongEncryptor;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
+    // =======================================
+    // =          Business Methods           =
+    // =======================================
 
     @Override
     public String encryptString(String input) {
-        return strongEncryptor.encryptPassword(input);
+        return passwordEncoder.encode(input);
     }
 
     @Override
     public boolean checkPassword(String plainPassword, String encryptedPassword) {
-        return strongEncryptor.checkPassword(plainPassword, encryptedPassword);
+        return passwordEncoder.matches(plainPassword, encryptedPassword);
     }
 }

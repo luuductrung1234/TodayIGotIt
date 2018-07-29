@@ -17,6 +17,8 @@ public interface UserService extends CRUDService<User>{
 
     User login(String username, String password);
 
+    User findByUserName(String userName);
+
     void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser);
 
     void updateCurrentUserDataToSession(HttpServletRequest request, CartService cartService, Integer userId);

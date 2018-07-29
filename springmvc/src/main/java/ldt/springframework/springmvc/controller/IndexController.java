@@ -2,8 +2,12 @@ package ldt.springframework.springmvc.controller;
 
 import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.services.CourseService;
+import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.springmvc.services.sercurity.TiGiAuthService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +32,15 @@ public class IndexController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private UserService userService;
+
+
+    // =======================================
+    // =          Attribute Section          =
+    // =======================================
+
+//    private boolean isInit = true;
 
 
     // =======================================
@@ -37,11 +50,20 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, HttpServletRequest request){
         List<Course> courses = (List<Course>) courseService.listAll();
-
         model.addAttribute("currentUser", request.getSession().getAttribute("curUser"));
         model.addAttribute("courses", courses);
 
         return "index";
+    }
+
+    @RequestMapping("/access_denied")
+    public String noAuth(){
+        return "access_denied";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
     }
 
 }

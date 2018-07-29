@@ -9,7 +9,7 @@
 <div th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="navbar-header">
-                <a class="navbar-brand navbar-brand-logo" href="/">
+                <a class="navbar-brand navbar-brand-logo" href="/TigiProject/">
                     <img style="width: 60px; height: 60px;" th:src="@{/images/logostyle.png}" alt="TiGi_logo">
                     <!--<div class="logo">-->
                     <!--</div>-->
@@ -44,17 +44,17 @@
                 </li>
             </ul>
             <div th:if="${#session.getAttribute('curUser')} == null">
-                <form class="form-inline" action="/TigiProject/user/login">
-                    <input class="form-control mr-sm-2" name="username" type="text" placeholder="Username"
+                <form class="form-inline" th:action="@{/login}" method="post">
+                    <input class="form-control mr-sm-2" name="username" id="username" type="text" placeholder="Username"
                            aria-label="username">
-                    <input class="form-control mr-sm-2" name="password" type="password" aria-label="password">
+                    <input class="form-control mr-sm-2" name="password" id="password" type="password" aria-label="password">
                     <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Login</button>
                     &nbsp;
                     <a class="btn btn-info my-2 my-sm-0" href="/TigiProject/user/new">Register</a>
                 </form>
             </div>
             <div th:if="${#session.getAttribute('curUser')} != null">
-                <form class="form-inline" action="/TigiProject/user/logout">
+                <form class="form-inline" th:action="@{/logout}">
                     <div class="navbar-text">
                         <a href="javascript:void(0)" data-toggle="search">
                             <i style="font-size: 25px" class="text-info fas fa-search"></i>

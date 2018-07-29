@@ -2,7 +2,6 @@ package ldt.springframework.springmvc.services.jpaservice;
 
 import ldt.springframework.springmvc.commands.UserForm;
 import ldt.springframework.springmvc.commands.converters.UserFormConverter;
-import ldt.springframework.springmvc.commands.converters.UserFormConverterImpl;
 import ldt.springframework.springmvc.domain.Cart;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.repository.UserRepository;
@@ -65,12 +64,19 @@ public class UserServiceJpaDAOImpl implements UserService {
     }
 
 
+
+
     // =======================================
     // =          Business Methods           =
     // =======================================
 
     public User login(String username, String password){
         return userRepository.checkUsernamePassword(username, password);
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
     }
 
     @Override
@@ -108,7 +114,7 @@ public class UserServiceJpaDAOImpl implements UserService {
             User existingUser = getById(newUser.getId());
 
             //set enabled flag from db
-            newUser.setVisible(existingUser.getVisible());
+            newUser.setEnabled(existingUser.getEnabled());
         }else{
             newUser.setCart(new Cart());
         }

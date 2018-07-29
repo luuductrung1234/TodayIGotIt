@@ -1,6 +1,6 @@
 package ldt.springframework.springmvc.repository.springdatarepository;
 
-import ldt.springframework.springmvc.data.CourseSpringData;
+import ldt.springframework.springmvc.repository.springdatarepository.data.CourseSpringData;
 import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;

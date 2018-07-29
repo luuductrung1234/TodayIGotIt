@@ -1,11 +1,11 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.controller.security.CurrentUserSecurity;
 import ldt.springframework.springmvc.domain.*;
 import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.OrderService;
 import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.springmvc.services.sercurity.TiGiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +42,7 @@ public class OrderController {
     private UserService userService;
 
     @Autowired
-    private CurrentUserSecurity currentUserSecurity;
+    private TiGiAuthService tiGiAuthService;
 
     // =======================================
     // =          Attribute Section          =
@@ -58,7 +58,7 @@ public class OrderController {
     @RequestMapping("/user/checkout")
     public String checkOut(HttpServletRequest request, Model model) {
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             // convert current user cart to new order
             if (cartService.cartIsEmpty(currentUser.getCart())) {
@@ -80,7 +80,7 @@ public class OrderController {
                          HttpServletRequest request,
                          Model model) {
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             Course course = courseService.getById(courseId);
 
@@ -104,7 +104,7 @@ public class OrderController {
                                    HttpServletRequest request,
                                    Model model) {
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             Order curOrder = (Order) request.getSession().getAttribute("curUserOrder");
             if (curOrder == null) {
                 return "redirect:/";
@@ -124,7 +124,7 @@ public class OrderController {
                                    HttpServletRequest request,
                                    Model model) {
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             Order curOrder = (Order) request.getSession().getAttribute("curUserOrder");
             if (curOrder == null) {
                 return "redirect:/";
@@ -148,7 +148,7 @@ public class OrderController {
                                   HttpServletRequest request,
                                   Model model) {
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             Order curOrder = (Order) request.getSession().getAttribute("curUserOrder");
             if (curOrder == null) {
                 return "redirect:/";
@@ -171,7 +171,7 @@ public class OrderController {
     public String pay(HttpServletRequest request,
                       Model model) {
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tiGiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             Order curOrder = (Order) request.getSession().getAttribute("curUserOrder");
             if (curOrder == null) {

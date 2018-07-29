@@ -42,9 +42,6 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
     private CourseService courseService;
 
     @Autowired
-    private CustomerService customerService;
-
-    @Autowired
     private UserService userService;
 
     @Autowired

@@ -1,6 +1,6 @@
 package ldt.springframework.springmvc.repository.springdatarepository;
 
-import ldt.springframework.springmvc.data.CustomerSpringData;
+import ldt.springframework.springmvc.repository.springdatarepository.data.CustomerSpringData;
 import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.repository.CustomerRepository;
 import ldt.springframework.springmvc.services.sercurity.EncryptionService;

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denined</title>
+</head>
+<body>
+<div class="jumbotron">
+    <h1 class="display-4">Access Denied!</h1>
+    <p class="lead">Sorry you don't have permission to access this resource!</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="/login" role="button">Try Again</a>
+</div>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

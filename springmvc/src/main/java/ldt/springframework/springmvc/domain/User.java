@@ -30,7 +30,7 @@ public class User extends AbstractDomainEntity{
     private String password;
 
     private String encryptedPassowrd;
-    private Boolean visible = true;
+    private Boolean enabled = true;
 
     @OneToOne(mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -75,10 +75,6 @@ public class User extends AbstractDomainEntity{
         return encryptedPassowrd;
     }
 
-    public Boolean getVisible() {
-        return visible;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -89,10 +85,6 @@ public class User extends AbstractDomainEntity{
 
     public void setEncryptedPassowrd(String encryptedPassowrd) {
         this.encryptedPassowrd = encryptedPassowrd;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
     }
 
     public Customer getCustomer() {
@@ -159,5 +151,13 @@ public class User extends AbstractDomainEntity{
     public void removeRole(Role role){
         this.roles.remove(role);
         role.getUsers().remove(this);
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

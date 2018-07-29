@@ -111,4 +111,11 @@ public class UserRepositoryJpaDAOImpl extends AbstractJpaDAORepository
 
         return null;
     }
+
+    @Override
+    public User findByUserName(String username) {
+        EntityManager em = emf.createEntityManager();
+
+        return em.createQuery("FROM User WHERE username = :username", User.class).getSingleResult();
+    }
 }

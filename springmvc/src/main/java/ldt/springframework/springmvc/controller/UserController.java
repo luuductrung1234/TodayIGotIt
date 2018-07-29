@@ -2,17 +2,15 @@ package ldt.springframework.springmvc.controller;
 
 import ldt.springframework.springmvc.commands.UserForm;
 import ldt.springframework.springmvc.commands.converters.UserFormConverter;
-import ldt.springframework.springmvc.controller.security.CurrentUserSecurity;
-import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.CustomerService;
 import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.springmvc.services.sercurity.TiGiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +49,7 @@ public class UserController {
     UserFormConverter userFormConverter;
 
     @Autowired
-    CurrentUserSecurity currentUserSecurity;
+    TiGiAuthService tigiAuthService;
 
 
     // =======================================
@@ -66,8 +64,8 @@ public class UserController {
     // =             GET Methods             =
     // =======================================
 
-    @RequestMapping(value = "/user/login")
-    public String login(@RequestParam("username") String username,
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    public String submitLogin(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         HttpServletRequest request,
                         Model model) {
@@ -95,7 +93,7 @@ public class UserController {
             this.stateReset();
         }
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tigiAuthService.sessionCheckLogin("redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             model.addAttribute("currentUser", currentUser);
             return "view/user/dashboard";
@@ -114,7 +112,7 @@ public class UserController {
     public String editUserInfo(HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tigiAuthService.sessionCheckLogin("redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             model.addAttribute("userForm", userFormConverter.revert(currentUser));
             return "view/user/updateInfoForm";
@@ -125,7 +123,7 @@ public class UserController {
     public String editUserUsername(HttpServletRequest request, Model model) {
         // TODO: Upgrade to patch update
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tigiAuthService.sessionCheckLogin("redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             model.addAttribute("userForm", userFormConverter.revert(currentUser));
             return "view/user/updateUsernameForm";
@@ -141,7 +139,7 @@ public class UserController {
             this.stateReset();
         }
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tigiAuthService.sessionCheckLogin( "redirect:/", () -> {
             User currentUser = (User) request.getSession().getAttribute("curUser");
             model.addAttribute("userForm", userFormConverter.revert(currentUser));
             return "view/user/updatePasswordForm";
@@ -150,15 +148,17 @@ public class UserController {
 
     @RequestMapping("/user/delete/{id}")
     public String deleteCustomer(@PathVariable Integer id, Model model) {
-        try {
-            userService.delete(id);
-            stateReset();
-        } catch (Exception ex) {
-            msg = "Delete fail! Something went wrong!";
-            failure = true;
-        }
+        return tigiAuthService.sessionCheckLogin( "redirect:/", () -> {
+            try {
+                userService.delete(id);
+                stateReset();
+            } catch (Exception ex) {
+                msg = "Delete fail! Something went wrong!";
+                failure = true;
+            }
 
-        return "redirect:/user/logout";
+            return "redirect:/user/logout";
+        });
     }
 
 
@@ -196,7 +196,7 @@ public class UserController {
             return "view/user/updatePasswordForm";
         }
 
-        return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+        return tigiAuthService.sessionCheckLogin( "redirect:/", () -> {
             if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
                 msg = "Confirm Password Not Match!";
                 failure = true;
@@ -227,7 +227,7 @@ public class UserController {
                 && (bindingResult.getFieldError("passwordText") != null)
                 && (bindingResult.getFieldError("passwordTextConf") != null)) {
 
-            return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () ->
+            return tigiAuthService.sessionCheckLogin( "redirect:/", () ->
             {
                 User currentUser = (User) request.getSession().getAttribute("curUser");
                 userForm.setUserCart(currentUser.getCart());
@@ -255,7 +255,7 @@ public class UserController {
         if ((bindingResult.getFieldErrorCount() == 2)
                 && (bindingResult.getFieldError("passwordText") != null)
                 && (bindingResult.getFieldError("passwordTextConf") != null)) {
-            return currentUserSecurity.sessionCheckLogin(request, "redirect:/", () -> {
+            return tigiAuthService.sessionCheckLogin( "redirect:/", () -> {
                 try {
                     User currentUser = (User) request.getSession().getAttribute("curUser");
                     userForm.setUserCart(currentUser.getCart());

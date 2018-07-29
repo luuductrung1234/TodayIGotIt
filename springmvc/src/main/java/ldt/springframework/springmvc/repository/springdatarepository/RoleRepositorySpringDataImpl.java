@@ -1,6 +1,6 @@
 package ldt.springframework.springmvc.repository.springdatarepository;
 
-import ldt.springframework.springmvc.data.RoleSpringData;
+import ldt.springframework.springmvc.repository.springdatarepository.data.RoleSpringData;
 import ldt.springframework.springmvc.domain.security.Role;
 import ldt.springframework.springmvc.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
