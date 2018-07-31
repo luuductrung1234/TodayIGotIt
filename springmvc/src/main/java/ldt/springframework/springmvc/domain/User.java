@@ -31,6 +31,7 @@ public class User extends AbstractDomainEntity{
 
     private String encryptedPassowrd;
     private Boolean enabled = true;
+    private Integer failedLoginAttempts = 0;
 
     @OneToOne(mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -159,5 +160,13 @@ public class User extends AbstractDomainEntity{
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Integer getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(Integer failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
     }
 }

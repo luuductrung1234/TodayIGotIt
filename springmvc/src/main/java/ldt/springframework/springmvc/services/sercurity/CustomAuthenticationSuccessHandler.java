@@ -4,16 +4,12 @@ import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /*
@@ -46,7 +42,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         //do some logic here if you want something to be done whenever
         //the user successfully logs in.
 
-        UserDetails authUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails authUser = (UserDetails) authentication.getPrincipal();
         userService.updateLoginUserDataToSession(httpServletRequest, cartService, userService.findByUserName(authUser.getUsername()));
 
         //set our response to OK status

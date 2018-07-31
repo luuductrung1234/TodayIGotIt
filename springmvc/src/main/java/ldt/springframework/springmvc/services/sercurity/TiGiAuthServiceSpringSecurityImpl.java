@@ -49,7 +49,14 @@ public class TiGiAuthServiceSpringSecurityImpl implements UserDetailsService, Ti
         UserDetailsImpl userDetails = userUserDetailsConverter.convert(userService.findByUserName(username));
 
         // specify the PasswordEncoder for Spring Security
-        userDetails.setPassword("{" + encodeId + "}" + userDetails.getPassword());
+        if(userDetails != null)
+        {
+            userDetails.setPassword("{" + encodeId + "}" + userDetails.getPassword());
+        }else{
+            // if fail to retrieve user data from database
+            // create a new empty UserDetails object
+            userDetails = new UserDetailsImpl();
+        }
 
         return userDetails;
     }

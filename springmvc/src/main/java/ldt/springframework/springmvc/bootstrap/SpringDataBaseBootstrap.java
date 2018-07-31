@@ -268,13 +268,18 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         List<Role> roles = (List<Role>) roleService.listAll();
         List<User> users = (List<User>) userService.listAll();
 
-        roles.forEach(role -> {
-            if(role.getType().equals(RoleType.STUDENT)){
-                users.forEach(user -> {
-                    user.addRole(role);
-                    userService.saveOrUpdate(user);
-                });
-            }
-        });
+
+        users.get(0).addRole(roles.get(0));
+        userService.saveOrUpdate(users.get(0));
+
+        users.get(1).addRole(roles.get(0));
+        users.get(1).addRole(roles.get(2));
+        userService.saveOrUpdate(users.get(1));
+
+        users.get(2).addRole(roles.get(1));
+        userService.saveOrUpdate(users.get(2));
+
+        users.get(3).addRole(roles.get(2));
+        userService.saveOrUpdate(users.get(3));
     }
 }

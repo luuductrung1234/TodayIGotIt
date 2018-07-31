@@ -3,11 +3,8 @@ package ldt.springframework.springmvc.controller;
 import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.services.CourseService;
 import ldt.springframework.springmvc.services.UserService;
-import ldt.springframework.springmvc.services.sercurity.TiGiAuthService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +59,7 @@ public class IndexController {
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login(HttpServletRequest request, Model model){
         return "login";
     }
 

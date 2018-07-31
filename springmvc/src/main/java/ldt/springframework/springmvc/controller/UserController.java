@@ -66,9 +66,9 @@ public class UserController {
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public String submitLogin(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        HttpServletRequest request,
-                        Model model) {
+                              @RequestParam("password") String password,
+                              HttpServletRequest request,
+                              Model model) {
 
         User loginUser = userService.login(username, password);
         if (loginUser != null) {

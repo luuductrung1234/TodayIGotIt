@@ -29,7 +29,7 @@ public class UserToUserDetails implements Converter<User, UserDetailsImpl> {
 
         ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
         source.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getType().toString()));
+            authorities.add(new SimpleGrantedAuthority(role.getType().name()));
         });
 
         userDetails.setAuthorities(authorities);

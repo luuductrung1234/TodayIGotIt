@@ -14,14 +14,15 @@
           media="screen">
 
     <!-- Custom styles for this template -->
-    <link href="../static/signin.css" rel="stylesheet"
-          th:href="@{/css/signin.css}">
+    <link rel="stylesheet" th:href="@{/css/signin.css}">
+    <link rel="stylesheet" th:href="@{/css/spring-core.css}">
 </head>
 
-<body class="text-center">
+<body >
+<div th:replace="fragments/login-header :: header"></div>
 
-<main role="main">
-    <div class="container">
+<main class="text-center login-main" role="main">
+    <div class="container-fluid">
         <form class="form-signin" th:object="${loginForm}" th:action="@{/login}" method="post">
             <img class="mb-4" src="../static/images/bootstrap-solid.svg"
                  th:src="@{/images/bootstrap-solid.svg}"

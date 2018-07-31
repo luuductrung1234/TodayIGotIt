@@ -1,5 +1,6 @@
 package ldt.springframework.springmvc.config;
 
+import ldt.springframework.springmvc.enums.RoleType;
 import ldt.springframework.springmvc.services.sercurity.CustomAuthenticationSuccessHandler;
 import ldt.springframework.springmvc.services.sercurity.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,38 +100,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // authentication resources
                 .and().authorizeRequests().antMatchers("/user/**").authenticated()
-                .and().authorizeRequests().antMatchers("/customer/**").authenticated()
-                .and().authorizeRequests().antMatchers("/course/new").authenticated()
-                .and().authorizeRequests().antMatchers("/course/edit/**").authenticated()
-                .and().authorizeRequests().antMatchers("/course/delete/**").authenticated()
+                .and().authorizeRequests().antMatchers("/customer/**").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
+                .and().authorizeRequests().antMatchers("/course/edit/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
+                .and().authorizeRequests().antMatchers("/course/delete/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
                 .and().formLogin().successHandler(customAuthenticationSuccessHandler).loginPage("/login").permitAll()
                 .and().logout().logoutSuccessHandler(customLogoutSuccessHandler).permitAll()
                 .and().exceptionHandling().accessDeniedPage("/access_denied");
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().ignoringAntMatchers("/H2Console").disable()
-//
-//                // static resource
-//                .authorizeRequests().antMatchers("/webjars/**").permitAll()
-//                .and().authorizeRequests().antMatchers("/static/css").permitAll()
-//                .and().authorizeRequests().antMatchers("/js").permitAll()
-//
-//                // widely access resource
-//                .and().authorizeRequests().antMatchers("/customers").permitAll()
-//                .and().authorizeRequests().antMatchers("/courses").permitAll()
-//                .and().authorizeRequests().antMatchers("/course/show/**").permitAll()
-//
-//                // authentication resources
-//                .and().formLogin().loginPage("/login").permitAll()
-//                .and().authorizeRequests().antMatchers("/user/**").authenticated()
-//                .and().authorizeRequests().antMatchers("/customer/**").authenticated()
-//                .and().authorizeRequests().antMatchers("/course/new").authenticated()
-//                .and().authorizeRequests().antMatchers("/course/edit/**").authenticated()
-//                .and().authorizeRequests().antMatchers("/course/delete/**").authenticated()
-//                .and().exceptionHandling().accessDeniedPage("/access_denied");
-//    }
 
     @Bean
     public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler (){
