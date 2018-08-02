@@ -35,8 +35,22 @@ public class UserRestController {
     private TiGiAuthService tiGiAuthService;
 
 
+
     // =======================================
-    // =            REST Methods             =
+    // =           Auth REST Method          =
+    // =======================================
+
+    @GetMapping(value = "/user/show")
+    public User showUser(){
+        return tiGiAuthService.sessionCheckLogin(null, () ->{
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return userService.findByUserName(userDetails.getUsername());
+        });
+    }
+
+
+    // =======================================
+    // =         Non-Auth REST Method        =
     // =======================================
 
     @GetMapping(value = "/users")
@@ -54,14 +68,8 @@ public class UserRestController {
         return userService.listAll().size();
     }
 
-
-    @GetMapping(value = "/user/show")
-    public User showUser(){
-        return tiGiAuthService.sessionCheckLogin(null, () ->{
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return userService.findByUserName(userDetails.getUsername());
-        });
+    @PostMapping(value = "/user/create")
+    public User createNewUser(@RequestParam User user){
+        return null;
     }
-
-
 }
