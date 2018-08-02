@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.services.sercurity.encrypt;
+package ldt.springframework.springmvc.sercurity.encrypt;
 
 /*
  * author: Luu Duc Trung

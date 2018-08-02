@@ -6,7 +6,7 @@ import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.CustomerService;
 import ldt.springframework.springmvc.services.UserService;
-import ldt.springframework.springmvc.services.sercurity.TiGiAuthService;
+import ldt.springframework.springmvc.sercurity.TiGiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

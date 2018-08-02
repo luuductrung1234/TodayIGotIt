@@ -1,5 +1,8 @@
 package ldt.springframework.springmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 /*
@@ -48,6 +51,8 @@ public class CartDetails extends AbstractDomainEntity{
     // =         Getters & Setters           =
     // =======================================
 
+    @JsonIgnore
+    @JsonProperty(value = "cartdetails_cart")
     public Cart getCart() {
         return cart;
     }

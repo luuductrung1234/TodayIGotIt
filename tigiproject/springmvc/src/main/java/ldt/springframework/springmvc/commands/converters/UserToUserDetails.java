@@ -1,7 +1,7 @@
 package ldt.springframework.springmvc.commands.converters;
 
 import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.sercurity.UserDetailsImpl;
+import ldt.springframework.springmvc.sercurity.UserDetailsImpl;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;

@@ -1,5 +1,7 @@
 package ldt.springframework.springmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.springmvc.enums.OrderStatus;
 import org.aspectj.weaver.ast.Or;
 import org.hibernate.annotations.LazyCollection;
@@ -110,6 +112,8 @@ public class Order  extends AbstractDomainEntity{
         this.dateShipped = dateShipped;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "order_customer")
     public User getUser() {
         return user;
     }

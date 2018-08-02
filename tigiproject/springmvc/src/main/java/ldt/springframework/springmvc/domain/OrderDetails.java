@@ -1,5 +1,8 @@
 package ldt.springframework.springmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -51,6 +54,8 @@ public class OrderDetails extends AbstractDomainEntity{
     // =         Getters & Setters           =
     // =======================================
 
+    @JsonIgnore
+    @JsonProperty(value = "orderdetails_order")
     public Order getOrder() {
         return order;
     }

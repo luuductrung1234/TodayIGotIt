@@ -72,4 +72,9 @@ public class CourseRepositoryJpaDAOImpl extends AbstractJpaDAORepository
 
         em.close();
     }
+
+    @Override
+    public List<Course> findByDesc(String desc) {
+        return null;
+    }
 }

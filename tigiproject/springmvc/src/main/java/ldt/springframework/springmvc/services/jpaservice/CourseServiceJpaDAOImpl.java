@@ -63,4 +63,9 @@ public class CourseServiceJpaDAOImpl implements CourseService {
 
         return saveOrUpdate(newCourse);
     }
+
+    @Override
+    public List<Course> findByDesc(String desc) {
+        return courseRepository.findByDesc(desc);
+    }
 }

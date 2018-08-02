@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.services.sercurity;
+package ldt.springframework.springmvc.sercurity;
 
 import ldt.springframework.springmvc.services.CartService;
 import ldt.springframework.springmvc.services.UserService;

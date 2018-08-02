@@ -1,5 +1,7 @@
 package ldt.springframework.springmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -103,6 +105,8 @@ public class Customer extends AbstractDomainEntity{
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "customer_user")
     public User getUser() {
         return user;
     }

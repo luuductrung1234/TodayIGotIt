@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.config;
+package ldt.springframework.tigirestapi.config;
 
 import ldt.springframework.springmvc.enums.RoleType;
 import ldt.springframework.springmvc.sercurity.CustomAuthenticationSuccessHandler;
@@ -99,7 +99,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/H2Console").disable()
 
                 // static resource
                 .authorizeRequests().antMatchers("/webjars/**").permitAll()
@@ -109,7 +108,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // widely access resource
                 .and().authorizeRequests().antMatchers("/customers").permitAll()
                 .and().authorizeRequests().antMatchers("/courses").permitAll()
-                .and().authorizeRequests().antMatchers("/api/courses").permitAll()
                 .and().authorizeRequests().antMatchers("/course/show/**").permitAll()
 
                 // authentication resources
@@ -118,9 +116,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
                 .and().authorizeRequests().antMatchers("/course/edit/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
                 .and().authorizeRequests().antMatchers("/course/delete/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
-                .and().formLogin().successHandler(customAuthenticationSuccessHandler).loginPage("/login").permitAll()
-                .and().logout().logoutSuccessHandler(customLogoutSuccessHandler).permitAll()
-                .and().exceptionHandling().accessDeniedPage("/access_denied");
+
+
+                // widely access REST resource
+                .and().authorizeRequests().antMatchers("/api/courses").permitAll()
+                .and().authorizeRequests().antMatchers("/api/course/show/**").authenticated()
+                .and().authorizeRequests().antMatchers("/api/course/find/**").permitAll()
+                .and().authorizeRequests().antMatchers("/api/users").permitAll()
+                .and().authorizeRequests().antMatchers("/api/user/find/**").permitAll()
+
+                // authentication REST resource
+                .and().authorizeRequests().antMatchers("/api/user/show").authenticated()
+
+
+                .and().formLogin().defaultSuccessUrl("/", true).permitAll()
+                .and().httpBasic()
+                .and().csrf().disable()
+                .logout().logoutSuccessUrl("/");
 
     }
 

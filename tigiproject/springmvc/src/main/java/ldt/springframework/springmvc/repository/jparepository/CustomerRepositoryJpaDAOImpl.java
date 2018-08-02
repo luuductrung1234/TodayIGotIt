@@ -2,7 +2,7 @@ package ldt.springframework.springmvc.repository.jparepository;
 
 import ldt.springframework.springmvc.domain.Customer;
 import ldt.springframework.springmvc.repository.CustomerRepository;
-import ldt.springframework.springmvc.services.sercurity.encrypt.EncryptionService;
+import ldt.springframework.springmvc.sercurity.encrypt.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,8 @@
 package ldt.springframework.springmvc.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.springmvc.domain.security.Role;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -68,10 +70,15 @@ public class User extends AbstractDomainEntity{
         return username;
     }
 
+
+    @JsonIgnore
+    @JsonProperty(value = "user_password")
     public String getPassword() {
         return password;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "user_encryptpassword")
     public String getEncryptedPassowrd() {
         return encryptedPassowrd;
     }

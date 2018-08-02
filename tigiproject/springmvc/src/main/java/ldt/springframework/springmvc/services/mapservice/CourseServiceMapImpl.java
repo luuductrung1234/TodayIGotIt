@@ -56,4 +56,9 @@ public class CourseServiceMapImpl extends AbstractMapService implements CourseSe
     public Course saveOrUpdateCourseForm(CourseForm courseForm) {
         return null;
     }
+
+    @Override
+    public List<Course> findByDesc(String desc) {
+        return null;
+    }
 }

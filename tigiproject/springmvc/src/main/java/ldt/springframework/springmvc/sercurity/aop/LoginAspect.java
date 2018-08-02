@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.services.sercurity.aop;
+package ldt.springframework.springmvc.sercurity.aop;
 
 import ldt.springframework.springmvc.event.security.LoginFailureEvent;
 import ldt.springframework.springmvc.event.security.LoginFailureEventPublisher;
@@ -38,12 +38,12 @@ public class LoginAspect {
     public void doAuthenticate() {
     }
 
-    @Before("ldt.springframework.springmvc.services.sercurity.aop.LoginAspect.doAuthenticate() && args(authentication)")
+    @Before("ldt.springframework.springmvc.sercurity.aop.LoginAspect.doAuthenticate() && args(authentication)")
     public void loginBefore(Authentication authentication) {
         System.out.println(">>> This is before the Authenticate Method: Authentication: " + authentication.isAuthenticated());
     }
 
-    @AfterReturning(value = "ldt.springframework.springmvc.services.sercurity.aop.LoginAspect.doAuthenticate()",
+    @AfterReturning(value = "ldt.springframework.springmvc.sercurity.aop.LoginAspect.doAuthenticate()",
             returning = "authentication")
     public void logAfterAuthenticate(Authentication authentication) {
         // publishing the login success event
@@ -51,7 +51,7 @@ public class LoginAspect {
         loginSuccessEventPublisher.publish(new LoginSuccessEvent(authentication));
     }
 
-    @AfterThrowing("ldt.springframework.springmvc.services.sercurity.aop.LoginAspect.doAuthenticate() " +
+    @AfterThrowing("ldt.springframework.springmvc.sercurity.aop.LoginAspect.doAuthenticate() " +
             "&& args(authentication)")
     public void logAuthenicationException(Authentication authentication) {
 

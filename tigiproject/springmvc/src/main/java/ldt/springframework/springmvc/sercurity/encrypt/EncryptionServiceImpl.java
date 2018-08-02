@@ -1,6 +1,5 @@
-package ldt.springframework.springmvc.services.sercurity.encrypt;
+package ldt.springframework.springmvc.sercurity.encrypt;
 
-import ldt.springframework.springmvc.services.sercurity.encrypt.EncryptionService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,7 @@
 package ldt.springframework.springmvc.domain.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.springmvc.domain.AbstractDomainEntity;
 import ldt.springframework.springmvc.domain.User;
 import ldt.springframework.springmvc.enums.RoleType;
@@ -54,6 +56,8 @@ public class Role extends AbstractDomainEntity {
     // =         Getters & Setters           =
     // =======================================
 
+    @JsonIgnore
+    @JsonProperty(value = "role_user")
     public List<User> getUsers() {
         return users;
     }

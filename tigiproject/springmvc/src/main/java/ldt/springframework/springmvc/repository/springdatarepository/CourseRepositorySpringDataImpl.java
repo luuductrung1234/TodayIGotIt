@@ -42,6 +42,14 @@ public class CourseRepositorySpringDataImpl implements CourseRepository {
     }
 
     @Override
+    public List<Course> findByDesc(String desc) {
+        List<Course> courses = new ArrayList<>();
+        courseSpringData.findByDescriptionIsContaining(desc).forEach(courses::add);
+
+        return courses;
+    }
+
+    @Override
     public Course getById(Integer id) {
         if(courseSpringData.findById(id).isPresent()){
             return courseSpringData.findById(id).get();
@@ -58,4 +66,5 @@ public class CourseRepositorySpringDataImpl implements CourseRepository {
     public void delete(Integer id) {
         courseSpringData.deleteById(id);
     }
+
 }

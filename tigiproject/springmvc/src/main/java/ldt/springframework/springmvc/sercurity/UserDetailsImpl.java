@@ -1,4 +1,4 @@
-package ldt.springframework.springmvc.services.sercurity;
+package ldt.springframework.springmvc.sercurity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

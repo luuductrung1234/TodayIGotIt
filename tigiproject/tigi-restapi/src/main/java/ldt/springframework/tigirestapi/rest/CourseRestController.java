@@ -4,6 +4,8 @@ import ldt.springframework.springmvc.domain.Course;
 import ldt.springframework.springmvc.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/api")
 public class CourseRestController {
 
     // =======================================
@@ -31,8 +34,18 @@ public class CourseRestController {
     // =             REST Method             =
     // =======================================
 
-    @GetMapping("/courses")
+    @GetMapping(value = "/courses")
     public List<Course> getAllCourse(){
         return (List<Course>) courseService.listAll();
+    }
+
+    @GetMapping(value = "/course/show/{id}")
+    public Course getCourseById(@PathVariable Integer id){
+        return courseService.getById(id);
+    }
+
+    @GetMapping(value = "/course/find/{desc}")
+    public List<Course> getCourseByDesc(@PathVariable String desc){
+        return courseService.findByDesc(desc);
     }
 }

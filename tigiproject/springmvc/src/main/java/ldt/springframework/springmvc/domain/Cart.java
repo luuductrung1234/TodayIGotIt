@@ -1,5 +1,7 @@
 package ldt.springframework.springmvc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -46,6 +48,8 @@ public class Cart extends AbstractDomainEntity{
     // =         Getters & Setters           =
     // =======================================
 
+    @JsonIgnore
+    @JsonProperty(value = "cart_user")
     public User getUser() {
         return user;
     }
