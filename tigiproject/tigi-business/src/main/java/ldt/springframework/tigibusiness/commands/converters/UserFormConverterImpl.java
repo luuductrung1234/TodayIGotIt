@@ -2,8 +2,10 @@ package ldt.springframework.tigibusiness.commands.converters;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.domain.Address;
+import ldt.springframework.tigibusiness.domain.Cart;
 import ldt.springframework.tigibusiness.domain.Customer;
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import org.springframework.stereotype.Component;
 
 /*
@@ -25,6 +27,11 @@ public class UserFormConverterImpl implements UserFormConverter{
         user.setUsername(source.getUserName());
         user.setPassword(source.getPasswordText());
         user.setEncryptedPassowrd(source.getPasswordEncrypted());
+
+        user.setRoles(source.getUserRoles());
+
+        if(source.getUserCart() == null)
+            source.setUserCart(new Cart());
         user.setCart(source.getUserCart());
 
         user.setCustomer(new Customer());
@@ -64,6 +71,7 @@ public class UserFormConverterImpl implements UserFormConverter{
         userForm.setPasswordTextConf("");
         userForm.setPasswordEncrypted(source.getEncryptedPassowrd());
         userForm.setUserCart(source.getCart());
+        userForm.setUserRoles(source.getRoles());
 
         userForm.setCustomerId(source.getCustomer().getId());
         userForm.setCustomerVersion(source.getCustomer().getVersion());

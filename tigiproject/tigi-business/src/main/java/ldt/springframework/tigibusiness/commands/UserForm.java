@@ -2,12 +2,15 @@ package ldt.springframework.tigibusiness.commands;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.tigibusiness.domain.Cart;
+import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /*
  * author: Luu Duc Trung
@@ -36,6 +39,7 @@ public class UserForm {
     @NotEmpty
     private String passwordTextConf;
     private String passwordEncrypted;
+    private List<Role> userRoles;
     private Cart userCart;
 
     private Integer customerId;
@@ -118,6 +122,14 @@ public class UserForm {
         this.userName = userName;
     }
 
+    public List<Role> getUserRoles(){
+        return this.userRoles;
+    }
+
+    public void setUserRoles(List<Role> userRoles){
+        this.userRoles = userRoles;
+    }
+
     @JsonIgnore
     @JsonProperty(value = "userform_password")
     public String getPasswordText() {
@@ -135,6 +147,8 @@ public class UserForm {
     public void setPasswordTextConf(String passwordTextConf) {
         this.passwordTextConf = passwordTextConf;
     }
+
+
 
     public String getFirstName() {
         return firstName;

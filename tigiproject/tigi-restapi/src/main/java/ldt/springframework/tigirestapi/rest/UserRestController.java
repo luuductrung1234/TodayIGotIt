@@ -70,26 +70,26 @@ public class UserRestController {
         return userForms;
     }
 
-    @GetMapping(value = "/user/find/{username}")
-    public Customer getUserByUsername(@PathVariable String username){
-        return userService.findByUserName(username).getCustomer();
-    }
-
     @GetMapping(value = "/users/count")
     public int countUsers(){
         return userService.listAll().size();
     }
 
+
+    @GetMapping(value = "/user/find/{username}")
+    public Customer getUserByUsername(@PathVariable String username){
+        return userService.findByUserName(username).getCustomer();
+    }
+
     @PostMapping(value = "/user/create")
-    public UserForm createNewUser(@RequestParam UserForm userForm){
+    public UserForm createNewUser(@RequestBody UserForm userForm){
         try {
             if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
                 return null;
             }
-
             User savedUser = userService.saveOrUpdateUserForm(userForm);
 
-            return userFormConverter.revert(savedUser);
+           return userFormConverter.revert(savedUser);
         } catch (Exception ex) {
             ex.getStackTrace();
         }
