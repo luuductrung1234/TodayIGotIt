@@ -1,0 +1,89 @@
+<div>
+    <form class="form-filter-course">
+        <div class="row">
+            <div class="col-filter">
+                <h3>Language</h3>
+                <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                    <option value="" selected>All</option>
+                    <option value="java">Java</option>
+                    <option value="csharp">CSharp</option>
+                </select>
+            </div>
+            <div class="col-filter">
+                <h3>Instructor</h3>
+                <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                    <option value="" selected>All</option>
+                    <option value="jc">JC</option>
+                    <option value="cb">CB</option>
+                </select>
+            </div>
+            <div class="col-filter">
+                <h3>Price</h3>
+                <div>
+                    <input type="number" id="from" name="from" class="input-text from-to mr-pd-input-df" placeholder="form" /> -
+                    <input type="number" id="to" name="to" class="input-text from-to mr-pd-input-df" placeholder="to" />
+                </div>
+            </div>
+            <div class="col-filter">
+                <h3>Type anything</h3>
+                <div>
+                    <input type="text" id="filterText" name="filterText" ng-model="filterText" class="input-text text mr-pd-input-df" placeholder="type anything" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="ava-courses">
+        <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in courses | filter: filterText | filter: course.instructor = filterInstructor | filter: course.keys = filterLang">
+            <div class="display-content">
+                <img ng-src="{{course.imageUrl}}">
+                <h2>{{course.description}}</h2>
+                <!-- <p class="title">{{course.instructor}}</p> -->
+                <p class="info">{{course.description}}</p>
+                <div class="card-body">
+                    <del class="old-price">{{course.price | currency}}</del>
+                    <span class="present-price">{{course.price | currency}}</span>
+                </div>
+                <p>
+                    <a href="#" class="favorite"><i class="far fa-heart"></i></a>
+                    <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                </p>
+            </div>
+            <!-- <div class="info-box">
+                    <img ng-src="{{course.img}}">
+                    <h2>{{course.name}}</h2>
+                    <p class="title">{{course.instructor}}</p>
+                    <p class="info">{{course.smalldescription}}</p>
+                    <div class="card-body">
+                        <del class="old-price">{{course.old | currency}}</del>
+                        <span class="present-price">{{course.present | currency}}</span>
+                    </div>
+                    <p>
+                        <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                    </p>
+                </div> -->
+        </div>
+    </div>
+
+    <div class="pagination">
+        <a href="#" ng-click="curPage - 1">&laquo;</a>
+        <a href="#">1</a>
+        <a href="#" ng-click="curPage + 1">&raquo;</a>
+    </div>
+
+    <script>
+        // function showInfo() {
+        //     alert();
+        // }
+
+        // function hideInfo() {
+        //     alert();
+        // }
+
+        // $('.card .display-content').hover(function() {
+        //     alert('in');
+        // }, function() {
+        //     alert('out');
+        // })
+    </script>
+</div>

@@ -1,0 +1,286 @@
+.tab {
+    overflow: hidden;
+    background-color: inherit;
+}
+
+.tab button {
+    color: #17a2b8;
+    background-color: inherit;
+    font-family: 'Quicksand';
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    margin: 0px 5px;
+    transition: 0.3s;
+    font-size: 20px;
+}
+
+.tab button:hover,
+.tab button.active {
+    border-bottom: 5px solid #17a2b8;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+}
+
+
+/*course content*/
+
+.accordion {
+    margin-top: 20px;
+    background-color: #444444;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.accordion h2,
+.accordion h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.active,
+.accordion:hover {
+    background-color: #333333;
+}
+
+.accordion .arrow {
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: rotateIn;
+    animation-name: rotateIn;
+    font-size: 20px;
+    float: right;
+}
+
+.accordion h3,
+.accordion .arrow {
+    display: inline;
+}
+
+.toggle-expand {
+    -webkit-animation-name: rotateIn;
+    animation-name: rotateIn;
+}
+
+@-webkit-keyframes rotateIn {
+    0% {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(0);
+    }
+}
+
+@keyframes rotateIn {
+    0% {
+        transform-origin: center center;
+        transform: rotate(180deg);
+    }
+    100% {
+        transform-origin: center center;
+        transform: rotate(0);
+    }
+}
+
+.panel {
+    background-color: #333333;
+    /* border: 0.5px dotted #444444; */
+    /* max-height: 0; */
+    /* height: auto; */
+    overflow: hidden;
+    display: none;
+    transition: max-height 0.2s ease-out;
+}
+
+.list-group:first-child .list-group-item:first-child {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.list-group:last-child .list-group-item:last-child {
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.list-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.list-group a {
+    color: white;
+}
+
+.list-group-item-action {
+    width: 100%;
+    text-align: inherit;
+    text-decoration: none;
+}
+
+.list-group-item-action:hover,
+.list-group-item-action:focus {
+    text-decoration: none;
+    background-color: #444;
+}
+
+.list-group-item-action:active {
+    box-shadow: 0 0px 8px 2px rgba(255, 255, 255, 0.2);
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #303030;
+    border: 1px solid #444;
+    text-decoration: none;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.list-group-item:last-child {
+    margin-bottom: 0;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.list-group-item:hover,
+.list-group-item:focus {
+    z-index: 1;
+    text-decoration: none;
+}
+
+.list-group-item.active {
+    z-index: 2;
+    box-shadow: 0 0px 8px 2px rgba(255, 255, 255, 0.2);
+}
+
+
+/*rating style*/
+
+.heading {
+    font-size: 25px;
+    margin-right: 25px;
+}
+
+.fa {
+    font-size: 25px;
+}
+
+.checked {
+    color: orange;
+}
+
+
+/* Three column layout */
+
+.side {
+    float: left;
+    width: 15%;
+    margin-top: 10px;
+}
+
+.middle {
+    margin-top: 10px;
+    float: left;
+    width: 70%;
+}
+
+
+/* Place text to the right */
+
+.right {
+    text-align: right;
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* The bar container */
+
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+
+/* Individual bars */
+
+.bar-5 {
+    width: 60%;
+    height: 18px;
+    background-color: #4CAF50;
+}
+
+.bar-4 {
+    width: 30%;
+    height: 18px;
+    background-color: #2196F3;
+}
+
+.bar-3 {
+    width: 10%;
+    height: 18px;
+    background-color: #00bcd4;
+}
+
+.bar-2 {
+    width: 4%;
+    height: 18px;
+    background-color: #ff9800;
+}
+
+.bar-1 {
+    width: 15%;
+    height: 18px;
+    background-color: #f44336;
+}
+
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+
+@media (max-width: 400px) {
+    .side,
+    .middle {
+        width: 100%;
+    }
+    .right {
+        display: none;
+    }
+}

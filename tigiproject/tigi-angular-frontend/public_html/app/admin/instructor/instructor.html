@@ -1,0 +1,77 @@
+<div ng-init="startAdminInstructorFrom = 0">
+    <div>
+        <form class="form-filter-course">
+            <div class="row">
+                <div class="col-filter">
+                    <h3>Type anything</h3>
+                    <div>
+                        <input type="text" id="filterText" name="filterText" ng-model="filterText" class="input-text mr-pd-input-df" placeholder="type anything" />
+                    </div>
+                </div>
+                <div class="col-filter">
+                    <h3>Language</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                        <option value="" selected>All</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">CSharp</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="course-table">
+        <tr>
+            <th>Name</th>
+            <th>Full Name</th>
+            <th>Number of course</th>
+            <th colspan="3">Action</th>
+        </tr>
+        <tr ng-repeat="instructor in users | limitTo: 5: startAdminInstructorFrom | filter: filterText">
+            <td>{{instructor.username}}</td>
+            <td>{{instructor.fname}} {{instructor.lname}}</td>
+            <td>{{$index + 10}}</td>
+            <td><a href="#/instructor/{{instructor.username}}" class="action-link"><i class="fas fa-eye"></i></a></td>
+            <td><a href="#/instructor/{{instructor.username}}" class="action-link"><i class="far fa-edit"></i></a></td>
+            <td><a href="#" class="action-link"><i class="far fa-trash-alt"></i></a></td>
+        </tr>
+    </table>
+
+    <div class="pagination">
+        <a href="#" id="prev">&laquo;</a>
+        <a href="#" nav-page-link ng-repeat="instructor in users" ng-show="($index + 5) % 5 == 0" id="{{'startAdminInstructorFromIndex' + $index}}" class="startAdminInstructorFromIndex" ng-class="($index) == 0 ? 'active' : ''">
+            <span>{{($index + 5)/5}}</span>
+        </a>
+        <a href="#" id="next">&raquo;</a>
+    </div>
+
+    <script>
+        $('#prev').on('click', function() {
+            if ($(this).scope().startAdminInstructorFrom == 0) {
+                return false;
+            }
+
+            $(this).scope().startAdminInstructorFrom -= 5;
+            $(this).scope().$apply();
+
+            $('.startAdminInstructorFromIndex').removeClass('active');
+            $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
+
+            return false;
+        });
+
+        $('#next').on('click', function() {
+            if (($(this).scope().users.length - $(this).scope().startAdminInstructorFrom) < 5) {
+                return false;
+            }
+
+            $(this).scope().startAdminInstructorFrom += 5;
+            $(this).scope().$apply();
+
+            $('.startAdminInstructorFromIndex').removeClass('active');
+            $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
+
+            return false;
+        });
+    </script>
+</div>

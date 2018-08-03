@@ -1,0 +1,162 @@
+<div>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'subscribed')" id="default">Subscribed Course</button>
+        <button class="tablinks" onclick="openTab(event, 'favorite')">Favorite Course</button>
+        <button class="tablinks" onclick="openTab(event, 'completed')">Completed Course</button>
+    </div>
+
+    <div id="subscribed" class="tabcontent">
+        <h2>Subscribed Course</h2>
+        <form class="form-filter-course">
+            <div class="row">
+                <div class="col-filter">
+                    <h3>Language</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                        <option value="" selected>All</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">CSharp</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Instructor</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                        <option value="" selected>All</option>
+                        <option value="jc">JC</option>
+                        <option value="cb">CB</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Type anything</h3>
+                    <div>
+                        <input type="text" id="filterTextSubscribed" name="filterTextSubscribed" ng-model="filterTextSubscribed" class="input-text text mr-pd-input-df" placeholder="type anything" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="ava-courses">
+            <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in javaavacourses">
+                <div class="display-content">
+                    <img ng-src="{{course.img}}">
+                    <h2>{{course.name}}</h2>
+                    <p class="title">{{course.instructor}}</p>
+                    <p class="info">{{course.smalldescription}}</p>
+                    <!-- <div class="card-body">
+                        <del class="old-price">{{course.old | currency}}</del>
+                        <span class="present-price">{{course.present | currency}}</span>
+                    </div> -->
+                    <p>
+                        <a href="#/course/{{course.id}}" class="more-info">Continue</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="favorite" class="tabcontent">
+        <h2>Favorite Course</h2>
+        <form class="form-filter-course">
+            <div class="row">
+                <div class="col-filter">
+                    <h3>Language</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                        <option value="" selected>All</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">CSharp</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Instructor</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                        <option value="" selected>All</option>
+                        <option value="jc">JC</option>
+                        <option value="cb">CB</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Type anything</h3>
+                    <div>
+                        <input type="text" id="filterTextFavorite" name="filterTextFavorite" ng-model="filterTextFavorite" class="input-text text mr-pd-input-df" placeholder="type anything" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="ava-courses">
+            <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in javaavacourses">
+                <div class="display-content">
+                    <img ng-src="{{course.img}}">
+                    <h2>{{course.name}}</h2>
+                    <p class="title">{{course.instructor}}</p>
+                    <p class="info">{{course.smalldescription}}</p>
+                    <!-- <div class="card-body">
+                        <del class="old-price">{{course.old | currency}}</del>
+                        <span class="present-price">{{course.present | currency}}</span>
+                    </div> -->
+                    <p>
+                        <a href="#/course/{{course.id}}" class="more-info">Continue</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="completed" class="tabcontent">
+        <h2>Completed Course</h2>
+        <form class="form-filter-course">
+            <div class="row">
+                <div class="col-filter">
+                    <h3>Language</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                        <option value="" selected>All</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">CSharp</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Instructor</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                        <option value="" selected>All</option>
+                        <option value="jc">JC</option>
+                        <option value="cb">CB</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Type anything</h3>
+                    <div>
+                        <input type="text" id="filterTextCompleted" name="filterTextCompleted" ng-model="filterTextCompleted" class="input-text text mr-pd-input-df" placeholder="type anything" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="ava-courses">
+            <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in javaavacourses">
+                <div class="display-content">
+                    <img ng-src="{{course.img}}">
+                    <h2>{{course.name}}</h2>
+                    <p class="title">{{course.instructor}}</p>
+                    <p class="info">{{course.smalldescription}}</p>
+                    <!-- <div class="card-body">
+                        <del class="old-price">{{course.old | currency}}</del>
+                        <span class="present-price">{{course.present | currency}}</span>
+                    </div> -->
+                    <p>
+                        <a href="#/course/{{course.id}}" class="more-info">Review</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#default').click();
+
+        function openTab(evt, tabName) {
+            $('.tabcontent').css('display', 'none');
+            $('.tablinks').removeClass('active');
+            $('#' + tabName).css('display', 'block');
+            $(evt.target).addClass('active');
+        }
+    </script>
+</div>

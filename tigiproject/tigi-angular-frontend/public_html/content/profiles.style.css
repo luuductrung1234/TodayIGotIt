@@ -1,0 +1,33 @@
+.ver-tab {
+    float: left;
+    width: 20%;
+    min-height: 300px;
+}
+
+.ver-tab .tablinks {
+    display: block;
+    background-color: inherit;
+    color: #17a2b8;
+    padding: 14px 16px;
+    margin: 0px 5px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.ver-tab .tablinks:hover,
+.ver-tab .tablinks.active {
+    border-right: 5px solid #17a2b8;
+}
+
+.ver-tabcontent {
+    float: left;
+    padding: 0px 12px;
+    width: 80%;
+    min-height: 300px;
+    transition: 0.3s;
+}

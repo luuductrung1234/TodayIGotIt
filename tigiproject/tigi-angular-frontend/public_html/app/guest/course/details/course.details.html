@@ -1,0 +1,182 @@
+<div class="container">
+    <div class="course-header">
+        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_164b0bb71d9%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_164b0bb71d9%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.7265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+            alt="Avatar">
+        <p>
+            <h1>{{current.description}}</h1>
+        </p>
+        <div class="subscribed-fr" ng-class="(curLogin[0].role !== 'admin' && curLogin.length !== 0) ? ['show'] : ['hidden']">
+            <p>
+                <a href="#" class="continue"><i class="fas fa-play"></i> Continue</a>
+            </p>
+            <p>75% completed</p>
+            <div class="prog">
+                <div class="prog-bar prog-bar-striped prog-bar-animated"></div>
+            </div>
+        </div>
+        <div class="demo-fr" ng-class="(curLogin.length === 0) ? ['show'] : ['hidden']">
+            <p style="margin-bottom: 20px;">
+                <a href="#" class="continue"><i class="fas fa-play"></i> Watch Demo</a>
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="#" class="favorite">
+                    <i class="far fa-heart"></i>
+                </a>
+                <a href="#" class="c-btn btn-add-to-cart"><i class="fas fa-cart-plus"></i> Add To Cart</a>
+                <a href="#" class="c-btn btn-buy-now"><i class="fas fa-money-bill"></i> Buy Now</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'overview')" id="default">Overview</button>
+        <button class="tablinks" onclick="openTab(event, 'course-content')">Course Content</button>
+        <button class="tablinks" onclick="openTab(event, 'rating-feedback')">Rating & Feedback</button>
+        <button class="tablinks" onclick="openTab(event, 'related-courses')">Related Courses</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="overview" class="tabcontent">
+        <h2>Overview the Course</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere vehicula ligula, vel blandit ligula. Vivamus posuere dui eu accumsan interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus
+            vehicula risus quis nisl posuere, id venenatis diam tincidunt. Integer at euismod justo. Phasellus mattis quam vitae magna elementum egestas porttitor eu est. Nullam eu felis consectetur, finibus sapien at, accumsan dui. Pellentesque habitant
+            morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce vehicula aliquam ante, in imperdiet nulla. Proin porttitor erat et vulputate tristique. Quisque interdum elit in augue efficitur, a venenatis massa tempor. Duis
+            in augue non arcu placerat vulputate ut vitae dui. Mauris erat urna, accumsan non orci nec, dictum sollicitudin nibh
+        </p>
+
+        <h2>Instructor: {{current.instructor}}</h2>
+
+        <p>
+            Date created: {{current.dateCreated}}
+        </p>
+
+        <p>
+            Last updated: {{current.lastUpdated}}
+        </p>
+    </div>
+
+    <div id="course-content" class="tabcontent">
+        <h2>Course Content</h2>
+        <div ng-repeat="chapter in current.chapter">
+            <button class="accordion" toggle-chapter>
+                <h3>{{chapter}}</h3> <i class="fas fa-angle-down arrow"></i>
+            </button>
+            <div class="panel">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
+                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item list-group-item-action disabled">Morbi leo risus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rating-feedback" class="tabcontent">
+        <h2>Rating</h2>
+        <div class="container">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <p>4.1 average based on 254 reviews.</p>
+            <hr style="border:3px solid #f1f1f1">
+
+            <div class="row">
+                <div class="side">
+                    <div>5 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                        <div class="bar-5"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>150</div>
+                </div>
+                <div class="side">
+                    <div>4 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                        <div class="bar-4"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>63</div>
+                </div>
+                <div class="side">
+                    <div>3 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                        <div class="bar-3"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>15</div>
+                </div>
+                <div class="side">
+                    <div>2 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                        <div class="bar-2"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>6</div>
+                </div>
+                <div class="side">
+                    <div>1 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                        <div class="bar-1"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div>20</div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <h2>Feedback</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+
+    <div id="related-courses" class="tabcontent">
+        <div class="course-container">
+            <div>
+                <h2>Related Course: <span class="more-link"><a href="#"><i class="fas fa-plus"></i> More...</a></span></h2>
+            </div>
+            <div class="ava-courses">
+                <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in relatedcourses">
+                    <img ng-src="{{course.imageUrl}}">
+                    <h2>{{course.description}}</h2>
+                    <!-- <p class="title">{{course.instructor}}</p> -->
+                    <p class="info">{{course.description}}</p>
+                    <div class="card-body">
+                        <del class="old-price">{{course.price | currency}}</del>
+                        <span class="present-price">{{course.price | currency}}</span>
+                    </div>
+                    <p>
+                        <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#default').click();
+
+        function openTab(evt, tabName) {
+            $('.tabcontent').css('display', 'none');
+            $('.tablinks').removeClass('active');
+            $('#' + tabName).css('display', 'block');
+            $(evt.target).addClass('active');
+        }
+    </script>
+</div>

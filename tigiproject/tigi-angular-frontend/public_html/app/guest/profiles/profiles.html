@@ -1,0 +1,119 @@
+<div class="container">
+    <div class="ver-tab">
+        <button class="tablinks" onclick="openTab(event, 'personal-info')" id="default">Personal Info</button>
+        <button class="tablinks" onclick="openTab(event, 'contact-info')">Contact Info</button>
+        <button class="tablinks" onclick="openTab(event, 'change-pass')">Change Password</button>
+    </div>
+
+    <div id="personal-info" class="ver-tabcontent">
+        <h2>Personal Info</h2>
+        <form ng-submit="editPersonalInfo()" id="personal-info-form" class="form-full-width" style="width: 100%;">
+            <div class="row">
+                <div class="col" style="width: 100%; padding: 0px;">
+                    <label for="fname"><b>First Name</b></label>
+                    <input type="text" id="fname" name="fname" ng-model="$root.curLogin[0].fname" class="input-text mr-pd-input-df" placeholder="Enter First Name" ng-value="current.fname" required>
+
+                    <label for="lname"><b>Last Name</b></label>
+                    <input type="text" id="lname" name="lname" ng-model="$root.curLogin[0].lname" class="input-text mr-pd-input-df" placeholder="Enter Last Name" ng-value="current.lname" required>
+
+                    <label for="gender"><b>Gender</b></label>
+                    <select id="gender" ng-model="$root.curLogin[0].gender" class="c-cbo mr-pd-input-df">
+                        <option>--Select--</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+
+                    <label for="dob"><b>Date of Birth</b></label>
+                    <input type="date" id="dob" ng-model="$root.curLogin[0].dob" name="dob" class="input-text mr-pd-input-df" ng-value="current.dob" required/>
+
+                    <div style="overflow:auto;">
+                        <div style="float:right;">
+                            <input type="submit" id="btn-personal-info" name="btn-personal-info" value="Save" class="c-btn c-btn-sm" style="width: auto;">
+                            <input type="reset" id="btn-clear-info" name="btn-clear-info" value="Clear" class="c-btn c-btn-df" style="width: auto;">
+                            <input type="button" id="btn-reset-info" name="btn-reset-info" value="Reset" class="c-btn c-btn-rs" style="width: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="contact-info" class="ver-tabcontent">
+        <h2>Contact Info</h2>
+        <form ng-submit="editContactInfo()" id="contact-info-form" class="form-full-width" style="width: 100%;">
+            <div class="row">
+                <div class="col" style="width: 100%; padding: 0px;">
+                    <label for="email"><b>Email</b></label>
+                    <input type="email" id="email" ng-model="$root.curLogin[0].email" name="email" class="input-text mr-pd-input-df" placeholder="Enter Email" required>
+
+                    <label for="phone"><b>Phone</b></label>
+                    <input type="tel" id="phone" ng-model="$root.curLogin[0].phone" name="phone" class="input-text mr-pd-input-df" placeholder="Enter Phone" required>
+
+                    <h3>Additional Contact Info - Address</h3>
+                    <label for="addressZipcode"><b>Address Zipcode</b></label>
+                    <input type="text" id="addressZipcode" ng-model="$root.curLogin[0].addressZipcode" name="addressZipcode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+
+                    <label for="addressState"><b>Address State</b></label>
+                    <input type="text" id="addressState" ng-model="$root.curLogin[0].addressState" name="addressState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
+
+                    <label for="addressCity"><b>Address City</b></label>
+                    <input type="text" id="addressCity" ng-model="$root.curLogin[0].addressCity" name="addressCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
+
+                    <label for="addressLine"><b>Address Line</b></label>
+                    <input type="text" id="addressLine" ng-model="$root.curLogin[0].addressLine" name="addressLine" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
+
+                    <hr/>
+                    <label>Links</label>
+                    <input type="url" id="fb-link" name="fb-link" class="input-text mr-pd-input-df" placeholder="Your Facebook Link" required>
+                    <input type="url" id="gg-link" name="gg-link" class="input-text mr-pd-input-df" placeholder="Your Google Plus Link" required>
+                    <input type="url" id="tw-link" name="tw-link" class="input-text mr-pd-input-df" placeholder="Your Twitter Link" required>
+
+                    <div style="overflow:auto;">
+                        <div style="float:right;">
+                            <input type="submit" id="btn-contact-info" name="btn-contact-info" value="Save" class="c-btn c-btn-sm" style="width: auto;">
+                            <input type="reset" id="btn-clear-contact-info" name="btn-clear-contact-info" value="Clear" class="c-btn c-btn-df" style="width: auto;">
+                            <input type="button" id="btn-reset-contact-info" name="btn-reset-contact-info" value="Reset" class="c-btn c-btn-rs" style="width: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="change-pass" class="ver-tabcontent">
+        <h2>Change Password</h2>
+        <form ng-submit="changePass()" id="change-pass-form" class="form-full-width" style="width: 100%;">
+            <div class="row">
+                <div class="col" style="width: 100%; padding: 0px;">
+                    <label for="old-pass"><b>Old Password</b></label>
+                    <input type="password" id="old-pass" name="old-pass" class="input-text mr-pd-input-df" placeholder="Enter Old Password" required>
+
+                    <label for="new-pass"><b>New Password</b></label>
+                    <input type="password" id="new-pass" ng-model="newPass" name="new-pass" class="input-text mr-pd-input-df" placeholder="Enter New Password" required>
+
+                    <label for="pass-repeat"><b>Password Repeat</b></label>
+                    <input type="password" id="pass-repeat" name="pass-repeat" class="input-text mr-pd-input-df" placeholder="Enter New Password Again" required>
+
+                    <div style="overflow:auto;">
+                        <div style="float:right;">
+                            <input type="submit" id="btn-change-pass" name="btn-change-pass" value="Save" class="c-btn c-btn-sm" style="width: auto;">
+                            <input type="reset" id="btn-clear-change-pass" name="btn-clear-change-pass" value="Clear" class="c-btn c-btn-df" style="width: auto;">
+                            <input type="button" id="btn-reset-change-pass" name="btn-reset-change-pass" value="Reset" class="c-btn c-btn-rs" style="width: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $('#default').click();
+
+        function openTab(evt, tabName) {
+            $('.ver-tabcontent').css('display', 'none');
+            $('.tablinks').removeClass('active');
+            $('#' + tabName).css('display', 'block');
+            $(evt.target).addClass('active');
+        }
+    </script>
+</div>

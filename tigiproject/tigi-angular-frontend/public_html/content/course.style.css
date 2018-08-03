@@ -1,0 +1,334 @@
+.course-header {
+    border: 2px solid #000000;
+    background-color: #444444;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.course-header::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.course-header img {
+    float: left;
+    margin-right: 20px;
+    image-rendering: auto;
+    width: auto;
+    height: 200px;
+}
+
+.course-header h1 {
+    color: #17a2b8;
+    /* background: -webkit-linear-gradient(green, orange);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+
+.course-header .continue {
+    border: 2px solid #17a2b8;
+    outline: 0;
+    color: #17a2b8;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 15px;
+    width: 100%;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.course-header .continue:hover {
+    color: white;
+    background-color: #17a2b8;
+}
+
+.course-header .btn-add-to-cart,
+.course-header .btn-buy-now {
+    color: #dd4b39;
+    background-color: inherit;
+    border: 2px solid #dd4b39;
+    transition: 0.2s;
+}
+
+.course-header .btn-add-to-cart:hover,
+.course-header .btn-buy-now:hover {
+    color: white;
+    background-color: #dd4b39;
+}
+
+.prog {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 0.625rem;
+    overflow: hidden;
+    font-size: 0.625rem;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 0.625rem 0.625rem;
+    border-radius: 0.25rem
+}
+
+.prog-bar {
+    width: 75%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #00bc8c !important;
+    -webkit-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+    .prog-bar {
+        -webkit-transition: none;
+        transition: none;
+    }
+}
+
+.prog-bar-striped {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 0.625rem 0.625rem;
+}
+
+.prog-bar-animated {
+    -webkit-animation: progress-bar-stripes 1s linear infinite;
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@media (max-width: 500px) {
+    .course-header {
+        text-align: center;
+    }
+    .course-header img {
+        margin: auto;
+        float: none;
+        display: block;
+    }
+}
+
+.course-container {
+    border: 1px dotted #008966;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.course-container.ng-enter {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    /* transform: scale(0); */
+    opacity: 0;
+    margin-left: 600px;
+}
+
+.course-container.ng-enter-active {
+    /* transform: scale(1); */
+    opacity: 1;
+    margin-left: 0px;
+}
+
+.course-container h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.ava-courses {
+    display: flex;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.card {
+    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: arial;
+    /* border: 1px solid #000000; */
+    margin: auto;
+    transition: 0.2s;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.card-fit-2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 1.66666666667%;
+    margin-right: 1.66666666667%;
+}
+
+.card.ng-enter {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.card.ng-enter-active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.card.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.card.ng-leave-active {
+    transform: scale(0);
+    opacity: 0;
+}
+
+img {
+    width: 100%;
+}
+
+.card h2 {
+    color: #17a2b8;
+}
+
+.card .title {
+    color: grey;
+    font-size: 18px;
+}
+
+.card .info {
+    overflow: hidden;
+    height: 50px;
+}
+
+.card h2,
+.card .title,
+.card .info {
+    margin: 0px;
+    padding: 0px;
+}
+
+.more-info {
+    border: none;
+    outline: 0;
+    color: white;
+    background-color: #444444;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 15px;
+    width: 100%;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.more-link {
+    /* float: right; */
+    border: none;
+    outline: 0;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 15px;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.more-link a {
+    color: white;
+    transition: 0.2s;
+}
+
+.card-link {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+.favorite {
+    text-decoration: none;
+    font-size: 20px;
+    color: #dd4b39;
+    margin-right: 5px;
+}
+
+.more-info:hover,
+.more-link:hover a,
+.card-link:hover {
+    color: #17a2b8;
+}
+
+.old-price {
+    color: #E74C3C;
+    font-size: 16px;
+}
+
+.present-price {
+    color: #00bc8c;
+    font-size: 24px;
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 0px 8px 2px rgba(255, 255, 255, 0.2);
+}
+
+
+/*info-box*/
+
+.card .info-box {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card .info-box::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.main-content:hover .info-box {
+    visibility: visible;
+    opacity: 1;
+}

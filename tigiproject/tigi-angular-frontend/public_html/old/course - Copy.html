@@ -1,0 +1,79 @@
+<div>
+    <div style="border: 1px dotted #008966; border-radius: 10px; margin-bottom: 25px;">
+        <div>
+            <h2>Java Course:</h2>
+        </div>
+        <div class="ava-courses">
+            <div class="card mb-3 mr-3 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in javaavacourses">
+                <!-- <h3 class="card-header">Card header</h3> -->
+                <div class="card-body">
+                    <h4 class="card-title">{{course.name}}</h4>
+                    <h6 class="card-subtitle text-muted">{{course.instructor}}</h6>
+                </div>
+                <img style="height: auto; width: 100%; display: block;" ng-src="{{course.img}}">
+                <div class="card-body">
+                    <!-- <p class="card-text">{{course.smalldescription}}</p> -->
+                    <p>Time: {{course.duration | date: 'HH:mm'}}</p>
+                    <a href="#/course/{{course.id}}" class="card-link">More info ...</a>
+                </div>
+                <!-- <ul class="list-group list-group-flush">
+                    <li class="list-group-item" ng-repeat="chapter in course.chapter">{{chapter}}</li>
+                    <li class="list-group-item"><a href="#" class="card-link">More info ...</a></li>
+                </ul> -->
+                <!-- <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div> -->
+                <div class="card-footer text-muted">
+                    <del class="old-price">{{course.old | currency}}</del>
+                    <span class="present-price">{{course.present | currency}}</span>
+                </div>
+            </div>
+
+            <div class="card mb-3 mr-3 col-lg-2 col-md-4 col-sm-6">
+                <div class="card-footer text-muted" style="margin: auto auto;">
+                    <a href="#" class="card-link">More Course ...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="border: 1px dotted #008966; border-radius: 10px; margin-bottom: 25px;">
+        <div>
+            <h2>C# Course:</h2>
+        </div>
+        <div class="ava-courses">
+            <div class="card mb-3 mr-3 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in csharpavacourses">
+                <!-- <h3 class="card-header">Card header</h3> -->
+                <div class="card-body">
+                    <h4 class="card-title">{{course.name}}</h4>
+                    <h6 class="card-subtitle text-muted">{{course.instructor}}</h6>
+                </div>
+                <img style="height: auto; width: 100%; display: block;" ng-src="{{course.img}}">
+                <div class="card-body">
+                    <!-- <p class="card-text">{{course.smalldescription}}</p> -->
+                    <p>Time: {{course.duration | date: 'HH:mm'}}</p>
+                    <a href="#/course/{{course.id}}" class="card-link">More info ...</a>
+                </div>
+                <!-- <ul class="list-group list-group-flush">
+                    <li class="list-group-item" ng-repeat="chapter in course.chapter">{{chapter}}</li>
+                    <li class="list-group-item"><a href="#" class="card-link">More info ...</a></li>
+                </ul> -->
+                <!-- <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div> -->
+                <div class="card-footer text-muted">
+                    <del class="old-price">{{course.old | currency}}</del>
+                    <span class="present-price">{{course.present | currency}}</span>
+                </div>
+            </div>
+
+            <div class="card mb-3 mr-3 col-lg-2 col-md-4 col-sm-6">
+                <div class="card-footer text-muted" style="margin: auto auto;">
+                    <a href="#" class="card-link">More Course ...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

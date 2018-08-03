@@ -1,0 +1,71 @@
+.jumbotron .ins-name {
+    margin: 0;
+    padding: 0;
+}
+
+.jumbotron .ins-info {
+    max-width: 90%;
+    margin: 10px auto;
+}
+
+.jumbotron .ins-col {
+    float: left;
+    /* width: 50%; */
+    margin: auto;
+    padding: 0 50px;
+    margin-top: 6px;
+}
+
+.jumbotron .ins-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.jumbotron .ins-card {
+    /* box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2); */
+    text-align: center;
+    font-family: arial;
+    /* border: 1px solid #000000; */
+    margin: auto;
+    transition: 0.2s;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.jumbotron .ins-card img {
+    width: 100%;
+}
+
+.jumbotron .ins-card .title {
+    color: grey;
+    font-size: 18px;
+}
+
+.jumbotron .ins-card .info {
+    overflow: hidden;
+    height: 50px;
+}
+
+.jumbotron .ins-card h2,
+.jumbotron .ins-card .title,
+.jumbotron .ins-card .info {
+    margin: 0px;
+    padding: 0px;
+}
+
+.jumbotron .ins-card .ins-card-link {
+    text-decoration: none;
+    font-size: 28px;
+    color: black;
+}
+
+.jumbotron .ins-card .ins-card-link:hover {
+    opacity: 0.7;
+}
+
+.jumbotron .ins-card:hover {
+    cursor: pointer;
+    /* box-shadow: 0 0px 8px 2px rgba(255, 255, 255, 0.2); */
+}

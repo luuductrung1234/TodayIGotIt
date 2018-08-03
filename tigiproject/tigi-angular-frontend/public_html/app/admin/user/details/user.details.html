@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="ver-tab">
+        <button class="tablinks" onclick="openTab(event, 'personal-info')" id="default">Personal Info</button>
+        <button class="tablinks" onclick="openTab(event, 'contact-info')">Contact Info</button>
+    </div>
+
+    <div id="personal-info" class="ver-tabcontent">
+        <h2>Personal Info</h2>
+        <form id="personal-info" class="form-full-width" style="width: 100%;">
+            <div class="row">
+                <div class="col" style="width: 100%; padding: 0px;">
+                    <label>
+                        <b>First Name</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].fname}}</p>
+
+                    <label>
+                        <b>Last Name</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].lname}}</p>
+
+                    <label>
+                        <b>Gender</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].gender}}</p>
+
+                    <label>
+                        <b>Date of Birth</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].dob | date: 'dd/MM/yyyy'}}</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="contact-info" class="ver-tabcontent">
+        <h2>Contact Info</h2>
+        <form id="contact-info" class="form-full-width" style="width: 100%;">
+            <div class="row">
+                <div class="col" style="width: 100%; padding: 0px;">
+                    <label>
+                        <b>Email</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].email}}</p>
+
+                    <label>
+                        <b>Phone</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].phone}}</p>
+
+                    <h3>Additional Contact Info - Address</h3>
+                    <label>
+                        <b>Address Zipcode</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].addressZipcode}}</p>
+
+                    <label>
+                        <b>Address State</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].addressState}}</p>
+
+                    <label>
+                        <b>Address City</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].addressCity}}</p>
+
+                    <label>
+                        <b>Address Line</b>
+                    </label>
+                    <p class="content-text">{{curUser[0].addressLine}}</p>
+
+                    <hr/>
+                    <label>Links</label>
+                    <p>FB</p>
+                    <p class="content-text"></p>
+                    <p>GG</p>
+                    <p class="content-text"></p>
+                    <p>TW</p>
+                    <p class="content-text"></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $('#default').click();
+
+        function openTab(evt, tabName) {
+            $('.ver-tabcontent').css('display', 'none');
+            $('.tablinks').removeClass('active');
+            $('#' + tabName).css('display', 'block');
+            $(evt.target).addClass('active');
+        }
+    </script>
+</div>

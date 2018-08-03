@@ -1,0 +1,161 @@
+.form-filter-course {
+    margin: 10px 20px;
+    padding: 0;
+}
+
+.form-filter-course .col-filter {
+    width: 20%;
+    margin: 0;
+    float: left;
+}
+
+.form-filter-course .col-filter h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.form-filter-course .col-filter .c-cbo {
+    color: white;
+    background-color: #17a2b8;
+}
+
+.form-filter-course .col-filter .c-cbo option:hover {
+    color: white;
+    background-color: #07363d;
+}
+
+.form-filter-course .col-filter .input-text {
+    display: inline-block;
+    width: 80%;
+}
+
+.form-filter-course .col-filter .from-to {
+    display: inline-block;
+    width: 40%;
+}
+
+.course-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #000000;
+}
+
+.course-table th,
+.course-table td {
+    text-align: left;
+    padding: 16px;
+    transition: 0.2s;
+}
+
+.course-table th {
+    background-color: #17a2b8;
+}
+
+.course-table th:not(:first-child) {
+    border-left: 1px solid #0a4d57;
+}
+
+.course-table tr {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.course-table tr.ng-enter {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    /* transform: scale(0); */
+    transform: skewY(180deg);
+    opacity: 0;
+}
+
+.course-table tr.ng-enter-active {
+    /* transform: scale(1); */
+    transform: skewY(0deg);
+    opacity: 1;
+}
+
+.course-table tr.ng-leave {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    /* transform: scale(1); */
+    transform: skewY(180deg);
+    opacity: 1;
+}
+
+.course-table tr.ng-leave-active {
+    /* transform: scale(0); */
+    transform: skewY(0deg);
+    opacity: 0;
+}
+
+.course-table tr:not(:first-child):hover {
+    color: #17a2b8;
+}
+
+.course-table tr:nth-child(even) {
+    background-color: #333333;
+}
+
+.course-table tr:nth-child(even):hover {
+    background-color: #555555;
+}
+
+.course-table tr:nth-child(odd):hover {
+    background-color: #444444;
+}
+
+.course-table tr:hover .action-link {
+    color: #17a2b8;
+}
+
+#manage-chapter .panel {
+    margin-top: 5px;
+}
+
+
+/* #manage-chapter .panel .chapter-item:first-child {
+    margin-top: 5px;
+    margin-bottom: 5px;
+} */
+
+#manage-chapter .panel .chapter-item {
+    margin-bottom: 5px;
+}
+
+.chapter-item {
+    width: 90%;
+}
+
+.chapter-item:hover,
+.chapter-item:focus {
+    color: white;
+    background-color: #17a2b8;
+}
+
+.fa-times {
+    position: relative;
+    /* right: 10px; */
+}
+
+.pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    margin: 20px auto;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #444444;
+}

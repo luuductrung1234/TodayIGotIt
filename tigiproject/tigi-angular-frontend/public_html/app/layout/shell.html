@@ -1,0 +1,724 @@
+<div ng-controller="Shell">
+    <div id="topnav" class="topnav topnav-tigi">
+        <div class="topnav-left">
+            <a id="tigi-logo" class="topnav-brand" href="#/home">
+                <img src="content/img/logostyle.png" alt="TiGi_logo">
+                <!-- <h1 id="tigi-logo" class="topnav-brand hh">TiGi</h1> -->
+            </a>
+            <span id="user-nav" class="user-nav" ng-class="($root.curLogin[0].role === 'admin' && $root.curLogin.length !== 0) ? ['hidden'] : ['show']">
+                <a href="#/home" class="topnav-link">Home</a>
+                <a href="#/course" class="topnav-link">Course</a>
+                <a href="#/about" class="topnav-link">About</a>
+            </span>
+            <span id="admin-nav" class="admin-nav" ng-class="($root.curLogin[0].role === 'admin' && $root.curLogin.length !== 0) ? ['show'] : ['hidden']">
+                <a href="#/admin/home" class="topnav-link">Home</a>
+                <a href="#/admin/course" class="topnav-link">Course</a>
+                <a href="#/admin/instructor" class="topnav-link">Instructor</a>
+                <a href="#/admin/user" class="topnav-link">User</a>
+            </span>
+        </div>
+        <div class="topnav-form" ng-class="($root.curLogin[0].role === 'admin') ? ['hidden'] : ['show']">
+            <form>
+                <input id="topnav-search" class="topnav-search" type="text" placeholder="Search..." />
+                <button class="c-btn c-btn-sm" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="topnav-right">
+            <div id="user-logged" class="user-logged" ng-class="($root.curLogin[0].role === 'admin' || $root.curLogin.length === 0) ? ['hidden'] : ['show']">
+                <div class="topnav-item">
+                    <a href="javascript:void(0)">
+                        <i style="font-size: 25px" class="fas fa-search"></i>
+                    </a>
+                </div>
+                <div class="topnav-item">
+                    <a href="#">
+                        <i class="fas fa-shopping-cart">
+                            <span class="label"> 23 </span>
+                        </i>
+                    </a>
+                </div>
+                <div id="user-chip" class="chip c-dropdown">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].username}}</span>
+                    <span class="fas fa-caret-down"></span>
+                </div>
+            </div>
+            <div id="admin-logged" class="user-logged" ng-class="($root.curLogin[0].role === 'admin') ? ['show'] : ['hidden']">
+                <div id="admin-chip" class="chip c-dropdown">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].username}}</span>
+                    <span class="fas fa-caret-down"></span>
+                </div>
+            </div>
+            <div id="user-author" class="user-author" ng-class="($root.curLogin.length === 0) ? ['show'] : ['hidden']">
+                <a id="login-link" href="#" class="topnav-link">Log In</a>
+                <a id="signin-link" href="#" class="topnav-link">Sign In</a>
+            </div>
+        </div>
+        <a href="javascript:void(0);" style="font-size: 18px;" class="icon" onclick="showFullTopNav()">&#9776;</a>
+    </div>
+
+    <div id="admin-dropdown" class="c-dropdown-content">
+        <a ng-href="#/profiles/{{$root.curLogin[0].username}}">Profiles</a>
+        <hr/>
+        <a ng-href="#/admin/course">Manage Course</a>
+        <a ng-href="#/admin/instructor">Manage Instructor</a>
+        <a ng-href="#/admin/user">Manage User</a>
+        <hr/>
+        <a href="#" id="logout-admin">Logout</a>
+    </div>
+
+    <div id="user-dropdown" class="c-dropdown-content">
+        <a ng-href="#/profiles/{{$root.curLogin[0].username}}">Profiles</a>
+        <hr/>
+        <a ng-href="#/mycourse/{{$root.curLogin[0].username}}">My Course</a>
+        <a href="#">Cart</a>
+        <hr/>
+        <a href="#" id="logout-user">Logout</a>
+    </div>
+
+    <div id="login-model" class="login-model">
+        <div class="model-content animate">
+            <div class="main-container">
+                <form ng-submit="loginAction()" id="login-form" class="form-full-width">
+                    <div class="row">
+                        <h2 style="text-align:center">Login with Social Media or <span class="topnav-brand" style="font-size: 30px;">TodayIGotIt</span> account</h2>
+                        <div class="vl">
+                            <span class="vl-innertext">or</span>
+                        </div>
+
+                        <div class="col">
+                            <fb:login-button id="login" scope="public_profile,email,user_birthday,user_gender" onlogin="checkLoginState();"></fb:login-button>
+                            <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div> -->
+                            <!-- <a href="#" class="fb btn-sc">
+                                <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                            </a> -->
+                            <!-- <a href="#" class="twitter btn-sc">
+                                <i class="fa fa-twitter fa-fw"></i> Login with Twitter
+                            </a> -->
+                            <a href="#" class="google btn-sc">
+                                <i class="fab fa-google fa-fw">
+                                </i> Login with Google+
+                            </a>
+                        </div>
+
+                        <div class="col">
+                            <div class="hide-md-lg">
+                                <p>Or sign in manually:</p>
+                            </div>
+                            <!-- <div class="input-container">
+                                <i class="fas fa-user icon"></i>
+                                <input type="text" name="username" class="input-text mr-pd-input-df" placeholder="Username">
+                            </div>
+                            <div class="input-container">
+                                <i class="fas fa-key icon"></i>
+                                <input type="password" name="password" class="input-text mr-pd-input-df" placeholder="Password">
+                            </div> -->
+                            <input type="text" id="txt-username" ng-model="loginUsername" name="username" ng-model="login" class="input-text mr-pd-input-df" placeholder="Username" required>
+                            <input type="password" id="txt-password" ng-model="loginPassword" name="password" class="input-text mr-pd-input-df" placeholder="Password" required>
+                            <input type="submit" id="btn-login" name="btn-login" value="Login" class="c-btn c-btn-sm mr-pd-input-df">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bottom-container">
+                <div class="row">
+                    <div class="col">
+                        <a href="#" id="signin-on-log" class="btn-sc outlink">Sign in</a>
+                    </div>
+                    <div class="col">
+                        <a href="#" id="forgot-password" class="btn-sc outlink">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="signin-model" class="signin-model">
+        <div class="model-content animate">
+            <div class="main-container">
+                <form ng-submit="signinAction()" id="signin-form" class="form-full-width">
+                    <div class="row">
+                        <!-- <div id="signin-step-nav" class="col sidenav" style="width: 30%;">
+                            <a href="#" id="login-info" class="step">Login Info</a>
+                            <a href="#" id="personal-info" class="step">Personal Info</a>
+                            <a href="#" id="contact-info" class="step">Contact Info</a>
+                        </div> -->
+                        <div class="col" style="width: 100%;">
+                            <h2 style="text-align: center; margin: 0;">Sign In to <span class="topnav-brand" style="font-size: 30px;">TodayIGotIt</span></h2>
+                            <p>Please fill in this form to create an account.</p>
+                            <hr>
+
+                            <!--login info-->
+                            <div class="step-tab">
+                                <h3>Login Info</h3>
+                                <label for="username">
+                                    <b>Username</b>
+                                </label>
+                                <input type="text" id="username" ng-model="signinUsername" name="username" class="input-text mr-pd-input-df" placeholder="Enter Username" required>
+
+                                <label for="password">
+                                    <b>Password</b>
+                                </label>
+                                <input type="password" id="password" ng-model="signinPassword" name="password" class="input-text mr-pd-input-df" placeholder="Enter Password" required>
+
+                                <label for="password-repeat">
+                                    <b>Repeat Password</b>
+                                </label>
+                                <input type="password" id="password-repeat" name="password-repeat" class="input-text mr-pd-input-df" placeholder="Repeat Password" required>
+                            </div>
+
+                            <!--personal info-->
+                            <div class="step-tab">
+                                <h3>Personal Info</h3>
+                                <label for="signinfname">
+                                    <b>First Name</b>
+                                </label>
+                                <input type="text" id="signinfname" ng-model="signinfname" name="signinfname" class="input-text mr-pd-input-df" placeholder="Enter First Name" required>
+
+                                <label for="signinlname">
+                                    <b>Last Name</b>
+                                </label>
+                                <input type="text" id="signinlname" ng-model="signinlname" name="signinlname" class="input-text mr-pd-input-df" placeholder="Enter Last Name" required>
+
+                                <label for="signingender">
+                                    <b>Gender</b>
+                                </label>
+                                <select id="signingender" ng-model="signingender" class="c-cbo mr-pd-input-df">
+                                    <option selected>--Select--</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+
+                                <label for="signindob">
+                                    <b>Date of Birth</b>
+                                </label>
+                                <input type="date" id="signindob" ng-model="signindob" name="signindob" class="input-text mr-pd-input-df" required>
+                            </div>
+
+                            <!--contact info-->
+                            <div class="step-tab">
+                                <h3>Contact Info</h3>
+                                <label for="signinemail">
+                                    <b>Email</b>
+                                </label>
+                                <input type="email" id="signinemail" ng-model="signinemail" name="signinemail" class="input-text mr-pd-input-df" placeholder="Enter Email" required>
+
+                                <label for="signinphone">
+                                    <b>Phone</b>
+                                </label>
+                                <input type="tel" id="signinphone" ng-model="signinphone" name="signinphone" class="input-text mr-pd-input-df" placeholder="Enter Phone" required>
+
+                                <h3>Additional Contact Info - Address</h3>
+                                <p style="text-align: center;">You can ignore this.</p>
+                                <label for="signinaddressZipcode">
+                                    <b>Address Zipcode</b>
+                                </label>
+                                <input type="text" id="signinaddressZipcode" ng-model="signinaddressZipcode" name="signinaddressZipcode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+                                <label for="signinaddressState">
+                                    <b>Address State</b>
+                                </label>
+                                <input type="text" id="signinaddressState" ng-model="signinaddressState" name="signinaddressState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
+                                <label for="signinaddressCity">
+                                        <b>Address City</b>
+                                    </label>
+                                <input type="text" id="signinaddressCity" ng-model="signinaddressCity" name="signinaddressCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
+                                <label for="signinaddressLine">
+                                    <b>Address Line</b>
+                                </label>
+                                <input type="text" id="signinaddressLine" ng-model="signinaddressLine" name="signinaddressLine" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
+                            </div>
+
+                            <!-- <div class="step-tab">
+                                <h3>Your Info</h3>
+                                <p>Please check your information again before you sign in.</p>
+                            </div> -->
+
+                            <div style="text-align:center;margin-top:40px;">
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                            </div>
+
+                            <p id="confirm-notifi" class="hidden">By creating an account you agree to our
+                                <a href="#" target="_blank" class="outlink">Terms & Privacy</a>.</p>
+
+                            <div style="overflow:auto;">
+                                <div style="float:right;">
+                                    <input type="button" id="btn-prev" name="btn-prev" value="Previous" class="c-btn c-btn-df" style="width: auto;" onclick="nextPrev(-1)" />
+                                    <input type="button" id="btn-next" name="btn-next" value="Next" class="c-btn c-btn-sm" style="width: auto;" onclick="nextPrev(1)" />
+                                    <input type="submit" id="btn-signin" name="btn-signin" value="Sign In" class="c-btn c-btn-sm" style="width: auto;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bottom-container">
+                <div class="row">
+                    <div class="col" style="width: 100%;">
+                        <a href="#" id="login-on-sign" class="btn-sc outlink">Log in with existing account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-view style="margin-top: 100px; margin-bottom: 30px;">
+    </div>
+
+    <div id="snackbar" ng-class="{showVisible: $root.hasError}">{{$root.errMess}}</div>
+
+    <div id="footer" class="footer topnav-tigi" style="left: 0; bottom: 0;">
+        <div class="footer-left">
+            <a id="tigi-logo" class="topnav-brand" href="#/home">
+                <img src="content/img/logostyle.png" alt="TiGi_logo">
+                <!-- <h1 id="tigi-logo" class="topnav-brand hh">TiGi</h1> -->
+            </a>
+            <p>Copyright &copy; ToDayIGotIt</p>
+        </div>
+        <div class="footer-right">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-google-plus-g"></i></a>
+        </div>
+    </div>
+
+    <script>
+        var curTab = 0;
+
+        function showFullTopNav() {
+            $('#topnav').toggleClass('responsive');
+        }
+
+        $(document).ready(function() {
+            // if ($('#footer').position().top < $(this).height()) {
+            //     $('#footer').css('position', 'absolute');
+            // } else {
+            //     $('#footer').css('position', 'relative');
+            // }
+        });
+
+        $(window).on('click', function() {
+            if ($('.c-dropdown-content').hasClass('show')) {
+                $('.c-dropdown-content').removeClass('show');
+            }
+
+            if ($('#login-model').hasClass('show')) {
+                $('#login-model').removeClass('show');
+            }
+
+            if ($('#signin-model').hasClass('show')) {
+                $('#signin-model').removeClass('show');
+            }
+        });
+
+        $('#logout-admin').on('click', function() {
+            angular.element(this).scope().logoutAction();
+            angular.element(this).scope().$apply();
+        });
+
+        $('#logout-user').on('click', function() {
+            angular.element(this).scope().logoutAction();
+            angular.element(this).scope().$apply();
+        });
+
+
+        $(window).on('scroll', function() {
+            if ($('.c-dropdown-content').hasClass('show')) {
+                $('.c-dropdown-content').removeClass('show');
+            }
+
+            // if ($(this).scrollTop() > 50) {
+            //     $('#topnav-left').css({
+            //         'margin': '0px',
+            //         'padding': '0px'
+            //     });
+
+            //     $('#topnav-form').css({
+            //         'margin': '0px',
+            //         'padding': '0px'
+            //     });
+
+            //     $('#topnav-right').css({
+            //         'margin': '0px',
+            //         'padding': '0px'
+            //     });
+
+            //     $('#topnav').css('height', '55px');
+            // }
+        });
+
+        $(window).on('resize', function() {
+            if ($('.c-dropdown-content').hasClass('show')) {
+                $('.c-dropdown-content').removeClass('show');
+            }
+        })
+
+        $('#user-chip').on('click', function(event) {
+            $('#user-dropdown').toggleClass('show');
+            var mtop = $('#user-logged').position().top;
+            var mleft = $('#user-logged').position().left;
+            $('#user-dropdown').css('top', mtop + $('#user-logged').height() + $(window).scrollTop());
+            $('#user-dropdown').css('right', $(window).width() - (mleft + 50 + $('#user-logged').width() - 2 * ($('.topnav-item').width())));
+            event.stopPropagation();
+        });
+
+        $('#admin-chip').on('click', function(event) {
+            $('#admin-dropdown').toggleClass('show');
+            var mtop = $('#admin-logged').position().top;
+            var mleft = $('#admin-logged').position().left;
+            $('#admin-dropdown').css('top', mtop + $('#admin-logged').height() + $(window).scrollTop());
+            $('#admin-dropdown').css('right', $(window).width() - (mleft + $('#admin-logged').width()));
+            event.stopPropagation();
+        });
+
+        // $(window).on('resize', function() {
+        //     $('#topnav-search').val($(this).width());
+        // });
+
+        $('#login-link').on('click', function(event) {
+            $('#login-model').toggleClass('show');
+            if ($('#signin-model').hasClass('show')) {
+                $('#signin-model').removeClass('show');
+            }
+            return false;
+        });
+
+        $('#signin-link').on('click', function(event) {
+            $('#signin-model').toggleClass('show');
+            showTab(curTab);
+            if ($('#login-model').hasClass('show')) {
+                $('#login-model').removeClass('show');
+            }
+            return false;
+        });
+
+        $('#login-on-sign').on('click', function(event) {
+            $('#signin-model').toggleClass('show');
+            $('#login-model').toggleClass('show');
+            return false;
+        });
+
+        $('#signin-on-log').on('click', function(event) {
+            $('#login-model').toggleClass('show');
+            $('#signin-model').toggleClass('show');
+            showTab(curTab);
+            return false;
+        });
+
+        $('.model-content').on('click', function(event) {
+            event.stopPropagation();
+        });
+
+        function showTab(curTab) {
+            var tab = $('.col .step-tab');
+            tab.css('display', 'none');
+            tab.eq(curTab).slideDown();
+
+            $('#confirm-notifi').addClass('hidden');
+
+            if (curTab == (tab.length - 1)) {
+                $('#btn-prev').css('display', 'inline');
+                $('#btn-next').css('display', 'none');
+                $('#btn-signin').css('display', 'inline');
+                $('#btn-signin').addClass('f-disabled');
+                $('#btn-signin').attr('disabled', true);
+                $('#confirm-notifi').removeClass('hidden');
+            } else if (curTab == 0) {
+                $('#btn-prev').css('display', 'none');
+                $('#btn-next').css('display', 'inline');
+                $('#btn-signin').css('display', 'none');
+                $('#btn-next').addClass('f-disabled');
+                $('#btn-next').attr('disabled', true);
+            } else {
+                $('#btn-prev').css('display', 'inline');
+                $('#btn-next').css('display', 'inline');
+                $('#btn-signin').css('display', 'none');
+                $('#btn-next').addClass('f-disabled');
+                $('#btn-next').attr('disabled', true);
+            }
+
+            fixStepIndicator(curTab);
+            validateForm(curTab);
+        }
+
+        function nextPrev(n) {
+            var tab = $('.col .step-tab');
+            tab.eq(curTab).css('display', 'none');
+            curTab = curTab + n;
+            showTab(curTab);
+        }
+
+        $('#username').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z0-9]{6,50}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#password').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z0-9]{6,50}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#password-repeat').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            var pre = $.trim($('#password').val());
+            if (trim === pre) {
+                $(this).removeClass('invalid');
+                $(this).addClass('valid');
+            } else {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signinfname').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z]{2, 255}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signinlname').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z]{2, 255}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signingender').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim !== '--Select--') {
+                $(this).removeClass('invalid');
+                $(this).addClass('valid');
+            } else {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signindob').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length != 10) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                $(this).removeClass('invalid');
+                $(this).addClass('valid');
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signinemail').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z0-9\.]+@[a-zA-Z]+?(\.[a-zA-Z]{2,5})+$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signinphone').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[0-9]{8,15}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+
+            validateForm(curTab);
+        });
+
+        $('#signinaddressZipcode').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[0-9]+$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+        });
+
+        $('#signinaddressState').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            }
+        });
+
+        $('#signinaddressCity').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                $(this).removeClass('invalid');
+                $(this).addClass('valid');
+            }
+        });
+
+        $('#signinaddressLine').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z0-9]{1,255}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+        });
+
+        function validateForm(curTab) {
+            var tab = $('.col .step-tab').eq(curTab).children();
+
+            if (curTab == 0 &&
+                $('#username').hasClass('valid') &&
+                $('#password').hasClass('valid') &&
+                $('#password-repeat').hasClass('valid')) {
+                $('#btn-next').removeClass('f-disabled');
+                $('#btn-next').attr('disabled', false);
+                $('.step').eq(curTab).addClass('finish');
+            } else if (curTab == 1 &&
+                $('#signinfname').hasClass('valid') &&
+                $('#signinlname').hasClass('valid') &&
+                $('#signingender').hasClass('valid') &&
+                $('#signindob').hasClass('valid')) {
+                $('#btn-next').removeClass('f-disabled');
+                $('#btn-next').attr('disabled', false);
+                $('.step').eq(curTab).addClass('finish');
+            } else if (curTab == 2 &&
+                $('#signinemail').hasClass('valid') &&
+                $('#signinphone').hasClass('valid')) {
+                $('#btn-signin').removeClass('f-disabled');
+                $('#btn-signin').attr('disabled', false);
+                $('.step').eq(curTab).addClass('finish');
+            } else {
+                $('#btn-next').addClass('f-disabled');
+                $('#btn-signin').addClass('f-disabled');
+                $('#btn-next').attr('disabled', true);
+                $('#btn-signin').attr('disabled', true);
+                $('.step').eq(curTab).removeClass('finish');
+            }
+        }
+
+        function fixStepIndicator(curTab) {
+            var step = $('.step');
+            step.removeClass('current');
+            step.eq(curTab).addClass('current');
+        }
+
+        $('#login-form').on('submit', function() {
+            var isLogged = $(this).scope().isLogged;
+            if ($('#login-model').hasClass('show')) {
+                if (isLogged) {
+                    $('#login-model').removeClass('show');
+                }
+            }
+        });
+
+        $('#signin-form').on('submit', function() {
+            var isLogged = $(this).scope().isLogged;
+            if ($('#signin-model').hasClass('show')) {
+                if (isLogged) {
+                    $('#signin-model').removeClass('show');
+                }
+            }
+        });
+
+        $("#snackbar").bind("visibility: visible", function() {
+            setTimeout(function() {
+                $(this).removeClass("showVisible");
+                $(this).scope().removeErr();
+                $(this).scope().$apply();
+            }, 3000);
+        });
+    </script>
+</div>

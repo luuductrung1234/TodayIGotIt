@@ -1,0 +1,209 @@
+<div class="container">
+    <from id="course-form-info" class="form-full-width">
+        <div class="course-header">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_164b0bb71d9%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_164b0bb71d9%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.7265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                alt="Avatar">
+            <p>
+                <input type="text" name="course-name" class="input-text mr-pd-input-chapter hh" style="font-size: 32px; max-width: 50%;" ng-value="current.name">
+            </p>
+        </div>
+
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'overview')" id="default">Overview</button>
+            <button class="tablinks" onclick="openTab(event, 'course-content')">Course Content</button>
+            <button class="tablinks" onclick="openTab(event, 'rating-feedback')">Rating & Feedback</button>
+            <button class="tablinks" onclick="openTab(event, 'related-courses')">Related Courses</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="overview" class="tabcontent">
+            <h2>Overview the Course</h2>
+            <textarea id="course-intro" class="input-textarea mr-pd-input-df" style="width: 100%; min-height: 100px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere vehicula ligula, vel blandit ligula. Vivamus posuere dui eu accumsan interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vehicula risus quis nisl posuere, id venenatis diam tincidunt. Integer at euismod justo. Phasellus mattis quam vitae magna elementum egestas porttitor eu est. Nullam eu felis consectetur, finibus sapien at, accumsan dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce vehicula aliquam ante, in imperdiet nulla. Proin porttitor erat et vulputate tristique. Quisque interdum elit in augue efficitur, a venenatis massa tempor. Duis in augue non arcu placerat vulputate ut vitae dui. Mauris erat urna, accumsan non orci nec, dictum sollicitudin nibh</textarea>
+
+            <h2>Instructor:</h2>
+            <select id="cbo-instructor" class="c-cbo mr-pd-input-df" style="max-width: 20%;">
+                <option value="" selected>All</option>
+                <option value="jc">JC</option>
+                <option value="cb">CB</option>
+            </select>
+
+            <p>
+                Date created: {{current.dateCreated}}
+            </p>
+
+            <p>
+                Last updated: {{current.lastUpdated}}
+            </p>
+        </div>
+
+        <div id="course-content" class="tabcontent">
+            <h2>Course Content</h2>
+            <div class="row">
+                <div class="col" style="width: 20%; padding: 0;">
+                    <button id="btn-add-chapter" class="c-btn c-btn-chapter full-width"><i class="fas fa-plus"></i> Add Chapter</button>
+                </div>
+                <div class="col" style="width: 80%; max-height: 500px; overflow: auto; border-left: 1px dotted gray; padding: 0 0 10px 0;">
+                    <div id="manage-chapter" style="width: 100%;">
+                        <div class="row" ng-repeat="chapter in current.chapter">
+                            <div class="col" style="width: 90%;">
+                                <input type="text" name="chapter" class="input-text mr-pd-input-chapter hh" style="font-size: 26px; margin-top: 20px;" ng-value="chapter">
+                                <div class="panel" style="display: block;">
+                                    <div class="list-group">
+                                        <div>
+                                            <input name="chapter-item" class="chapter-item input-text list-group-item list-group-item-action mr-pd-input-chapter" value="Cras justo odio">
+                                            <i delete-chapter-item class="fas fa-times"></i>
+                                        </div>
+                                        <div>
+                                            <input name="chapter-item" class="chapter-item input-text list-group-item list-group-item-action mr-pd-input-chapter" value="Dapibus ac facilisis in">
+                                            <i delete-chapter-item class="fas fa-times"></i>
+                                        </div>
+                                        <div>
+                                            <input name="chapter-item" class="chapter-item input-text list-group-item list-group-item-action mr-pd-input-chapter" value="Morbi leo risus">
+                                            <i delete-chapter-item class="fas fa-times"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col" style="width: 10%; padding: 0;">
+                                <button btn-add-chapter-item class="c-btn c-btn-chapter btn-add-chapter-item" style="margin-top: 20px; font-size: 10px;"><i class="fas fa-plus"></i> Add Chapter Item</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rating-feedback" class="tabcontent">
+            <h2>Rating</h2>
+            <div class="container">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <p>4.1 average based on 254 reviews.</p>
+                <hr style="border:3px solid #f1f1f1">
+
+                <div class="row">
+                    <div class="side">
+                        <div>5 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-5"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>150</div>
+                    </div>
+                    <div class="side">
+                        <div>4 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-4"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>63</div>
+                    </div>
+                    <div class="side">
+                        <div>3 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-3"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>15</div>
+                    </div>
+                    <div class="side">
+                        <div>2 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-2"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>6</div>
+                    </div>
+                    <div class="side">
+                        <div>1 star</div>
+                    </div>
+                    <div class="middle">
+                        <div class="bar-container">
+                            <div class="bar-1"></div>
+                        </div>
+                    </div>
+                    <div class="side right">
+                        <div>20</div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <h2>Feedback</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+
+        <div id="related-courses" class="tabcontent">
+            <div class="course-container">
+                <div>
+                    <h2>Related Course:</h2>
+                </div>
+                <div class="ava-courses">
+                    <div class="card col-lg-2 col-md-4 col-sm-6" ng-repeat="course in relatedcourses">
+                        <img ng-src="{{course.img}}">
+                        <h2>{{course.name}}</h2>
+                        <p class="title">{{course.instructor}}</p>
+                        <p class="info">{{course.smalldescription}}</p>
+                        <div class="card-body">
+                            <del class="old-price">{{course.old | currency}}</del>
+                            <span class="present-price">{{course.present | currency}}</span>
+                        </div>
+                        <p>
+                            <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <input type="submit" id="btn-edit-course-info" name="btn-edit-course-info" value="Save" class="c-btn c-btn-sm" style="width: auto;">
+                <input type="reset" id="btn-clear-course-info" name="btn-clear-course-info" value="Clear" class="c-btn c-btn-df" style="width: auto;">
+                <input type="button" id="btn-seset-course-info" name="btn-reset-course-info" value="Reset" class="c-btn c-btn-rs" style="width: auto;">
+            </div>
+        </div>
+    </from>
+
+    <script>
+        $('#btn-add-chapter').on('click', function() {
+            var cnt = $('#manage-chapter').children().length;
+
+            angular.element(this).scope().addChapter('Chapter ' + (cnt + 1), 3);
+            angular.element(this).scope().$apply();
+        });
+
+        // $('.btn-add-chapter-item').on('click', function() {
+        //     var cnt = $('.chapter-item').parent().parent().children().length;
+
+        //     angular.element(this).scope().addChapter('Chapter ' + (cnt + 1), 3);
+        //     angular.element(this).scope().$apply();
+        // });
+
+        // $('.fa-times').on('click', function() {
+        //     $(this).parent().remove();
+        // });
+
+        function openTab(evt, tabName) {
+            $('.tabcontent').css('display', 'none');
+            $('.tablinks').removeClass('active');
+            $('#' + tabName).css('display', 'block');
+            $(evt.target).addClass('active');
+        }
+
+        $('#default').click();
+    </script>
+</div>

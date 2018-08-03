@@ -1,0 +1,95 @@
+<div ng-init="startAdminUserFrom = 0">
+    <div>
+        <form class="form-filter-course">
+            <div class="row">
+                <div class="col-filter">
+                    <h3>Type anything</h3>
+                    <div>
+                        <input type="text" id="filterText" name="filterText" ng-model="filterText" class="input-text mr-pd-input-df" placeholder="type anything" />
+                    </div>
+                </div>
+                <!-- <div class="col-filter">
+                    <h3>Instructor</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                        <option value="" selected>All</option>
+                        <option value="jc">JC</option>
+                        <option value="cb">CB</option>
+                    </select>
+                </div> -->
+                <div class="col-filter">
+                    <h3>Age</h3>
+                    <div>
+                        <input type="number" id="fromage" name="fromage" ng-model="fromage" class="input-text from-to mr-pd-input-df" placeholder="age" /> -
+                        <input type="number" id="toage" name="toage" ng-model="toage" class="input-text from-to mr-pd-input-df" placeholder="age" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="course-table">
+        <tr>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>DOB</th>
+            <th colspan="3">Action</th>
+        </tr>
+        <tr ng-repeat="user in users | limitTo: 5: startAdminUserFrom | filter: filterText">
+            <td>{{user.username}}</td>
+            <td>{{user.fname}} {{user.lname}}</td>
+            <td>{{user.dob | date: dd/MM/yyyy}}</td>
+            <td><a href="#/admin/user/{{user.username}}" class="action-link"><i class="fas fa-eye"></i></a></td>
+            <td><a href="#" class="action-link"><i class="far fa-trash-alt"></i></a></td>
+        </tr>
+    </table>
+
+    <div class="pagination">
+        <a href="#" id="prev">&laquo;</a>
+        <a href="#" nav-page-link ng-repeat="user in users" ng-show="($index + 5) % 5 == 0" id="{{'startAdminUserFromIndex' + $index}}" class="startAdminUserFromIndex" ng-class="($index) == 0 ? 'active' : ''">
+            <span>{{($index + 5)/5}}</span>
+        </a>
+        <a href="#" id="next">&raquo;</a>
+    </div>
+
+    <script>
+        // checkCurPage();
+
+        // $('.startAdminUserFromIndex').on('click', function() {
+        //     // var aa = $(this).attr('id').substr(14);
+        //     // $(this).scope().startAdminUserFrom = +aa;
+        //     // $(this).scope().$apply();
+
+        //     console.log('aaa');
+
+        //     return false;
+        // });
+
+        $('#prev').on('click', function() {
+            if ($(this).scope().startAdminUserFrom == 0) {
+                return false;
+            }
+
+            $(this).scope().startAdminUserFrom -= 5;
+            $(this).scope().$apply();
+
+            $('.startAdminUserFromIndex').removeClass('active');
+            $('#startAdminUserFromIndex' + $(this).scope().startAdminUserFrom).addClass('active');
+
+            return false;
+        });
+
+        $('#next').on('click', function() {
+            if (($(this).scope().users.length - $(this).scope().startAdminUserFrom) < 5) {
+                return false;
+            }
+
+            $(this).scope().startAdminUserFrom += 5;
+            $(this).scope().$apply();
+
+            $('.startAdminUserFromIndex').removeClass('active');
+            $('#startAdminUserFromIndex' + $(this).scope().startAdminUserFrom).addClass('active');
+
+            return false;
+        });
+    </script>
+</div>

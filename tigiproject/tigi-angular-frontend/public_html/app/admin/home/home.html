@@ -1,0 +1,49 @@
+<div>
+    <section class="jumbotron">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 5%;">Manage
+                <span class="topnav-brand">ToDayIGotIt</span>
+            </h1>
+            <p class="lead text-muted">
+                TiGi - TodayIGotIt is an online learning website that supply our free courses. The place you can become a teach when publish your own courses and earn profit The place you can find your need courses and start learning immediately
+            </p>
+
+            <div class="row">
+                <div id="course-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3">
+                    <h2>Course
+                        <i class="fas fa-code"></i>
+                    </h2>
+                    <p>Manage all courses on website</p>
+                </div>
+                <div id="instructor-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3">
+                    <h2>Instructor
+                        <i class="fas fa-user-secret"></i>
+                    </h2>
+                    <p>Manage all instructor on website</p>
+                </div>
+                <div id="user-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3">
+                    <h2>User
+                        <i class="fas fa-user"></i>
+                    </h2>
+                    <p>Manage all user on website</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#course-ctrl').on('click', function() {
+                document.location.href = "#/admin/course";
+            });
+
+            $('#instructor-ctrl').on('click', function() {
+                document.location.href = "#/admin/instructor";
+            });
+
+            $('#user-ctrl').on('click', function() {
+                document.location.href = "#/admin/user";
+            });
+        });
+    </script>
+</div>

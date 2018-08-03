@@ -1,0 +1,44 @@
+<div>
+    <div class="course-container">
+        <div>
+            <h1>Most Popular: <span class="more-link"><a href="#"><i class="fas fa-plus"></i> More...</a></span></h1>
+        </div>
+        <div class="ava-courses">
+            <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in javaavacourses">
+                <img ng-src="{{course.imageUrl}}">
+                <h2>{{course.name}}</h2>
+                <p class="title">{{course.instructor}}</p>
+                <p class="info">{{course.description}}</p>
+                <div class="card-body">
+                    <del class="old-price">{{course.price | currency}}</del>
+                    <span class="present-price">{{course.price | currency}}</span>
+                </div>
+                <p>
+                    <a href="#" class="favorite"><i class="far fa-heart"></i></a>
+                    <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="course-container">
+        <div>
+            <h1>Most Subscribe: <span class="more-link"><a href="#"><i class="fas fa-plus"></i> More...</a></span></h1>
+        </div>
+        <div class="ava-courses">
+            <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in javaavacourses">
+                <img ng-src="{{course.imageUrl}}">
+                <h2>{{course.name}}</h2>
+                <p class="title">{{course.instructor}}</p>
+                <p class="info">{{course.description}}</p>
+                <div class="card-body">
+                    <del class="old-price">{{course.price | currency}}</del>
+                    <span class="present-price">{{course.price | currency}}</span>
+                </div>
+                <p>
+                    <a href="#" class="favorite"><i class="far fa-heart"></i></a>
+                    <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
