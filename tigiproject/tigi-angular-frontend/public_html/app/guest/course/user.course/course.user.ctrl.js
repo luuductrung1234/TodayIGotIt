@@ -1,7 +1,7 @@
 (function() {
     angular.module("app.course.user")
         .controller("CourseUser", function($scope, $rootScope, CourseSvc) {
-            if ($rootScope.curLogin[0].username == undefined || $rootScope.curLogin[0].username == null) {
+            if ($rootScope.curLogin.length === 0 || $rootScope.curLogin[0].userName === undefined) {
                 $window.location.href = "#/home";
             }
 

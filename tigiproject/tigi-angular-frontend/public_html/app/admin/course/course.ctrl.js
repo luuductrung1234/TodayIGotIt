@@ -1,9 +1,9 @@
 (function() {
     angular.module("app.admin.course")
         .controller("AdminCourse", function($window, $scope, $rootScope, CourseSvc) {
-            // if ($rootScope.curLogin.length == 0 || $rootScope.curLogin[0].username == undefined || $rootScope.curLogin[0].username == null || $rootScope.curLogin[0].role != "admin") {
-            //     $window.location.href = "#/home";
-            // }
+            if ($rootScope.curLogin.length === 0 || $rootScope.curLogin[0].userName === undefined || $rootScope.curLogin[0].role != "admin") {
+                $window.location.href = "#/home";
+            }
 
             $scope.allcourses = [];
             $scope.startAdminCourseFrom = 0;

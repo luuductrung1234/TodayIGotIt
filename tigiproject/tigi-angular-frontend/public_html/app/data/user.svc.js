@@ -45,16 +45,16 @@
             }
 
             function loginAction(username, password) {
-                var url = "http://localhost:8080/TigiProject/login";
-                var data = {
-                    'username': username,
-                    'password': password
-                }
+                var url = "http://localhost:3000/users?userName=" + username;
+
+                // var url = "http://localhost:8080/TigiProject/login";
+                // var data = {
+                //     'username': username,
+                //     'password': password
+                // }
                 var deferred = $q.defer();
 
-                $http.post(url, data, {
-                        'Content-Type': 'x-www-form-urlencoded'
-                    })
+                $http.get(url)
                     .success(function(response) {
                         deferred.resolve(response);
                     })

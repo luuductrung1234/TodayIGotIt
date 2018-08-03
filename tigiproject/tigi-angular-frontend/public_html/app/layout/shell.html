@@ -38,13 +38,13 @@
                     </a>
                 </div>
                 <div id="user-chip" class="chip c-dropdown">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].username}}</span>
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].firstName}}</span>
                     <span class="fas fa-caret-down"></span>
                 </div>
             </div>
             <div id="admin-logged" class="user-logged" ng-class="($root.curLogin[0].role === 'admin') ? ['show'] : ['hidden']">
                 <div id="admin-chip" class="chip c-dropdown">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].username}}</span>
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].firstName}}</span>
                     <span class="fas fa-caret-down"></span>
                 </div>
             </div>
@@ -57,7 +57,7 @@
     </div>
 
     <div id="admin-dropdown" class="c-dropdown-content">
-        <a ng-href="#/profiles/{{$root.curLogin[0].username}}">Profiles</a>
+        <a ng-href="#/profiles/{{$root.curLogin[0].userName}}">Profiles</a>
         <hr/>
         <a ng-href="#/admin/course">Manage Course</a>
         <a ng-href="#/admin/instructor">Manage Instructor</a>
@@ -67,9 +67,9 @@
     </div>
 
     <div id="user-dropdown" class="c-dropdown-content">
-        <a ng-href="#/profiles/{{$root.curLogin[0].username}}">Profiles</a>
+        <a ng-href="#/profiles/{{$root.curLogin[0].userName}}">Profiles</a>
         <hr/>
-        <a ng-href="#/mycourse/{{$root.curLogin[0].username}}">My Course</a>
+        <a ng-href="#/mycourse/{{$root.curLogin[0].userName}}">My Course</a>
         <a href="#">Cart</a>
         <hr/>
         <a href="#" id="logout-user">Logout</a>
@@ -106,13 +106,13 @@
                             </div>
                             <!-- <div class="input-container">
                                 <i class="fas fa-user icon"></i>
-                                <input type="text" name="username" class="input-text mr-pd-input-df" placeholder="Username">
+                                <input type="text" name="userName" class="input-text mr-pd-input-df" placeholder="Username">
                             </div>
                             <div class="input-container">
                                 <i class="fas fa-key icon"></i>
                                 <input type="password" name="password" class="input-text mr-pd-input-df" placeholder="Password">
                             </div> -->
-                            <input type="text" id="txt-username" ng-model="loginUsername" name="username" ng-model="login" class="input-text mr-pd-input-df" placeholder="Username" required>
+                            <input type="text" id="txt-userName" ng-model="loginUsername" name="userName" ng-model="login" class="input-text mr-pd-input-df" placeholder="Username" required>
                             <input type="password" id="txt-password" ng-model="loginPassword" name="password" class="input-text mr-pd-input-df" placeholder="Password" required>
                             <input type="submit" id="btn-login" name="btn-login" value="Login" class="c-btn c-btn-sm mr-pd-input-df">
                         </div>
@@ -151,10 +151,10 @@
                             <!--login info-->
                             <div class="step-tab">
                                 <h3>Login Info</h3>
-                                <label for="username">
+                                <label for="userName">
                                     <b>Username</b>
                                 </label>
-                                <input type="text" id="username" ng-model="signinUsername" name="username" class="input-text mr-pd-input-df" placeholder="Enter Username" required>
+                                <input type="text" id="userName" ng-model="signinUsername" name="userName" class="input-text mr-pd-input-df" placeholder="Enter Username" required>
 
                                 <label for="password">
                                     <b>Password</b>
@@ -449,7 +449,7 @@
             showTab(curTab);
         }
 
-        $('#username').on('input', function(event) {
+        $('#userName').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0) {
                 $(this).removeClass('valid');
@@ -660,7 +660,7 @@
             var tab = $('.col .step-tab').eq(curTab).children();
 
             if (curTab == 0 &&
-                $('#username').hasClass('valid') &&
+                $('#userName').hasClass('valid') &&
                 $('#password').hasClass('valid') &&
                 $('#password-repeat').hasClass('valid')) {
                 $('#btn-next').removeClass('f-disabled');

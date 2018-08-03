@@ -3,8 +3,8 @@
         .controller("CourseDetails", function($scope, $routeParams, CourseSvc) {
             var serverUrl = "http://localhost:3000/";
 
-            $scope.current = null;
-            $scope.relatedcourses = null;
+            $scope.current = {};
+            $scope.relatedcourses = [];
 
             if ($routeParams.id !== undefined) {
                 getByCourseId($routeParams.id);

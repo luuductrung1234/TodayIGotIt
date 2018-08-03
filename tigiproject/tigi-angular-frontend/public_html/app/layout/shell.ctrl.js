@@ -1,7 +1,6 @@
 (function() {
     angular.module("app.shell")
         .controller("Shell", ['$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', 'UserSvc', function($window, $scope, $rootScope, $filter, $cookies, $cookieStore, UserSvc) {
-            $scope.curLogin = null;
             $scope.win = $window;
             $scope.cook = $cookieStore;
             // $scope.isLogged = false;
@@ -17,7 +16,7 @@
             }
 
             $scope.signinAction = function() {
-                var username = $scope.signinUsername;
+                var userName = $scope.signinUsername;
                 var password = $scope.signinPassword;
                 var fname = $scope.signinfname;
                 var lname = $scope.signinlname;
@@ -44,7 +43,7 @@
                 var lasUpdated = new Date();
 
                 var data = {
-                    username,
+                    userName,
                     password,
                     fname,
                     lname,
@@ -63,7 +62,7 @@
 
                 UserSvc.signinAction(data)
                     .then(function(response) {
-                            $rootScope.loginStep(data.username, data.password);
+                            $rootScope.loginStep(data.userName, data.password);
                         },
                         function(err) {
                             console.log(err);
@@ -74,41 +73,6 @@
                 $rootScope.logoutAction();
                 $window.location.href = "#/home";
             }
-
-            // function loginStep(user, pass) {
-            //     UserSvc.loginAction(user, pass)
-            //         .then(function(response) {
-            //                 $rootScope.curLogin = response;
-            //                 $scope.curLogin = $rootScope.curLogin;
-
-            //                 if ($scope.curLogin.length == 0 || $scope.curLogin == null) {
-            //                     $rootScope.curLogin = null;
-            //                     $scope.curLogin = null;
-            //                     $window.location.href = "#/home";
-            //                     $rootScope.hasError = true;
-            //                     $rootScope.errMess = "Wrong Info";
-            //                     $scope.isLogged = false;
-            //                 } else if ($scope.curLogin[0].role == "admin") {
-            //                     $window.location.href = "#/admin/home";
-            //                     $scope.isLogged = false;
-            //                 } else if ($scope.curLogin[0].role == "user") {
-            //                     $window.location.href = "#/home";
-            //                     $scope.isLogged = true;
-            //                 }
-            //             },
-            //             function(err) {
-            //                 console.log(err);
-            //                 $scope.isLogged = false;
-            //             });
-            // }
-
-            // $scope.logoutAction = function() {
-            //     $rootScope.curLogin = null;
-            //     $scope.curLogin = null;
-            //     $cookieStore.remove('curUser');
-            //     $cookieStore.remove('curPass');
-            //     $window.location.href = "#/home";
-            // }
 
             $scope.removeErr = function() {
                 $rootScope.hasError = false;
