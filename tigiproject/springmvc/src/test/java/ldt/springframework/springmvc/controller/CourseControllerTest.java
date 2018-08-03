@@ -1,7 +1,7 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.domain.Course;
-import ldt.springframework.springmvc.services.CourseService;
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.services.CourseService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;

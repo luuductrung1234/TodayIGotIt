@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
     @Bean
+    @Primary
     public DataSource dataSource(){
         return  DataSourceBuilder
                 .create()
@@ -29,7 +30,6 @@ public class DataSourceConfig {
 
 
     @Bean
-    @Primary
     public DataSource h2DataSource(){
         return  DataSourceBuilder
                 .create()

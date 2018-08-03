@@ -1,9 +1,9 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.domain.Order;
-import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.enums.OrderStatus;
-import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.tigibusiness.domain.Order;
+import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.enums.OrderStatus;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

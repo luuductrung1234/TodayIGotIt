@@ -1,11 +1,11 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.domain.*;
-import ldt.springframework.springmvc.services.CartService;
-import ldt.springframework.springmvc.services.CourseService;
-import ldt.springframework.springmvc.services.OrderService;
-import ldt.springframework.springmvc.services.UserService;
-import ldt.springframework.springmvc.sercurity.TiGiAuthService;
+import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.services.CartService;
+import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.OrderService;
+import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigibusiness.security.TiGiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

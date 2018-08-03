@@ -1,9 +1,7 @@
 package ldt.springframework.springmvc.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import ldt.springframework.springmvc.domain.Customer;
-import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.CustomerService;
+import ldt.springframework.tigibusiness.domain.Customer;
+import ldt.springframework.tigibusiness.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

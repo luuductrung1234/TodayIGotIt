@@ -1,8 +1,8 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.domain.Address;
-import ldt.springframework.springmvc.domain.Customer;
-import ldt.springframework.springmvc.services.CustomerService;
+import ldt.springframework.tigibusiness.domain.Address;
+import ldt.springframework.tigibusiness.domain.Customer;
+import ldt.springframework.tigibusiness.services.CustomerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;

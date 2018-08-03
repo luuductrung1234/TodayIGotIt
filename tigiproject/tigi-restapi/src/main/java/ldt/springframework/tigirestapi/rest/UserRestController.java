@@ -1,14 +1,17 @@
 package ldt.springframework.tigirestapi.rest;
 
-import ldt.springframework.springmvc.domain.Customer;
-import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.sercurity.TiGiAuthService;
-import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.tigibusiness.commands.UserForm;
+import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
+import ldt.springframework.tigibusiness.domain.Customer;
+import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.security.TiGiAuthService;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +35,9 @@ public class UserRestController {
     private UserService userService;
 
     @Autowired
+    private UserFormConverter userFormConverter;
+
+    @Autowired
     private TiGiAuthService tiGiAuthService;
 
 
@@ -41,10 +47,10 @@ public class UserRestController {
     // =======================================
 
     @GetMapping(value = "/user/show")
-    public User showUser(){
+    public UserForm showUser(){
         return tiGiAuthService.sessionCheckLogin(null, () ->{
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return userService.findByUserName(userDetails.getUsername());
+            return userFormConverter.revert(userService.findByUserName(userDetails.getUsername()));
         });
     }
 
@@ -54,8 +60,14 @@ public class UserRestController {
     // =======================================
 
     @GetMapping(value = "/users")
-    public List<User> getAllUser(){
-        return (List<User>) userService.listAll();
+    public List<UserForm> getAllUser(){
+        List<UserForm> userForms = new ArrayList<>();
+        for (User user:
+             (List<User>) userService.listAll()) {
+            userForms.add(userFormConverter.revert(user));
+        }
+
+        return userForms;
     }
 
     @GetMapping(value = "/user/find/{username}")
@@ -69,7 +81,19 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/user/create")
-    public User createNewUser(@RequestParam User user){
+    public UserForm createNewUser(@RequestParam UserForm userForm){
+        try {
+            if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
+                return null;
+            }
+
+            User savedUser = userService.saveOrUpdateUserForm(userForm);
+
+            return userFormConverter.revert(savedUser);
+        } catch (Exception ex) {
+            ex.getStackTrace();
+        }
+
         return null;
     }
 }

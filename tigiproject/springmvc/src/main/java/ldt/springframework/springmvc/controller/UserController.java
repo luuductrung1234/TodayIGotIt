@@ -1,12 +1,12 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.commands.UserForm;
-import ldt.springframework.springmvc.commands.converters.UserFormConverter;
-import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.CartService;
-import ldt.springframework.springmvc.services.CustomerService;
-import ldt.springframework.springmvc.services.UserService;
-import ldt.springframework.springmvc.sercurity.TiGiAuthService;
+import ldt.springframework.tigibusiness.commands.UserForm;
+import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
+import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.services.CartService;
+import ldt.springframework.tigibusiness.services.CustomerService;
+import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigibusiness.security.TiGiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

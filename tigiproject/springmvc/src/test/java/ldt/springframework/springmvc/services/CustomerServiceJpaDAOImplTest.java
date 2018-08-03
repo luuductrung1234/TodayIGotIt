@@ -1,9 +1,10 @@
 package ldt.springframework.springmvc.services;
 
-import ldt.springframework.springmvc.domain.Address;
-import ldt.springframework.springmvc.domain.Customer;
-import ldt.springframework.springmvc.domain.User;
-import net.bytebuddy.asm.Advice;
+import ldt.springframework.tigibusiness.domain.Address;
+import ldt.springframework.tigibusiness.domain.Customer;
+import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.services.CustomerService;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

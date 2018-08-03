@@ -1,10 +1,9 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.commands.CourseForm;
-import ldt.springframework.springmvc.commands.converters.CourseFormConverter;
-import ldt.springframework.springmvc.domain.Course;
-import ldt.springframework.springmvc.domain.User;
-import ldt.springframework.springmvc.services.CourseService;
+import ldt.springframework.tigibusiness.commands.CourseForm;
+import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /*

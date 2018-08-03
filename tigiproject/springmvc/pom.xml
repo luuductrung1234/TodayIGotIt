@@ -25,6 +25,13 @@
     </properties>
 
     <dependencies>
+        <!-- Tigi Project -->
+        <dependency>
+            <groupId>ldt.springframework</groupId>
+            <artifactId>tigi-business</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

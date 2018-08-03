@@ -1,8 +1,8 @@
 package ldt.springframework.springmvc.config;
 
-import ldt.springframework.springmvc.enums.RoleType;
-import ldt.springframework.springmvc.sercurity.CustomAuthenticationSuccessHandler;
-import ldt.springframework.springmvc.sercurity.CustomLogoutSuccessHandler;
+import ldt.springframework.tigibusiness.enums.RoleType;
+import ldt.springframework.tigibusiness.security.CustomAuthenticationSuccessHandler;
+import ldt.springframework.tigibusiness.security.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

@@ -1,13 +1,12 @@
 package ldt.springframework.springmvc.bootstrap;
 
-import ldt.springframework.springmvc.domain.*;
-import ldt.springframework.springmvc.domain.security.Role;
-import ldt.springframework.springmvc.enums.OrderStatus;
-import ldt.springframework.springmvc.enums.RoleType;
-import ldt.springframework.springmvc.services.CourseService;
-import ldt.springframework.springmvc.services.CustomerService;
-import ldt.springframework.springmvc.services.RoleService;
-import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.OrderStatus;
+import ldt.springframework.tigibusiness.enums.RoleType;
+import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.RoleService;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

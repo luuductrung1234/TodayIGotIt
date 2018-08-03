@@ -1,6 +1,7 @@
 package ldt.springframework.springmvc.services;
 
-import ldt.springframework.springmvc.domain.Course;
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.services.CourseService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

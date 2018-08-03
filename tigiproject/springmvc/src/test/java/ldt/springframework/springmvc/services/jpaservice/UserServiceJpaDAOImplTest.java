@@ -1,8 +1,8 @@
 package ldt.springframework.springmvc.services.jpaservice;
 
-import ldt.springframework.springmvc.domain.*;
-import ldt.springframework.springmvc.services.CourseService;
-import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

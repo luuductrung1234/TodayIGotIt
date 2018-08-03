@@ -1,8 +1,8 @@
 package ldt.springframework.springmvc.controller;
 
-import ldt.springframework.springmvc.domain.Course;
-import ldt.springframework.springmvc.services.CourseService;
-import ldt.springframework.springmvc.services.UserService;
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
