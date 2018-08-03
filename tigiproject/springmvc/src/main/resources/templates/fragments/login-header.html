@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-header">
+            <a class="navbar-brand navbar-brand-logo" href="/TigiProject/">
+                <img style="width: 60px; height: 60px;" th:src="@{/images/logostyle.png}" alt="TiGi_logo">
+                <!--<div class="logo">-->
+                <!--</div>-->
+            </a>
+            <!--<div th:if="${pathslash} == 2">-->
+            <!--<a class="navbar-brand navbar-brand-logo" href="http://www.creative-tim.com">-->
+            <!--<img style="width: 60px; height: 60px;" th:src="@{../images/logostyle.png}" alt="TiGi_logo">-->
+            <!--&lt;!&ndash;<div class="logo">&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</a>-->
+            <!--</div>-->
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/TigiProject">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/TigiProject/customers">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/TigiProject/courses">Courses</a>
+                </li>
+                <li class="nav-item" th:if="${#session.getAttribute('curUser')} != null">
+                    <a class="nav-link" href="/TigiProject/user/show">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
