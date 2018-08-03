@@ -66,15 +66,17 @@
             }
 
             function userShow() {
-                var trustedObject = {
-
-                };
+                var authConfig = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                },
 
                 var url = serverUrl + "user/show";
 
                 var deferred = $q.defer();
 
-                $http.post(url)
+                $http.post(url, authConfig)
                     .success(function(response) {
                         deferred.resolve(response);
                     })

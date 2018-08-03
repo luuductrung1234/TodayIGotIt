@@ -68,7 +68,7 @@ public class CourseRestController {
     }
 
     @PostMapping(value = "/course/create")
-    public CourseForm createNewCourse(@RequestParam CourseForm courseForm){
+    public CourseForm createNewCourse(@RequestBody CourseForm courseForm){
         try{
             Course savedCourse = courseService.saveOrUpdateCourseForm(courseForm);
 
