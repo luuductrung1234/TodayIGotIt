@@ -70,7 +70,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                },
+                };
 
                 var url = serverUrl + "user/show";
 
