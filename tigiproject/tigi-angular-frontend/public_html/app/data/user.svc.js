@@ -1,6 +1,6 @@
-(function() {
+(function () {
     angular.module("app.data")
-        .factory("UserSvc", function($http, $q) {
+        .factory("UserSvc", function ($http, $q) {
             // var serverUrl = "http://localhost:3000/";
             var serverUrl = "http://localhost:8080/TigiProject/api/";
 
@@ -18,10 +18,10 @@
                 var deferred = $q.defer();
 
                 $http.get(url)
-                    .success(function(response) {
+                    .success(function (response) {
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
+                    .error(function (err) {
                         deferred.reject(err);
                     });
 
@@ -34,10 +34,10 @@
                 var deferred = $q.defer();
 
                 $http.get(url)
-                    .success(function(response) {
+                    .success(function (response) {
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
+                    .error(function (err) {
                         deferred.reject(err);
                     });
 
@@ -45,46 +45,30 @@
             }
 
             function loginAction(username, password) {
-                var url = "http://localhost:3000/users?userName=" + username;
+                var auth = btoa(`${username}:${password}`);
+                var url = serverUrl + "user/info";
 
-                // var url = "http://localhost:8080/TigiProject/login";
-                // var data = {
-                //     'username': username,
-                //     'password': password
-                // }
                 var deferred = $q.defer();
 
-                $http.get(url)
-                    .success(function(response) {
+                $http({
+                    method: 'GET', 
+                    url: url, 
+                    headers: {
+                        'Authorization': 'Basic ' + auth 
+                    }
+                })
+                    .success(function (response) {
+                        console.log(response);
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
+                    .error(function (err) {
                         deferred.reject(err);
                     });
 
                 return deferred.promise;
             }
 
-            function userShow() {
-                var authConfig = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                },
-
-                var url = serverUrl + "user/show";
-
-                var deferred = $q.defer();
-
-                $http.post(url, authConfig)
-                    .success(function(response) {
-                        deferred.resolve(response);
-                    })
-                    .error(function(err) {
-                        deferred.reject(err);
-                    });
-
-                return deferred.promise;
+            function userInfo() {
             }
 
             function signinAction(data) {
@@ -101,10 +85,10 @@
                 var deferred = $q.defer();
 
                 $http.post(url, JSON.stringify(data))
-                    .success(function(response) {
+                    .success(function (response) {
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
+                    .error(function (err) {
                         deferred.reject(err);
                     });
 
@@ -125,10 +109,10 @@
                 var deferred = $q.defer();
 
                 $http.put(url, JSON.stringify(data))
-                    .success(function(response) {
+                    .success(function (response) {
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
+                    .error(function (err) {
                         deferred.reject(err);
                     });
 
