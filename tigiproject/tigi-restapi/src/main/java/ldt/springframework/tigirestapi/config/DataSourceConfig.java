@@ -23,7 +23,7 @@ public class DataSourceConfig {
         return  DataSourceBuilder
                 .create()
                 .username("root")
-                .password("klbloodice")
+                .password("Trung1997")
                 .url("jdbc:mysql://localhost:3306/TigiDB?autoReconnect=true&useSSL=false")
                 .build();
     }
