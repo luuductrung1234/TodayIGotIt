@@ -1,5 +1,6 @@
 package ldt.springframework.tigirestapi.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +18,21 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
+    // =======================================
+    // =          Attribute Section          =
+    // =======================================
+
+    @Value("datasource.password")
+    private String dspassword;
+
+
     @Bean
     @Primary
     public DataSource dataSource(){
         return  DataSourceBuilder
                 .create()
                 .username("root")
-                .password("Trung1997")
+                .password(dspassword)
                 .url("jdbc:mysql://localhost:3306/TigiDB?autoReconnect=true&useSSL=false")
                 .build();
     }
