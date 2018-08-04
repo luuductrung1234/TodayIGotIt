@@ -1,10 +1,12 @@
 package ldt.springframework.tigirestapi.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 
@@ -17,14 +19,14 @@ import javax.sql.DataSource;
 
 
 @Configuration
+@PropertySource("classpath:/personalconfig.properties")
 public class DataSourceConfig {
     // =======================================
     // =          Attribute Section          =
     // =======================================
 
-    @Value("datasource.password")
-    private String dspassword;
-
+    @Autowired
+    Environment env;
 
     @Bean
     @Primary
@@ -32,7 +34,7 @@ public class DataSourceConfig {
         return  DataSourceBuilder
                 .create()
                 .username("root")
-                .password(dspassword)
+                .password(env.getProperty("datasource.password"))
                 .url("jdbc:mysql://localhost:3306/TigiDB?autoReconnect=true&useSSL=false")
                 .build();
     }

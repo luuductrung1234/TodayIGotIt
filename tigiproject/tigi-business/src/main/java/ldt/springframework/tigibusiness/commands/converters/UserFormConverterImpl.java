@@ -1,10 +1,7 @@
 package ldt.springframework.tigibusiness.commands.converters;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
-import ldt.springframework.tigibusiness.domain.Address;
-import ldt.springframework.tigibusiness.domain.Cart;
-import ldt.springframework.tigibusiness.domain.Customer;
-import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import org.springframework.stereotype.Component;
 
@@ -32,9 +29,28 @@ public class UserFormConverterImpl implements UserFormConverter{
 
         user.setRoles(source.getUserRoles());
 
-        if(source.getUserCart() == null)
+        if(source.getUserCart() != null){
+            for (CartDetails cartDetails:
+                 source.getUserCart().getCartDetails()) {
+                cartDetails.setCart(source.getUserCart());
+            }
+            user.setCart(source.getUserCart());
+        }else{
             source.setUserCart(new Cart());
-        user.setCart(source.getUserCart());
+            user.setCart(source.getUserCart());
+        }
+
+        if(source.getUserOrders() != null){
+            for (Order order:
+                 source.getUserOrders()) {
+                for (OrderDetails orderDetails : order.getOrderDetails()) {
+                    orderDetails.setOrder(order);
+                }
+                user.addOrders(order);
+            }
+        }else{
+            user.setOrders(null);
+        }
 
         user.setCustomer(new Customer());
         user.getCustomer().setId(source.getCustomerId());
@@ -74,6 +90,7 @@ public class UserFormConverterImpl implements UserFormConverter{
         userForm.setPasswordEncrypted(source.getEncryptedPassowrd());
         userForm.setUserCart(source.getCart());
         userForm.setUserRoles(source.getRoles());
+        userForm.setUserOrders(source.getOrders());
 
         userForm.setCustomerId(source.getCustomer().getId());
         userForm.setCustomerVersion(source.getCustomer().getVersion());

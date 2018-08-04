@@ -107,6 +107,9 @@ public class UserServiceJpaDAOImpl implements UserService {
 
     @Override
     public User saveOrUpdateUserForm(UserForm userForm) {
+        if(userForm == null)
+            return null;
+
         User newUser = userFormConverter.convert(userForm);
 
         //enhance if saved
@@ -121,5 +124,41 @@ public class UserServiceJpaDAOImpl implements UserService {
 
         return saveOrUpdate(newUser);
 
+    }
+
+    @Override
+    public User saveUserForm(UserForm userForm) {
+        if(userForm == null)
+            return null;
+
+        User user = userFormConverter.convert(userForm);
+        if(user.getId() != null){
+            User existingUser = getById(user.getId());
+
+            if(existingUser != null)
+                return null;
+        }
+
+        user.setCart(new Cart());
+        return saveOrUpdate(user);
+    }
+
+    @Override
+    public User updateUserForm(UserForm userForm) {
+        if(userForm == null)
+            return null;
+
+        User user = userFormConverter.convert(userForm);
+        if(user.getId() != null) {
+            User existingUser = getById(user.getId());
+
+            if(existingUser == null)
+                return null;
+            //set enabled flag from db
+            user.setEnabled(existingUser.getEnabled());
+            return saveOrUpdate(user);
+        }
+
+        return null;
     }
 }

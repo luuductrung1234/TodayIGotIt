@@ -2,6 +2,7 @@ package ldt.springframework.tigibusiness.commands;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.tigibusiness.domain.Cart;
+import ldt.springframework.tigibusiness.domain.Order;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.RoleType;
 import org.hibernate.validator.constraints.Length;
@@ -41,6 +42,7 @@ public class UserForm {
     private String passwordEncrypted;
     private List<Role> userRoles;
     private Cart userCart;
+    private List<Order> userOrders;
 
     private Integer customerId;
     private Integer customerVersion;
@@ -130,8 +132,6 @@ public class UserForm {
         this.userRoles = userRoles;
     }
 
-    @JsonIgnore
-    @JsonProperty(value = "userform_password")
     public String getPasswordText() {
         return passwordText;
     }
@@ -147,7 +147,6 @@ public class UserForm {
     public void setPasswordTextConf(String passwordTextConf) {
         this.passwordTextConf = passwordTextConf;
     }
-
 
 
     public String getFirstName() {
@@ -182,8 +181,6 @@ public class UserForm {
         this.phoneNumber = phoneNumber;
     }
 
-    @JsonIgnore
-    @JsonProperty(value = "userform_encryptpassword")
     public String getPasswordEncrypted() {
         return passwordEncrypted;
     }
@@ -278,5 +275,13 @@ public class UserForm {
 
     public void setShippingZipCode(String shippingZipcode) {
         this.shippingZipCode = shippingZipcode;
+    }
+
+    public List<Order> getUserOrders(){
+        return this.userOrders;
+    }
+
+    public void setUserOrders(List<Order> orders){
+        this.userOrders = orders;
     }
 }

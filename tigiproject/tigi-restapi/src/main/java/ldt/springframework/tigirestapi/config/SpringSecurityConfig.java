@@ -173,6 +173,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users/full").hasAnyAuthority(RoleType.ADMIN.name())
-                .and().authorizeRequests().antMatchers("/api/user/info").authenticated();
+                .and().authorizeRequests().antMatchers("/api/user/info").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/update").authenticated();
     }
 }

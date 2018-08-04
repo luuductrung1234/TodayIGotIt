@@ -26,4 +26,10 @@ public interface UserService extends CRUDService<User>{
     void updateLogoutUserToSession(WebRequest request, SessionStatus status);
 
     User saveOrUpdateUserForm(UserForm userForm);
+
+    User saveUserForm(UserForm userForm);
+
+    User updateUserForm(UserForm userForm);
+
+
 }

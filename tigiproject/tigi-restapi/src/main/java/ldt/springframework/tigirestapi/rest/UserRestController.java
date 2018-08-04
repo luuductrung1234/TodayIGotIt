@@ -2,7 +2,6 @@ package ldt.springframework.tigirestapi.rest;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
-import ldt.springframework.tigibusiness.domain.Customer;
 import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.security.TiGiAuthService;
 import ldt.springframework.tigibusiness.services.UserService;
@@ -46,13 +45,34 @@ public class UserRestController {
     // =           Auth REST Method          =
     // =======================================
 
-    @CrossOrigin(origins = "*")
     @GetMapping(value = "/user/info")
     public UserForm showUser(){
-        return tiGiAuthService.sessionCheckLogin(null, () ->{
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return userFormConverter.revert(userService.findByUserName(userDetails.getUsername()));
-        });
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByUserName(userDetails.getUsername());
+
+        return userFormConverter.revert(user);
+    }
+
+    @PostMapping(value = "/user/update")
+    public UserForm updateUserInfo(@RequestBody UserForm userForm){
+        try {
+            if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
+                // TODO : Fail Handling
+                return null;
+            }
+            User savedUser = userService.updateUserForm(userForm);
+
+            if(savedUser == null){
+                // TODO : Fail Handling
+                return null;
+            }
+            return userFormConverter.revert(savedUser);
+        } catch (Exception ex) {
+            // TODO : Fail Handling
+            ex.getStackTrace();
+        }
+
+        return null;
     }
 
     @GetMapping(value = "/users/full")
@@ -89,20 +109,29 @@ public class UserRestController {
 
 
     @GetMapping(value = "/user/find/{username}")
-    public Customer getUserByUsername(@PathVariable String username){
-        return userService.findByUserName(username).getCustomer();
+    public UserForm getUserByUsername(@PathVariable String username){
+        return userFormConverter.revertToFewInfo(userService.findByUserName(username));
     }
 
     @PostMapping(value = "/user/new")
     public UserForm createNewUser(@RequestBody UserForm userForm){
         try {
             if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
+                // TODO : Fail Handling
                 return null;
             }
-            User savedUser = userService.saveOrUpdateUserForm(userForm);
 
+            // reset user id to prevent from updating the existed user
+            userForm.setUserId(null);
+            User savedUser = userService.saveUserForm(userForm);
+
+            if(savedUser == null){
+                // TODO : Fail Handling
+                return null;
+            }
            return userFormConverter.revert(savedUser);
         } catch (Exception ex) {
+            // TODO : Fail Handling
             ex.getStackTrace();
         }
 

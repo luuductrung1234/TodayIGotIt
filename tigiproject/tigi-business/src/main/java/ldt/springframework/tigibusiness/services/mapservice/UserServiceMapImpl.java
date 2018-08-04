@@ -94,4 +94,14 @@ public class UserServiceMapImpl extends AbstractMapService
     public User saveOrUpdateUserForm(UserForm userForm) {
         return null;
     }
+
+    @Override
+    public User saveUserForm(UserForm userForm) {
+        return null;
+    }
+
+    @Override
+    public User updateUserForm(UserForm userForm) {
+        return null;
+    }
 }
