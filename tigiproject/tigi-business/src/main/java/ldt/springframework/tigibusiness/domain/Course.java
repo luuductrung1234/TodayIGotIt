@@ -30,9 +30,6 @@ public class Course extends AbstractDomainEntity {
 
     private String imageUrl;
 
-    @ManyToOne
-    private User user;
-
 
     // =======================================
     // =        Constructors Section         =
@@ -75,13 +72,5 @@ public class Course extends AbstractDomainEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

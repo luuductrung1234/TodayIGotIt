@@ -2,7 +2,6 @@ package ldt.springframework.tigibusiness.commands.converters;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.domain.*;
-import ldt.springframework.tigibusiness.domain.security.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -52,6 +51,14 @@ public class UserFormConverterImpl implements UserFormConverter{
             user.setOrders(null);
         }
 
+        if (source.getUserCourseOwner() != null){
+            for(CourseOwner courseOwner : source.getUserCourseOwner()){
+                user.addCourseOwer(courseOwner);
+            }
+        }else{
+            user.setCourseOwners(null);
+        }
+
         user.setCustomer(new Customer());
         user.getCustomer().setId(source.getCustomerId());
         user.getCustomer().setVersion(source.getCustomerVersion());
@@ -91,6 +98,7 @@ public class UserFormConverterImpl implements UserFormConverter{
         userForm.setUserCart(source.getCart());
         userForm.setUserRoles(source.getRoles());
         userForm.setUserOrders(source.getOrders());
+        userForm.setUserCourseOwners(source.getCourseOwners());
 
         userForm.setCustomerId(source.getCustomer().getId());
         userForm.setCustomerVersion(source.getCustomer().getVersion());
@@ -127,6 +135,7 @@ public class UserFormConverterImpl implements UserFormConverter{
         userForm.setPasswordEncrypted("");
         userForm.setUserCart(new Cart());
         userForm.setUserRoles(new ArrayList<>());
+        userForm.setUserCourseOwners(new ArrayList<>());
 
         userForm.setCustomerId(source.getCustomer().getId());
         userForm.setCustomerVersion(source.getCustomer().getVersion());

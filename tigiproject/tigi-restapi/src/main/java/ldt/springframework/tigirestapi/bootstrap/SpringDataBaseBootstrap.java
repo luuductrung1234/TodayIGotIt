@@ -3,6 +3,7 @@ package ldt.springframework.tigirestapi.bootstrap;
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.OrderStatus;
+import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.enums.RoleType;
 import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigibusiness.services.RoleService;
@@ -58,6 +59,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         this.loadCurrentCart();
         this.loadOrderHistory();
         this.loadRoles();
+        this.loadOwnedCourse();
         this.assignUsersToDefaultRole();
     }
 
@@ -98,6 +100,61 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course6.setPrice(new BigDecimal("20.05"));
         course6.setImageUrl("http://example.com/course6");
         courseService.saveOrUpdate(course6);
+
+        Course course7 = new Course();
+        course7.setDescription("Course 7");
+        course7.setPrice(new BigDecimal("19.99"));
+        course7.setImageUrl("http://example.com/course7");
+        courseService.saveOrUpdate(course7);
+
+        Course course8 = new Course();
+        course8.setDescription("Course 8");
+        course8.setPrice(new BigDecimal("19.99"));
+        course8.setImageUrl("http://example.com/course8");
+        courseService.saveOrUpdate(course8);
+
+        Course course9 = new Course();
+        course9.setDescription("Course 9");
+        course9.setPrice(new BigDecimal("20.05"));
+        course9.setImageUrl("http://example.com/course9");
+        courseService.saveOrUpdate(course9);
+
+        Course course10 = new Course();
+        course10.setDescription("Course 10");
+        course10.setPrice(new BigDecimal("10.50"));
+        course10.setImageUrl("http://example.com/course10");
+        courseService.saveOrUpdate(course10);
+
+        Course course11 = new Course();
+        course11.setDescription("Course 11");
+        course11.setPrice(new BigDecimal("2.05"));
+        course11.setImageUrl("http://example.com/course11");
+        courseService.saveOrUpdate(course11);
+
+        Course course12 = new Course();
+        course12.setDescription("Course 12");
+        course12.setPrice(new BigDecimal("10.99"));
+        course12.setImageUrl("http://example.com/course12");
+        courseService.saveOrUpdate(course12);
+
+        Course course13 = new Course();
+        course13.setDescription("Course 13");
+        course13.setPrice(new BigDecimal("90.50"));
+        course13.setImageUrl("http://example.com/course13");
+        courseService.saveOrUpdate(course13);
+
+        Course course14 = new Course();
+        course14.setDescription("Course 14");
+        course14.setPrice(new BigDecimal("199.99"));
+        course14.setImageUrl("http://example.com/course14");
+        courseService.saveOrUpdate(course14);
+
+        Course course15 = new Course();
+        course15.setDescription("Course 15");
+        course15.setPrice(new BigDecimal("9.99"));
+        course15.setImageUrl("http://example.com/course15");
+        courseService.saveOrUpdate(course15);
+
     }
 
     private void loadUser() {
@@ -143,6 +200,26 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("444 DDW ltd p4", "", "HCM", "South", "700000"));
         user4.setCustomer(customer4);
         userService.saveOrUpdate(user4);
+
+        User user5 = new User();
+        user5.setUsername("johndoe");
+        user5.setPassword("aaa");
+        Customer customer5 = new Customer(null, "John", "Doe",
+                "johndoe123@gmail.com", "023423423134",
+                new Address("221 KKA p4", "", "HCM", "South", "700000"),
+                new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
+        user5.setCustomer(customer5);
+        userService.saveOrUpdate(user5);
+
+        User user6 = new User();
+        user6.setUsername("sa");
+        user6.setPassword("123");
+        Customer customer6 = new Customer(null, "Admin", "Tigi",
+                "tigiadmin@gmail.com", "023423423134",
+                new Address("221 KKA p4", "", "HCM", "South", "700000"),
+                new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
+        user6.setCustomer(customer6);
+        userService.saveOrUpdate(user6);
     }
 
     private void loadCurrentCart(){
@@ -151,44 +228,44 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
         users.get(0).setCart(new Cart());
         users.get(0).getCart()
-                .addCartDetail(new CartDetails(1, users.get(0).getCart(), courses.get(0)));
+                .addCartDetail(new CartDetails(1, users.get(0).getCart(), courses.get(10)));
         users.get(0).getCart()
-                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(1)));
+                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(9)));
         users.get(0).getCart()
-                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(2)));
+                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(7)));
         userService.saveOrUpdate(users.get(0));
 
 
         users.get(1).setCart(new Cart());
         users.get(1).getCart()
-                .addCartDetail(new CartDetails(1, users.get(1).getCart(), courses.get(1)));
+                .addCartDetail(new CartDetails(1, users.get(1).getCart(), courses.get(0)));
         users.get(1).getCart()
-                .addCartDetail(new CartDetails(4, users.get(1).getCart(), courses.get(3)));
+                .addCartDetail(new CartDetails(4, users.get(1).getCart(), courses.get(7)));
         users.get(1).getCart()
-                .addCartDetail(new CartDetails(3, users.get(1).getCart(), courses.get(2)));
+                .addCartDetail(new CartDetails(3, users.get(1).getCart(), courses.get(13)));
         userService.saveOrUpdate(users.get(1));
 
 
         users.get(2).setCart(new Cart());
         users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(4)));
+                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(3)));
         users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(1)));
+                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(5)));
         users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(2)));
+                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(6)));
         userService.saveOrUpdate(users.get(2));
 
 
-        users.get(3).setCart(new Cart());
-        users.get(3).getCart()
-                .addCartDetail(new CartDetails(1, users.get(3).getCart(), courses.get(0)));
-        users.get(3).getCart()
-                .addCartDetail(new CartDetails(4, users.get(3).getCart(), courses.get(1)));
-        users.get(3).getCart()
-                .addCartDetail(new CartDetails(2, users.get(3).getCart(), courses.get(2)));
-        users.get(3).getCart()
-                .addCartDetail(new CartDetails(3, users.get(3).getCart(), courses.get(5)));
-        userService.saveOrUpdate(users.get(3));
+//        users.get(3).setCart(new Cart());
+//        users.get(3).getCart()
+//                .addCartDetail(new CartDetails(1, users.get(3).getCart(), courses.get(0)));
+//        users.get(3).getCart()
+//                .addCartDetail(new CartDetails(4, users.get(3).getCart(), courses.get(1)));
+//        users.get(3).getCart()
+//                .addCartDetail(new CartDetails(2, users.get(3).getCart(), courses.get(2)));
+//        users.get(3).getCart()
+//                .addCartDetail(new CartDetails(3, users.get(3).getCart(), courses.get(5)));
+//        userService.saveOrUpdate(users.get(3));
     }
 
     private void loadOrderHistory(){
@@ -208,11 +285,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(0).getOrders().get(0)
                 .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(0), courses.get(1)));
         users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(4, users.get(0).getOrders().get(0), courses.get(2)));
+                .addOrderDetails(new OrderDetails(4, users.get(0).getOrders().get(0), courses.get(3)));
         users.get(0).getOrders().get(1)
                 .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(1), courses.get(4)));
         users.get(0).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(1), courses.get(1)));
+                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(1), courses.get(0)));
         userService.saveOrUpdate(users.get(0));
 
 
@@ -233,7 +310,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(1).getOrders().get(1)
                 .addOrderDetails(new OrderDetails(6, users.get(1).getOrders().get(1), courses.get(4)));
         users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(1), courses.get(2)));
+                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(1), courses.get(8)));
         users.get(1).getOrders().get(1)
                 .addOrderDetails(new OrderDetails(1, users.get(1).getOrders().get(1), courses.get(3)));
         userService.saveOrUpdate(users.get(1));
@@ -250,6 +327,50 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(2).getOrders().get(0)
                 .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), courses.get(2)));
         userService.saveOrUpdate(users.get(2));
+    }
+
+    private void loadOwnedCourse(){
+        List<User> users = (List<User>) userService.listAll();
+        List<Course> courses  = (List<Course>) courseService.listAll();
+
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2)));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1)));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3)));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4)));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(0)));
+        userService.saveOrUpdate(users.get(0));
+
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(5)));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2)));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1)));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4)));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(8)));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3)));
+        userService.saveOrUpdate(users.get(1));
+
+        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1)));
+        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4)));
+        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2)));
+        userService.saveOrUpdate(users.get(2));
+
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(0)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(1)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(2)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(3)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(4)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(5)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(6)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(7)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(8)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(9)));
+        userService.saveOrUpdate(users.get(3));
+
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(10)));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(11)));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(12)));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(13)));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(14)));
+        userService.saveOrUpdate(users.get(4));
     }
 
     private void loadRoles(){
@@ -272,13 +393,18 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         userService.saveOrUpdate(users.get(0));
 
         users.get(1).addRole(roles.get(0));
-        users.get(1).addRole(roles.get(2));
         userService.saveOrUpdate(users.get(1));
 
-        users.get(2).addRole(roles.get(1));
+        users.get(2).addRole(roles.get(0));
         userService.saveOrUpdate(users.get(2));
 
         users.get(3).addRole(roles.get(2));
         userService.saveOrUpdate(users.get(3));
+
+        users.get(4).addRole(roles.get(2));
+        userService.saveOrUpdate(users.get(4));
+
+        users.get(5).addRole(roles.get(1));
+        userService.saveOrUpdate(users.get(5));
     }
 }

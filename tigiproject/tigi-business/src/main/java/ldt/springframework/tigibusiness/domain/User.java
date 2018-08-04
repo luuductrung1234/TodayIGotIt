@@ -57,7 +57,7 @@ public class User extends AbstractDomainEntity{
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Course> courses = new ArrayList<>();
+    private List<CourseOwner> courseOwners = new ArrayList<>();
 
     @ManyToMany
     @JoinTable
@@ -126,7 +126,6 @@ public class User extends AbstractDomainEntity{
     public void setFailedLoginAttempts(Integer failedLoginAttempts) {
         this.failedLoginAttempts = failedLoginAttempts;
     }
-
 
 
     // =======================================
@@ -204,11 +203,21 @@ public class User extends AbstractDomainEntity{
     // =           Course Access             =
     // =======================================
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<CourseOwner> getCourseOwners() {
+        return courseOwners;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourseOwners(List<CourseOwner> courseOwners) {
+        this.courseOwners = courseOwners;
+    }
+
+    public void addCourseOwer(CourseOwner courseOwner){
+        courseOwner.setUser(this);
+        this.courseOwners.add(courseOwner);
+    }
+
+    public void removeCourse(CourseOwner courseOwner){
+        courseOwner.setUser(null);
+        this.courseOwners.remove(courseOwner);
     }
 }

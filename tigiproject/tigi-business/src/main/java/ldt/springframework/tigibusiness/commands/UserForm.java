@@ -2,6 +2,8 @@ package ldt.springframework.tigibusiness.commands;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.tigibusiness.domain.Cart;
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.CourseOwner;
 import ldt.springframework.tigibusiness.domain.Order;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.RoleType;
@@ -40,9 +42,11 @@ public class UserForm {
     @NotEmpty
     private String passwordTextConf;
     private String passwordEncrypted;
+
     private List<Role> userRoles;
     private Cart userCart;
     private List<Order> userOrders;
+    private List<CourseOwner> userCourseOwners;
 
     private Integer customerId;
     private Integer customerVersion;
@@ -283,5 +287,13 @@ public class UserForm {
 
     public void setUserOrders(List<Order> orders){
         this.userOrders = orders;
+    }
+
+    public List<CourseOwner> getUserCourseOwner(){
+        return this.userCourseOwners;
+    }
+
+    public void setUserCourseOwners(List<CourseOwner> courseOwners){
+        this.userCourseOwners = courseOwners;
     }
 }
