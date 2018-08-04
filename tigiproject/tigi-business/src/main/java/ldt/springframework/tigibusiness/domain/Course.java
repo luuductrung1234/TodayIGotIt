@@ -3,6 +3,7 @@ package ldt.springframework.tigibusiness.domain;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
@@ -28,6 +29,9 @@ public class Course extends AbstractDomainEntity {
     private BigDecimal price;
 
     private String imageUrl;
+
+    @ManyToOne
+    private User user;
 
 
     // =======================================
@@ -71,5 +75,13 @@ public class Course extends AbstractDomainEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

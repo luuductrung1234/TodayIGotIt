@@ -52,6 +52,13 @@ public class User extends AbstractDomainEntity{
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Order> orders = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Course> courses = new ArrayList<>();
+
     @ManyToMany
     @JoinTable
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -104,6 +111,28 @@ public class User extends AbstractDomainEntity{
         customer.setUser(this);
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Integer getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(Integer failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+
+
+    // =======================================
+    // =            Cart Access              =
+    // =======================================
+
     public Cart getCart() {
         return cart;
     }
@@ -120,6 +149,10 @@ public class User extends AbstractDomainEntity{
         return cart;
     }
 
+
+    // =======================================
+    // =            Order Access             =
+    // =======================================
     public List<Order> getOrders() {
         return orders;
     }
@@ -137,6 +170,11 @@ public class User extends AbstractDomainEntity{
         this.orders.remove(order);
         order.setUser(null);
     }
+
+
+    // =======================================
+    // =            Role Access              =
+    // =======================================
 
     public List<Role> getRoles() {
         return roles;
@@ -161,19 +199,16 @@ public class User extends AbstractDomainEntity{
         role.getUsers().remove(this);
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+
+    // =======================================
+    // =           Course Access             =
+    // =======================================
+
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Integer getFailedLoginAttempts() {
-        return failedLoginAttempts;
-    }
-
-    public void setFailedLoginAttempts(Integer failedLoginAttempts) {
-        this.failedLoginAttempts = failedLoginAttempts;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }
