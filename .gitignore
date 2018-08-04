@@ -2,6 +2,11 @@
 # Project specific excludes
 #
 
+# Custom excludes
+tigiproject/tigi-restapi/src/main/resources/personalconfig.properties
+
+
+
 tomcat
 
 #
