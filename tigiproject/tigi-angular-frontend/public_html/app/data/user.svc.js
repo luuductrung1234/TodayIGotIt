@@ -45,39 +45,20 @@
             }
 
             function loginAction(username, password) {
-                var url = "http://localhost:3000/users?userName=" + username;
+                var auth = btoa(`${username}:${password}`);
+                var url = serverUrl + "user/info";
 
-                // var url = "http://localhost:8080/TigiProject/login";
-                // var data = {
-                //     'username': username,
-                //     'password': password
-                // }
                 var deferred = $q.defer();
 
-                $http.get(url)
-                    .success(function(response) {
-                        deferred.resolve(response);
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
                     })
-                    .error(function(err) {
-                        deferred.reject(err);
-                    });
-
-                return deferred.promise;
-            }
-
-            function userShow() {
-                var authConfig = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                };
-
-                var url = serverUrl + "user/show";
-
-                var deferred = $q.defer();
-
-                $http.post(url, authConfig)
                     .success(function(response) {
+                        console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {

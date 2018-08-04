@@ -46,12 +46,24 @@ public class UserRestController {
     // =           Auth REST Method          =
     // =======================================
 
-    @GetMapping(value = "/user/show")
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/user/info")
     public UserForm showUser(){
         return tiGiAuthService.sessionCheckLogin(null, () ->{
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             return userFormConverter.revert(userService.findByUserName(userDetails.getUsername()));
         });
+    }
+
+    @GetMapping(value = "/users/full")
+    public List<UserForm> getAllUserWithFullInfo(){
+        List<UserForm> userForms = new ArrayList<>();
+        for (User user:
+                (List<User>) userService.listAll()) {
+            userForms.add(userFormConverter.revert(user));
+        }
+
+        return userForms;
     }
 
 
@@ -64,7 +76,7 @@ public class UserRestController {
         List<UserForm> userForms = new ArrayList<>();
         for (User user:
              (List<User>) userService.listAll()) {
-            userForms.add(userFormConverter.revert(user));
+            userForms.add(userFormConverter.revertToFewInfo(user));
         }
 
         return userForms;
@@ -81,7 +93,7 @@ public class UserRestController {
         return userService.findByUserName(username).getCustomer();
     }
 
-    @PostMapping(value = "/user/create")
+    @PostMapping(value = "/user/new")
     public UserForm createNewUser(@RequestBody UserForm userForm){
         try {
             if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {

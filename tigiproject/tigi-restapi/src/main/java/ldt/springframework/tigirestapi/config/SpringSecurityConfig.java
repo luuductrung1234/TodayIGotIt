@@ -5,6 +5,7 @@ import ldt.springframework.tigibusiness.security.CustomAuthenticationSuccessHand
 import ldt.springframework.tigibusiness.security.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -90,51 +91,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        configWidelyAccessWebResource(http);
+        configAuthAccessWebResource(http);
+        configWidelyAccessRestResource(http);
+        configAuthAccessRestResource(http);
         http
-
-                // static resource
-                .authorizeRequests().antMatchers("/webjars/**").permitAll()
-                .and().authorizeRequests().antMatchers("/static/css").permitAll()
-                .and().authorizeRequests().antMatchers("/js").permitAll()
-
-                // widely access resource
-                .and().authorizeRequests().antMatchers("/customers").permitAll()
-                .and().authorizeRequests().antMatchers("/courses").permitAll()
-                .and().authorizeRequests().antMatchers("/course/show/**").permitAll()
-
-                // authentication resources
-                .and().authorizeRequests().antMatchers("/user/**").authenticated()
-                .and().authorizeRequests().antMatchers("/customer/**").hasAnyAuthority(RoleType.ADMIN.name())
-                .and().authorizeRequests().antMatchers("/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
-                .and().authorizeRequests().antMatchers("/course/edit/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
-                .and().authorizeRequests().antMatchers("/course/delete/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
-
-
-                // widely access REST resource
-                .and().authorizeRequests().antMatchers("/api/courses").permitAll()
-                .and().authorizeRequests().antMatchers("/api/course/show/**").authenticated()
-                .and().authorizeRequests().antMatchers("/api/course/find/**").permitAll()
-                .and().authorizeRequests().antMatchers("/api/users").permitAll()
-                .and().authorizeRequests().antMatchers("/api/user/find/**").permitAll()
-
-                // authentication REST resource
-                .and().authorizeRequests().antMatchers("/api/user/show").authenticated()
-
-
-//                .and().formLogin().defaultSuccessUrl("/", true).permitAll()
-//                .logout().logoutSuccessUrl("/")
+                //.and().formLogin().defaultSuccessUrl("/api/user/show", true).permitAll()
+                .logout().logoutSuccessUrl("/")
                 .and().httpBasic()
                 .and().csrf().disable();
-
     }
+
+
 
 
     @Bean
@@ -145,5 +122,57 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CustomLogoutSuccessHandler customLogoutSuccessHandler(){
         return new CustomLogoutSuccessHandler();
+    }
+
+
+
+    // =======================================
+    // =          Business Methods           =
+    // =======================================
+
+    private void configWidelyAccessWebResource(HttpSecurity http) throws Exception{
+        http
+                // static resource
+                .authorizeRequests().antMatchers("/webjars/**").permitAll()
+                .and().authorizeRequests().antMatchers("/static/css").permitAll()
+                .and().authorizeRequests().antMatchers("/js").permitAll()
+
+                .and().authorizeRequests().antMatchers("/customers").permitAll()
+                .and().authorizeRequests().antMatchers("/courses").permitAll()
+                .and().authorizeRequests().antMatchers("/course/show/**").permitAll();
+    }
+
+    private void configAuthAccessWebResource(HttpSecurity http) throws Exception{
+        http
+                // authentication resources
+                .authorizeRequests().antMatchers("/user/**").authenticated()
+                .and().authorizeRequests().antMatchers("/customer/**").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
+                .and().authorizeRequests().antMatchers("/course/edit/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
+                .and().authorizeRequests().antMatchers("/course/delete/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name());
+    }
+
+    private void configWidelyAccessRestResource(HttpSecurity http) throws  Exception{
+        http
+                // Course API
+                .authorizeRequests().antMatchers("/api/courses").permitAll()
+                .and().authorizeRequests().antMatchers("/api/course/find/**").permitAll()
+
+                // User API
+                .and().authorizeRequests().antMatchers("/api/users").permitAll()
+                .and().authorizeRequests().antMatchers("/api/users/count").permitAll()
+                .and().authorizeRequests().antMatchers("/api/user/find/**").permitAll()
+                .and().authorizeRequests().antMatchers("/api/user/new").permitAll();
+    }
+
+    private void configAuthAccessRestResource(HttpSecurity http) throws  Exception{
+        http.cors()
+                // Course API
+                .and().authorizeRequests().antMatchers("/api/course/show/**").authenticated()
+                .and().authorizeRequests().antMatchers("/api/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
+
+                // User API
+                .and().authorizeRequests().antMatchers("/api/users/full").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/user/info").authenticated();
     }
 }

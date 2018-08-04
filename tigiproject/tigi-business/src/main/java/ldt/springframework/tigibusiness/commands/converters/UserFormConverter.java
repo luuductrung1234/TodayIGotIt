@@ -14,4 +14,6 @@ import org.springframework.core.convert.converter.Converter;
 
 public interface UserFormConverter extends Converter<UserForm, User> {
     UserForm revert(User source);
+
+    UserForm revertToFewInfo(User source);
 }

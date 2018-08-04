@@ -32,13 +32,27 @@ public class CourseRestController {
     @Autowired
     CourseFormConverter courseFormConverter;
 
+
     // =======================================
     // =           Auth REST Method          =
     // =======================================
 
-    @GetMapping(value = "/course/show/{id}")
+    @GetMapping(value = "/course/info/{id}")
     public CourseForm getCourseById(@PathVariable Integer id){
         return courseFormConverter.revert(courseService.getById(id));
+    }
+
+    @PostMapping(value = "/course/new")
+    public CourseForm createNewCourse(@RequestBody CourseForm courseForm){
+        try{
+            Course savedCourse = courseService.saveOrUpdateCourseForm(courseForm);
+
+            return courseFormConverter.revert(savedCourse);
+        }catch (Exception ex){
+            ex.getStackTrace();
+        }
+
+        return null;
     }
 
 
@@ -65,18 +79,5 @@ public class CourseRestController {
             courseForms.add(courseFormConverter.revert(course));
         }
         return courseForms;
-    }
-
-    @PostMapping(value = "/course/create")
-    public CourseForm createNewCourse(@RequestBody CourseForm courseForm){
-        try{
-            Course savedCourse = courseService.saveOrUpdateCourseForm(courseForm);
-
-            return courseFormConverter.revert(savedCourse);
-        }catch (Exception ex){
-            ex.getStackTrace();
-        }
-
-        return null;
     }
 }

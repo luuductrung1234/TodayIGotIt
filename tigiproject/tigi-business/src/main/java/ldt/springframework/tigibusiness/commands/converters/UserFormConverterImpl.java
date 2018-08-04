@@ -8,6 +8,8 @@ import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 /*
  * author: Luu Duc Trung
  * https://github.com/luuductrung1234
@@ -72,6 +74,42 @@ public class UserFormConverterImpl implements UserFormConverter{
         userForm.setPasswordEncrypted(source.getEncryptedPassowrd());
         userForm.setUserCart(source.getCart());
         userForm.setUserRoles(source.getRoles());
+
+        userForm.setCustomerId(source.getCustomer().getId());
+        userForm.setCustomerVersion(source.getCustomer().getVersion());
+        userForm.setFirstName(source.getCustomer().getFirstName());
+        userForm.setLastName(source.getCustomer().getLastName());
+        userForm.setEmail(source.getCustomer().getEmail());
+        userForm.setPhoneNumber(source.getCustomer().getPhoneNumber());
+
+        userForm.setBillingAddressLine1(source.getCustomer().getBillingAddress().getAddressLine1());
+        userForm.setBillingAddressLine2(source.getCustomer().getBillingAddress().getAddressLine2());
+        userForm.setBillingCity(source.getCustomer().getBillingAddress().getCity());
+        userForm.setBillingState(source.getCustomer().getBillingAddress().getState());
+        userForm.setBillingZipCode(source.getCustomer().getBillingAddress().getZipCode());
+
+        userForm.setShippingAddressLine1(source.getCustomer().getShippingAddress().getAddressLine1());
+        userForm.setShippingAddressLine2(source.getCustomer().getShippingAddress().getAddressLine2());
+        userForm.setShippingCity(source.getCustomer().getShippingAddress().getCity());
+        userForm.setShippingState(source.getCustomer().getShippingAddress().getState());
+        userForm.setShippingZipCode(source.getCustomer().getShippingAddress().getZipCode());
+
+        return userForm;
+    }
+
+
+    @Override
+    public UserForm revertToFewInfo(User source) {
+        UserForm userForm = new UserForm();
+
+        userForm.setUserId(0);
+        userForm.setUserVersion(0);
+        userForm.setUserName("");
+        userForm.setPasswordText("");
+        userForm.setPasswordTextConf("");
+        userForm.setPasswordEncrypted("");
+        userForm.setUserCart(new Cart());
+        userForm.setUserRoles(new ArrayList<>());
 
         userForm.setCustomerId(source.getCustomer().getId());
         userForm.setCustomerVersion(source.getCustomer().getVersion());
