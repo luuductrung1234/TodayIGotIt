@@ -63,3 +63,4 @@ pom.xml.tag
 
 # VSCode
 .vscode/
+node_modules/
