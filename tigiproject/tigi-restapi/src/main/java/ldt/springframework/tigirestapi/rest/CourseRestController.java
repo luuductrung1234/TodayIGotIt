@@ -60,6 +60,7 @@ public class CourseRestController {
     // =         Non-Auth REST Method        =
     // =======================================
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(value = "/courses")
     public List<CourseForm> getAllCourse(){
         List<CourseForm> courseForms = new ArrayList<>();
