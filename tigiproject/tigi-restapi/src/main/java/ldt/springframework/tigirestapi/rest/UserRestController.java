@@ -45,6 +45,7 @@ public class UserRestController {
     // =           Auth REST Method          =
     // =======================================
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(value = "/user/info")
     public UserForm showUser(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
