@@ -19,10 +19,11 @@
 > - Execute the Tigi-Restapi Application
 > ![img2](documents/images/img2.png)
 
-For User
+**For User**
 > - Visit Api Documentation [Swagger UI](http://localhost:8080/TigiProject/swagger-ui.html#/) - [API Docs in Json](http://localhost:8080/TigiProject/v2/api-docs)
 > ![img3](documents/images/img3.png)
-For Admnin
+
+**For Admnin**
 > - Using Spring Actuator to manage RESTFul API [Actuator in HAL Browser](http://localhost:8080/TigiProject/browser/index.html#/TigiProject/actuator)
 > ![img4](documents/images/img4.png)
 
