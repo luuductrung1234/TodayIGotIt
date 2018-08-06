@@ -1,12 +1,15 @@
 package ldt.springframework.tigirestapi.rest;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.*;
-import ldt.springframework.tigibusiness.security.TiGiAuthService;
 import ldt.springframework.tigibusiness.services.UserService;
 import ldt.springframework.tigirestapi.exception.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,24 +44,30 @@ public class UserRestController {
     @Autowired
     private UserFormConverter userFormConverter;
 
-    @Autowired
-    private TiGiAuthService tiGiAuthService;
-
-
 
     // =======================================
     // =           Auth REST Method          =
     // =======================================
 
     @GetMapping(value = "/user/info")
-    public UserForm showUser(){
+    public Resource<User> showUser(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
         if(curUser == null)
             throw new UserNotAvailableException();
 
-        return userFormConverter.revert(curUser);
+
+        // HATEOAS
+        Resource<User> resource = new Resource<>(curUser);
+        ControllerLinkBuilder linkToUserCart = linkTo(methodOn(this.getClass()).showUserCart());
+        ControllerLinkBuilder linkToUserCourses = linkTo(methodOn(this.getClass()).showUserCourses());
+        ControllerLinkBuilder linkToUserOrders = linkTo(methodOn(this.getClass()).showUserOrders());
+        resource.add(linkToUserCart.withRel("curUser-cart"));
+        resource.add(linkToUserCourses.withRel("curUser-courses"));
+        resource.add(linkToUserOrders.withRel("curUser-orders"));
+
+        return resource;
     }
 
     @GetMapping(value = "/user/info/cart")
@@ -73,7 +82,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/user/info/orders")
-    public List<Order> showUserOrder(){
+    public List<Order> showUserOrders(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
@@ -170,13 +179,18 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/user/find/{username}")
-    public UserForm getUserByUsername(@PathVariable String username){
+    public Resource<User> getUserByUsername(@PathVariable String username){
         User user = userService.findByUserName(username);
         if(user == null){
             throw new UserNotFoundException(username);
         }
 
-        return userFormConverter.revertToFewInfo(user);
+        // HATEOAS
+        Resource<User> resource = new Resource<>(user);
+        ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllUser());
+        resource.add(linkTo.withRel("all-users"));
+
+        return resource;
     }
 
     @PostMapping(value = "/user/new")
