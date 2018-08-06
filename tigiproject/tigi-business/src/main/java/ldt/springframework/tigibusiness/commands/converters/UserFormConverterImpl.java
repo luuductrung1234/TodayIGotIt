@@ -51,8 +51,8 @@ public class UserFormConverterImpl implements UserFormConverter{
             user.setOrders(null);
         }
 
-        if (source.getUserCourseOwner() != null){
-            for(CourseOwner courseOwner : source.getUserCourseOwner()){
+        if (source.getUserCourseOwners() != null){
+            for(CourseOwner courseOwner : source.getUserCourseOwners()){
                 user.addCourseOwer(courseOwner);
             }
         }else{

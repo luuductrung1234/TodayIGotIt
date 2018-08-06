@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,7 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/user/update")
-    public UserForm updateUserInfo(@RequestBody UserForm userForm){
+    public UserForm updateUserInfo(@Valid @RequestBody UserForm userForm){
 
         if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
             throw new PasswordNotMatchException(userForm.getPasswordText(), userForm.getPasswordTextConf());
@@ -112,6 +113,7 @@ public class UserRestController {
                 throw new UserUpdateFailException(userForm.getUserId().toString());
             }
 
+            SecurityContextHolder.getContext().setAuthentication(null);
             return userFormConverter.revert(savedUser);
         } catch (Exception ex) {
             ex.getStackTrace();
@@ -129,6 +131,22 @@ public class UserRestController {
 
         return userForms;
     }
+
+    @DeleteMapping(value = "/user/delete")
+    public ResponseEntity removeUser(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        try {
+            userService.delete(curUser.getId());
+
+            SecurityContextHolder.getContext().setAuthentication(null);
+            return ResponseEntity.ok().build();
+        }catch (Exception ex){
+            throw new UserNotAvailableException();
+        }
+    }
+
 
 
     // =======================================

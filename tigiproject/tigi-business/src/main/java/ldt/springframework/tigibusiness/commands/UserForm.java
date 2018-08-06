@@ -289,7 +289,7 @@ public class UserForm {
         this.userOrders = orders;
     }
 
-    public List<CourseOwner> getUserCourseOwner(){
+    public List<CourseOwner> getUserCourseOwners(){
         return this.userCourseOwners;
     }
 
