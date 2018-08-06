@@ -29,6 +29,10 @@
                     templateUrl: "app/guest/course/user.course/course.user.html",
                     controller: "CourseUser"
                 })
+                .when("/mycart/:id", {
+                    templateUrl: "app/guest/cart/cart.html",
+                    controller: "Cart"
+                })
                 .when("/admin/home", {
                     templateUrl: "app/admin/home/home.html",
                     controller: "AdminHome"

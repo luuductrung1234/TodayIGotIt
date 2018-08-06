@@ -1,0 +1,65 @@
+<div>
+    <!-- <div>
+        <form class="form-filter-course">
+            <div class="row">
+                <a href=# class="c-btn c-btn-link">New Course</a>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-filter">
+                    <h3>Language</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                        <option value="" selected>All</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">CSharp</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Instructor</h3>
+                    <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                        <option value="" selected>All</option>
+                        <option value="jc">JC</option>
+                        <option value="cb">CB</option>
+                    </select>
+                </div>
+                <div class="col-filter">
+                    <h3>Price</h3>
+                    <div>
+                        <input type="number" id="from" name="from" class="input-text from-to mr-pd-input-df" placeholder="form" /> -
+                        <input type="number" id="to" name="to" class="input-text from-to mr-pd-input-df" placeholder="to" />
+                    </div>
+                </div>
+                <div class="col-filter">
+                    <h3>Type anything</h3>
+                    <div>
+                        <input type="text" id="filterText" name="filterText" ng-model="filterText" class="input-text text mr-pd-input-df" placeholder="type anything" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div> -->
+
+    <table class="course-table">
+        <tr>
+            <th>Course Id</th>
+            <th>Course Name</th>
+            <th>Price</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <tr ng-repeat="course in getCartDetails()">
+            <td>{{course.course.id}}</td>
+            <td>{{course.course.description}}</td>
+            <td>{{course.course.price}}</td>
+            <td>
+                <a href="#/course/{{course.course.id}}" more-course-info class="action-link">
+                    <i class="far fa-eye"></i>
+                </a>
+            </td>
+            <td>
+                <a href="#" class="action-link" ng-class="{{$index}}" delete-course>
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>

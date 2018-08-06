@@ -19,4 +19,16 @@
                     });
             });
         })
+        .directive("addToFavorite", function() {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+                    $(elem).on('click', function() {
+                        scope.$root.curLogin.userCart.cartDetails.splice(attrs.ngClass, 1);
+                        scope.$apply();
+                        return false;
+                    })
+                }
+            }
+        });
 })();

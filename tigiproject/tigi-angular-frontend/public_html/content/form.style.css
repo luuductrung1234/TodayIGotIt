@@ -259,6 +259,16 @@ input[type=checkbox]:focus {
     background-color: #17a2b8;
 }
 
+.refresh-link {
+    font-size: 30px;
+    color: white;
+    transition: 0.3s;
+}
+
+.refresh-link:hover {
+    color: #17a2b8;
+}
+
 .c-btn-sm {
     background-color: white;
     color: green;

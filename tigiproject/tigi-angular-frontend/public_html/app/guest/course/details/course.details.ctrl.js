@@ -1,17 +1,24 @@
 (function() {
     angular.module("app.course.details")
-        .controller("CourseDetails", function($scope, $routeParams, CourseSvc) {
+        .controller("CourseDetails", function($scope, $rootScope, $cookieStore, $routeParams, CourseSvc) {
             var serverUrl = "http://localhost:3000/";
 
-            $scope.current = {};
+            $scope.current = null;
             $scope.relatedcourses = [];
+            $scope.isSubcribed = false;
 
             if ($routeParams.id !== undefined) {
                 getByCourseId($routeParams.id);
             }
 
+            $scope.getCurrentInstructor = function() {
+                if ($routeParams.id !== undefined) {
+
+                }
+            }
+
             function getByCourseId(id) {
-                CourseSvc.findByCourseId(id)
+                CourseSvc.findByCourseId(id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
                         $scope.current = response;
                         getAllRelatedCourse();
