@@ -1,13 +1,18 @@
 package ldt.springframework.tigirestapi.rest;
 
+import io.swagger.annotations.Api;
 import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
+import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Course API", description = "Operations pertaining to Course and Course Information")
 public class CourseRestController {
 
     // =======================================
@@ -39,16 +45,24 @@ public class CourseRestController {
     // =======================================
 
     @PostMapping(value = "/course/new")
-    public CourseForm createNewCourse(@RequestBody CourseForm courseForm){
-        try{
+    public ResponseEntity createNewCourse(@RequestBody CourseForm courseForm) {
+        try {
             Course savedCourse = courseService.saveOrUpdateCourseForm(courseForm);
 
-            return courseFormConverter.revert(savedCourse);
-        }catch (Exception ex){
-            ex.getStackTrace();
-        }
+            if (savedCourse == null)
+                throw new CourseSaveFailException();
 
-        return null;
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .replacePath("/course/info/" + savedCourse.getId())
+                    .build()
+                    .toUri();
+
+            return ResponseEntity.created(location).build();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new CourseSaveFailException();
+        }
     }
 
 
@@ -57,9 +71,9 @@ public class CourseRestController {
     // =======================================
 
     @GetMapping(value = "/course/info/{id}")
-    public CourseForm getCourseById(@PathVariable Integer id){
+    public CourseForm getCourseById(@PathVariable Integer id) {
         Course course = courseService.getById(id);
-        if(course == null){
+        if (course == null) {
             throw new CourseNotFoundException(id.toString());
         }
 
@@ -68,25 +82,25 @@ public class CourseRestController {
 
     //@CrossOrigin(origins = "*")
     @GetMapping(value = "/courses")
-    public List<CourseForm> getAllCourse(){
+    public List<CourseForm> getAllCourse() {
         List<CourseForm> courseForms = new ArrayList<>();
-        for (Course course:
-             (List<Course>) courseService.listAll()) {
+        for (Course course :
+                (List<Course>) courseService.listAll()) {
             courseForms.add(courseFormConverter.revert(course));
         }
 
-        return  courseForms;
+        return courseForms;
     }
 
     @GetMapping(value = "/course/find/{desc}")
-    public List<CourseForm> getCourseByDesc(@PathVariable String desc){
+    public List<CourseForm> getCourseByDesc(@PathVariable String desc) {
         List<CourseForm> listCourse = new ArrayList<>();
-        for (Course course:
+        for (Course course :
                 courseService.findByDesc(desc)) {
             listCourse.add(courseFormConverter.revert(course));
         }
 
-        if(listCourse.isEmpty()){
+        if (listCourse.isEmpty()) {
             throw new CourseNotFoundException(desc);
         }
 

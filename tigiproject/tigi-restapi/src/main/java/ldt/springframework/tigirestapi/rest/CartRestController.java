@@ -1,5 +1,6 @@
 package ldt.springframework.tigirestapi.rest;
 
+import io.swagger.annotations.Api;
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.Cart;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Cart API", description = "Operations pertaining to Cart Information of current login User")
 public class CartRestController {
 
     // =======================================

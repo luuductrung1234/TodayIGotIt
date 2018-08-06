@@ -2,6 +2,7 @@ package ldt.springframework.tigirestapi.exhandler;
 
 import ldt.springframework.tigirestapi.exception.cart.CourseAlreadyHaveException;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
+import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
 import ldt.springframework.tigirestapi.exception.order.CartIsEmptyException;
 import ldt.springframework.tigirestapi.exception.order.OrderNotAvailableException;
 import ldt.springframework.tigirestapi.exception.order.PaymentFailException;
@@ -45,6 +46,16 @@ public class CustomResponseEntityExceptionHandler
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        ex.getBindingResult().getFieldError().getDefaultMessage());
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
 
 
     // =======================================
@@ -70,7 +81,7 @@ public class CustomResponseEntityExceptionHandler
                         ex.getMessage(),
                         request.getDescription(false));
 
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UserUpdateFailException.class)
@@ -106,15 +117,6 @@ public class CustomResponseEntityExceptionHandler
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(),
-                        ex.getMessage(),
-                        ex.getBindingResult().getFieldError().getDefaultMessage());
-
-        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
-    }
 
 
 
@@ -132,6 +134,17 @@ public class CustomResponseEntityExceptionHandler
                         request.getDescription(false));
 
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CourseSaveFailException.class)
+    public final ResponseEntity handleCourseSaveFailException(Exception ex,
+                                                              WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

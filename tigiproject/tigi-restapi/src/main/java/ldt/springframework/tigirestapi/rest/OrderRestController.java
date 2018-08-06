@@ -1,6 +1,7 @@
 package ldt.springframework.tigirestapi.rest;
 
 
+import io.swagger.annotations.Api;
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.CourseService;
@@ -28,6 +29,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Order API", description = "Operations pertaining to Order of current login User")
 public class OrderRestController {
 
     // =======================================
