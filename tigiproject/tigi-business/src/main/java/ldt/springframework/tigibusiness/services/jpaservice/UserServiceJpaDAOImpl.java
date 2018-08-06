@@ -3,6 +3,8 @@ package ldt.springframework.tigibusiness.services.jpaservice;
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.Cart;
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.CourseOwner;
 import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.repository.UserRepository;
 import ldt.springframework.tigibusiness.services.CartService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -160,5 +163,16 @@ public class UserServiceJpaDAOImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public boolean checkCourseOwned(User user, Integer courseId){
+        for (CourseOwner courseOwner:
+                user.getCourseOwners()) {
+            if(courseId.equals(courseOwner.getCourse().getId()))
+                return true;
+        }
+
+        return false;
     }
 }

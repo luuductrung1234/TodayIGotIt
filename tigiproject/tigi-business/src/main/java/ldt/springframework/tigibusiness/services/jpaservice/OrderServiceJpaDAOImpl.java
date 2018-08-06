@@ -1,13 +1,16 @@
 package ldt.springframework.tigibusiness.services.jpaservice;
 
-import ldt.springframework.tigibusiness.domain.Order;
-import ldt.springframework.tigibusiness.domain.OrderDetails;
+import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.repository.OrderRepository;
+import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.OrderService;
+import ldt.springframework.tigibusiness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -30,6 +33,12 @@ public class OrderServiceJpaDAOImpl
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    CartService cartService;
 
 
     // =======================================
@@ -124,5 +133,25 @@ public class OrderServiceJpaDAOImpl
             count += od.getQuantity();
         }
         return count == 0;
+    }
+
+    @Override
+//    @Transactional
+    public void pay(boolean isSinglePay, User curUser, Order newOrder){
+        for (OrderDetails orderDetails : newOrder.getOrderDetails()) {
+            orderDetails.setOrder(newOrder);
+            curUser.addCourseOwer(new CourseOwner(OwerType.BUY, orderDetails.getCourse()));
+        }
+
+        if (isSinglePay) {
+            curUser.addOrders(newOrder);
+            userService.saveOrUpdate(curUser);
+        } else {
+            curUser.addOrders(newOrder);
+            curUser.removeCart(curUser.getCart());
+            userService.saveOrUpdate(curUser);
+            curUser.setCart(new Cart());
+            userService.saveOrUpdate(curUser);
+        }
     }
 }

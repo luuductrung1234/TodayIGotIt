@@ -31,5 +31,5 @@ public interface UserService extends CRUDService<User>{
 
     User updateUserForm(UserForm userForm);
 
-
+    boolean checkCourseOwned(User user, Integer courseId);
 }

@@ -4,6 +4,7 @@ import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,11 +38,6 @@ public class CourseRestController {
     // =           Auth REST Method          =
     // =======================================
 
-    @GetMapping(value = "/course/info/{id}")
-    public CourseForm getCourseById(@PathVariable Integer id){
-        return courseFormConverter.revert(courseService.getById(id));
-    }
-
     @PostMapping(value = "/course/new")
     public CourseForm createNewCourse(@RequestBody CourseForm courseForm){
         try{
@@ -60,6 +56,16 @@ public class CourseRestController {
     // =         Non-Auth REST Method        =
     // =======================================
 
+    @GetMapping(value = "/course/info/{id}")
+    public CourseForm getCourseById(@PathVariable Integer id){
+        Course course = courseService.getById(id);
+        if(course == null){
+            throw new CourseNotFoundException(id.toString());
+        }
+
+        return courseFormConverter.revert(course);
+    }
+
     //@CrossOrigin(origins = "*")
     @GetMapping(value = "/courses")
     public List<CourseForm> getAllCourse(){
@@ -74,11 +80,16 @@ public class CourseRestController {
 
     @GetMapping(value = "/course/find/{desc}")
     public List<CourseForm> getCourseByDesc(@PathVariable String desc){
-        List<CourseForm> courseForms = new ArrayList<>();
+        List<CourseForm> listCourse = new ArrayList<>();
         for (Course course:
                 courseService.findByDesc(desc)) {
-            courseForms.add(courseFormConverter.revert(course));
+            listCourse.add(courseFormConverter.revert(course));
         }
-        return courseForms;
+
+        if(listCourse.isEmpty()){
+            throw new CourseNotFoundException(desc);
+        }
+
+        return listCourse;
     }
 }
