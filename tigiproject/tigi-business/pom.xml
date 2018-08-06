@@ -87,6 +87,13 @@
             <artifactId>jasypt-springsecurity3</artifactId>
             <version>1.9.2</version>
         </dependency>
+
+        <!-- Rest Docs -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
     </dependencies>
 
     <build>

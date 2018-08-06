@@ -111,7 +111,7 @@ public class CustomResponseEntityExceptionHandler
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(new Date(),
                         ex.getMessage(),
-                        ex.getBindingResult().toString());
+                        ex.getBindingResult().getFieldError().getDefaultMessage());
 
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
