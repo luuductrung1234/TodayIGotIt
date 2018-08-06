@@ -104,4 +104,9 @@ public class UserServiceMapImpl extends AbstractMapService
     public User updateUserForm(UserForm userForm) {
         return null;
     }
+
+    @Override
+    public boolean checkCourseOwned(User user, Integer courseId) {
+        return false;
+    }
 }

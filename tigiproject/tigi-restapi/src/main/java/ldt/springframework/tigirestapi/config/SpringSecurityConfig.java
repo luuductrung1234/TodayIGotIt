@@ -157,6 +157,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Course API
                 .and().authorizeRequests().antMatchers("/api/courses").permitAll()
                 .and().authorizeRequests().antMatchers("/api/course/find/**").permitAll()
+                .and().authorizeRequests().antMatchers("/api/course/info/**").authenticated()
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users").permitAll()
@@ -168,12 +169,25 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private void configAuthAccessRestResource(HttpSecurity http) throws  Exception{
         http.cors()
                 // Course API
-                .and().authorizeRequests().antMatchers("/api/course/show/**").authenticated()
                 .and().authorizeRequests().antMatchers("/api/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users/full").hasAnyAuthority(RoleType.ADMIN.name())
                 .and().authorizeRequests().antMatchers("/api/user/info").authenticated()
-                .and().authorizeRequests().antMatchers("/api/user/update").authenticated();
+                .and().authorizeRequests().antMatchers("/api/user/info/courses").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/info/cart").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/info/orders").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/update").authenticated()
+
+                // Cart API
+                .and().authorizeRequests().antMatchers("/api/user/cart/add/**").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/cart/remove/**").authenticated()
+
+
+                // Order API
+                .and().authorizeRequests().antMatchers("/api/user/order/checkout").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/order/buynow/**").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/order/pay").authenticated();
+
     }
 }

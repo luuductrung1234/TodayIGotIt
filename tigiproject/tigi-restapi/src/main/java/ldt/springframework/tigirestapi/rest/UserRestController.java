@@ -2,14 +2,18 @@ package ldt.springframework.tigirestapi.rest;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
-import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.security.TiGiAuthService;
 import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigirestapi.exception.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,35 +49,74 @@ public class UserRestController {
     // =           Auth REST Method          =
     // =======================================
 
-    //@CrossOrigin(origins = "*")
     @GetMapping(value = "/user/info")
     public UserForm showUser(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUserName(userDetails.getUsername());
+        User curUser = userService.findByUserName(userDetails.getUsername());
 
-        return userFormConverter.revert(user);
+        if(curUser == null)
+            throw new UserNotAvailableException();
+
+        return userFormConverter.revert(curUser);
+    }
+
+    @GetMapping(value = "/user/info/cart")
+    public Cart showUserCart(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        if(curUser == null)
+            throw new UserNotAvailableException();
+
+        return curUser.getCart();
+    }
+
+    @GetMapping(value = "/user/info/orders")
+    public List<Order> showUserOrder(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        if(curUser == null)
+            throw new UserNotAvailableException();
+
+        return curUser.getOrders();
+    }
+
+    @GetMapping(value = "/user/info/courses")
+    public List<Course> showUserCourses(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        if(curUser == null)
+            throw new UserNotAvailableException();
+
+        List<Course> listCourse = new ArrayList<>();
+        for (CourseOwner courseOwner:
+             curUser.getCourseOwners()) {
+            listCourse.add(courseOwner.getCourse());
+        }
+
+        return listCourse;
     }
 
     @PostMapping(value = "/user/update")
     public UserForm updateUserInfo(@RequestBody UserForm userForm){
-        try {
-            if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
-                // TODO : Fail Handling
-                return null;
-            }
-            User savedUser = userService.updateUserForm(userForm);
 
-            if(savedUser == null){
-                // TODO : Fail Handling
-                return null;
-            }
-            return userFormConverter.revert(savedUser);
-        } catch (Exception ex) {
-            // TODO : Fail Handling
-            ex.getStackTrace();
+        if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
+            throw new PasswordNotMatchException(userForm.getPasswordText(), userForm.getPasswordTextConf());
         }
 
-        return null;
+        try {
+            User savedUser = userService.updateUserForm(userForm);
+            if(savedUser == null){
+                throw new UserUpdateFailException(userForm.getUserId().toString());
+            }
+
+            return userFormConverter.revert(savedUser);
+        } catch (Exception ex) {
+            ex.getStackTrace();
+            throw new UserUpdateFailException(userForm.getUserId().toString());
+        }
     }
 
     @GetMapping(value = "/users/full")
@@ -108,34 +151,42 @@ public class UserRestController {
         return userService.listAll().size();
     }
 
-
     @GetMapping(value = "/user/find/{username}")
     public UserForm getUserByUsername(@PathVariable String username){
-        return userFormConverter.revertToFewInfo(userService.findByUserName(username));
+        User user = userService.findByUserName(username);
+        if(user == null){
+            throw new UserNotFoundException(username);
+        }
+
+        return userFormConverter.revertToFewInfo(user);
     }
 
     @PostMapping(value = "/user/new")
-    public UserForm createNewUser(@RequestBody UserForm userForm){
-        try {
-            if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
-                // TODO : Fail Handling
-                return null;
-            }
+    public ResponseEntity createNewUser(@RequestBody UserForm userForm){
 
+        if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
+            throw new PasswordNotMatchException(userForm.getPasswordText(), userForm.getPasswordTextConf());
+        }
+
+        try {
             // reset user id to prevent from updating the existed user
             userForm.setUserId(null);
             User savedUser = userService.saveUserForm(userForm);
 
             if(savedUser == null){
-                // TODO : Fail Handling
-                return null;
+                throw new UserCreateFailException();
             }
-           return userFormConverter.revert(savedUser);
-        } catch (Exception ex) {
-            // TODO : Fail Handling
-            ex.getStackTrace();
-        }
 
-        return null;
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .replacePath("/user/show")
+                    .build()
+                    .toUri();
+
+            return ResponseEntity.created(location).build();
+        } catch (Exception ex) {
+            ex.getStackTrace();
+            throw new UserCreateFailException();
+        }
     }
 }

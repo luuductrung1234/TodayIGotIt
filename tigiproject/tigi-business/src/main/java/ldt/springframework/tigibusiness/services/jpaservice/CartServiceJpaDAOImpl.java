@@ -131,7 +131,7 @@ public class CartServiceJpaDAOImpl
     @Override
     public boolean cartIsEmpty(Cart cart) {
         int count = 0;
-        if(cart.getCartDetails().isEmpty()){
+        if(cart.getCartDetails() == null || cart.getCartDetails().isEmpty()){
             return true;
         }
 

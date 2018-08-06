@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.services;
 
 import ldt.springframework.tigibusiness.domain.Order;
+import ldt.springframework.tigibusiness.domain.User;
 
 import java.math.BigDecimal;
 
@@ -21,4 +22,6 @@ public interface OrderService extends CRUDService<Order> {
     void removeFromOrder(Order order, Integer courseId);
 
     boolean orderIsEmpty(Order order);
+
+    void pay(boolean isSinglePay, User curUser, Order newOrder);
 }
