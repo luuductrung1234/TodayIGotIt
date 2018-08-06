@@ -5,7 +5,7 @@
         <p>
             <h1>{{current.description}}</h1>
         </p>
-        <div class="subscribed-fr" ng-class="(curLogin[0].role !== 'admin' && curLogin.length !== 0) ? ['show'] : ['hidden']">
+        <div class="subscribed-fr" ng-class="isSubcribed ? ['show'] : ['hidden']">
             <p>
                 <a href="#" class="continue"><i class="fas fa-play"></i> Continue</a>
             </p>
@@ -14,14 +14,12 @@
                 <div class="prog-bar prog-bar-striped prog-bar-animated"></div>
             </div>
         </div>
-        <div class="demo-fr" ng-class="(curLogin.length === 0) ? ['show'] : ['hidden']">
+        <div class="demo-fr" ng-class="isSubcribed ? ['hidden'] : ['show']">
             <p style="margin-bottom: 20px;">
                 <a href="#" class="continue"><i class="fas fa-play"></i> Watch Demo</a>
             </p>
             <p style="margin-top: 20px;">
-                <a href="#" class="favorite">
-                    <i class="far fa-heart"></i>
-                </a>
+                <!-- <a href="#" class="favorite"><i class="far fa-heart"></i></a> -->
                 <a href="#" class="c-btn btn-add-to-cart"><i class="fas fa-cart-plus"></i> Add To Cart</a>
                 <a href="#" class="c-btn btn-buy-now"><i class="fas fa-money-bill"></i> Buy Now</a>
             </p>
@@ -45,7 +43,7 @@
             in augue non arcu placerat vulputate ut vitae dui. Mauris erat urna, accumsan non orci nec, dictum sollicitudin nibh
         </p>
 
-        <h2>Instructor: {{current.instructor}}</h2>
+        <h2>Instructor: {{getCurrentInstructor()}}</h2>
 
         <p>
             Date created: {{current.dateCreated}}

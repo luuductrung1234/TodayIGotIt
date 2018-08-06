@@ -1,7 +1,7 @@
 (function() {
     angular.module("app.admin.course.details")
         .controller("AdminCourseDetails", function($window, $scope, $rootScope, $routeParams, CourseSvc) {
-            if ($rootScope.curLogin.length === 0 || $rootScope.curLogin[0].userName === undefined || $rootScope.curLogin[0].role != "admin") {
+            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
                 $window.location.href = "#/home";
             }
 

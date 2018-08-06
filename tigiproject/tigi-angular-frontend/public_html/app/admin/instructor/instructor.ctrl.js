@@ -1,17 +1,17 @@
 (function() {
     angular.module("app.admin.instructor")
-        .controller("AdminInstructor", function($window, $scope, $rootScope, UserSvc) {
-            if ($rootScope.curLogin.length === 0 || $rootScope.curLogin[0].userName === undefined || $rootScope.curLogin[0].role != "admin") {
+        .controller("AdminInstructor", function($window, $scope, $rootScope, InstructorSvc) {
+            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
                 $window.location.href = "#/home";
             }
 
-            $scope.users = [];
+            $scope.instructors = [];
             $scope.startAdminInstructorFrom = 0;
 
             $scope.$on('$viewContentLoaded', function() {
-                UserSvc.findAllUser()
+                InstructorSvc.findAllInstructor()
                     .then(function(response) {
-                        $scope.users = response;
+                        $scope.instructors = response;
                     }, function(err) {
                         console.log("Error: " + err);
                     });

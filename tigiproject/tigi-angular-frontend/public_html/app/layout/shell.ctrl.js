@@ -1,18 +1,42 @@
 (function() {
     angular.module("app.shell")
-        .controller("Shell", ['$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', 'UserSvc', function($window, $scope, $rootScope, $filter, $cookies, $cookieStore, UserSvc) {
+        .controller("Shell", ['$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', '$routeParams', 'UserSvc', function($window, $scope, $rootScope, $filter, $cookies, $cookieStore, $routeParams, UserSvc) {
             $scope.win = $window;
             $scope.cook = $cookieStore;
-            // $scope.isLogged = false;
 
-            // $scope.$on('$viewContentLoaded', function() {
-            //     if ($cookieStore.get('curUser') !== undefined && $cookieStore.get('curPass') !== undefined) {
-            //         loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'));
-            //     }
-            // });
+            $scope.loginOnRefresh = function() {
+                UserSvc.loginAction($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                    .then(function(response) {
+                            $rootScope.curLogin = response;
+
+                            if ($rootScope.curLogin == null) {
+                                $rootScope.curLogin = null;
+                                $window.location.href = "#/home";
+                                $rootScope.hasError = true;
+                                $rootScope.errMess = "Wrong Info";
+                                $rootScope.isAdminLogged = false;
+                                $rootScope.isUserLogged = false;
+                            } else if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
+                                $rootScope.isAdminLogged = true;
+                                $rootScope.isUserLogged = false;
+                            } else if ($rootScope.curLogin.userRoles[0].type == "STUDENT") {
+                                $rootScope.isAdminLogged = false;
+                                $rootScope.isUserLogged = true;
+                            }
+
+                            if ($routeParams.id !== undefined) {
+                                $rootScope.checkSubcribed($routeParams.id);
+                            }
+                        },
+                        function(err) {
+                            $rootScope.isAdminLogged = false;
+                            $rootScope.isUserLogged = false;
+                            console.log(err);
+                        });
+            }
 
             $scope.loginAction = function() {
-                $rootScope.loginStep($scope.loginUsername, $scope.loginPassword);
+                loginStep($scope.loginUsername, $scope.loginPassword);
             }
 
             $scope.signinAction = function() {
@@ -26,7 +50,7 @@
                 var phone = $scope.signinphone;
                 var role = ($scope.role == null ||
                     $scope.role == undefined ||
-                    $scope.role == "") ? "user" : "admin";
+                    $scope.role == "") ? "STUDENT" : "ADMIN";
                 var addressLine = ($scope.signinaddressLine == null ||
                     $scope.signinaddressLine == undefined ||
                     $scope.signinaddressLine == "") ? "" : $scope.signinaddressLine;
@@ -70,7 +94,11 @@
             }
 
             $scope.logoutAction = function() {
-                $rootScope.logoutAction();
+                $rootScope.curLogin = null;
+                $cookieStore.remove('curUser');
+                $cookieStore.remove('curPass');
+                $rootScope.isAdminLogged = false;
+                $rootScope.isUserLogged = false;
                 $window.location.href = "#/home";
             }
 
@@ -82,5 +110,57 @@
             $scope.checkLogin = function() {
                 return $scope.isLogged;
             }
-        }]);
+
+            function loginStep(user, pass) {
+                UserSvc.loginAction(user, pass)
+                    .then(function(response) {
+                            $rootScope.curLogin = response;
+
+                            if ($rootScope.curLogin == null) {
+                                $rootScope.curLogin = null;
+                                $window.location.href = "#/home";
+                                $rootScope.hasError = true;
+                                $rootScope.errMess = "Wrong Info";
+                                $rootScope.isAdminLogged = false;
+                                $rootScope.isUserLogged = false;
+                            } else if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
+                                $rootScope.isAdminLogged = true;
+                                $rootScope.isUserLogged = false;
+                                $cookieStore.put('curUser', user);
+                                $cookieStore.put('curPass', pass);
+                                $window.location.href = "#/admin/home";
+                            } else if ($rootScope.curLogin.userRoles[0].type == "STUDENT") {
+                                $rootScope.isAdminLogged = false;
+                                $rootScope.isUserLogged = true;
+                                $cookieStore.put('curUser', user);
+                                $cookieStore.put('curPass', pass);
+                                $window.location.href = "#/home";
+                            }
+
+                            console.log($cookieStore.get('curUser'));
+                            console.log($cookieStore.get('curPass'));
+                        },
+                        function(err) {
+                            $rootScope.isAdminLogged = false;
+                            $rootScope.isUserLogged = false;
+                            console.log(err);
+                        });
+            }
+        }])
+        .directive("loginModel", function() {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+
+                }
+            }
+        })
+        .directive("signinModel", function() {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+
+                }
+            }
+        });
 })();

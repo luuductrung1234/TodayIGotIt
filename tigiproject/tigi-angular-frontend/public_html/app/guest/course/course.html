@@ -41,12 +41,17 @@
                 <!-- <p class="title">{{course.instructor}}</p> -->
                 <p class="info">{{course.description}}</p>
                 <div class="card-body">
-                    <del class="old-price">{{course.price | currency}}</del>
+                    <!-- <del class="old-price">{{course.price | currency}}</del> -->
                     <span class="present-price">{{course.price | currency}}</span>
                 </div>
                 <p>
-                    <a href="#" class="favorite"><i class="far fa-heart"></i></a>
-                    <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                    <!-- <a href="#" id="{{course.courseId}}" class="add-to-favorite" add-to-favorite><i class="far fa-heart fa-fw"></i></a> -->
+                    <a href="#" id="{{course}}" class="add-to-cart" add-to-cart>
+                        <i class="fas fa-cart-plus fa-fw"></i>
+                    </a>
+                    <a href="#/course/{{course.courseId}}" class="more-info-icon">
+                        <i class="fas fa-info fa-fw"></i>
+                    </a>
                 </p>
             </div>
             <!-- <div class="info-box">
@@ -70,20 +75,4 @@
         <a href="#">1</a>
         <a href="#" ng-click="curPage + 1">&raquo;</a>
     </div>
-
-    <script>
-        // function showInfo() {
-        //     alert();
-        // }
-
-        // function hideInfo() {
-        //     alert();
-        // }
-
-        // $('.card .display-content').hover(function() {
-        //     alert('in');
-        // }, function() {
-        //     alert('out');
-        // })
-    </script>
 </div>

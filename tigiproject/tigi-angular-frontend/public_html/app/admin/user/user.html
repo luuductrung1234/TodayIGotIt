@@ -23,6 +23,9 @@
                         <input type="number" id="toage" name="toage" ng-model="toage" class="input-text from-to mr-pd-input-df" placeholder="age" />
                     </div>
                 </div>
+                <div class="col-filter">
+                    <span><a href="#" id="refresh-admin-users" class="refresh-link"><i class="fas fa-sync"></i></a></span>
+                </div>
             </div>
         </form>
     </div>
@@ -32,39 +35,44 @@
             <th>Username</th>
             <th>Full Name</th>
             <th>DOB</th>
-            <th colspan="3">Action</th>
+            <th colspan="2">Action</th>
         </tr>
-        <tr ng-repeat="user in users | limitTo: 5: startAdminUserFrom | filter: filterText">
-            <td>{{user.username}}</td>
-            <td>{{user.fname}} {{user.lname}}</td>
+        <tr ng-repeat="user in users | filter: user.userName = filterText | filter: user.firstName = filterText| filter: user.lastName = filterText | limitTo: 5: startAdminUserFrom">
+            <td>{{user.userName}}</td>
+            <td>{{user.firstName}} {{user.lastName}}</td>
             <td>{{user.dob | date: dd/MM/yyyy}}</td>
-            <td><a href="#/admin/user/{{user.username}}" class="action-link"><i class="fas fa-eye"></i></a></td>
+            <td><a href="#/admin/user/{{user.userName}}" class="action-link"><i class="fas fa-eye"></i></a></td>
             <td><a href="#" class="action-link"><i class="far fa-trash-alt"></i></a></td>
         </tr>
     </table>
 
     <div class="pagination">
-        <a href="#" id="prev">&laquo;</a>
+        <a href="#" id="admin-user-page-prev">&laquo;</a>
         <a href="#" nav-page-link ng-repeat="user in users" ng-show="($index + 5) % 5 == 0" id="{{'startAdminUserFromIndex' + $index}}" class="startAdminUserFromIndex" ng-class="($index) == 0 ? 'active' : ''">
             <span>{{($index + 5)/5}}</span>
         </a>
-        <a href="#" id="next">&raquo;</a>
+        <a href="#" id="admin-user-page-next">&raquo;</a>
     </div>
 
     <script>
-        // checkCurPage();
+        $('#refresh-admin-users').on('click', function() {
+            $('#fromage').val('');
+            $('#toage').val('');
+            $('#filterText').val('');
 
-        // $('.startAdminUserFromIndex').on('click', function() {
-        //     // var aa = $(this).attr('id').substr(14);
-        //     // $(this).scope().startAdminUserFrom = +aa;
-        //     // $(this).scope().$apply();
+            $(this).scope().fromage = undefined;
+            $(this).scope().toage = undefined;
+            $(this).scope().filterText = '';
+            $(this).scope().startAdminCourseFrom = 0;
+            $(this).scope().$apply();
 
-        //     console.log('aaa');
+            $('.startAdminUserFromIndex').removeClass('active');
+            $('#startAdminUserFromIndex' + $(this).scope().startAdminUserFrom).addClass('active');
 
-        //     return false;
-        // });
+            return false;
+        });
 
-        $('#prev').on('click', function() {
+        $('#admin-user-page-prev').on('click', function() {
             if ($(this).scope().startAdminUserFrom == 0) {
                 return false;
             }
@@ -78,8 +86,8 @@
             return false;
         });
 
-        $('#next').on('click', function() {
-            if (($(this).scope().users.length - $(this).scope().startAdminUserFrom) < 5) {
+        $('#admin-user-page-next').on('click', function() {
+            if ($(this).scope().users.length < ($(this).scope().startAdminUserFrom + 5 + 1)) {
                 return false;
             }
 

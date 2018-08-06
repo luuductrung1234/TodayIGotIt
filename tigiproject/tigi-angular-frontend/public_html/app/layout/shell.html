@@ -5,50 +5,50 @@
                 <img src="content/img/logostyle.png" alt="TiGi_logo">
                 <!-- <h1 id="tigi-logo" class="topnav-brand hh">TiGi</h1> -->
             </a>
-            <span id="user-nav" class="user-nav" ng-class="($root.curLogin[0].role === 'admin' && $root.curLogin.length !== 0) ? ['hidden'] : ['show']">
+            <span id="user-nav" class="user-nav" ng-class="($root.curLogin.userRoles[0].type === 'ADMIN' && $root.curLogin !== null) ? ['hidden'] : ['show']">
                 <a href="#/home" class="topnav-link">Home</a>
                 <a href="#/course" class="topnav-link">Course</a>
                 <a href="#/about" class="topnav-link">About</a>
             </span>
-            <span id="admin-nav" class="admin-nav" ng-class="($root.curLogin[0].role === 'admin' && $root.curLogin.length !== 0) ? ['show'] : ['hidden']">
+            <span id="admin-nav" class="admin-nav" ng-class="($root.curLogin.userRoles[0].type === 'ADMIN' && $root.curLogin !== null) ? ['show'] : ['hidden']">
                 <a href="#/admin/home" class="topnav-link">Home</a>
                 <a href="#/admin/course" class="topnav-link">Course</a>
                 <a href="#/admin/instructor" class="topnav-link">Instructor</a>
                 <a href="#/admin/user" class="topnav-link">User</a>
             </span>
         </div>
-        <div class="topnav-form" ng-class="($root.curLogin[0].role === 'admin') ? ['hidden'] : ['show']">
+        <div class="topnav-form" ng-class="($root.curLogin.userRoles[0].type === 'ADMIN') ? ['hidden'] : ['show']">
             <form>
                 <input id="topnav-search" class="topnav-search" type="text" placeholder="Search..." />
                 <button class="c-btn c-btn-sm" type="submit">Search</button>
             </form>
         </div>
         <div class="topnav-right">
-            <div id="user-logged" class="user-logged" ng-class="($root.curLogin[0].role === 'admin' || $root.curLogin.length === 0) ? ['hidden'] : ['show']">
-                <div class="topnav-item">
+            <div id="user-logged" class="user-logged" ng-class="($root.curLogin.userRoles[0].type === 'ADMIN' || $root.curLogin === null) ? ['hidden'] : ['show']">
+                <!-- <div class="topnav-item">
                     <a href="javascript:void(0)">
                         <i style="font-size: 25px" class="fas fa-search"></i>
                     </a>
-                </div>
+                </div> -->
                 <div class="topnav-item">
-                    <a href="#">
+                    <a href="#/mycart/{{$root.curLogin.userName}}">
                         <i class="fas fa-shopping-cart">
-                            <span class="label"> 23 </span>
+                            <span class="label"> {{$root.getCartCount()}} </span>
                         </i>
                     </a>
                 </div>
                 <div id="user-chip" class="chip c-dropdown">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].firstName}}</span>
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin.firstName}}</span>
                     <span class="fas fa-caret-down"></span>
                 </div>
             </div>
-            <div id="admin-logged" class="user-logged" ng-class="($root.curLogin[0].role === 'admin') ? ['show'] : ['hidden']">
+            <div id="admin-logged" class="user-logged" ng-class="($root.curLogin.userRoles[0].type === 'ADMIN' && $root.curLogin !== null) ? ['show'] : ['hidden']">
                 <div id="admin-chip" class="chip c-dropdown">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin[0].firstName}}</span>
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/41SfGMbF4rL.jpg" alt="Person" width="96" height="96"> <span id="logged-name">{{$root.curLogin.firstName}}</span>
                     <span class="fas fa-caret-down"></span>
                 </div>
             </div>
-            <div id="user-author" class="user-author" ng-class="($root.curLogin.length === 0) ? ['show'] : ['hidden']">
+            <div id="user-author" class="user-author" ng-class="($root.curLogin === null) ? ['show'] : ['hidden']">
                 <a id="login-link" href="#" class="topnav-link">Log In</a>
                 <a id="signin-link" href="#" class="topnav-link">Sign In</a>
             </div>
@@ -57,7 +57,7 @@
     </div>
 
     <div id="admin-dropdown" class="c-dropdown-content">
-        <a ng-href="#/profiles/{{$root.curLogin[0].userName}}">Profiles</a>
+        <a ng-href="#/profiles/{{$root.curLogin.userName}}">Profiles</a>
         <hr/>
         <a ng-href="#/admin/course">Manage Course</a>
         <a ng-href="#/admin/instructor">Manage Instructor</a>
@@ -67,15 +67,15 @@
     </div>
 
     <div id="user-dropdown" class="c-dropdown-content">
-        <a ng-href="#/profiles/{{$root.curLogin[0].userName}}">Profiles</a>
+        <a ng-href="#/profiles/{{$root.curLogin.userName}}">Profiles</a>
         <hr/>
-        <a ng-href="#/mycourse/{{$root.curLogin[0].userName}}">My Course</a>
-        <a href="#">Cart</a>
+        <a ng-href="#/mycourse/{{$root.curLogin.userName}}">My Course</a>
+        <a ng-href="#/mycart/{{$root.curLogin.userName}}">Cart</a>
         <hr/>
-        <a href="#" id="logout-user">Logout</a>
+        <a ng-href="#" id="logout-user">Logout</a>
     </div>
 
-    <div id="login-model" class="login-model">
+    <div id="login-model" class="login-model" login-model>
         <div class="model-content animate">
             <div class="main-container">
                 <form ng-submit="loginAction()" id="login-form" class="form-full-width">
@@ -133,7 +133,7 @@
         </div>
     </div>
 
-    <div id="signin-model" class="signin-model">
+    <div id="signin-model" class="signin-model" signin-model>
         <div class="model-content animate">
             <div class="main-container">
                 <form ng-submit="signinAction()" id="signin-form" class="form-full-width">
@@ -170,15 +170,15 @@
                             <!--personal info-->
                             <div class="step-tab">
                                 <h3>Personal Info</h3>
-                                <label for="signinfname">
+                                <label for="signinfirstName">
                                     <b>First Name</b>
                                 </label>
-                                <input type="text" id="signinfname" ng-model="signinfname" name="signinfname" class="input-text mr-pd-input-df" placeholder="Enter First Name" required>
+                                <input type="text" id="signinfirstName" ng-model="signinfirstName" name="signinfirstName" class="input-text mr-pd-input-df" placeholder="Enter First Name" required>
 
-                                <label for="signinlname">
+                                <label for="signinlastName">
                                     <b>Last Name</b>
                                 </label>
-                                <input type="text" id="signinlname" ng-model="signinlname" name="signinlname" class="input-text mr-pd-input-df" placeholder="Enter Last Name" required>
+                                <input type="text" id="signinlastName" ng-model="signinlastName" name="signinlastName" class="input-text mr-pd-input-df" placeholder="Enter Last Name" required>
 
                                 <label for="signingender">
                                     <b>Gender</b>
@@ -284,6 +284,19 @@
     </div>
 
     <script>
+        // $(window).on('keydown', function(event) {
+        //     if (event.which == 116) {
+
+        //     }
+        // });
+
+        $(window).on('load', function() {
+            // if ($('#user-author').scope().$root.curLogin != null) {
+            $('#user-author').scope().loginOnRefresh();
+            $('#user-author').scope().$apply();
+            // }
+        });
+
         var curTab = 0;
 
         function showFullTopNav() {
@@ -352,7 +365,7 @@
             if ($('.c-dropdown-content').hasClass('show')) {
                 $('.c-dropdown-content').removeClass('show');
             }
-        })
+        });
 
         $('#user-chip').on('click', function(event) {
             $('#user-dropdown').toggleClass('show');
@@ -501,7 +514,7 @@
             validateForm(curTab);
         });
 
-        $('#signinfname').on('input', function(event) {
+        $('#signinfirstName').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0) {
                 $(this).removeClass('valid');
@@ -520,7 +533,7 @@
             validateForm(curTab);
         });
 
-        $('#signinlname').on('input', function(event) {
+        $('#signinlastName').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0) {
                 $(this).removeClass('valid');
@@ -667,8 +680,8 @@
                 $('#btn-next').attr('disabled', false);
                 $('.step').eq(curTab).addClass('finish');
             } else if (curTab == 1 &&
-                $('#signinfname').hasClass('valid') &&
-                $('#signinlname').hasClass('valid') &&
+                $('#signinfirstName').hasClass('valid') &&
+                $('#signinlastName').hasClass('valid') &&
                 $('#signingender').hasClass('valid') &&
                 $('#signindob').hasClass('valid')) {
                 $('#btn-next').removeClass('f-disabled');
