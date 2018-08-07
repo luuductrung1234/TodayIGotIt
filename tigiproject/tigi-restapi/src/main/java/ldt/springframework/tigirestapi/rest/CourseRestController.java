@@ -1,13 +1,21 @@
 package ldt.springframework.tigirestapi.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
+import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Course API", description = "Operation pertaining to Course")
 public class CourseRestController {
 
     // =======================================
@@ -38,17 +47,33 @@ public class CourseRestController {
     // =           Auth REST Method          =
     // =======================================
 
-    @PostMapping(value = "/course/new")
-    public CourseForm createNewCourse(@RequestBody CourseForm courseForm){
-        try{
+    @ApiOperation(value = "Create new course", response = ResponseEntity.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully create resource"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 403, message = "You don't have right to do  that"),
+            @ApiResponse(code = 400, message = "Password not match or invalid input information"),
+            @ApiResponse(code = 500, message = "Create fail"),
+    })
+    @PostMapping(value = "/course/new", consumes = "application/json")
+    public ResponseEntity createNewCourse(@RequestBody CourseForm courseForm) {
+        try {
             Course savedCourse = courseService.saveOrUpdateCourseForm(courseForm);
 
-            return courseFormConverter.revert(savedCourse);
-        }catch (Exception ex){
-            ex.getStackTrace();
-        }
+            if (savedCourse == null)
+                throw new CourseSaveFailException();
 
-        return null;
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .replacePath("/course/info/" + savedCourse.getId())
+                    .build()
+                    .toUri();
+
+            return ResponseEntity.created(location).build();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new CourseSaveFailException();
+        }
     }
 
 
@@ -56,38 +81,48 @@ public class CourseRestController {
     // =         Non-Auth REST Method        =
     // =======================================
 
-    @GetMapping(value = "/course/info/{id}")
-    public CourseForm getCourseById(@PathVariable Integer id){
+    @ApiOperation(value = "Show information of specific course by id", response = CourseForm.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 404, message = "Course not found"),
+    })
+    @GetMapping(value = "/course/info/{id}", produces = "application/json")
+    public CourseForm getCourseById(@PathVariable Integer id) {
         Course course = courseService.getById(id);
-        if(course == null){
+        if (course == null) {
             throw new CourseNotFoundException(id.toString());
         }
 
         return courseFormConverter.revert(course);
     }
 
-    //@CrossOrigin(origins = "*")
-    @GetMapping(value = "/courses")
-    public List<CourseForm> getAllCourse(){
+
+    @ApiOperation(value = "Show all courses", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/courses", produces = "application/json")
+    public List<CourseForm> getAllCourse() {
         List<CourseForm> courseForms = new ArrayList<>();
-        for (Course course:
-             (List<Course>) courseService.listAll()) {
+        for (Course course :
+                (List<Course>) courseService.listAll()) {
             courseForms.add(courseFormConverter.revert(course));
         }
 
-        return  courseForms;
+        return courseForms;
     }
 
-    @GetMapping(value = "/course/find/{desc}")
-    public List<CourseForm> getCourseByDesc(@PathVariable String desc){
+
+    @ApiOperation(value = "Search course by description", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/course/find/{desc}", produces = "application/json")
+    public List<CourseForm> getCourseByDesc(@PathVariable String desc) {
         List<CourseForm> listCourse = new ArrayList<>();
-        for (Course course:
+        for (Course course :
                 courseService.findByDesc(desc)) {
             listCourse.add(courseFormConverter.revert(course));
-        }
-
-        if(listCourse.isEmpty()){
-            throw new CourseNotFoundException(desc);
         }
 
         return listCourse;

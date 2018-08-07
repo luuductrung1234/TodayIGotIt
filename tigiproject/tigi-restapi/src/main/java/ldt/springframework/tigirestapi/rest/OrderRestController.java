@@ -1,6 +1,10 @@
 package ldt.springframework.tigirestapi.rest;
 
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.CourseService;
@@ -28,6 +32,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Order API", description = "Operation pertaining to Order")
 public class OrderRestController {
 
     // =======================================
@@ -59,7 +64,13 @@ public class OrderRestController {
     // =           Auth REST Method          =
     // =======================================
 
-    @GetMapping(value = "/user/order/checkout")
+    @ApiOperation(value = "Checkout the order of current login user and payment preparation", response = Order.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 500, message = "Fail to create new order"),
+    })
+    @GetMapping(value = "/user/order/checkout", produces = "application/json")
     public Order checkOut(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
@@ -73,7 +84,16 @@ public class OrderRestController {
         return newOrder;
     }
 
-    @GetMapping(value = "/user/order/buynow/{id}")
+
+    @ApiOperation(value = "Create new order for the selected course", response = Order.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 404, message = "Course not found"),
+            @ApiResponse(code = 400, message = "Course is already owned"),
+            @ApiResponse(code = 500, message = "Fail to create new order"),
+    })
+    @GetMapping(value = "/user/order/buynow/{id}", produces = "application/json")
     public Order buyNow(@PathVariable("id") Integer courseId){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
@@ -93,7 +113,15 @@ public class OrderRestController {
         return newOrder;
     }
 
-    @PostMapping(value = "/user/order/pay")
+
+    @ApiOperation(value = "Execute payment transaction", response = ResponseEntity.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully payment"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 400, message = "Order is empty or not available"),
+            @ApiResponse(code = 500, message = "Fail in payment transaction"),
+    })
+    @PostMapping(value = "/user/order/pay", consumes = "application/json")
     public ResponseEntity pay(@RequestBody Order newOrder){
         if(newOrder == null)
             throw new OrderNotAvailableException();
