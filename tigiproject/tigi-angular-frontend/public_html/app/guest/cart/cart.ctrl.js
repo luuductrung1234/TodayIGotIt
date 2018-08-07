@@ -3,19 +3,34 @@
         .controller("Cart", function($window, $scope, $rootScope, $cookies, $cookieStore, CartSvc) {
             $scope.cartcourses = [];
             $scope.order = [];
+            $scope.totalPrice = 0.0;
 
-            if ($rootScope.curLogin === null || $rootScope.curLogin.username === undefined) {
+            if ($rootScope.curLogin === null || $rootScope.curLogin.userName === undefined) {
                 $window.location.href = "#/home";
             }
 
             $scope.getCartDetails = function() {
-                return $rootScope.curLogin.cart.cartDetails;
+                return $rootScope.curLogin.userCart.cartDetails;
             }
 
             $scope.buyAllCart = function() {
                 CartSvc.checkoutOrder($cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
-                        order = response;
+                        $scope.order = response;
+                        $scope.order.orderDetails.forEach(function(or) {
+                            $scope.totalPrice += or.course.price;
+                        });
+                        $rootScope.$emit('GetUserInfo', $cookieStore.get('curUser'), $cookieStore.get('curPass'));
+                    }, function(err) {
+                        console.log("Error: " + err);
+                    });
+            }
+
+            $scope.payOrder = function() {
+                CartSvc.payOrder($scope.order, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                    .then(function(response) {
+                        console.log(response);
+                        $rootScope.$emit('GetUserInfo', $cookieStore.get('curUser'), $cookieStore.get('curPass'));
                     }, function(err) {
                         console.log("Error: " + err);
                     });

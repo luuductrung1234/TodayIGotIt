@@ -34,8 +34,8 @@
                 $rootScope.isSubcribed = false;
 
                 $rootScope.getCartCount = function() {
-                    if ($rootScope.curLogin != null && $rootScope.curLogin.roles[0].type !== 'ADMIN') {
-                        return $rootScope.curLogin.cart.cartDetails.length;
+                    if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
+                        return $rootScope.curLogin.userCart.cartDetails.length;
                     } else {
                         return 0;
                     }
