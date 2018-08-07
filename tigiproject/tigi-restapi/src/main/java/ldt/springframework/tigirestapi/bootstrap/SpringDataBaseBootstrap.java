@@ -65,109 +65,109 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
     private void loadCourse() {
         Course course1 = new Course();
-        course1.setDescription("Course 1");
+        course1.setDescription("C# Fundamentals");
         course1.setPrice(new BigDecimal("12.99"));
-        course1.setImageUrl("http://example.com/course1");
-        course1.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course1.setImageUrl("static/images/img1.png");
+        course1.setMediaPath("static/videos/tut1.mp4");
         courseService.saveOrUpdate(course1);
 
 
         Course course2 = new Course();
-        course2.setDescription("Course 2");
+        course2.setDescription("Java Master Class");
         course2.setPrice(new BigDecimal("9.99"));
-        course2.setImageUrl("http://example.com/course2");
-        course2.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course2.setImageUrl("static/images/img2.jpg");
+        course2.setMediaPath("static/videos/tut2.mp4");
         courseService.saveOrUpdate(course2);
 
         Course course3 = new Course();
-        course3.setDescription("Course 3");
+        course3.setDescription("Javascript For Beginner");
         course3.setPrice(new BigDecimal("10.09"));
-        course3.setImageUrl("http://example.com/course3");
-        course3.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course3.setImageUrl("static/images/img3.png");
+        course3.setMediaPath("static/videos/tut3.mp4");
         courseService.saveOrUpdate(course3);
 
         Course course4 = new Course();
-        course4.setDescription("Course 4");
+        course4.setDescription("Front-End BootCamp");
         course4.setPrice(new BigDecimal("34.99"));
-        course4.setImageUrl("http://example.com/course4");
-        course4.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course4.setImageUrl("static/images/img4.jpeg");
+        course4.setMediaPath("static/videos/tut4.mp4");
         courseService.saveOrUpdate(course4);
 
         Course course5 = new Course();
-        course5.setDescription("Course 5");
+        course5.setDescription("NodeJs Complete Course");
         course5.setPrice(new BigDecimal("14.08"));
-        course5.setImageUrl("http://example.com/course5");
-        course5.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course5.setImageUrl("static/images/img5.jpg");
+        course5.setMediaPath("static/videos/tut5.mp4");
         courseService.saveOrUpdate(course5);
 
         Course course6 = new Course();
-        course6.setDescription("Course 6");
+        course6.setDescription("Cloud Computing Basic");
         course6.setPrice(new BigDecimal("20.05"));
-        course6.setImageUrl("http://example.com/course6");
-        course6.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course6.setImageUrl("static/images/img6.jpg");
+        course6.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course6);
 
         Course course7 = new Course();
-        course7.setDescription("Course 7");
+        course7.setDescription("Master Spring Framework");
         course7.setPrice(new BigDecimal("19.99"));
-        course7.setImageUrl("http://example.com/course7");
-        course7.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course7.setImageUrl("static/images/img7.png");
+        course7.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course7);
 
         Course course8 = new Course();
-        course8.setDescription("Course 8");
+        course8.setDescription("Angular Complete Course");
         course8.setPrice(new BigDecimal("19.99"));
-        course8.setImageUrl("http://example.com/course8");
-        course8.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course8.setImageUrl("static/images/img8.jpg");
+        course8.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course8);
 
         Course course9 = new Course();
-        course9.setDescription("Course 9");
+        course9.setDescription("React and Redux");
         course9.setPrice(new BigDecimal("20.05"));
-        course9.setImageUrl("http://example.com/course9");
-        course9.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course9.setImageUrl("static/images/img9.png");
+        course9.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course9);
 
         Course course10 = new Course();
-        course10.setDescription("Course 10");
+        course10.setDescription("Vue For Beginner");
         course10.setPrice(new BigDecimal("10.50"));
-        course10.setImageUrl("http://example.com/course10");
-        course10.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course10.setImageUrl("static/images/img10.png");
+        course10.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course10);
 
         Course course11 = new Course();
-        course11.setDescription("Course 11");
+        course11.setDescription("Master Front-End Design with SASS");
         course11.setPrice(new BigDecimal("2.05"));
-        course11.setImageUrl("http://example.com/course11");
-        course11.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course11.setImageUrl("static/images/img11.png");
+        course11.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course11);
 
         Course course12 = new Course();
-        course12.setDescription("Course 12");
+        course12.setDescription("MySQL with Real Project");
         course12.setPrice(new BigDecimal("10.99"));
-        course12.setImageUrl("http://example.com/course12");
-        course12.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course12.setImageUrl("static/images/img12.jpeg");
+        course12.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course12);
 
         Course course13 = new Course();
-        course13.setDescription("Course 13");
+        course13.setDescription("SQL Server and Data Analysis");
         course13.setPrice(new BigDecimal("90.50"));
-        course13.setImageUrl("http://example.com/course13");
-        course13.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course13.setImageUrl("static/images/img13.png");
+        course13.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course13);
 
         Course course14 = new Course();
-        course14.setDescription("Course 14");
+        course14.setDescription("Algorithm First Class");
         course14.setPrice(new BigDecimal("199.99"));
-        course14.setImageUrl("http://example.com/course14");
-        course14.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course14.setImageUrl("static/images/img14.png");
+        course14.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course14);
 
         Course course15 = new Course();
-        course15.setDescription("Course 15");
+        course15.setDescription("Understanding Data Structure");
         course15.setPrice(new BigDecimal("9.99"));
-        course15.setImageUrl("http://example.com/course15");
-        course15.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
+        course15.setImageUrl("static/images/img15.png");
+        course15.setMediaPath("static/videos/tut6.mp4");
         courseService.saveOrUpdate(course15);
 
     }

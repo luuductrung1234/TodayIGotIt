@@ -17,6 +17,15 @@
                 }
             }
 
+            $scope.watchDemo = function(){
+                CourseSvc.getDemoVideo(1, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                .then(function (response) {
+                    console.log(response);
+                }, function (err) {
+                    console.log("Error: " + err);
+                })
+            }
+
             function getByCourseId(id) {
                 CourseSvc.findByCourseId(id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
@@ -51,6 +60,19 @@
                         $(elem).siblings().slideToggle();
                         // var target = $(elem).next(".panel-collapse");
                         // target.hasClass("collapse") ? target.collapse("show") : target.collapse("hide");
+                    });
+                }
+            }
+        })
+        .directive("btnWatchDemo", function() {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+                    $(elem).click(function() {
+                        scope.watchDemo();
+                        scope.$apply();
+
+                        return false;
                     });
                 }
             }

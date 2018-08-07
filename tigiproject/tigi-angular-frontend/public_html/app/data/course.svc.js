@@ -7,6 +7,35 @@
             return {
                 findAllCourse: findAllCourse,
                 findByCourseId: findByCourseId,
+                getDemoVideo: getDemoVideo,
+            }
+
+            function getDemoVideo(id, username, password) {
+                var auth = btoa(`${username}:${password}`);
+                console.log(username);
+                console.log(password);
+                
+                var url = serverUrl + "course/videos/" + id;
+
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .success(function(response) {
+                        console.log(response);
+                        
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
             }
 
             function findAllCourse() {
@@ -40,6 +69,7 @@
                         }
                     })
                     .success(function(response) {
+                        console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
