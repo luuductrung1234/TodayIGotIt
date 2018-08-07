@@ -36,7 +36,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Api(value = "User API", description = "Operations pertaining to User and User information")
+@Api(value = "User API", description = "Operations pertaining to User")
 public class UserRestController {
 
     // =======================================
@@ -107,7 +107,7 @@ public class UserRestController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
             @ApiResponse(code = 500, message = "The current user's information was impacted by another progress"),
     })
-    @GetMapping(value = "/user/info/orders")
+    @GetMapping(value = "/user/info/orders", produces = "application/json")
     public List<Order> showUserOrders(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
@@ -125,7 +125,7 @@ public class UserRestController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
             @ApiResponse(code = 500, message = "The current user's information was impacted by another progress"),
     })
-    @GetMapping(value = "/user/info/courses")
+    @GetMapping(value = "/user/info/courses", produces = "application/json")
     public List<Course> showUserCourses(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
@@ -142,15 +142,14 @@ public class UserRestController {
         return listCourse;
     }
 
-    @ApiOperation(value = "update current login user information", response = UserForm.class)
+    @ApiOperation(value = "Update current login user information", response = UserForm.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved updated resource"),
             @ApiResponse(code = 401, message = "You are not authorized to do  that"),
-            @ApiResponse(code = 404, message = "The api not found"),
             @ApiResponse(code = 400, message = "Password not match or invalid input information"),
             @ApiResponse(code = 500, message = "Update fail"),
     })
-    @PostMapping(value = "/user/update")
+    @PostMapping(value = "/user/update", produces = "application/json")
     public UserForm updateUserInfo(@Valid @RequestBody UserForm userForm){
 
         if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
@@ -171,14 +170,13 @@ public class UserRestController {
         }
     }
 
-    @ApiOperation(value = "list users with full information", response = Iterable.class)
+    @ApiOperation(value = "List users with full information", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
             @ApiResponse(code = 401, message = "You are not authorized to do  that"),
             @ApiResponse(code = 403, message = "You don't have right to do  that"),
-            @ApiResponse(code = 404, message = "The api not found"),
     })
-    @GetMapping(value = "/users/full")
+    @GetMapping(value = "/users/full", produces = "application/json")
     public List<UserForm> getAllUserWithFullInfo(){
         List<UserForm> userForms = new ArrayList<>();
         for (User user:
@@ -189,11 +187,10 @@ public class UserRestController {
         return userForms;
     }
 
-    @ApiOperation(value = "list users with full information", response = Iterable.class)
+    @ApiOperation(value = "List users with full information", response = ResponseEntity.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully delete resource"),
             @ApiResponse(code = 401, message = "You are not authorized to do  that"),
-            @ApiResponse(code = 404, message = "The api not found"),
             @ApiResponse(code = 500, message = "The current user's information was impacted by another progress"),
     })
     @DeleteMapping(value = "/user/delete")
@@ -217,12 +214,11 @@ public class UserRestController {
     // =         Non-Auth REST Method        =
     // =======================================
 
-    @ApiOperation(value = "list users with few information", response = Iterable.class)
+    @ApiOperation(value = "List users with few information", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
-            @ApiResponse(code = 404, message = "The api not found"),
     })
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/users", produces = "application/json")
     public List<UserForm> getAllUser(){
         List<UserForm> userForms = new ArrayList<>();
         for (User user:
@@ -233,17 +229,18 @@ public class UserRestController {
         return userForms;
     }
 
-    @ApiOperation(value = "count number of users", response = Integer.class)
+
+    @ApiOperation(value = "Count number of users", response = Integer.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully count"),
-            @ApiResponse(code = 404, message = "The api not found"),
     })
     @GetMapping(value = "/users/count")
     public int countUsers(){
         return userService.listAll().size();
     }
 
-    @ApiOperation(value = "search for user with given username", response = UserForm.class)
+
+    @ApiOperation(value = "Search for user with given username", response = UserForm.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
             @ApiResponse(code = 404, message = "The resource not found"),
@@ -263,15 +260,15 @@ public class UserRestController {
         return resource;
     }
 
-    @ApiOperation(value = "list users with full information", response = Iterable.class)
+
+    @ApiOperation(value = "Registration for new users", response = ResponseEntity.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully create resource"),
             @ApiResponse(code = 401, message = "You are not authorized to do  that"),
             @ApiResponse(code = 400, message = "Password not match or invalid input information"),
-            @ApiResponse(code = 404, message = "The api not found"),
-            @ApiResponse(code = 500, message = "create fail"),
+            @ApiResponse(code = 500, message = "Registration fail"),
     })
-    @PostMapping(value = "/user/new")
+    @PostMapping(value = "/user/new", consumes = "application/json")
     public ResponseEntity createNewUser(@RequestBody UserForm userForm){
 
         if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
