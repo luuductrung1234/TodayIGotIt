@@ -36,6 +36,9 @@ public class CourseForm {
     @URL
     private String imageUrl;
 
+    @NotEmpty
+    private String mediaPath;
+
 
 
     // =======================================
@@ -80,5 +83,13 @@ public class CourseForm {
 
     public void setCourseVersion(Integer courseVersion) {
         this.courseVersion = courseVersion;
+    }
+
+    public String getMediaPath() {
+        return mediaPath;
+    }
+
+    public void setMediaPath(String mediaPath) {
+        this.mediaPath = mediaPath;
     }
 }

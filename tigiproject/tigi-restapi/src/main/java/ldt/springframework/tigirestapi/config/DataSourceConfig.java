@@ -33,20 +33,9 @@ public class DataSourceConfig {
     public DataSource dataSource(){
         return  DataSourceBuilder
                 .create()
-                .username("root")
+                .username(env.getProperty("datasource.username"))
                 .password(env.getProperty("datasource.password"))
-                .url("jdbc:mysql://localhost:3306/TigiDB?autoReconnect=true&useSSL=false")
-                .build();
-    }
-
-
-    @Bean
-    public DataSource h2DataSource(){
-        return  DataSourceBuilder
-                .create()
-                .username("sa")
-                .password("")
-                .url("jdbc:h2:~/test")
+                .url(env.getProperty("datasource.url"))
                 .build();
     }
 }

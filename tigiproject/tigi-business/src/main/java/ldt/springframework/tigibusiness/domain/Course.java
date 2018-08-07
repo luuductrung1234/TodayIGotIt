@@ -30,6 +30,8 @@ public class Course extends AbstractDomainEntity {
 
     private String imageUrl;
 
+    private String mediaPath;
+
 
     // =======================================
     // =        Constructors Section         =
@@ -38,11 +40,12 @@ public class Course extends AbstractDomainEntity {
     public Course() {
     }
 
-    public Course(Integer id, String description, BigDecimal price, String imageUrl) {
+    public Course(Integer id, String description, BigDecimal price, String imageUrl, String mediaPath) {
         this.id = id;
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.mediaPath = mediaPath;
     }
 
 
@@ -72,5 +75,13 @@ public class Course extends AbstractDomainEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getMediaPath() {
+        return mediaPath;
+    }
+
+    public void setMediaPath(String mediaPath) {
+        this.mediaPath = mediaPath;
     }
 }

@@ -68,6 +68,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course1.setDescription("Course 1");
         course1.setPrice(new BigDecimal("12.99"));
         course1.setImageUrl("http://example.com/course1");
+        course1.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course1);
 
 
@@ -75,84 +76,98 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course2.setDescription("Course 2");
         course2.setPrice(new BigDecimal("9.99"));
         course2.setImageUrl("http://example.com/course2");
+        course2.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course2);
 
         Course course3 = new Course();
         course3.setDescription("Course 3");
         course3.setPrice(new BigDecimal("10.09"));
         course3.setImageUrl("http://example.com/course3");
+        course3.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course3);
 
         Course course4 = new Course();
         course4.setDescription("Course 4");
         course4.setPrice(new BigDecimal("34.99"));
         course4.setImageUrl("http://example.com/course4");
+        course4.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course4);
 
         Course course5 = new Course();
         course5.setDescription("Course 5");
         course5.setPrice(new BigDecimal("14.08"));
         course5.setImageUrl("http://example.com/course5");
+        course5.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course5);
 
         Course course6 = new Course();
         course6.setDescription("Course 6");
         course6.setPrice(new BigDecimal("20.05"));
         course6.setImageUrl("http://example.com/course6");
+        course6.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course6);
 
         Course course7 = new Course();
         course7.setDescription("Course 7");
         course7.setPrice(new BigDecimal("19.99"));
         course7.setImageUrl("http://example.com/course7");
+        course7.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course7);
 
         Course course8 = new Course();
         course8.setDescription("Course 8");
         course8.setPrice(new BigDecimal("19.99"));
         course8.setImageUrl("http://example.com/course8");
+        course8.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course8);
 
         Course course9 = new Course();
         course9.setDescription("Course 9");
         course9.setPrice(new BigDecimal("20.05"));
         course9.setImageUrl("http://example.com/course9");
+        course9.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course9);
 
         Course course10 = new Course();
         course10.setDescription("Course 10");
         course10.setPrice(new BigDecimal("10.50"));
         course10.setImageUrl("http://example.com/course10");
+        course10.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course10);
 
         Course course11 = new Course();
         course11.setDescription("Course 11");
         course11.setPrice(new BigDecimal("2.05"));
         course11.setImageUrl("http://example.com/course11");
+        course11.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course11);
 
         Course course12 = new Course();
         course12.setDescription("Course 12");
         course12.setPrice(new BigDecimal("10.99"));
         course12.setImageUrl("http://example.com/course12");
+        course12.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course12);
 
         Course course13 = new Course();
         course13.setDescription("Course 13");
         course13.setPrice(new BigDecimal("90.50"));
         course13.setImageUrl("http://example.com/course13");
+        course13.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course13);
 
         Course course14 = new Course();
         course14.setDescription("Course 14");
         course14.setPrice(new BigDecimal("199.99"));
         course14.setImageUrl("http://example.com/course14");
+        course14.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course14);
 
         Course course15 = new Course();
         course15.setDescription("Course 15");
         course15.setPrice(new BigDecimal("9.99"));
         course15.setImageUrl("http://example.com/course15");
+        course15.setMediaPath("/Users/ldt/Downloads/Video/tut1.mp4");
         courseService.saveOrUpdate(course15);
 
     }
