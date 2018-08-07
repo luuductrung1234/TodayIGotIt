@@ -12,7 +12,7 @@
                     });
             });
         })
-        .directive("addToCart", ['CourseSvc', function(CourseSvc) {
+        .directive("addToCart", ['$cookies', '$cookieStore', 'CourseSvc', 'CartSvc', function($cookies, $cookieStore, CourseSvc, CartSvc) {
             return {
                 restrict: "A",
                 link: function(scope, elem, attrs) {
@@ -22,35 +22,16 @@
                             return false;
                         }
 
-                        var curCourse = JSON.parse(attrs.id)
-                        console.log(curCourse);
+                        CartSvc.addToCart(attrs.id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                            .then(function(response) {
+                                console.log(response);
+                                scope.$root.$emit('GetUserInfo', $cookieStore.get('curUser'), $cookieStore.get('curPass'));
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
 
-                        var dateCreated = Date.parse(new Date());
-                        var lastUpdated = Date.parse(new Date());
-                        var version = 0;
-                        var quantity = 1;
-
-                        var course = {
-                            dateCreated: Date.parse(new Date()),
-                            description: curCourse.description,
-                            id: curCourse.courseId,
-                            imageUrl: curCourse.imageUrl,
-                            lastUpdated: Date.parse(new Date()),
-                            price: parseFloat(curCourse.price),
-                            version: curCourse.courseVersion
-                        }
-
-                        var data = {
-                            id: scope.$root.getCartCount() + 1,
-                            course,
-                            dateCreated,
-                            lastUpdated,
-                            quantity,
-                            version
-                        }
-
-                        scope.$root.curLogin.userCart.cartDetails.push(data);
                         scope.$apply();
+
                         return false;
                     })
                 }

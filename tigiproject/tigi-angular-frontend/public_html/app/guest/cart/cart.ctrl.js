@@ -2,21 +2,22 @@
     angular.module("app.cart")
         .controller("Cart", function($window, $scope, $rootScope, $cookies, $cookieStore, CartSvc) {
             $scope.cartcourses = [];
+            $scope.order = [];
 
-            if ($rootScope.curLogin === null || $rootScope.curLogin.userName === undefined) {
+            if ($rootScope.curLogin === null || $rootScope.curLogin.username === undefined) {
                 $window.location.href = "#/home";
             }
 
             $scope.getCartDetails = function() {
-                return $rootScope.curLogin.userCart.cartDetails;
+                return $rootScope.curLogin.cart.cartDetails;
             }
 
             $scope.buyAllCart = function() {
                 CartSvc.checkoutOrder($cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
-
+                        order = response;
                     }, function(err) {
-
+                        console.log("Error: " + err);
                     });
             }
         })
@@ -28,16 +29,21 @@
                 }
             }
         })
-        .directive("deleteCourse", function() {
+        .directive("deleteCourse", ['$cookies', '$cookieStore', 'CartSvc', function($cookies, $cookieStore, CartSvc) {
             return {
                 restrict: "A",
                 link: function(scope, elem, attrs) {
                     $(elem).on('click', function() {
-                        scope.$root.curLogin.userCart.cartDetails.splice(attrs.ngClass, 1);
-                        scope.$apply();
+                        CartSvc.removeFromCart(attrs.ngClass, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                            .then(function(response) {
+                                console.log(response);
+                                scope.$root.$emit('GetUserInfo', $cookieStore.get('curUser'), $cookieStore.get('curPass'));
+                            }, function(err) {
+                                console.log(err);
+                            });
                         return false;
                     })
                 }
             }
-        });
+        }]);
 })();

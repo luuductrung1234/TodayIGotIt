@@ -37,11 +37,11 @@
             <th>DOB</th>
             <th colspan="2">Action</th>
         </tr>
-        <tr ng-repeat="user in users | filter: user.userName = filterText | filter: user.firstName = filterText| filter: user.lastName = filterText | limitTo: 5: startAdminUserFrom">
-            <td>{{user.userName}}</td>
+        <tr ng-repeat="user in users | filter: user.username = filterText | filter: user.firstName = filterText| filter: user.lastName = filterText | limitTo: 5: startAdminUserFrom">
+            <td>{{user.username}}</td>
             <td>{{user.firstName}} {{user.lastName}}</td>
             <td>{{user.dob | date: dd/MM/yyyy}}</td>
-            <td><a href="#/admin/user/{{user.userName}}" class="action-link"><i class="fas fa-eye"></i></a></td>
+            <td><a href="#/admin/user/{{user.username}}" class="action-link"><i class="fas fa-eye"></i></a></td>
             <td><a href="#" class="action-link"><i class="far fa-trash-alt"></i></a></td>
         </tr>
     </table>

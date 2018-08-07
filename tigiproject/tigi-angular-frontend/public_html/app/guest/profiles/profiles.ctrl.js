@@ -1,7 +1,7 @@
 (function() {
     angular.module("app.profiles")
         .controller("Profiles", function($window, $scope, $rootScope, $routeParams, UserSvc) {
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined) {
+            if ($rootScope.curLogin == null || $rootScope.curLogin.username === undefined) {
                 $window.location.href = "#/home";
             }
 

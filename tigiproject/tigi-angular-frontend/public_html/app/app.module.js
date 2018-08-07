@@ -34,8 +34,8 @@
                 $rootScope.isSubcribed = false;
 
                 $rootScope.getCartCount = function() {
-                    if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
-                        return $rootScope.curLogin.userCart.cartDetails.length;
+                    if ($rootScope.curLogin != null && $rootScope.curLogin.roles[0].type !== 'ADMIN') {
+                        return $rootScope.curLogin.cart.cartDetails.length;
                     } else {
                         return 0;
                     }
@@ -45,8 +45,8 @@
                     $rootScope.isSubcribed = false;
 
                     if ($rootScope.curLogin != null) {
-                        $rootScope.curLogin.userCourseOwner.forEach(function(i) {
-                            if ($rootScope.curLogin.userCourseOwner[i].id == curId) {
+                        $rootScope.curLogin.courseOwners.forEach(function(i) {
+                            if ($rootScope.curLogin.courseOwners[i].id == curId) {
                                 if (this.ownerType == 'BUY') {
                                     $rootScope.isSubcribed = true;
                                 }

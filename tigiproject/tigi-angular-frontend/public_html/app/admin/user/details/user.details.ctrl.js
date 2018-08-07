@@ -3,7 +3,7 @@
         .controller("AdminUserDetails", function($window, $scope, $rootScope, $routeParams, UserSvc) {
             $scope.curUser = [];
 
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+            if ($rootScope.curLogin == null || $rootScope.curLogin.username === undefined || $rootScope.curLogin.roles[0].type != 'ADMIN') {
                 $window.location.href = "#/home";
             }
 
