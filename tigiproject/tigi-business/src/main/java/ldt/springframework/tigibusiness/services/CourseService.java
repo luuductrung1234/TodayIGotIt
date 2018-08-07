@@ -2,6 +2,7 @@ package ldt.springframework.tigibusiness.services;
 
 import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.User;
 
 import java.util.List;
 

@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.services.CourseOwnerService;
 import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
 import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
@@ -40,7 +42,11 @@ public class CourseRestController {
     CourseService courseService;
 
     @Autowired
+    CourseOwnerService courseOwnerService;
+
+    @Autowired
     CourseFormConverter courseFormConverter;
+
 
 
     // =======================================
@@ -126,5 +132,43 @@ public class CourseRestController {
         }
 
         return listCourse;
+    }
+
+    @ApiOperation(value = "Show review of specific course", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 404, message = "Course not found"),
+    })
+    @GetMapping(value = "/course/{id}/review", produces = "application/json")
+    public List<CourseOwner> showCourseReview(@PathVariable("id") Integer courseId) {
+
+        Course course = courseService.getById(courseId);
+
+        if (course != null) {
+            List<CourseOwner> listReview = courseOwnerService.findReviewByCourse(course);
+
+            return listReview;
+        } else {
+            throw new CourseNotFoundException(courseId.toString());
+        }
+    }
+
+    @ApiOperation(value = "Show rate of specific course", response = Float.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 404, message = "Course not found"),
+    })
+    @GetMapping(value = "/course/{id}/rate")
+    public Float showCourseRate(@PathVariable("id") Integer courseId) {
+
+        Course course = courseService.getById(courseId);
+
+        if (course != null) {
+            Float rateAvg = courseOwnerService.getCourseRateAvg(course);
+
+            return rateAvg;
+        } else {
+            throw new CourseNotFoundException(courseId.toString());
+        }
     }
 }

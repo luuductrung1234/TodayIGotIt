@@ -140,7 +140,7 @@ public class OrderServiceJpaDAOImpl
     public void pay(boolean isSinglePay, User curUser, Order newOrder){
         for (OrderDetails orderDetails : newOrder.getOrderDetails()) {
             orderDetails.setOrder(newOrder);
-            curUser.addCourseOwer(new CourseOwner(OwerType.BUY, orderDetails.getCourse()));
+            curUser.addCourseOwer(new CourseOwner(OwerType.BUY, orderDetails.getCourse(), 0f, "", ""));
         }
 
         if (isSinglePay) {
