@@ -56,16 +56,54 @@
                 </a>
             </td>
             <td>
-                <a href="#" class="action-link" ng-class="{{$index}}" delete-course>
+                <a href="#" class="action-link" ng-class="{{course.course.id}}" delete-course>
                     <i class="far fa-trash-alt"></i>
                 </a>
             </td>
         </tr>
     </table>
 
-    <div style="overflow:auto;">
-        <div style="float:right;">
-            <input type="button" id="btn-buy-all" name="btn-buy-all" ng-click="buyAllCart()" value="Buy All" class="c-btn c-btn-sm" style="width: auto;" />
+    <div id="checkout-model" class="checkout-model">
+        <div class="checkout-model-content animate">
+            <table class="course-table">
+                <tr>
+                    <th>Course Id</th>
+                    <th>Course Name</th>
+                    <th>Price</th>
+                </tr>
+                <tr ng-repeat="course in order.orderDetails">
+                    <td>{{course.course.id}}</td>
+                    <td>{{course.course.description}}</td>
+                    <td>{{course.course.price}}</td>
+                </tr>
+            </table>
+
+            <div style="overflow:auto; margin-top: 20px;">
+                <div style="float:right;">
+                    <input type="button" id="btn-pay-all" name="btn-pay-all" value="Pay All" class="c-btn c-btn-sm" style="width: auto;" />
+                </div>
+            </div>
         </div>
     </div>
+
+    <div style="overflow:auto;">
+        <div style="float:right;">
+            <input type="button" id="btn-buy-all" name="btn-buy-all" value="Buy All" class="c-btn c-btn-sm" style="width: auto;" />
+        </div>
+    </div>
+
+    <script>
+        $(window).on('click', function() {
+            if ($('.checkoutmodel').hasClass('show')) {
+                $('.c-dropdown-content').removeClass('show');
+            }
+        });
+
+        $('#btn-buy-all').on('click', function(event) {
+            $(this).scope().buyAllCart();
+            $(this).scope().$apply();
+            $('#checkout-model').toggleClass('show');
+            return false;
+        });
+    </script>
 </div>
