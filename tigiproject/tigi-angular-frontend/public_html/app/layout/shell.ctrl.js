@@ -11,15 +11,15 @@
             $scope.loginAction = function() {
                 loginStep($scope.loginUsername, $scope.loginPassword);
 
-                if ($rootScope.curLogin.roles[0].type == "ADMIN") {
+                if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
                     window.location.href = "#/admin/home";
-                } else if ($rootScope.curLogin.roles[0].type == "STUDENT") {
+                } else if ($rootScope.curLogin.userRoles[0].type == "STUDENT") {
                     window.location.href = "#/home";
                 }
             }
 
-            $rootScope.$on("GetUserInfo", function(event, username, password) {
-                reloadUserInfo(username, password);
+            $rootScope.$on("GetUserInfo", function(event, userName, password) {
+                reloadUserInfo(userName, password);
             });
 
             $scope.signinAction = function() {
@@ -106,12 +106,12 @@
                                 $rootScope.errMess = "Wrong Info";
                                 $rootScope.isAdminLogged = false;
                                 $rootScope.isUserLogged = false;
-                            } else if ($rootScope.curLogin.roles[0].type == "ADMIN") {
+                            } else if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
                                 $rootScope.isAdminLogged = true;
                                 $rootScope.isUserLogged = false;
                                 $cookieStore.put('curUser', user);
                                 $cookieStore.put('curPass', pass);
-                            } else if ($rootScope.curLogin.roles[0].type == "STUDENT") {
+                            } else if ($rootScope.curLogin.userRoles[0].type == "STUDENT") {
                                 $rootScope.isAdminLogged = false;
                                 $rootScope.isUserLogged = true;
                                 $cookieStore.put('curUser', user);
@@ -128,8 +128,8 @@
                         });
             }
 
-            function reloadUserInfo(username, password) {
-                UserSvc.loginAction(username, password)
+            function reloadUserInfo(userName, password) {
+                UserSvc.loginAction(userName, password)
                     .then(function(response) {
                             $rootScope.curLogin = response;
                         },

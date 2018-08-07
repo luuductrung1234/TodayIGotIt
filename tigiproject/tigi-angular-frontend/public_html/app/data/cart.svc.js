@@ -83,18 +83,19 @@
                 return deferred.promise;
             }
 
-            function payOrder(username, password) {
+            function payOrder(order, username, password) {
                 var auth = btoa(`${username}:${password}`);
                 var url = serverUrl + "user/order/pay";
 
                 var deferred = $q.defer();
 
                 $http({
-                        method: 'GET',
+                        method: 'POST',
                         url: url,
                         headers: {
                             'Authorization': 'Basic ' + auth
-                        }
+                        },
+                        data: JSON.stringify(order)
                     })
                     .success(function(response) {
                         console.log(response);

@@ -78,6 +78,12 @@
                 </tr>
             </table>
 
+            <p>Total Course: {{order.orderDetails.length}}</p>
+
+            <p>Total Price: {{totalPrice}}</p>
+
+            <p>Shipping Address: {{order.shipToAddress.addressLine1}}, {{order.shipToAddress.city}}, {{order.shipToAddress.state}}.</p>
+
             <div style="overflow:auto; margin-top: 20px;">
                 <div style="float:right;">
                     <input type="button" id="btn-pay-all" name="btn-pay-all" value="Pay All" class="c-btn c-btn-sm" style="width: auto;" />
@@ -94,8 +100,8 @@
 
     <script>
         $(window).on('click', function() {
-            if ($('.checkoutmodel').hasClass('show')) {
-                $('.c-dropdown-content').removeClass('show');
+            if ($('.checkout-model').hasClass('show')) {
+                $('.checkout-model').removeClass('show');
             }
         });
 
@@ -103,6 +109,15 @@
             $(this).scope().buyAllCart();
             $(this).scope().$apply();
             $('#checkout-model').toggleClass('show');
+            return false;
+        });
+
+        $('#btn-pay-all').on('click', function(event) {
+            $(this).scope().payOrder();
+            $(this).scope().$apply();
+            if ($('#checkout-model').hasClass('show')) {
+                $('#checkout-model').removeClass('show');
+            }
             return false;
         });
     </script>
