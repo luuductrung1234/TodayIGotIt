@@ -16,9 +16,9 @@
         <!-- Test Module -->
         <module>tigi-business</module>
 
-        <module>springmvc</module>
-
         <module>tigi-restapi</module>
+
+        <module>springmvc</module>
     </modules>
     <build>
         <plugins>
