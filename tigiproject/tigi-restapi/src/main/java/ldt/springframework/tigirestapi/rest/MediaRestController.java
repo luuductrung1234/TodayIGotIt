@@ -55,7 +55,7 @@ public class MediaRestController {
             @ApiResponse(code = 403, message = "You don't have right to do  that"),
             @ApiResponse(code = 404, message = "Resource not found"),
     })
-    @GetMapping(value="/course/{courseId}/media/video/")
+    @GetMapping(value="/course/{courseId}/media/video")
     public void getCourseIntroVideo(@PathVariable("courseId") Integer courseId,
                                HttpServletRequest request,
                                HttpServletResponse response)
