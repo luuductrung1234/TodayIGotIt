@@ -4,6 +4,8 @@
     border-radius: 10px;
     padding: 16px;
     margin: 16px 0;
+    width: auto;
+    height: auto;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -17,10 +19,9 @@
 
 .course-header img {
     float: left;
-    margin-right: 20px;
-    image-rendering: auto;
-    width: auto;
-    height: 200px;
+    /* image-rendering: auto; */
+    width: 100%;
+    height: auto;
 }
 
 .course-header h1 {
@@ -345,4 +346,12 @@ img {
 .main-content:hover .info-box {
     visibility: visible;
     opacity: 1;
+}
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
 }

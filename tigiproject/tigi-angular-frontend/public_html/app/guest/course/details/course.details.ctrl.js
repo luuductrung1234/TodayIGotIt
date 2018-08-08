@@ -6,10 +6,17 @@
             $scope.current = null;
             $scope.relatedcourses = [];
             $scope.isSubcribed = false;
+            $scope.introVideo = null;
+            $scope.introVideoLoaded = false;
 
             if ($routeParams.id !== undefined) {
+                $scope.introVideoLoaded = false;
                 getByCourseId($routeParams.id);
             }
+
+            $scope.$on('$viewContentLoaded', function() {
+                checkSubcribed($routeParams.id);
+            })
 
             $scope.getCurrentInstructor = function() {
                 if ($routeParams.id !== undefined) {
@@ -17,13 +24,15 @@
                 }
             }
 
-            $scope.watchDemo = function(){
-                CourseSvc.getDemoVideo(1, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
-                .then(function (response) {
-                    console.log(response);
-                }, function (err) {
-                    console.log("Error: " + err);
-                })
+            $scope.watchIntro = function() {
+                $scope.introVideoLoaded = true;
+
+                CourseSvc.getIntroVideo($scope.current.courseId, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                    .then(function(response) {
+                        $scope.introVideo = response;
+                    }, function(err) {
+                        console.log("Error: " + err);
+                    });
             }
 
             function getByCourseId(id) {
@@ -44,37 +53,47 @@
                         console.log("Error: " + err);
                     });
             }
+
+            function checkSubcribed(curId) {
+                $scope.isSubcribed = false;
+
+                if ($rootScope.curLogin != null) {
+                    $rootScope.curLogin.userCourseOwners.forEach(function(i) {
+                        if (i.id == curId) {
+                            if (i.owerType == 'BUY') {
+                                $scope.isSubcribed = true;
+                            }
+                        }
+                    })
+                }
+
+                $scope.$apply();
+            }
         })
         .directive("toggleChapter", function() {
             return {
                 restrict: "A",
                 link: function(scope, elem, attrs) {
                     $(elem).click(function() {
-                        // if ($(elem).children().eq(1).hasClass('fa-angle-down')) {
-                        //     $(elem).children().eq(1).removeClass('fa-angle-down');
-                        //     $(elem).children().eq(1).addClass('fa-angle-up');
-                        // } else if ($(elem).children().eq(1).hasClass('fa-angle-up')) {
-                        //     $(elem).children().eq(1).removeClass('fa-angle-up');
-                        //     $(elem).children().eq(1).addClass('fa-angle-down');
-                        // }
                         $(elem).siblings().slideToggle();
-                        // var target = $(elem).next(".panel-collapse");
-                        // target.hasClass("collapse") ? target.collapse("show") : target.collapse("hide");
                     });
                 }
             }
         })
-        .directive("btnWatchDemo", function() {
-            return {
-                restrict: "A",
-                link: function(scope, elem, attrs) {
-                    $(elem).click(function() {
-                        scope.watchDemo();
-                        scope.$apply();
-
-                        return false;
-                    });
-                }
-            }
-        });
+        // .directive("btnWatchDemo", function() {
+        //     return {
+        //         restrict: "A",
+        //         link: function(scope, elem, attrs) {
+        //             $(elem).click(function() {
+        //                 CourseSvc.getDemoVideo(1, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+        //                     .then(function(response) {
+        //                         scope.introVideo;
+        //                     }, function(err) {
+        //                         console.log("Error: " + err);
+        //                     });
+        //                 return false;
+        //             });
+        //         }
+        //     }
+        // });
 })();

@@ -7,15 +7,15 @@
             return {
                 findAllCourse: findAllCourse,
                 findByCourseId: findByCourseId,
-                getDemoVideo: getDemoVideo,
+                getIntroVideo: getIntroVideo,
             }
 
-            function getDemoVideo(id, username, password) {
+            function getIntroVideo(id, username, password) {
                 var auth = btoa(`${username}:${password}`);
                 console.log(username);
                 console.log(password);
-                
-                var url = serverUrl + "course/videos/" + id;
+
+                var url = serverUrl + "course/" + id + "/media/video";
 
                 var deferred = $q.defer();
 
@@ -28,7 +28,7 @@
                     })
                     .success(function(response) {
                         console.log(response);
-                        
+
                         deferred.resolve(response);
                     })
                     .error(function(err) {

@@ -1,28 +1,35 @@
 <div class="container">
-    <div class="course-header">
-        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_164b0bb71d9%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_164b0bb71d9%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.7265625%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-            alt="Avatar">
-        <p>
-            <h1>{{current.description}}</h1>
-        </p>
-        <div class="subscribed-fr" ng-class="isSubcribed ? ['show'] : ['hidden']">
-            <p>
-                <a href="#" class="continue"><i class="fas fa-play"></i> Continue</a>
-            </p>
-            <p>75% completed</p>
-            <div class="prog">
-                <div class="prog-bar prog-bar-striped prog-bar-animated"></div>
-            </div>
+    <div class="course-header row">
+        <div class="col" style="width: 30%; height: auto; padding: 0; margin: 0;">
+            <img src="http://localhost:8080/TigiProject/api/course/{{current.courseId}}/media/image" alt="Avatar">
         </div>
-        <div class="demo-fr" ng-class="isSubcribed ? ['hidden'] : ['show']">
-            <p style="margin-bottom: 20px;">
-                <a href="#" class="continue" ng-class="{{current.courseId}" btn-watch-demo><i class="fas fa-play"></i> Watch Demo</a>
+        <div class="col" style="width: 70%; height: auto; padding: 0 0 0 10px; margin: 0;">
+            <p>
+                <h1>{{current.description}}</h1>
             </p>
-            <p style="margin-top: 20px;">
-                <!-- <a href="#" class="favorite"><i class="far fa-heart"></i></a> -->
-                <a href="#" class="c-btn btn-add-to-cart"><i class="fas fa-cart-plus"></i> Add To Cart</a>
-                <a href="#" class="c-btn btn-buy-now"><i class="fas fa-money-bill"></i> Buy Now</a>
-            </p>
+            <div class="subscribed-fr" ng-class="isSubcribed ? ['show'] : ['hidden']">
+                <p>
+                    <a id="btn-continue" href="#" class="continue">
+                        <i class="fas fa-play"></i> Continue</a>
+                </p>
+                <p>75% completed</p>
+                <div class="prog">
+                    <div class="prog-bar prog-bar-striped prog-bar-animated"></div>
+                </div>
+            </div>
+            <div class="demo-fr" ng-class="isSubcribed ? ['hidden'] : ['show']">
+                <p style="margin-bottom: 20px;">
+                    <a id="btn-watch-intro" href="#" class="continue" ng-class="{{current.courseId}}">
+                        <i class="fas fa-play"></i> Watch Demo</a>
+                </p>
+                <p style="margin-top: 20px;">
+                    <!-- <a href="#" class="favorite"><i class="far fa-heart"></i></a> -->
+                    <a href="#" id="current.courseId" class="c-btn btn-add-to-cart" add-to-cart>
+                        <i class="fas fa-cart-plus"></i> Add To Cart</a>
+                    <a href="#" class="c-btn btn-buy-now">
+                        <i class="fas fa-money-bill"></i> Buy Now</a>
+                </p>
+            </div>
         </div>
     </div>
 
@@ -167,7 +174,21 @@
         </div>
     </div>
 
+    <div id="media-player-intro-model" class="media-player-intro-model">
+
+    </div>
+
     <script>
+        $(window).on('click', function() {
+            if ($('#media-player-intro-model').hasClass('show')) {
+                $('#media-player-intro-model').removeClass('show');
+            }
+        });
+
+        $('.media-player-intro-model').on('click', function(event) {
+            event.stopPropagation()
+        })
+
         $('#default').click();
 
         function openTab(evt, tabName) {
@@ -175,6 +196,72 @@
             $('.tablinks').removeClass('active');
             $('#' + tabName).css('display', 'block');
             $(evt.target).addClass('active');
+        }
+
+        $('#btn-watch-intro').on('click', function(event) {
+            $(this).scope().watchIntro();
+            $(this).scope().$apply();
+            initIntroVideoPopup();
+            $('#media-player-intro-model').toggleClass('show');
+            return false;
+        });
+
+        function initIntroVideoPopup() {
+            $('#media-player-intro-model').append('<div id="media-player-intro" class="animate">' +
+                '<video id="media-video-intro" class="video-js vjs-big-play-centered" controls data-setup="{}">' +
+                '<source src="http://localhost:8080/TigiProject/api/course/1/media/video" type="video/mp4"/>' +
+                '<p class="vjs-no-js"> Please upgrade your browser </p>' +
+                '</video>' +
+                '</div>')
+
+            initIntroVideo();
+        }
+
+        //media-player-ctrl
+        function initIntroVideo() {
+            var video = videojs('media-video-intro', {
+                playbackRates: [.5, 1, 1.5, 2],
+                fluid: true,
+                plugins: {
+                    hotkeys: {
+                        seekStep: 10,
+                        volumeStep: 0.1,
+                        enableMute: true,
+                        enableFullScreen: true,
+                        enableNumbers: true,
+                    }
+                }
+            });
+
+            video.ready(function() {
+                console.log(video);
+
+                $('.vjs-play-progress').addClass('media-play-prog-striped media-prog-animated');
+                $('.vjs-volume-level').addClass('ctrl-volume-level');
+
+                setTimeout(() => {
+                    this.play();
+                }, 5000);
+            });
+
+            video.on('timeupdate', function() {
+                if ((video.duration() - video.currentTime()) <= 5) {
+                    videojs.log('completed!');
+                }
+            });
+
+            video.on('play', function() {
+                videojs.log('Play');
+            });
+
+            video.on('pause', function() {
+                videojs.log('Pause');
+            });
+
+            video.on('ended', function() {
+                $('.vjs-play-progress').removeClass('media-prog-animated');
+                videojs.log('Ended');
+            });
         }
     </script>
 </div>
