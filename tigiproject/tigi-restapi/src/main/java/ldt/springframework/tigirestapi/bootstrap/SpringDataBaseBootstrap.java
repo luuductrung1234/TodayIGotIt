@@ -348,43 +348,43 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         List<User> users = (List<User>) userService.listAll();
         List<Course> courses  = (List<Course>) courseService.listAll();
 
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2)));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1)));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3)));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4)));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(0)));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Nice course!", ""));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 4f, "Very comprehensive", ""));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 5f, "Thank you for create this course", ""));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 2f, "This course just an introduction course", ""));
+        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(0), 3f, "I expect more real world example", "Thank you for you feed back, we will improve soon"));
         userService.saveOrUpdate(users.get(0));
 
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(5)));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2)));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1)));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4)));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(8)));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3)));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(5), 0f, "", ""));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "I will recommend this course for my friend", ""));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 4.5f, "Good explanation", ""));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 3f, "This course is good but you accent is too hard to understand", ""));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(8), 0f, "", ""));
+        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 0f, "", ""));
         userService.saveOrUpdate(users.get(1));
 
-        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1)));
-        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4)));
-        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2)));
+        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 3f, "This course not complete at all", ""));
+        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 4.5f, "Well explanation", ""));
+        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Very engagement", ""));
         userService.saveOrUpdate(users.get(2));
 
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(0)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(1)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(2)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(3)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(4)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(5)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(6)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(7)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(8)));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(9)));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(0), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(1), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(2), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(3), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(4), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(5), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(6), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(7), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(8), 0f, "", ""));
+        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(9), 0f, "", ""));
         userService.saveOrUpdate(users.get(3));
 
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(10)));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(11)));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(12)));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(13)));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(14)));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(10), 0f, "", ""));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(11), 0f, "", ""));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(12), 0f, "", ""));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(13), 0f, "", ""));
+        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(14), 0f, "", ""));
         userService.saveOrUpdate(users.get(4));
     }
 
