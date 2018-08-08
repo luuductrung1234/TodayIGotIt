@@ -1,5 +1,6 @@
 package ldt.springframework.tigibusiness.services;
 
+import ldt.springframework.tigibusiness.commands.RateForm;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
 import ldt.springframework.tigibusiness.domain.User;
@@ -20,4 +21,6 @@ public interface CourseOwnerService extends CRUDService<CourseOwner>{
     Float getCourseRateAvg(Course course);
 
     User findInstructor(Course course);
+
+    RateForm getCourseRateFull(Course course);
 }

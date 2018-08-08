@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.commands.CourseForm;
+import ldt.springframework.tigibusiness.commands.RateForm;
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
@@ -221,9 +222,18 @@ public class CourseRestController {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
             @ApiResponse(code = 404, message = "Course not found"),
     })
-    @GetMapping(value = "/course/{id}/rate/full")
-    public void showCourseRateFull(@PathVariable("id") Integer courseId) {
+    @GetMapping(value = "/course/{id}/rate/full", produces = "application/json")
+    public RateForm showCourseRateFull(@PathVariable("id") Integer courseId) {
 
+        Course course = courseService.getById(courseId);
+
+        if (course != null) {
+            RateForm rateForm = courseOwnerService.getCourseRateFull(course);
+
+            return rateForm;
+        } else {
+            throw new CourseNotFoundException(courseId.toString());
+        }
     }
 
     @ApiOperation(value = "Show Instructor of specific course", response = Float.class)

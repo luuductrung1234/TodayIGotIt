@@ -1,5 +1,6 @@
 package ldt.springframework.tigibusiness.services.jpaservice;
 
+import ldt.springframework.tigibusiness.commands.RateForm;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
 import ldt.springframework.tigibusiness.domain.User;
@@ -72,6 +73,61 @@ public class CourseOwnerServiceJpaDAOImpl implements CourseOwnerService {
         List<CourseOwner> courseOwners = courseOwnerRepository.findAllByCourseAndOwnerType(course, OwerType.CREATE);
 
         return courseOwners.get(0).getUser();
+    }
+
+    @Override
+    public RateForm getCourseRateFull(Course course) {
+        List<CourseOwner> courseOwners = courseOwnerRepository.findAllByCourse(course);
+        RateForm rateForm = new RateForm(0,0,0,0,0,0,0,0,0,0,0);
+
+        for (CourseOwner courseOwner:
+             courseOwners) {
+            if(courseOwner.getRate().equals(0f)){
+                rateForm.setUserRate0(rateForm.getUserRate0() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(0.5f)){
+
+                rateForm.setUserRate0_5(rateForm.getUserRate0_5() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(1f)){
+                rateForm.setUserRate1(rateForm.getUserRate1() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(1.5f)){
+                rateForm.setUserRate1_5(rateForm.getUserRate1_5() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(2f)){
+                rateForm.setUserRate2(rateForm.getUserRate2() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(2.5f)){
+                rateForm.setUserRate2_5(rateForm.getUserRate2_5() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(3f)){
+                rateForm.setUserRate3(rateForm.getUserRate3() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(3.5f)){
+                rateForm.setUserRate3_5(rateForm.getUserRate3_5() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(4f)){
+                rateForm.setUserRate4(rateForm.getUserRate4() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(4.5f)){
+                rateForm.setUserRate4_5(rateForm.getUserRate4_5() + 1);
+                continue;
+            }
+            if(courseOwner.getRate().equals(5f)){
+                rateForm.setUserRate5(rateForm.getUserRate5() + 1);
+            }
+        }
+        return rateForm;
     }
 
     @Override
