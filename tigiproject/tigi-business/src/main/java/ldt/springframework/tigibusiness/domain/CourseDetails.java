@@ -1,5 +1,7 @@
 package ldt.springframework.tigibusiness.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -61,6 +63,8 @@ public class CourseDetails extends AbstractDomainEntity{
         this.chapter = chapter;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "courseDetails_course")
     public Course getCourse() {
         return course;
     }

@@ -1,5 +1,7 @@
 package ldt.springframework.tigibusiness.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ldt.springframework.tigibusiness.enums.ResourceType;
 
 import javax.persistence.Entity;
@@ -60,6 +62,8 @@ public class CourseResource extends AbstractDomainEntity{
         this.resourceType = resourceType;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "courseResource_courseDetails")
     public CourseDetails getCourseDetails() {
         return courseDetails;
     }

@@ -117,6 +117,28 @@ public class CustomResponseEntityExceptionHandler
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(UserGetTrackingFailException.class)
+    public final ResponseEntity handleUserGetTrackingFailException(Exception ex,
+                                                                WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(UserCourseNotOwnedException.class)
+    public final ResponseEntity handleUserCourseNotOwnedException(Exception ex,
+                                                                   WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
 
 
 

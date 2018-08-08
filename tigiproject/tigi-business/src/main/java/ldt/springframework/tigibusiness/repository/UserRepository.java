@@ -1,6 +1,10 @@
 package ldt.springframework.tigibusiness.repository;
 
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.LearnTracking;
 import ldt.springframework.tigibusiness.domain.User;
+
+import java.util.List;
 
 /*
  * author: Luu Duc Trung

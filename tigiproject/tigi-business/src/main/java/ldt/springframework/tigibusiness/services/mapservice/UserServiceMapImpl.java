@@ -1,7 +1,9 @@
 package ldt.springframework.tigibusiness.services.mapservice;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
+import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.DomainObject;
+import ldt.springframework.tigibusiness.domain.LearnTracking;
 import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.UserService;
@@ -73,6 +75,8 @@ public class UserServiceMapImpl extends AbstractMapService
 
         return (User) returnUser.get();
     }
+
+
 
 
     @Override
