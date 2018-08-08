@@ -1,9 +1,6 @@
 (function() {
     angular.module("app.data")
-        .factory("CourseSvc", function($http, $q, $rootScope) {
-            // var serverUrl = "http://localhost:3000/";
-            var serverUrl = "http://localhost:8080/TigiProject/api/";
-
+        .factory("CourseSvc", function($http, $q, $rootScope, serverUrl) {
             return {
                 findAllCourse: findAllCourse,
                 findByCourseId: findByCourseId,

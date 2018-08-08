@@ -7,8 +7,9 @@
     left: 0;
     background-color: #111;
     overflow-x: hidden;
+    overflow-y: auto;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 60px
 }
 
 .sidenav a {
@@ -68,6 +69,15 @@
 #media-video-learn {
     width: 100%;
     height: auto;
+}
+
+#media-player-learn #toggle-side-nav {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10000;
 }
 
 .media-player-intro-model {

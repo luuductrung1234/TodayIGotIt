@@ -11,7 +11,8 @@
         }
 
         $scope.$on('$viewContentLoaded', function() {
-            $rootScope.$emit('LearnActivated');
+            $rootScope.learning = true;
+            $scope.$apply();
         });
 
         function getByCourseId(id) {

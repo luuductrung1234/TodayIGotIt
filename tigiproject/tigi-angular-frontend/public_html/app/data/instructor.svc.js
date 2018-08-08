@@ -1,9 +1,6 @@
 (function() {
     angular.module("app.data")
-        .factory("InstructorSvc", function($http, $q) {
-            // var serverUrl = "http://localhost:3000/";
-            var serverUrl = "http://localhost:8080/TigiProject/api/";
-
+        .factory("InstructorSvc", function($http, $q, serverUrl) {
             return {
                 findAllInstructor: findAllInstructor,
                 findByUsername: findByUsername,
