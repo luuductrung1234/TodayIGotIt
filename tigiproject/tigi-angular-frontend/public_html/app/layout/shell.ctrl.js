@@ -22,6 +22,11 @@
                 reloadUserInfo(userName, password);
             });
 
+            $rootScope.$on("LearnActivated", function(event) {
+                angular.element('#topnav').css('display', 'none');
+                angular.element('#footer').css('display', 'none');
+            })
+
             $scope.signinAction = function() {
                 var userName = $scope.signinUsername;
                 var password = $scope.signinPassword;
