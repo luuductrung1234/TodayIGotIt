@@ -59,6 +59,12 @@ public class User extends AbstractDomainEntity{
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<CourseOwner> courseOwners = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<LearnTracking> learnTrackings = new ArrayList<>();
+
     @ManyToMany
     @JoinTable
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -219,5 +225,29 @@ public class User extends AbstractDomainEntity{
     public void removeCourse(CourseOwner courseOwner){
         courseOwner.setUser(null);
         this.courseOwners.remove(courseOwner);
+    }
+
+
+    // =======================================
+    // =           Tracking Access           =
+    // =======================================
+    public List<LearnTracking> getLearnTrackings() {
+        return learnTrackings;
+    }
+
+    public void setLearnTrackings(List<LearnTracking> learnTrackings) {
+        this.learnTrackings = learnTrackings;
+    }
+
+    public User addLearnTracking(LearnTracking learnTracking){
+        learnTracking.setUser(this);
+        this.learnTrackings.add(learnTracking);
+        return this;
+    }
+
+    public User removeLearnTracking(LearnTracking learnTracking){
+        learnTracking.setUser(null);
+        this.learnTrackings.remove(learnTracking);
+        return this;
     }
 }
