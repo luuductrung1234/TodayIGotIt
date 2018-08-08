@@ -4,8 +4,10 @@ import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.OrderStatus;
 import ldt.springframework.tigibusiness.enums.OwerType;
+import ldt.springframework.tigibusiness.enums.ResourceType;
 import ldt.springframework.tigibusiness.enums.RoleType;
 import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.LearnTrackingService;
 import ldt.springframework.tigibusiness.services.RoleService;
 import ldt.springframework.tigibusiness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private LearnTrackingService learnTrackingService;
+
 
     // =======================================
     // =          Business Methods           =
@@ -69,6 +74,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course1.setPrice(new BigDecimal("12.99"));
         course1.setImageUrl("static/images/img1.png");
         course1.setMediaPath("static/videos/tut1.mp4");
+        course1.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course1.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course1.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course1.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course1.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course1.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course1);
 
 
@@ -77,6 +111,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course2.setPrice(new BigDecimal("9.99"));
         course2.setImageUrl("static/images/img2.jpg");
         course2.setMediaPath("static/videos/tut2.mp4");
+        course2.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Java Components"))
+                .addCourseDetails(new CourseDetails(3, "Details"))
+                .addCourseDetails(new CourseDetails(4, "Build First App"))
+                .addCourseDetails(new CourseDetails(5, "Exception Handling"));
+        course2.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course2.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course2.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course2.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course2.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course2);
 
         Course course3 = new Course();
@@ -84,6 +147,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course3.setPrice(new BigDecimal("10.09"));
         course3.setImageUrl("static/images/img3.png");
         course3.setMediaPath("static/videos/tut3.mp4");
+        course3.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "Type Coercion"))
+                .addCourseDetails(new CourseDetails(5, "Closure"));
+        course3.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course3.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course3.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course3.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course3.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course3);
 
         Course course4 = new Course();
@@ -91,6 +183,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course4.setPrice(new BigDecimal("34.99"));
         course4.setImageUrl("static/images/img4.jpeg");
         course4.setMediaPath("static/videos/tut4.mp4");
+        course4.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic HTML"))
+                .addCourseDetails(new CourseDetails(3, "Basic CSS"))
+                .addCourseDetails(new CourseDetails(4, "Basic Javascript"))
+                .addCourseDetails(new CourseDetails(5, "Build First App"));
+        course4.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course4.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course4.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course4.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course4.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course4);
 
         Course course5 = new Course();
@@ -98,6 +219,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course5.setPrice(new BigDecimal("14.08"));
         course5.setImageUrl("static/images/img5.jpg");
         course5.setMediaPath("static/videos/tut5.mp4");
+        course5.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course5.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course5.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course5.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course5.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course5.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course5);
 
         Course course6 = new Course();
@@ -105,6 +255,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course6.setPrice(new BigDecimal("20.05"));
         course6.setImageUrl("static/images/img6.jpg");
         course6.setMediaPath("static/videos/tut6.mp4");
+        course6.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course6.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course6.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course6.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course6.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course6.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course6);
 
         Course course7 = new Course();
@@ -112,6 +291,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course7.setPrice(new BigDecimal("19.99"));
         course7.setImageUrl("static/images/img7.png");
         course7.setMediaPath("static/videos/tut6.mp4");
+        course7.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course7.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course7.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course7.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course7.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course7.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course7);
 
         Course course8 = new Course();
@@ -119,6 +327,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course8.setPrice(new BigDecimal("19.99"));
         course8.setImageUrl("static/images/img8.jpg");
         course8.setMediaPath("static/videos/tut6.mp4");
+        course8.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course8.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course8.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course8.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course8.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course8.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course8);
 
         Course course9 = new Course();
@@ -126,6 +363,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course9.setPrice(new BigDecimal("20.05"));
         course9.setImageUrl("static/images/img9.png");
         course9.setMediaPath("static/videos/tut6.mp4");
+        course9.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course9.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course9.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course9.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course9.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course9.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course9);
 
         Course course10 = new Course();
@@ -133,6 +399,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course10.setPrice(new BigDecimal("10.50"));
         course10.setImageUrl("static/images/img10.png");
         course10.setMediaPath("static/videos/tut6.mp4");
+        course10.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course10.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course10.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course10.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course10.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course10.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course10);
 
         Course course11 = new Course();
@@ -140,6 +435,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course11.setPrice(new BigDecimal("2.05"));
         course11.setImageUrl("static/images/img11.png");
         course11.setMediaPath("static/videos/tut6.mp4");
+        course11.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course11.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course11.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course11.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course11.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course11.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course11);
 
         Course course12 = new Course();
@@ -147,6 +471,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course12.setPrice(new BigDecimal("10.99"));
         course12.setImageUrl("static/images/img12.jpeg");
         course12.setMediaPath("static/videos/tut6.mp4");
+        course12.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course12.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course12.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course12.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course12.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course12.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course12);
 
         Course course13 = new Course();
@@ -154,6 +507,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course13.setPrice(new BigDecimal("90.50"));
         course13.setImageUrl("static/images/img13.png");
         course13.setMediaPath("static/videos/tut6.mp4");
+        course13.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course13.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course13.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course13.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course13.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course13.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course13);
 
         Course course14 = new Course();
@@ -161,6 +543,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course14.setPrice(new BigDecimal("199.99"));
         course14.setImageUrl("static/images/img14.png");
         course14.setMediaPath("static/videos/tut6.mp4");
+        course14.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course14.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course14.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course14.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course14.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course14.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course14);
 
         Course course15 = new Course();
@@ -168,6 +579,35 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course15.setPrice(new BigDecimal("9.99"));
         course15.setImageUrl("static/images/img15.png");
         course15.setMediaPath("static/videos/tut6.mp4");
+        course15.addCourseDetails(new CourseDetails(1, "Introduction"))
+                .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                .addCourseDetails(new CourseDetails(3, "Types"))
+                .addCourseDetails(new CourseDetails(4, "First Console App"))
+                .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+        course15.getCourseDetails()
+                .get(0)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course15.getCourseDetails()
+                .get(1)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+        course15.getCourseDetails()
+                .get(2)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+        course15.getCourseDetails()
+                .get(3)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+        course15.getCourseDetails()
+                .get(4)
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course15);
 
     }
@@ -353,6 +793,21 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 5f, "Thank you for create this course", ""));
         users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 2f, "This course just an introduction course", ""));
         users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(0), 3f, "I expect more real world example", "Thank you for you feed back, we will improve soon"));
+        for (CourseOwner courseOwner :
+            users.get(0).getCourseOwners()){
+
+            for (CourseDetails courseDetails:
+                 courseOwner.getCourse().getCourseDetails()) {
+
+                for (CourseResource courseResource:
+                        courseDetails.getCourseResources()) {
+                    //users.get(0).addLearnTracking(new LearnTracking(false, 0l, courseResource));
+                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+                    learnTracking.setUser(users.get(0));
+                    learnTrackingService.saveOrUpdate(learnTracking);
+                }
+            }
+        }
         userService.saveOrUpdate(users.get(0));
 
         users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(5), 0f, "", ""));
@@ -361,11 +816,41 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 3f, "This course is good but you accent is too hard to understand", ""));
         users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(8), 0f, "", ""));
         users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 0f, "", ""));
+        for (CourseOwner courseOwner :
+                users.get(1).getCourseOwners()){
+
+            for (CourseDetails courseDetails:
+                    courseOwner.getCourse().getCourseDetails()) {
+
+                for (CourseResource courseResource:
+                        courseDetails.getCourseResources()) {
+                    //users.get(1).addLearnTracking(new LearnTracking(false, 0l, courseResource));
+                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+                    learnTracking.setUser(users.get(0));
+                    learnTrackingService.saveOrUpdate(learnTracking);
+                }
+            }
+        }
         userService.saveOrUpdate(users.get(1));
 
         users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 3f, "This course not complete at all", ""));
         users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 4.5f, "Well explanation", ""));
         users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Very engagement", ""));
+        for (CourseOwner courseOwner :
+                users.get(2).getCourseOwners()){
+
+            for (CourseDetails courseDetails:
+                    courseOwner.getCourse().getCourseDetails()) {
+
+                for (CourseResource courseResource:
+                        courseDetails.getCourseResources()) {
+                    //users.get(2).addLearnTracking(new LearnTracking(false, 0l, courseResource));
+                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+                    learnTracking.setUser(users.get(0));
+                    learnTrackingService.saveOrUpdate(learnTracking);
+                }
+            }
+        }
         userService.saveOrUpdate(users.get(2));
 
         users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(0), 0f, "", ""));

@@ -1,11 +1,17 @@
 package ldt.springframework.tigibusiness.domain;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * author: Luu Duc Trung
@@ -31,6 +37,13 @@ public class Course extends AbstractDomainEntity {
     private String imageUrl;
 
     private String mediaPath;
+
+    @OneToMany(
+            mappedBy = "course",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<CourseDetails> courseDetails = new ArrayList<>();
 
 
     // =======================================
@@ -83,5 +96,25 @@ public class Course extends AbstractDomainEntity {
 
     public void setMediaPath(String mediaPath) {
         this.mediaPath = mediaPath;
+    }
+
+    public List<CourseDetails> getCourseDetails() {
+        return courseDetails;
+    }
+
+    public void setCourseDetails(List<CourseDetails> courseDetails) {
+        this.courseDetails = courseDetails;
+    }
+
+    public Course addCourseDetails(CourseDetails courseDetails){
+        courseDetails.setCourse(this);
+        this.courseDetails.add(courseDetails);
+        return this;
+    }
+
+    public Course removeCourseDetails(CourseDetails courseDetails){
+        courseDetails.setCourse(null);
+        this.courseDetails.remove(courseDetails);
+        return this;
     }
 }
