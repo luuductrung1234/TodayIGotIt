@@ -151,7 +151,7 @@ public class UserRestController {
         return listCourse;
     }
 
-    @ApiOperation(value = "Get User tracking for specific Course", response = UserForm.class)
+    @ApiOperation(value = "Get User tracking for specific Course", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
             @ApiResponse(code = 401, message = "You are not authorized to do  that"),

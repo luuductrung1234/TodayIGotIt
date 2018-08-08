@@ -7,13 +7,20 @@ import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.CourseDetails;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.services.CourseOwnerService;
 import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.UserService;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
 import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
+import ldt.springframework.tigirestapi.exception.user.UserCourseNotOwnedException;
+import ldt.springframework.tigirestapi.exception.user.UserNotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,6 +47,9 @@ public class CourseRestController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     CourseOwnerService courseOwnerService;
@@ -80,6 +90,33 @@ public class CourseRestController {
             ex.printStackTrace();
             throw new CourseSaveFailException();
         }
+    }
+
+    @ApiOperation(value = "Get Course Resources", response = Integer.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 404, message = "Course not found"),
+            @ApiResponse(code = 400, message = "Course has not owned yet"),
+            @ApiResponse(code = 500, message = "Fail to get resource"),
+    })
+    @GetMapping(value = "/course/{id}/resources", produces = "application/json")
+    public List<CourseDetails> createNewCourse(@PathVariable Integer id) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        if(curUser == null)
+            throw new UserNotAvailableException();
+
+        if(!userService.checkCourseOwned(curUser, id)){
+            throw new UserCourseNotOwnedException();
+        }
+
+        Course course = courseService.getById(id);
+        if(course == null)
+            throw new CourseNotFoundException(id.toString());
+
+        return course.getCourseDetails();
     }
 
 

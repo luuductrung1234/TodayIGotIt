@@ -14,7 +14,7 @@ import java.util.List;
  * 8/8/18
  */
 public interface LearnTrackingService extends CRUDService<LearnTracking> {
-    LearnTracking findByUserAndCourseResource(User user, CourseResource courseResource);
+    List<LearnTracking> findByUserAndCourseResource(User user, CourseResource courseResource);
 
     List<LearnTracking> findAllByUserAndCourse(User user, Course course);
 }

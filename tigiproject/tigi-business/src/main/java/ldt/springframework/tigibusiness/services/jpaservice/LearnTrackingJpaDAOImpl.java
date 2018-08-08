@@ -52,7 +52,7 @@ public class LearnTrackingJpaDAOImpl implements LearnTrackingService {
     }
 
     @Override
-    public LearnTracking findByUserAndCourseResource(User user, CourseResource courseResource) {
+    public List<LearnTracking> findByUserAndCourseResource(User user, CourseResource courseResource) {
         return learnTrackingRepository.findByUserAndCourseResource(user, courseResource);
     }
 
@@ -63,7 +63,7 @@ public class LearnTrackingJpaDAOImpl implements LearnTrackingService {
              course.getCourseDetails()) {
             for (CourseResource courseResource:
                  courseDetails.getCourseResources()) {
-                learnTrackings.add(learnTrackingRepository.findByUserAndCourseResource(user, courseResource));
+                learnTrackings.addAll(learnTrackingRepository.findByUserAndCourseResource(user, courseResource));
             }
         }
         return learnTrackings;
