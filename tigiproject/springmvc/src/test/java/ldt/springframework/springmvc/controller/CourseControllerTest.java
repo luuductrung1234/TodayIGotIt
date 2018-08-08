@@ -114,7 +114,7 @@ public class CourseControllerTest {
         String description = "Test Course";
         BigDecimal price = new BigDecimal("12.00");
         String imageUrl = "example.com";
-        Course expectReturnCourse = new Course(id, description, price, imageUrl);
+        Course expectReturnCourse = new Course(id, description, price, imageUrl, "");
 
 
         when(courseService.saveOrUpdate(ArgumentMatchers.any(Course.class))).thenReturn(expectReturnCourse);

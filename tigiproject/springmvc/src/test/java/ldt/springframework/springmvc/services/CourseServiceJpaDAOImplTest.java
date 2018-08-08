@@ -56,7 +56,7 @@ public class CourseServiceJpaDAOImplTest {
 
     @Test
     public void testCreateNewCourse() throws Exception{
-        Course newCourse = new Course(null, "Course 7", new BigDecimal("7.89"), "example.com/product7");
+        Course newCourse = new Course(null, "Course 7", new BigDecimal("7.89"), "example.com/product7", "");
         Course savedCourse = courseService.saveOrUpdate(newCourse);
 
         // test generated id
@@ -69,7 +69,7 @@ public class CourseServiceJpaDAOImplTest {
 
     @Test
     public void testEditCourse() throws Exception{
-        Course uptCourse = new Course(2, "Course 2 (Updated)", new BigDecimal("1.11"), "example.com/product2new");
+        Course uptCourse = new Course(2, "Course 2 (Updated)", new BigDecimal("1.11"), "example.com/product2new", "");
         uptCourse.setVersion(0);
         Course savedCourse = courseService.saveOrUpdate(uptCourse);
 
@@ -89,7 +89,7 @@ public class CourseServiceJpaDAOImplTest {
     @Test
     public void testDeleteCourse() throws Exception{
 
-        Course newCourse = new Course(null, "Course 7", new BigDecimal("7.89"), "example.com/product7");
+        Course newCourse = new Course(null, "Course 7", new BigDecimal("7.89"), "example.com/product7", "");
         Course savedCourse = courseService.saveOrUpdate(newCourse);
         // generated new course
         assert savedCourse.getId() == 7;
