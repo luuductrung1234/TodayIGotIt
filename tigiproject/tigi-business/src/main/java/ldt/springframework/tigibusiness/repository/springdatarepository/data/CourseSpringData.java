@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
  * ---
  * 7/25/18
  */
+
 public interface CourseSpringData extends CrudRepository<Course, Integer> {
     Iterable<Course> findByDescriptionIsContaining(String desc);
 }

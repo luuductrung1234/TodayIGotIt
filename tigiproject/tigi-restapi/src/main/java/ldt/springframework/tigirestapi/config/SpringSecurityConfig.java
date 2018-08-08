@@ -181,6 +181,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/api/user/info/courses").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/info/cart").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/info/orders").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/info/tracking/course/**").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/update").authenticated()
 
                 // Cart API

@@ -9,7 +9,10 @@ import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.LearnTrackingService;
 import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
 import ldt.springframework.tigirestapi.exception.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
@@ -48,6 +51,12 @@ public class UserRestController {
 
     @Autowired
     private UserFormConverter userFormConverter;
+
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private LearnTrackingService learnTrackingService;
 
 
     // =======================================
@@ -141,6 +150,43 @@ public class UserRestController {
 
         return listCourse;
     }
+
+    @ApiOperation(value = "Get User tracking for specific Course", response = UserForm.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 404, message = "Course not found"),
+            @ApiResponse(code = 400, message = "Course has not owned yet"),
+            @ApiResponse(code = 500, message = "Fail to get resource"),
+    })
+    @RequestMapping(value = "/user/info/tracking/course/{id}", produces = "application/json")
+    public List<LearnTracking> showUserLearnTrackingByCourseResource(@PathVariable("id") Integer id){
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        if(curUser == null)
+            throw new UserNotAvailableException();
+
+        if(!userService.checkCourseOwned(curUser, id)){
+            throw new UserCourseNotOwnedException();
+        }
+
+        Course course = courseService.getById(id);
+        if(course != null) {
+            try{
+                List<LearnTracking> result = learnTrackingService.findAllByUserAndCourse(curUser, course);
+
+                return result;
+            }catch (Exception ex){
+                ex.printStackTrace();
+                throw new UserGetTrackingFailException();
+            }
+        }else{
+            throw new CourseNotFoundException(id.toString());
+        }
+    }
+
 
     @ApiOperation(value = "Update current login user information", response = UserForm.class)
     @ApiResponses(value = {

@@ -1,5 +1,8 @@
 package ldt.springframework.tigibusiness.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -55,6 +58,8 @@ public class LearnTracking extends AbstractDomainEntity{
         isCompleted = completed;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "learnTracking_user")
     public User getUser() {
         return user;
     }

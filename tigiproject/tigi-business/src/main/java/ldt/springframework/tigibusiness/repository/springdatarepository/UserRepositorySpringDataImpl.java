@@ -1,5 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository;
 
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.LearnTracking;
 import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.repository.UserRepository;
 import ldt.springframework.tigibusiness.repository.springdatarepository.data.UserSpringData;

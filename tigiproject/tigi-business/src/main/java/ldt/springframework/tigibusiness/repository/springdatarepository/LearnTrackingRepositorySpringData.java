@@ -1,6 +1,9 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository;
 
+import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.CourseResource;
 import ldt.springframework.tigibusiness.domain.LearnTracking;
+import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.repository.LearnTrackingRepository;
 import ldt.springframework.tigibusiness.repository.springdatarepository.data.LearnTrackingSpringData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +57,10 @@ public class LearnTrackingRepositorySpringData implements LearnTrackingRepositor
     @Override
     public void delete(Integer id) {
         learnTrackingSpringData.deleteById(id);
+    }
+
+    @Override
+    public LearnTracking findByUserAndCourseResource(User user, CourseResource courseResource) {
+        return learnTrackingSpringData.findByUserAndCourseResource(user, courseResource);
     }
 }

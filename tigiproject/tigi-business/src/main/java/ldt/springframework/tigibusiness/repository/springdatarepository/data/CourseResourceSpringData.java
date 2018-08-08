@@ -1,8 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository.data;
 
+import ldt.springframework.tigibusiness.domain.CourseDetails;
 import ldt.springframework.tigibusiness.domain.CourseResource;
-import ldt.springframework.tigibusiness.domain.LearnTracking;
-import ldt.springframework.tigibusiness.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
  * ---
  * 8/8/18
  */
-public interface LearnTrackingSpringData extends CrudRepository<LearnTracking, Integer> {
-    LearnTracking findByUserAndCourseResource(User user, CourseResource courseResource);
+
+public interface CourseResourceSpringData extends CrudRepository<CourseResource, Integer> {
+    List<CourseResource> findAllByCourseDetails(CourseDetails courseDetails);
 }

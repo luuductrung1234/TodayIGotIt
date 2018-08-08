@@ -2,10 +2,7 @@ package ldt.springframework.tigibusiness.services.jpaservice;
 
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
-import ldt.springframework.tigibusiness.domain.Cart;
-import ldt.springframework.tigibusiness.domain.Course;
-import ldt.springframework.tigibusiness.domain.CourseOwner;
-import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.repository.UserRepository;
 import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.UserService;
