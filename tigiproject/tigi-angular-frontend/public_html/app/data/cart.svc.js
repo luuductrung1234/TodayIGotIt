@@ -1,8 +1,6 @@
 (function() {
     angular.module("app.data")
-        .factory("CartSvc", function($http, $q, UserSvc) {
-            var serverUrl = "http://localhost:8080/TigiProject/api/";
-
+        .factory("CartSvc", function($http, $q, UserSvc, serverUrl) {
             return {
                 addToCart: addToCart,
                 removeFromCart: removeFromCart,

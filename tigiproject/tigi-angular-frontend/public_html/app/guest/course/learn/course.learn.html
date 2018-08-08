@@ -1,6 +1,18 @@
 <div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="chapter-nav" class="sidenav">
+        <a id="close-side-nav" href="javascript:void(0)" class="closebtn">&times;</a>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
+        <button class="accordion">Chapter </button>
         <button class="accordion">Chapter </button>
         <button class="accordion">Chapter </button>
         <button class="accordion">Chapter </button>
@@ -11,16 +23,30 @@
 
     <div id="main">
         <div id="media-player-learn">
-            <video id="media-video-learn" class="video-js vjs-big-play-centered" controls data-setup="{}">
-                <source src="http://localhost:8080/TigiProject/api/course/{{current.courseId}}/media/video" type='video/mp4' />
-                <p class="vjs-no-js">
-                    Please upgrade your browser
-                </p>
-            </video>
+
         </div>
     </div>
-
     <script>
+        $(document).ready(function() {
+            $('#media-player-learn').append('<video id="media-video-learn" class="video-js vjs-big-play-centered" controls data-setup="{}">' +
+                '<source src="http://192.168.1.13:8080/TigiProject/api/course/1/media/video" type="video/mp4" />' +
+                '<p class="vjs-no-js">Please upgrade your browser</p>' +
+                '</video>' +
+                '<span id="toggle-side-nav">&#9776;</span>')
+        });
+
+        $('#toggle-side-nav').on('click', function() {
+            $('#chapter-nav').css('width', '270px');
+            $('#main').css('margin-left', '270px');
+            $('#toggle-side-nav').fadeOut('fast');
+        });
+
+        $('#close-side-nav').on('click', function() {
+            $('#chapter-nav').css('width', '0');
+            $('#main').css('margin-left', '0');
+            $('#toggle-side-nav').fadeIn('fast');
+        });
+
         function initVideoLearn() {
             var video = videojs('media-video-learn', {
                 playbackRates: [.5, 1, 1.5, 2],

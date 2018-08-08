@@ -33,6 +33,10 @@
                     templateUrl: "app/guest/cart/cart.html",
                     controller: "Cart"
                 })
+                .when("/course/learn/:id", {
+                    templateUrl: "app/guest/course/learn/course.learn.html",
+                    controller: "Cart"
+                })
                 .when("/admin/home", {
                     templateUrl: "app/admin/home/home.html",
                     controller: "AdminHome"

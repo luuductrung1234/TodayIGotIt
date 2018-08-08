@@ -31,6 +31,7 @@
                 $rootScope.errMess = null;
                 $rootScope.isAdminLogged = false;
                 $rootScope.isUserLogged = false;
+                $rootScope.learning = false;
 
                 $rootScope.getCartCount = function() {
                     if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
