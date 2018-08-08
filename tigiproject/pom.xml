@@ -10,7 +10,15 @@
 
     <properties>
         <project.version>0.0.1-SNAPSHOT</project.version>
+        <start-class>ldt.springframework.tigirestapi.TigiRestapiApplication</start-class>
     </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <modules>
         <!-- Test Module -->
@@ -20,6 +28,20 @@
 
         <module>springmvc</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>ldt.springframework</groupId>
+            <artifactId>tigi-business</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ldt.springframework</groupId>
+            <artifactId>tigi-restapi</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -33,6 +55,10 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
