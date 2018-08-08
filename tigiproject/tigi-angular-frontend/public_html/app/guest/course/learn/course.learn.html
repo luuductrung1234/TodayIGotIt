@@ -10,9 +10,61 @@
     </div>
 
     <div id="main">
-        <h2>Sidenav Push Example</h2>
-        <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+        <div id="media-player-learn">
+            <video id="media-video-learn" class="video-js vjs-big-play-centered" controls data-setup="{}">
+                <source src="http://localhost:8080/TigiProject/api/course/{{current.courseId}}/media/video" type='video/mp4' />
+                <p class="vjs-no-js">
+                    Please upgrade your browser
+                </p>
+            </video>
+        </div>
     </div>
 
+    <script>
+        function initVideoLearn() {
+            var video = videojs('media-video-learn', {
+                playbackRates: [.5, 1, 1.5, 2],
+                fluid: true,
+                plugins: {
+                    hotkeys: {
+                        seekStep: 10,
+                        volumeStep: 0.1,
+                        enableMute: true,
+                        enableFullScreen: true,
+                        enableNumbers: true,
+                    }
+                }
+            });
+
+            video.ready(function() {
+                console.log(video);
+
+                $('.vjs-play-progress').addClass('media-play-prog-striped media-prog-animated');
+                $('.vjs-volume-level').addClass('ctrl-volume-level');
+
+                setTimeout(() => {
+                    this.play();
+                }, 5000);
+            });
+
+            video.on('timeupdate', function() {
+                if ((video.duration() - video.currentTime()) <= 5) {
+                    videojs.log('completed!');
+                }
+            });
+
+            video.on('play', function() {
+                videojs.log('Play');
+            });
+
+            video.on('pause', function() {
+                videojs.log('Pause');
+            });
+
+            video.on('ended', function() {
+                $('.vjs-play-progress').removeClass('media-prog-animated');
+                videojs.log('Ended');
+            });
+        }
+    </script>
 </div>

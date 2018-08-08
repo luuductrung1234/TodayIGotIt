@@ -31,27 +31,12 @@
                 $rootScope.errMess = null;
                 $rootScope.isAdminLogged = false;
                 $rootScope.isUserLogged = false;
-                $rootScope.isSubcribed = false;
 
                 $rootScope.getCartCount = function() {
                     if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
                         return $rootScope.curLogin.userCart.cartDetails.length;
                     } else {
                         return 0;
-                    }
-                }
-
-                $rootScope.checkSubcribed = function(curId) {
-                    $rootScope.isSubcribed = false;
-
-                    if ($rootScope.curLogin != null) {
-                        $rootScope.curLogin.courseOwners.forEach(function(i) {
-                            if ($rootScope.curLogin.courseOwners[i].id == curId) {
-                                if (this.ownerType == 'BUY') {
-                                    $rootScope.isSubcribed = true;
-                                }
-                            }
-                        })
                     }
                 }
             }
