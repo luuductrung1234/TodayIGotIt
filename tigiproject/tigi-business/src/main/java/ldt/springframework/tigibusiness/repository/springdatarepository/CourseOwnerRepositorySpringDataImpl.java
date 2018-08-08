@@ -2,6 +2,7 @@ package ldt.springframework.tigibusiness.repository.springdatarepository;
 
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.repository.CourseOwnerRepository;
 import ldt.springframework.tigibusiness.repository.springdatarepository.data.CourseOwnerSpringData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class CourseOwnerRepositorySpringDataImpl implements CourseOwnerRepositor
     @Override
     public List<CourseOwner> findAllByCourse(Course course) {
         return courseOwnerSpringData.findAllByCourse(course);
+    }
+
+    @Override
+    public List<CourseOwner> findAllByCourseAndOwnerType(Course course, OwerType owerType) {
+        return courseOwnerSpringData.findAllByCourseAndOwerType(course, owerType);
     }
 
     @Override

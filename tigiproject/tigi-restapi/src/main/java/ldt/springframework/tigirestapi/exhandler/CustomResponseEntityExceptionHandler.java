@@ -2,6 +2,8 @@ package ldt.springframework.tigirestapi.exhandler;
 
 import ldt.springframework.tigirestapi.exception.cart.CourseAlreadyHaveException;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
+import ldt.springframework.tigirestapi.exception.course.CourseResourceNotFoundException;
+import ldt.springframework.tigirestapi.exception.course.CourseResourceRequestNotValidException;
 import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
 import ldt.springframework.tigirestapi.exception.order.CartIsEmptyException;
 import ldt.springframework.tigirestapi.exception.order.OrderNotAvailableException;
@@ -156,6 +158,28 @@ public class CustomResponseEntityExceptionHandler
                         request.getDescription(false));
 
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CourseResourceNotFoundException.class)
+    public final ResponseEntity handleCourseResourceNotFoundException(Exception ex,
+                                                              WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CourseResourceRequestNotValidException.class)
+    public final ResponseEntity handleCourseResourceRequestNotValidException(Exception ex,
+                                                                      WebRequest request){
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CourseSaveFailException.class)

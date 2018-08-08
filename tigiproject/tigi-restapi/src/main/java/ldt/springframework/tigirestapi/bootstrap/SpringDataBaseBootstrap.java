@@ -82,18 +82,18 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course1.getCourseDetails()
                 .get(0)
                 .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
-                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
-                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut2.mp4"))
+                .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut3.mp4"));
         course1.getCourseDetails()
                 .get(1)
-                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut4.mp4"))
                 .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
-                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
-                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+                .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut5.mp4"))
+                .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign2.html"));
         course1.getCourseDetails()
                 .get(2)
-                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
-                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+                .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut6.mp4"))
+                .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign3.html"));
         course1.getCourseDetails()
                 .get(3)
                 .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))

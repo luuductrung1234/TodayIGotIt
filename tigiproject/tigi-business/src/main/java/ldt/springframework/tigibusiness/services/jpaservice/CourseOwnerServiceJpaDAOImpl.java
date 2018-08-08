@@ -2,6 +2,7 @@ package ldt.springframework.tigibusiness.services.jpaservice;
 
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.repository.CourseOwnerRepository;
 import ldt.springframework.tigibusiness.services.CourseOwnerService;
@@ -64,6 +65,13 @@ public class CourseOwnerServiceJpaDAOImpl implements CourseOwnerService {
 
         avg /= count;
         return avg;
+    }
+
+    @Override
+    public User findInstructor(Course course) {
+        List<CourseOwner> courseOwners = courseOwnerRepository.findAllByCourseAndOwnerType(course, OwerType.CREATE);
+
+        return courseOwners.get(0).getUser();
     }
 
     @Override

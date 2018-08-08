@@ -162,6 +162,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("api/course/*/media/video").permitAll()
                 .and().authorizeRequests().antMatchers("api/course/*/review").permitAll()
                 .and().authorizeRequests().antMatchers("api/course/*/rate").permitAll()
+                .and().authorizeRequests().antMatchers("api/course/*/rate/full").permitAll()
+                .and().authorizeRequests().antMatchers("api/course/*/instructor").permitAll()
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users").permitAll()
@@ -175,6 +177,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Course API
                 .and().authorizeRequests().antMatchers("/api/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
                 .and().authorizeRequests().antMatchers("/api/course/*/resources").authenticated()
+                .and().authorizeRequests().antMatchers("/api/course/resource/*/media/video").authenticated()
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users/full").hasAnyAuthority(RoleType.ADMIN.name())
