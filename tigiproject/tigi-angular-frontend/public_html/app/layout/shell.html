@@ -1,5 +1,5 @@
 <div ng-controller="Shell">
-    <div header id="topnav" class="topnav topnav-tigi" ng-show="$root.learning">
+    <div header id="topnav" class="topnav topnav-tigi" ng-hide="$root.learning">
         <div class="topnav-left">
             <a id="tigi-logo" class="topnav-brand" href="#/home">
                 <img src="content/img/logostyle.png" alt="TiGi_logo">
@@ -264,12 +264,12 @@
         </div>
     </div>
 
-    <div class="container" ng-class="{container-df : $root.learning}" ng-view>
+    <div ng-class="$root.learning ? 'container containerfull' : 'container containerdf'" ng-view>
     </div>
 
     <div id="snackbar" ng-class="{showVisible: $root.hasError}">{{$root.errMess}}</div>
 
-    <div footer id="footer" class="footer topnav-tigi" style="left: 0; bottom: 0;" ng-show="$root.learning">
+    <div footer id="footer" class="footer topnav-tigi" style="left: 0; bottom: 0;" ng-hide="$root.learning">
         <div class="footer-left">
             <a id="tigi-logo" class="topnav-brand" href="#/home">
                 <img src="content/img/logostyle.png" alt="TiGi_logo">

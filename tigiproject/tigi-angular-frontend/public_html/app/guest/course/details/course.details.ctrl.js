@@ -8,6 +8,7 @@
             $scope.isSubcribed = false;
             $scope.introVideo = null;
             $scope.introVideoLoaded = false;
+            $scope.currentReview = [];
 
             if ($routeParams.id !== undefined) {
                 $scope.introVideoLoaded = false;
@@ -16,12 +17,17 @@
 
             $scope.$on('$viewContentLoaded', function() {
                 checkSubcribed($routeParams.id);
-            })
+            });
 
             $scope.getCurrentInstructor = function() {
-                if ($routeParams.id !== undefined) {
-
-                }
+                // if ($routeParams.id !== undefined) {
+                //     CourseSvc.getCurInstructor($routeParams.id)
+                //         .then(function(response) {
+                //             return response.firstName + response.lastName;
+                //         }, function(err) {
+                //             console.log("Error: " + err);
+                //         });
+                // }
             }
 
             $scope.watchIntro = function() {
@@ -39,6 +45,7 @@
                 CourseSvc.findByCourseId(id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
                         $scope.current = response;
+                        loadReview($scope.current.courseId);
                         getAllRelatedCourse();
                     }, function(err) {
                         console.log("Error: " + err);
@@ -68,6 +75,46 @@
                 }
 
                 $scope.$apply();
+            }
+
+            function loadReview(id) {
+                CourseSvc.getAllReview(id)
+                    .then(function(response) {
+                        $scope.currentReview = response;
+                    }, function(err) {
+                        console.log("Error: " + err);
+                    })
+            }
+
+            $scope.getUserFeedbackInfo = function(rate) {
+
+            }
+
+            $scope.getPersonalRate = function(rate) {
+                var cnt = 0;
+                // var htmlrate = '';
+
+                // for (let i = 0; i < parseInt(rate); i++) {
+                //     htmlrate += '<span class="fa fa-star checked"></span>';
+                //     cnt++;
+                // }
+
+                // for (let i = 0; i < (5 - cnt); i++) {
+                //     htmlrate += '<span class="fa fa-star"></span>';
+                // }
+
+                var personalRate = [];
+
+                for (let i = 0; i < parseInt(rate); i++) {
+                    personalRate.push('checked');
+                    cnt++;
+                }
+
+                for (let i = 0; i < (5 - cnt); i++) {
+                    personalRate.push('');
+                }
+
+                return personalRate;
             }
         })
         .directive("toggleChapter", function() {

@@ -5,11 +5,16 @@
             $scope.cook = $cookieStore;
 
             $scope.loginOnRefresh = function() {
-                loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'));
             }
 
             $scope.loginAction = function() {
                 loginStep($scope.loginUsername, $scope.loginPassword);
+                // .then(function(data) {
+
+                // }, function(err) {
+                //     console.log("Error: " + err);
+                // });
 
                 if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
                     window.location.href = "#/admin/home";

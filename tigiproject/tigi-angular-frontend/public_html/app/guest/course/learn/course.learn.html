@@ -29,10 +29,16 @@
     <script>
         $(document).ready(function() {
             $('#media-player-learn').append('<video id="media-video-learn" class="video-js vjs-big-play-centered" controls data-setup="{}">' +
-                '<source src="http://192.168.1.13:8080/TigiProject/api/course/1/media/video" type="video/mp4" />' +
+                '<source src="http://localhost:8080/TigiProject/api/course/1/media/video" type="video/mp4" />' +
                 '<p class="vjs-no-js">Please upgrade your browser</p>' +
                 '</video>' +
-                '<span id="toggle-side-nav">&#9776;</span>')
+                '<span id="toggle-side-nav">&#9776;</span>');
+
+            initVideoLearn();
+        });
+
+        $(document).unload(function() {
+            alert("Bye");
         });
 
         $('#toggle-side-nav').on('click', function() {
