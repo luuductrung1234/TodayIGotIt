@@ -174,6 +174,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors()
                 // Course API
                 .and().authorizeRequests().antMatchers("/api/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
+                .and().authorizeRequests().antMatchers("/api/course/*/resources").authenticated()
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users/full").hasAnyAuthority(RoleType.ADMIN.name())

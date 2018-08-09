@@ -14,5 +14,5 @@ import java.util.List;
  * 8/8/18
  */
 public interface LearnTrackingSpringData extends CrudRepository<LearnTracking, Integer> {
-    LearnTracking findByUserAndCourseResource(User user, CourseResource courseResource);
+    List<LearnTracking> findByUserAndCourseResource(User user, CourseResource courseResource);
 }

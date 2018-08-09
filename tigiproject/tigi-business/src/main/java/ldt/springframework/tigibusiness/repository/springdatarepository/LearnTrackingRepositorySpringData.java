@@ -60,7 +60,7 @@ public class LearnTrackingRepositorySpringData implements LearnTrackingRepositor
     }
 
     @Override
-    public LearnTracking findByUserAndCourseResource(User user, CourseResource courseResource) {
+    public List<LearnTracking> findByUserAndCourseResource(User user, CourseResource courseResource) {
         return learnTrackingSpringData.findByUserAndCourseResource(user, courseResource);
     }
 }
