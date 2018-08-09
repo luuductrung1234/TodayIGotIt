@@ -3,6 +3,7 @@ package ldt.springframework.tigibusiness.services.jpaservice;
 import ldt.springframework.tigibusiness.commands.CourseForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
+import ldt.springframework.tigibusiness.domain.User;
 import ldt.springframework.tigibusiness.repository.CourseRepository;
 import ldt.springframework.tigibusiness.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,5 @@ public class CourseServiceJpaDAOImpl implements CourseService {
     public List<Course> findByDesc(String desc) {
         return courseRepository.findByDesc(desc);
     }
+
 }

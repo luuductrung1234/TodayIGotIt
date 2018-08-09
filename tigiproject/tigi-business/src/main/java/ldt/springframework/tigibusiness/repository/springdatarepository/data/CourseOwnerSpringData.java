@@ -2,6 +2,7 @@ package ldt.springframework.tigibusiness.repository.springdatarepository.data;
 
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.enums.OwerType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -14,4 +15,6 @@ import java.util.List;
  */
 public interface CourseOwnerSpringData extends CrudRepository<CourseOwner, Integer> {
     List<CourseOwner> findAllByCourse(Course course);
+
+    List<CourseOwner> findAllByCourseAndOwerType(Course course, OwerType ownerType);
 }

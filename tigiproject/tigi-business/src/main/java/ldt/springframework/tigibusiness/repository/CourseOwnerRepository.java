@@ -2,6 +2,7 @@ package ldt.springframework.tigibusiness.repository;
 
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.services.CRUDService;
 
 import java.util.List;
@@ -14,4 +15,6 @@ import java.util.List;
  */
 public interface CourseOwnerRepository extends CRUDService<CourseOwner> {
     List<CourseOwner> findAllByCourse(Course course);
+
+    List<CourseOwner> findAllByCourseAndOwnerType(Course course, OwerType owerType);
 }

@@ -5,7 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import ldt.springframework.tigibusiness.commands.CourseForm;
+import ldt.springframework.tigibusiness.commands.RateForm;
+import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
+import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseDetails;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
@@ -57,6 +60,9 @@ public class CourseRestController {
     @Autowired
     CourseFormConverter courseFormConverter;
 
+    @Autowired
+    UserFormConverter userFormConverter;
+
 
 
     // =======================================
@@ -101,7 +107,7 @@ public class CourseRestController {
             @ApiResponse(code = 500, message = "Fail to get resource"),
     })
     @GetMapping(value = "/course/{id}/resources", produces = "application/json")
-    public List<CourseDetails> createNewCourse(@PathVariable Integer id) {
+    public List<CourseDetails> getCourseResources(@PathVariable Integer id) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
@@ -118,6 +124,8 @@ public class CourseRestController {
 
         return course.getCourseDetails();
     }
+
+
 
 
     // =======================================
@@ -208,4 +216,42 @@ public class CourseRestController {
             throw new CourseNotFoundException(courseId.toString());
         }
     }
+
+    @ApiOperation(value = "Show rate full statistic of specific course", response = Float.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 404, message = "Course not found"),
+    })
+    @GetMapping(value = "/course/{id}/rate/full", produces = "application/json")
+    public RateForm showCourseRateFull(@PathVariable("id") Integer courseId) {
+
+        Course course = courseService.getById(courseId);
+
+        if (course != null) {
+            RateForm rateForm = courseOwnerService.getCourseRateFull(course);
+
+            return rateForm;
+        } else {
+            throw new CourseNotFoundException(courseId.toString());
+        }
+    }
+
+    @ApiOperation(value = "Show Instructor of specific course", response = Float.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+            @ApiResponse(code = 404, message = "Course not found"),
+    })
+    @GetMapping(value = "/course/{id}/instructor")
+    public UserForm showInstructorForCourse(@PathVariable("id") Integer courseId) {
+        Course course = courseService.getById(courseId);
+
+        if (course != null) {
+            User user = courseOwnerService.findInstructor(course);
+
+            return userFormConverter.revertToFewInfo(user);
+        } else {
+            throw new CourseNotFoundException(courseId.toString());
+        }
+    }
+
 }
