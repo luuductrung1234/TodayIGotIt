@@ -208,9 +208,12 @@
         </div>
 
         <script>
+            var video;
+
             $(window).on('click', function() {
                 if ($('#media-player-intro-model').hasClass('show')) {
                     $('#media-player-intro-model').removeClass('show');
+                    video.pause();
                 }
             });
 
@@ -248,7 +251,7 @@
 
             //media-player-ctrl
             function initIntroVideo() {
-                var video = videojs('media-video-intro', {
+                video = videojs('media-video-intro', {
                     playbackRates: [.5, 1, 1.5, 2],
                     fluid: true,
                     plugins: {

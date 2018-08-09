@@ -10,21 +10,21 @@
         <form ng-submit="editPersonalInfo()" id="personal-info-form" class="form-full-width" style="width: 100%;">
             <div class="row">
                 <div class="col" style="width: 100%; padding: 0px;">
-                    <label for="fname"><b>First Name</b></label>
-                    <input type="text" id="fname" name="fname" ng-model="$root.curLogin[0].fname" class="input-text mr-pd-input-df" placeholder="Enter First Name" ng-value="current.fname" required>
+                    <label for="firstName"><b>First Name</b></label>
+                    <input type="text" id="firstName" name="firstName" ng-model="$root.curLogin.firstName" class="input-text mr-pd-input-df" placeholder="Enter First Name" ng-value="current.firstName" required>
 
-                    <label for="lname"><b>Last Name</b></label>
-                    <input type="text" id="lname" name="lname" ng-model="$root.curLogin[0].lname" class="input-text mr-pd-input-df" placeholder="Enter Last Name" ng-value="current.lname" required>
+                    <label for="lastName"><b>Last Name</b></label>
+                    <input type="text" id="lastName" name="lastName" ng-model="$root.curLogin.lastName" class="input-text mr-pd-input-df" placeholder="Enter Last Name" ng-value="current.lastName" required>
 
                     <label for="gender"><b>Gender</b></label>
-                    <select id="gender" ng-model="$root.curLogin[0].gender" class="c-cbo mr-pd-input-df">
+                    <select id="gender" ng-model="$root.curLogin.gender" class="c-cbo mr-pd-input-df">
                         <option>--Select--</option>
                         <option>Male</option>
                         <option>Female</option>
                     </select>
 
                     <label for="dob"><b>Date of Birth</b></label>
-                    <input type="date" id="dob" ng-model="$root.curLogin[0].dob" name="dob" class="input-text mr-pd-input-df" ng-value="current.dob" required/>
+                    <input type="date" id="dob" ng-model="$root.curLogin.dob" name="dob" class="input-text mr-pd-input-df" ng-value="current.dob" required/>
 
                     <div style="overflow:auto;">
                         <div style="float:right;">
@@ -44,23 +44,44 @@
             <div class="row">
                 <div class="col" style="width: 100%; padding: 0px;">
                     <label for="email"><b>Email</b></label>
-                    <input type="email" id="email" ng-model="$root.curLogin[0].email" name="email" class="input-text mr-pd-input-df" placeholder="Enter Email" required>
+                    <input type="email" id="email" ng-model="$root.curLogin.email" name="email" class="input-text mr-pd-input-df" placeholder="Enter Email" required>
 
-                    <label for="phone"><b>Phone</b></label>
-                    <input type="tel" id="phone" ng-model="$root.curLogin[0].phone" name="phone" class="input-text mr-pd-input-df" placeholder="Enter Phone" required>
+                    <label for="phoneNumber"><b>Phone</b></label>
+                    <input type="tel" id="phoneNumber" ng-model="$root.curLogin.phoneNumber" name="phoneNumber" class="input-text mr-pd-input-df" placeholder="Enter Phone" required>
 
-                    <h3>Additional Contact Info - Address</h3>
-                    <label for="addressZipcode"><b>Address Zipcode</b></label>
-                    <input type="text" id="addressZipcode" ng-model="$root.curLogin[0].addressZipcode" name="addressZipcode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+                    <h3>Additional Contact Info - Billing Address</h3>
+                    <label for="billingZipCode"><b>Address Zipcode</b></label>
+                    <input type="text" id="billingZipCode" ng-model="$root.curLogin.billingZipCode" name="billingZipCode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
 
-                    <label for="addressState"><b>Address State</b></label>
-                    <input type="text" id="addressState" ng-model="$root.curLogin[0].addressState" name="addressState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
+                    <label for="billingState"><b>Address State</b></label>
+                    <input type="text" id="billingState" ng-model="$root.curLogin.billingState" name="billingState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
 
-                    <label for="addressCity"><b>Address City</b></label>
-                    <input type="text" id="addressCity" ng-model="$root.curLogin[0].addressCity" name="addressCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
+                    <label for="billingCity"><b>Address City</b></label>
+                    <input type="text" id="billingCity" ng-model="$root.curLogin.billingCity" name="billingCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
 
-                    <label for="addressLine"><b>Address Line</b></label>
-                    <input type="text" id="addressLine" ng-model="$root.curLogin[0].addressLine" name="addressLine" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
+                    <label for="billingAddressLine1"><b>Address Line</b></label>
+                    <input type="text" id="billingAddressLine1" ng-model="$root.curLogin.billingAddressLine1" name="billingAddressLine1" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
+
+                    <h3>Additional Contact Info - Shipping Address</h3>
+                    <label for="shippingZipCide">
+                        <b>Address Zipcode</b>
+                    </label>
+                    <input type="text" id="shippingZipCide" ng-model="$root.curLogin.shippingZipCide" name="shippingZipCide" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+
+                    <label for="shippingState">
+                        <b>Address State</b>
+                    </label>
+                    <input type="text" id="shippingState" ng-model="$root.curLogin.shippingState" name="shippingState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
+
+                    <label for="shippingCity">
+                        <b>Address City</b>
+                    </label>
+                    <input type="text" id="shippingCity" ng-model="$root.curLogin.shippingCity" name="shippingCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
+
+                    <label for="shippingAddressLine1">
+                        <b>Address Line</b>
+                    </label>
+                    <input type="text" id="shippingAddressLine1" ng-model="$root.curLogin.shippingAddressLine1" name="shippingAddressLine1" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
 
                     <hr/>
                     <label>Links</label>
@@ -107,7 +128,9 @@
     </div>
 
     <script>
-        $('#default').click();
+        $(document).ready(function() {
+            $('#default').click();
+        })
 
         function openTab(evt, tabName) {
             $('.ver-tabcontent').css('display', 'none');
