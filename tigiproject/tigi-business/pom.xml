@@ -88,11 +88,20 @@
             <version>1.9.2</version>
         </dependency>
 
+
         <!-- Rest Docs -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.7.0</version>
+        </dependency>
+
+
+        <!-- Machine Learning -->
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>1.9.0</version>
         </dependency>
     </dependencies>
 
