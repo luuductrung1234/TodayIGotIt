@@ -1,7 +1,7 @@
 <div class="container">
     <div class="course-header row">
         <div class="col" style="width: 30%; height: auto; padding: 0; margin: 0;">
-            <img src="http://192.168.1.13:8080/TigiProject/api/course/{{current.courseId}}/media/image" alt="Avatar">
+            <img src="http://localhost:8080/TigiProject/api/course/{{current.courseId}}/media/image" alt="Avatar">
         </div>
         <div class="col" style="width: 70%; height: auto; padding: 0 0 0 10px; margin: 0;">
             <p>
@@ -9,7 +9,7 @@
             </p>
             <div class="subscribed-fr" ng-class="isSubcribed ? ['show'] : ['hidden']">
                 <p>
-                    <a id="btn-continue" href="#" class="continue">
+                    <a id="btn-continue" href="#/course/learn/{{current.courseId}}" class="continue">
                         <i class="fas fa-play"></i> Continue</a>
                 </p>
                 <p>75% completed</p>
@@ -148,120 +148,149 @@
         </div>
         <br/>
         <h2>Feedback</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-
-    <div id="related-courses" class="tabcontent">
-        <div class="course-container">
-            <div>
-                <h2>Related Course: <span class="more-link"><a href="#"><i class="fas fa-plus"></i> More...</a></span></h2>
-            </div>
-            <div class="ava-courses">
-                <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in relatedcourses">
-                    <img ng-src="{{course.imageUrl}}">
-                    <h2>{{course.description}}</h2>
-                    <!-- <p class="title">{{course.instructor}}</p> -->
-                    <p class="info">{{course.description}}</p>
-                    <div class="card-body">
-                        <del class="old-price">{{course.price | currency}}</del>
-                        <span class="present-price">{{course.price | currency}}</span>
+        <div ng-repeat="feedback in currentReview" style="margin-bottom: 20px;">
+            <div class="feedback row">
+                <div class="col" style="width: 15%; padding: 0; margin: 0;">
+                    <div class="row">
+                        <span class="feedback-owner">{{getUserFeedbackInfo()}}</span>
                     </div>
-                    <p>
-                        <a href="#/course/{{course.id}}" class="more-info">More info...</a>
-                    </p>
+                    <div class="row">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                </div>
+                <div class="col" style="width: 85%; padding: 0; margin: 0;">
+                    <p>{{feedback.review}}</p>
+                    <span class="time-right">{{feedback.dateCreated | date: 'dd/MM/yyyy'}}</span>
+                </div>
+            </div>
+            <div class="feedback row" ng-show="feedback.responsedReview != ''">
+                <div class="col" style="width: 15%; padding: 0; margin: 0;">
+                    <div class="row">
+                        <span class="feedback-owner">Response</span>
+                    </div>
+                </div>
+                <div class="col" style="width: 85%; padding: 0; margin: 0;">
+                    <p>{{feedback.responsedReview}}</p>
+                    <span class="time-right">{{feedback.dateCreated | date: 'dd/MM/yyyy'}}</span>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="media-player-intro-model" class="media-player-intro-model">
+        <div id="related-courses" class="tabcontent">
+            <div class="course-container">
+                <div>
+                    <h2>Related Course: <span class="more-link"><a href="#"><i class="fas fa-plus"></i> More...</a></span></h2>
+                </div>
+                <div class="ava-courses">
+                    <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in relatedcourses">
+                        <img ng-src="{{course.imageUrl}}">
+                        <h2>{{course.description}}</h2>
+                        <!-- <p class="title">{{course.instructor}}</p> -->
+                        <p class="info">{{course.description}}</p>
+                        <div class="card-body">
+                            <del class="old-price">{{course.price | currency}}</del>
+                            <span class="present-price">{{course.price | currency}}</span>
+                        </div>
+                        <p>
+                            <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    </div>
+        <div id="media-player-intro-model" class="media-player-intro-model">
 
-    <script>
-        $(window).on('click', function() {
-            if ($('#media-player-intro-model').hasClass('show')) {
-                $('#media-player-intro-model').removeClass('show');
+        </div>
+
+        <script>
+            $(window).on('click', function() {
+                if ($('#media-player-intro-model').hasClass('show')) {
+                    $('#media-player-intro-model').removeClass('show');
+                }
+            });
+
+            $('.media-player-intro-model').on('click', function(event) {
+                event.stopPropagation()
+            })
+
+            $('#default').click();
+
+            function openTab(evt, tabName) {
+                $('.tabcontent').css('display', 'none');
+                $('.tablinks').removeClass('active');
+                $('#' + tabName).css('display', 'block');
+                $(evt.target).addClass('active');
             }
-        });
 
-        $('.media-player-intro-model').on('click', function(event) {
-            event.stopPropagation()
-        })
+            $('#btn-watch-intro').on('click', function(event) {
+                $(this).scope().watchIntro();
+                $(this).scope().$apply();
+                initIntroVideoPopup();
+                $('#media-player-intro-model').toggleClass('show');
+                return false;
+            });
 
-        $('#default').click();
+            function initIntroVideoPopup() {
+                $('#media-player-intro-model').append('<div id="media-player-intro" class="animate">' +
+                    '<video id="media-video-intro" class="video-js vjs-big-play-centered" controls data-setup="{}">' +
+                    '<source src="http://localhost:8080/TigiProject/api/course/1/media/video" type="video/mp4"/>' +
+                    '<p class="vjs-no-js"> Please upgrade your browser </p>' +
+                    '</video>' +
+                    '</div>')
 
-        function openTab(evt, tabName) {
-            $('.tabcontent').css('display', 'none');
-            $('.tablinks').removeClass('active');
-            $('#' + tabName).css('display', 'block');
-            $(evt.target).addClass('active');
-        }
+                initIntroVideo();
+            }
 
-        $('#btn-watch-intro').on('click', function(event) {
-            $(this).scope().watchIntro();
-            $(this).scope().$apply();
-            initIntroVideoPopup();
-            $('#media-player-intro-model').toggleClass('show');
-            return false;
-        });
-
-        function initIntroVideoPopup() {
-            $('#media-player-intro-model').append('<div id="media-player-intro" class="animate">' +
-                '<video id="media-video-intro" class="video-js vjs-big-play-centered" controls data-setup="{}">' +
-                '<source src="http://localhost:8080/TigiProject/api/course/1/media/video" type="video/mp4"/>' +
-                '<p class="vjs-no-js"> Please upgrade your browser </p>' +
-                '</video>' +
-                '</div>')
-
-            initIntroVideo();
-        }
-
-        //media-player-ctrl
-        function initIntroVideo() {
-            var video = videojs('media-video-intro', {
-                playbackRates: [.5, 1, 1.5, 2],
-                fluid: true,
-                plugins: {
-                    hotkeys: {
-                        seekStep: 10,
-                        volumeStep: 0.1,
-                        enableMute: true,
-                        enableFullScreen: true,
-                        enableNumbers: true,
+            //media-player-ctrl
+            function initIntroVideo() {
+                var video = videojs('media-video-intro', {
+                    playbackRates: [.5, 1, 1.5, 2],
+                    fluid: true,
+                    plugins: {
+                        hotkeys: {
+                            seekStep: 10,
+                            volumeStep: 0.1,
+                            enableMute: true,
+                            enableFullScreen: true,
+                            enableNumbers: true,
+                        }
                     }
-                }
-            });
+                });
 
-            video.ready(function() {
-                console.log(video);
+                video.ready(function() {
+                    console.log(video);
 
-                $('.vjs-play-progress').addClass('media-play-prog-striped media-prog-animated');
-                $('.vjs-volume-level').addClass('ctrl-volume-level');
+                    $('.vjs-play-progress').addClass('media-play-prog-striped media-prog-animated');
+                    $('.vjs-volume-level').addClass('ctrl-volume-level');
 
-                setTimeout(() => {
-                    this.play();
-                }, 5000);
-            });
+                    setTimeout(() => {
+                        this.play();
+                    }, 5000);
+                });
 
-            video.on('timeupdate', function() {
-                if ((video.duration() - video.currentTime()) <= 5) {
-                    videojs.log('completed!');
-                }
-            });
+                video.on('timeupdate', function() {
+                    if ((video.duration() - video.currentTime()) <= 5) {
+                        videojs.log('completed!');
+                    }
+                });
 
-            video.on('play', function() {
-                videojs.log('Play');
-            });
+                video.on('play', function() {
+                    videojs.log('Play');
+                });
 
-            video.on('pause', function() {
-                videojs.log('Pause');
-            });
+                video.on('pause', function() {
+                    videojs.log('Pause');
+                });
 
-            video.on('ended', function() {
-                $('.vjs-play-progress').removeClass('media-prog-animated');
-                videojs.log('Ended');
-            });
-        }
-    </script>
-</div>
+                video.on('ended', function() {
+                    $('.vjs-play-progress').removeClass('media-prog-animated');
+                    videojs.log('Ended');
+                });
+            }
+        </script>
+    </div>

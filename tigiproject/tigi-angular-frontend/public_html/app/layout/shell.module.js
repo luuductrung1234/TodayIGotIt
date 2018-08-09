@@ -35,7 +35,7 @@
                 })
                 .when("/course/learn/:id", {
                     templateUrl: "app/guest/course/learn/course.learn.html",
-                    controller: "Cart"
+                    controller: "CourseLearn"
                 })
                 .when("/admin/home", {
                     templateUrl: "app/admin/home/home.html",

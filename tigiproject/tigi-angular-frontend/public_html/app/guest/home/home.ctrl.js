@@ -1,23 +1,23 @@
 (function() {
     angular.module("app.home")
         .controller("Home", function($scope, CourseSvc) {
-            $scope.javaavacourses = [];
+            $scope.courses = [];
+            $scope.courseImage = null;
 
             $scope.$on('$viewContentLoaded', function() {
                 CourseSvc.findAllCourse()
                     .then(function(response) {
-                        $scope.javaavacourses = response;
-                    }, function(err) {
-                        console.log("Error: " + err);
-                    });
-
-                CourseSvc.findAllCourse()
-                    .then(function(response) {
-                        $scope.csharpavacourses = response;
+                        $scope.courses = response;
                     }, function(err) {
                         console.log("Error: " + err);
                     });
             });
+
+            $scope.getCourseImage = function(curId) {
+                return CourseSvc.getImage(curId);
+
+                $scope.$apply();
+            }
         })
         .directive("addToFavorite", function() {
             return {

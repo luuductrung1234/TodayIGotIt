@@ -284,3 +284,52 @@
         display: none;
     }
 }
+
+
+/*Feedback*/
+
+.feedback {
+    border: 2px solid white;
+    background-color: #444444;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.darker {
+    background-color: #555555;
+}
+
+.feedback::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.feedback .feedback-owner {
+    float: left;
+    max-width: 200px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.feedback .fa-star {
+    font-size: 16px;
+}
+
+.feedback .feedback-owner.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}

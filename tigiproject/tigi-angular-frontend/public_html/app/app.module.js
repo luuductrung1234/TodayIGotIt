@@ -9,6 +9,7 @@
             "app.course.details",
             "app.profiles",
             "app.course.user",
+            "app.course.learn",
             "app.cart",
             "app.admin.home",
             "app.admin.course",
@@ -32,12 +33,31 @@
                 $rootScope.isAdminLogged = false;
                 $rootScope.isUserLogged = false;
                 $rootScope.learning = false;
+                $rootScope.isSubcribed = false;
 
                 $rootScope.getCartCount = function() {
                     if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
                         return $rootScope.curLogin.userCart.cartDetails.length;
                     } else {
                         return 0;
+                    }
+                }
+
+                $rootScope.$on('CheckSubscribed', function(event, curId) {
+                    checkSubcribed(curId);
+                })
+
+                function checkSubcribed(curId) {
+                    $rootScope.isSubcribed = false;
+
+                    if ($rootScope.curLogin != null) {
+                        $rootScope.curLogin.userCourseOwners.forEach(function(i) {
+                            if (i.id == curId) {
+                                if (i.owerType == 'BUY') {
+                                    $rootScope.isSubcribed = true;
+                                }
+                            }
+                        })
                     }
                 }
             }
