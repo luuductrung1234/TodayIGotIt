@@ -5,8 +5,14 @@
             $scope.resources = [];
             $scope.sourceVideo = null;
 
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined) {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null ||
+                $rootScope.curLogin.userName === undefined) {
                 $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'STUDENT') {
+                    $window.location.href = "#/home";
+                }
             }
 
             if ($routeParams.id !== undefined) {

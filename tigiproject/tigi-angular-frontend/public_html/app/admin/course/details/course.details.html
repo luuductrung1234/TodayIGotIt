@@ -8,15 +8,8 @@
             </p>
         </div>
 
-        <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'overview')" id="default">Overview</button>
-            <button class="tablinks" onclick="openTab(event, 'course-content')">Course Content</button>
-            <button class="tablinks" onclick="openTab(event, 'rating-feedback')">Rating & Feedback</button>
-            <button class="tablinks" onclick="openTab(event, 'related-courses')">Related Courses</button>
-        </div>
-
         <!-- Tab content -->
-        <div id="overview" class="tabcontent">
+        <div id="overview" class="tabcontent show">
             <h2>Overview the Course</h2>
             <textarea id="course-intro" class="input-textarea mr-pd-input-df" style="width: 100%; min-height: 100px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere vehicula ligula, vel blandit ligula. Vivamus posuere dui eu accumsan interdum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vehicula risus quis nisl posuere, id venenatis diam tincidunt. Integer at euismod justo. Phasellus mattis quam vitae magna elementum egestas porttitor eu est. Nullam eu felis consectetur, finibus sapien at, accumsan dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce vehicula aliquam ante, in imperdiet nulla. Proin porttitor erat et vulputate tristique. Quisque interdum elit in augue efficitur, a venenatis massa tempor. Duis in augue non arcu placerat vulputate ut vitae dui. Mauris erat urna, accumsan non orci nec, dictum sollicitudin nibh</textarea>
 
@@ -36,7 +29,9 @@
             </p>
         </div>
 
-        <div id="course-content" class="tabcontent">
+        <hr/>
+
+        <div id="course-content" class="tabcontent show" style="margin-top: 10px;">
             <h2>Course Content</h2>
             <div class="row">
                 <div class="col" style="width: 20%; padding: 0;">
@@ -73,102 +68,6 @@
             </div>
         </div>
 
-        <div id="rating-feedback" class="tabcontent">
-            <h2>Rating</h2>
-            <div class="container">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <p>4.1 average based on 254 reviews.</p>
-                <hr style="border:3px solid #f1f1f1">
-
-                <div class="row">
-                    <div class="side">
-                        <div>5 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-5"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>150</div>
-                    </div>
-                    <div class="side">
-                        <div>4 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-4"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>63</div>
-                    </div>
-                    <div class="side">
-                        <div>3 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-3"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>15</div>
-                    </div>
-                    <div class="side">
-                        <div>2 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-2"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>6</div>
-                    </div>
-                    <div class="side">
-                        <div>1 star</div>
-                    </div>
-                    <div class="middle">
-                        <div class="bar-container">
-                            <div class="bar-1"></div>
-                        </div>
-                    </div>
-                    <div class="side right">
-                        <div>20</div>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <h2>Feedback</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-
-        <div id="related-courses" class="tabcontent">
-            <div class="course-container">
-                <div>
-                    <h2>Related Course:</h2>
-                </div>
-                <div class="ava-courses">
-                    <div class="card col-lg-2 col-md-4 col-sm-6" ng-repeat="course in relatedcourses">
-                        <img ng-src="{{course.img}}">
-                        <h2>{{course.name}}</h2>
-                        <p class="title">{{course.instructor}}</p>
-                        <p class="info">{{course.smalldescription}}</p>
-                        <div class="card-body">
-                            <del class="old-price">{{course.old | currency}}</del>
-                            <span class="present-price">{{course.present | currency}}</span>
-                        </div>
-                        <p>
-                            <a href="#/course/{{course.id}}" class="more-info">More info...</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div style="overflow:auto;">
             <div style="float:right;">
                 <input type="submit" id="btn-edit-course-info" name="btn-edit-course-info" value="Save" class="c-btn c-btn-sm" style="width: auto;">

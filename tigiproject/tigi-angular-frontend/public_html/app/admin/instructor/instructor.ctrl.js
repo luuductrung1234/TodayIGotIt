@@ -1,8 +1,13 @@
 (function() {
     angular.module("app.admin.instructor")
-        .controller("AdminInstructor", function($window, $scope, $rootScope, InstructorSvc) {
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+        .controller("AdminInstructor", function($window, $scope, $rootScope, $cookies, $cookieStore, InstructorSvc) {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null) {
                 $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+                    $window.location.href = "#/home";
+                }
             }
 
             $scope.instructors = [];

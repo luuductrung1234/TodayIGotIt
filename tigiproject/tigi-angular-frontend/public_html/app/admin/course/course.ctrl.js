@@ -1,8 +1,13 @@
 (function() {
     angular.module("app.admin.course")
-        .controller("AdminCourse", function($window, $scope, $rootScope, CourseSvc) {
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+        .controller("AdminCourse", function($window, $scope, $rootScope, $cookies, $cookieStore, CourseSvc) {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null) {
                 $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+                    $window.location.href = "#/home";
+                }
             }
 
             $scope.allcourses = [];
@@ -16,6 +21,15 @@
                         console.log("Error: " + err);
                     });
             });
+
+            $scope.filterRange = function(field, minValue, maxValue) {
+                if (minValue === undefined) minValue = Number.MIN_VALUE;
+                if (maxValue === undefined) maxValue = Number.MAX_VALUE;
+
+                return function predicateFunc(item) {
+                    return minValue <= item[field] && item[field] <= maxValue;
+                };
+            };
         })
         .directive("navPageLink", function() {
             return {

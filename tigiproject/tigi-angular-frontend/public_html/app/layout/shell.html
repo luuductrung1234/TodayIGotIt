@@ -72,7 +72,7 @@
         <a ng-href="#/mycourse/{{$root.curLogin.userName}}">My Course</a>
         <a ng-href="#/mycart/{{$root.curLogin.userName}}">Cart</a>
         <hr/>
-        <a ng-href="#" id="logout-user">Logout</a>
+        <a href="#" id="logout-user">Logout</a>
     </div>
 
     <div id="login-model" class="login-model" login-model>
@@ -284,19 +284,6 @@
     </div>
 
     <script>
-        // $(window).on('keydown', function(event) {
-        //     if (event.which == 116) {
-
-        //     }
-        // });
-
-        $(window).on('load', function() {
-            // if ($('#user-author').scope().$root.curLogin != null) {
-            $('#user-author').scope().loginOnRefresh();
-            $('#user-author').scope().$apply();
-            // }
-        });
-
         var curTab = 0;
 
         function showFullTopNav() {
@@ -328,11 +315,15 @@
         $('#logout-admin').on('click', function() {
             angular.element(this).scope().logoutAction();
             angular.element(this).scope().$apply();
+            $('#admin-dropdown').removeClass('show');
+            return false;
         });
 
         $('#logout-user').on('click', function() {
             angular.element(this).scope().logoutAction();
             angular.element(this).scope().$apply();
+            $('#user-dropdown').removeClass('show');
+            return false;
         });
 
 

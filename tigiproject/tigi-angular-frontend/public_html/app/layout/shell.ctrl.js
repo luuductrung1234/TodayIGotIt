@@ -4,14 +4,16 @@
             $scope.win = $window;
             $scope.cook = $cookieStore;
 
-            $scope.loginOnRefresh = function() {
-                loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'))
-                    .then(function(data) {
+            $scope.$on("$viewContentLoaded", function() {
+                if ($cookieStore.get('curUser') != undefined) {
+                    loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                        .then(function(data) {
 
-                    }, function(err) {
-                        console.log("Error: " + err);
-                    })
-            }
+                        }, function(err) {
+                            console.log("Error: " + err);
+                        });
+                }
+            })
 
             $scope.loginAction = function() {
                 let deferred = $q.defer();
