@@ -826,7 +826,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                         courseDetails.getCourseResources()) {
                     //users.get(1).addLearnTracking(new LearnTracking(false, 0l, courseResource));
                     LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
-                    learnTracking.setUser(users.get(0));
+                    learnTracking.setUser(users.get(1));
                     learnTrackingService.saveOrUpdate(learnTracking);
                 }
             }
@@ -846,7 +846,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                         courseDetails.getCourseResources()) {
                     //users.get(2).addLearnTracking(new LearnTracking(false, 0l, courseResource));
                     LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
-                    learnTracking.setUser(users.get(0));
+                    learnTracking.setUser(users.get(2));
                     learnTrackingService.saveOrUpdate(learnTracking);
                 }
             }

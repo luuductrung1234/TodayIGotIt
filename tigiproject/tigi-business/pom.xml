@@ -5,7 +5,7 @@
 
     <groupId>ldt.springframework</groupId>
     <artifactId>tigi-business</artifactId>
-    <version>${project.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>tigi-business</name>
@@ -36,8 +36,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
-        
+
+
         <!-- Database -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -97,12 +97,45 @@
         </dependency>
 
 
-        <!-- Machine Learning -->
+        <!-- NLP Machine Learning -->
         <dependency>
             <groupId>org.apache.opennlp</groupId>
             <artifactId>opennlp-tools</artifactId>
             <version>1.9.0</version>
         </dependency>
+        <!-- Algorithm Machine Learning -->
+        <dependency>
+            <groupId>net.sf</groupId>
+            <artifactId>javaml</artifactId>
+            <version>0.1.7</version>
+        </dependency>
+        <!-- Machine Learning Dependency -->
+        <dependency>
+            <groupId>be.abeel</groupId>
+            <artifactId>ajt</artifactId>
+            <version>2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons.math3</groupId>
+            <artifactId>commons.math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>Jama</groupId>
+            <artifactId>Jama</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>libsvm</groupId>
+            <artifactId>libsvm</artifactId>
+            <version>2.23</version>
+        </dependency>
+        <dependency>
+            <groupId>weka</groupId>
+            <artifactId>weka</artifactId>
+            <version>3.8</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -110,6 +143,96 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install1</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>net.sf</groupId>
+                            <artifactId>javaml</artifactId>
+                            <version>0.1.7</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/javaml-0.1.7/javaml-0.1.7.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install2</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>be.abeel</groupId>
+                            <artifactId>ajt</artifactId>
+                            <version>2.11</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/ajt-2.11.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install3</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>org.apache.commons.math3</groupId>
+                            <artifactId>commons.math3</artifactId>
+                            <version>3.6.1</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/commons-math3-3.6.1.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install4</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>Jama</groupId>
+                            <artifactId>Jama</artifactId>
+                            <version>1.0.3</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/Jama-1.0.3.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install5</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>libsvm</groupId>
+                            <artifactId>libsvm</artifactId>
+                            <version>2.23</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/libsvm.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>weka</groupId>
+                            <artifactId>weka</artifactId>
+                            <version>3.8</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/src/main/resources/lib/weka.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
