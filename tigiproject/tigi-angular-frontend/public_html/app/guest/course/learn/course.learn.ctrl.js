@@ -57,15 +57,29 @@
                 restrict: "A",
                 link: function(scope, elem, attrs) {
                     $(elem).on('click', function() {
-                        CourseSvc.getResourceVideo(attrs.ngClass.id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
-                            .then(function(response) {
-                                scope.$parent.$parent.sourceVideo = response;
-                                angular.element('video').empty();
-                                angular.element('video').append('<source src="' + scope.$parent.$parent.sourceVideo + '" type="video/mp4" />');
-                                angular.element('#btn-init-video').click();
-                            }, function(err) {
-                                console.log("Error: " + err);
-                            });
+                        var subchap = JSON.parse(attrs.ngClass);
+
+                        if (subchap.resourceType == 'VIDEO') {
+                            CourseSvc.getResourceVideo(subchap.id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                                .then(function(response) {
+                                    scope.$parent.$parent.sourceVideo = response;
+                                    angular.element('video').empty();
+                                    angular.element('video').append('<source src="' + scope.$parent.$parent.sourceVideo + '" type="video/mp4" />');
+                                    angular.element('#btn-init-video').click();
+                                }, function(err) {
+                                    console.log("Error: " + err);
+                                });
+                        } else {
+                            CourseSvc.getResourceFile(subchap.id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                                .then(function(response) {
+                                    var parser = new DOMParser();
+                                    var doc = parser.parseFromString(response, 'text/html');
+                                    angular.element('#main-file').empty();
+                                    angular.element('#main-file').append(doc.firstChild);
+                                }, function(err) {
+                                    console.log("Error: " + err);
+                                });
+                        }
 
                         return false;
                     })

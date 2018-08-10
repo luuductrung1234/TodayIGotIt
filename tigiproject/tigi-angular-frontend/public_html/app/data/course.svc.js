@@ -8,8 +8,9 @@
                 getImage: getImage,
                 getAllReview: getAllReview,
                 getAllResources: getAllResources,
-                getResourceVideo: getResourceVideo
-                    // getCurInstructor: getCurInstructor,
+                getResourceVideo: getResourceVideo,
+                getResourceFile: getResourceFile,
+                // getCurInstructor: getCurInstructor,
             }
 
             function getIntroVideo(id, username, password) {
@@ -27,7 +28,7 @@
                         }
                     })
                     .success(function(response) {
-                        console.log(response);
+                        // console.log(response);
 
                         deferred.resolve(response);
                     })
@@ -41,8 +42,9 @@
             function getImage(id) {
                 var url = serverUrl + "course/" + id + "/media/image";
 
-                return url;
-                // var deferred = $q.defer();
+                var deferred = $q.defer();
+
+                deferred.resolve(url);
 
                 // $http.get(url)
                 //     .success(function(response) {
@@ -54,7 +56,7 @@
                 //         deferred.reject(err);
                 //     });
 
-                // return deferred.promise;
+                return deferred.promise;
             }
 
             function findAllCourse() {
@@ -88,7 +90,7 @@
                         }
                     })
                     .success(function(response) {
-                        console.log(response);
+                        // console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
@@ -129,7 +131,7 @@
                         }
                     })
                     .success(function(response) {
-                        console.log(response);
+                        // console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
@@ -148,19 +150,30 @@
 
                 deferred.resolve(url);
 
-                // $http({
-                //         method: 'GET',
-                //         url: url,
-                //         headers: {
-                //             'Authorization': 'Basic ' + auth
-                //         }
-                //     })
-                //     .success(function(response) {
-                //         deferred.resolve(response);
-                //     })
-                //     .error(function(err) {
-                //         deferred.reject(err);
-                //     });
+                return deferred.promise;
+            }
+
+            function getResourceFile(id, username, password) {
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "course/resource/" + id + "/media/file";
+
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .success(function(response) {
+                        // console.log(response);
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    });
 
                 return deferred.promise;
             }

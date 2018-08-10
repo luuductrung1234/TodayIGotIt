@@ -1,26 +1,36 @@
 (function() {
     angular.module("app.shell")
-        .controller("Shell", ['$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', '$routeParams', 'UserSvc', function($window, $scope, $rootScope, $filter, $cookies, $cookieStore, $routeParams, UserSvc) {
+        .controller("Shell", ['$q', '$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', '$routeParams', 'UserSvc', function($q, $window, $scope, $rootScope, $filter, $cookies, $cookieStore, $routeParams, UserSvc) {
             $scope.win = $window;
             $scope.cook = $cookieStore;
 
             $scope.loginOnRefresh = function() {
-                loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'));
+                loginStep($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                    .then(function(data) {
+
+                    }, function(err) {
+                        console.log("Error: " + err);
+                    })
             }
 
             $scope.loginAction = function() {
-                loginStep($scope.loginUsername, $scope.loginPassword);
-                // .then(function(data) {
+                let deferred = $q.defer();
 
-                // }, function(err) {
-                //     console.log("Error: " + err);
-                // });
+                loginStep($scope.loginUsername, $scope.loginPassword)
+                    .then(function(data) {
+                        if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
+                            window.location.href = "#/admin/home";
+                        } else if ($rootScope.curLogin.userRoles[0].type == "STUDENT") {
+                            window.location.href = "#/home";
+                        }
 
-                if ($rootScope.curLogin.userRoles[0].type == "ADMIN") {
-                    window.location.href = "#/admin/home";
-                } else if ($rootScope.curLogin.userRoles[0].type == "STUDENT") {
-                    window.location.href = "#/home";
-                }
+                        deferred.resolve(data);
+                    }, function(err) {
+                        console.log("Error: " + err);
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
             }
 
             $rootScope.$on("GetUserInfo", function(event, userName, password) {
@@ -33,6 +43,8 @@
             })
 
             $scope.signinAction = function() {
+                let deferred = $q.defer();
+
                 var userName = $scope.signinUsername;
                 var password = $scope.signinPassword;
                 var firstName = $scope.signinfname;
@@ -104,11 +116,15 @@
 
                 UserSvc.signinAction(data)
                     .then(function(response) {
-                            $rootScope.loginStep(data.userName, data.password);
+                            loginStep(data.userName, data.password);
+                            deferred.resolve();
                         },
                         function(err) {
                             console.log(err);
+                            deferred.reject(err);
                         });
+
+                return deferred.promise;
             }
 
             $scope.logoutAction = function() {
@@ -130,6 +146,8 @@
             }
 
             function loginStep(user, pass) {
+                let deferred = $q.defer();
+
                 UserSvc.loginAction(user, pass)
                     .then(function(response) {
                             $rootScope.curLogin = response;
@@ -155,12 +173,17 @@
 
                             console.log($cookieStore.get('curUser'));
                             console.log($cookieStore.get('curPass'));
+
+                            deferred.resolve();
                         },
                         function(err) {
                             $rootScope.isAdminLogged = false;
                             $rootScope.isUserLogged = false;
                             console.log(err);
+                            deferred.reject(err);
                         });
+
+                return deferred.promise;
             }
 
             function reloadUserInfo(userName, password) {
@@ -177,7 +200,18 @@
             return {
                 restrict: "A",
                 link: function(scope, elem, attrs) {
+                    $(elem).children().eq(0).children().eq(0).children().eq(0).on('submit', function() {
+                        scope.loginAction()
+                            .then(function(data) {
+                                if (scope.$root.curLogin != null) {
+                                    $(elem).removeClass('show');
+                                } else {
 
+                                }
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
+                    })
                 }
             }
         })
@@ -185,7 +219,18 @@
             return {
                 restrict: "A",
                 link: function(scope, elem, attrs) {
+                    $(elem).children().eq(0).children().eq(0).children().eq(0).on('submit', function() {
+                        scope.signinAction()
+                            .then(function(data) {
+                                if (scope.$root.curLogin != null) {
+                                    $(elem).removeClass('show');
+                                } else {
 
+                                }
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
+                    })
                 }
             }
         });
