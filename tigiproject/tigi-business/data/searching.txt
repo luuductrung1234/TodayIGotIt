@@ -1,0 +1,27 @@
+@relation search
+@attribute input string
+@attribute show string
+@attribute select {yes, no}
+
+@data
+java,java_fundamentals,no
+java,java_complete,no
+java,java_for_beginner,yes
+java,java_fundamentals,yes
+java,java_fundamentals,no
+java_programming_language,java_fundamentals,no
+java_programming_language,java_complete,no
+java_programming_language,java_for_beginner,no
+java_programming_language,java_fundamentals,no
+java_programming_language,java_complete,yes
+jv,java_complete,yes
+j,java_fundamentals,no
+java_language,java_complete,no
+c#,csharp_for_beginner,yes
+c#,csharp_guru,no
+csharp,csharp_guru,no
+c,c_programing_language,yes
+c,csharp_for_beginner,yes
+c,csharp_guru,no
+cloud,complete_cloud_computing,no
+cloud_computing,complete_cloud_computing,yes
