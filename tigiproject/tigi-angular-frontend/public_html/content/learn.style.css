@@ -66,8 +66,8 @@
 #media-player-learn {
     width: auto;
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto auto;
+    padding: auto auto;
 }
 
 #media-player-learn:focus {
@@ -75,8 +75,10 @@
 }
 
 #media-video-learn {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
+    margin: auto auto;
+    padding: auto auto;
 }
 
 #media-player-learn #toggle-side-nav {

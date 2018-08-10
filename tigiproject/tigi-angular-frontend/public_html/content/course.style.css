@@ -207,8 +207,21 @@
     opacity: 0;
 }
 
-img {
+.card .card-img {
+    width: auto;
+    height: 40%;
+    padding-top: auto;
+    padding-bottom: auto;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.card .card-img img {
     width: 100%;
+    height: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .card h2 {
@@ -218,6 +231,16 @@ img {
 .card .title {
     color: grey;
     font-size: 18px;
+}
+
+.card .title .intro-link {
+    color: inherit;
+    font-size: inherit;
+    transition: 0.2s;
+}
+
+.card .title .intro-link:hover {
+    color: #17a2b8;
 }
 
 .card .info {
@@ -267,7 +290,7 @@ img {
 .card-link {
     text-decoration: none;
     font-size: 22px;
-    color: black;
+    color: white;
 }
 
 .add-to-favorite {
@@ -346,6 +369,16 @@ img {
 .main-content:hover .info-box {
     visibility: visible;
     opacity: 1;
+}
+
+.link {
+    color: #1fdbf8;
+    font-size: inherit;
+    transition: 0.2s;
+}
+
+.link:hover {
+    color: #17a2b8;
 }
 
 .show {

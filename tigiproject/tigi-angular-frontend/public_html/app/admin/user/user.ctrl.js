@@ -9,7 +9,7 @@
             $scope.startAdminUserFrom = 0;
 
             $scope.$on('$viewContentLoaded', function() {
-                UserSvc.findAllUser()
+                UserSvc.findAllUser($cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
                         $scope.users = response;
                     }, function(err) {

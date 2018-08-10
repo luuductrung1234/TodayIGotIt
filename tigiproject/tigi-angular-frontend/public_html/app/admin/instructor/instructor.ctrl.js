@@ -9,7 +9,7 @@
             $scope.startAdminInstructorFrom = 0;
 
             $scope.$on('$viewContentLoaded', function() {
-                InstructorSvc.findAllInstructor()
+                InstructorSvc.findAllInstructor($cookieStore.get('curUser'), $cookieStore.get('curPass'))
                     .then(function(response) {
                         $scope.instructors = response;
                     }, function(err) {

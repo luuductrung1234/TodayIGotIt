@@ -4,10 +4,43 @@
             return {
                 findAllInstructor: findAllInstructor,
                 findByUsername: findByUsername,
+                findCourseOwner: findCourseOwner,
             }
 
-            function findAllInstructor() {
-                var url = serverUrl + "users";
+            function findAllInstructor(username, password) {
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "users/full";
+
+                var deferred = $q.defer();
+
+                var instructors = [];
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .success(function(response) {
+                        response.forEach(item => {
+                            if (item.userRoles[0].type == 'TEACHER') {
+                                instructors.push(item);
+                            }
+                        });
+
+                        deferred.resolve(instructors);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
+            function findByUsername(id) {
+                var url = serverUrl + "users" + id;
 
                 var deferred = $q.defer();
 
@@ -22,8 +55,8 @@
                 return deferred.promise;
             }
 
-            function findByUsername(id) {
-                var url = serverUrl + "users" + id;
+            function findCourseOwner(id) {
+                var url = serverUrl + "course/" + id + "/instructor";
 
                 var deferred = $q.defer();
 

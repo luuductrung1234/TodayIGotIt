@@ -38,7 +38,7 @@
             <div class="display-content">
                 <img src="http://localhost:8080/TigiProject/api/course/{{course.courseId}}/media/image">
                 <h2>{{course.description}}</h2>
-                <!-- <p class="title">{{course.instructor}}</p> -->
+                <p class="title" ng-class="{{course.courseId}}" current-instructor></p>
                 <p class="info">{{course.description}}</p>
                 <div class="card-body">
                     <!-- <del class="old-price">{{course.price | currency}}</del> -->
