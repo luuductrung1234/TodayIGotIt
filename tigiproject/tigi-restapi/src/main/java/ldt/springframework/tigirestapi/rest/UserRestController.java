@@ -18,11 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
@@ -71,11 +74,11 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "The current user was impacted by another progress"),
     })
     @GetMapping(value = "/user/info", produces = "application/json")
-    public Resource<UserForm> showUser(){
+    public Resource<UserForm> showUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
-        if(curUser == null)
+        if (curUser == null)
             throw new UserNotAvailableException();
 
 
@@ -91,6 +94,38 @@ public class UserRestController {
         return resource;
     }
 
+
+    @ApiOperation(value = "Logout for current login user (don't use it!)")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully logout"),
+            @ApiResponse(code = 401, message = "You are not authorized to do  that"),
+            @ApiResponse(code = 500, message = "Logout fail or the current user's information was impacted by another progress"),
+    })
+    @GetMapping(value = "/user/logout")
+    public void logoutUser(HttpServletRequest request,
+                                     HttpServletResponse response) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User curUser = userService.findByUserName(userDetails.getUsername());
+
+        if (curUser == null) {
+            throw new UserNotAvailableException();
+        }
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.getDetails() != null) {
+                    request.getSession().invalidate();
+                    //you can add more codes here when the user successfully logs out,
+                    //such as updating the database for last active.
+            }
+
+            request.getSession().invalidate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new UserLogoutFailException();
+        }
+    }
+
+
     @ApiOperation(value = "Show cart and cart details of current login user", response = Cart.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
@@ -99,11 +134,11 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "The current login user was impacted by another progress"),
     })
     @GetMapping(value = "/user/info/cart", produces = "application/json")
-    public Cart showUserCart(){
+    public Cart showUserCart() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
-        if(curUser == null)
+        if (curUser == null)
             throw new UserNotAvailableException();
 
         return curUser.getCart();
@@ -117,11 +152,11 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "The current user's information was impacted by another progress"),
     })
     @GetMapping(value = "/user/info/orders", produces = "application/json")
-    public List<Order> showUserOrders(){
+    public List<Order> showUserOrders() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
-        if(curUser == null)
+        if (curUser == null)
             throw new UserNotAvailableException();
 
         return curUser.getOrders();
@@ -135,16 +170,16 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "The current user's information was impacted by another progress"),
     })
     @GetMapping(value = "/user/info/courses", produces = "application/json")
-    public List<Course> showUserCourses(){
+    public List<Course> showUserCourses() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
-        if(curUser == null)
+        if (curUser == null)
             throw new UserNotAvailableException();
 
         List<Course> listCourse = new ArrayList<>();
-        for (CourseOwner courseOwner:
-             curUser.getCourseOwners()) {
+        for (CourseOwner courseOwner :
+                curUser.getCourseOwners()) {
             listCourse.add(courseOwner.getCourse());
         }
 
@@ -160,29 +195,29 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "Fail to get resource"),
     })
     @RequestMapping(value = "/user/info/tracking/course/{id}", produces = "application/json")
-    public List<LearnTracking> showUserLearnTrackingByCourseResource(@PathVariable("id") Integer id){
+    public List<LearnTracking> showUserLearnTrackingByCourseResource(@PathVariable("id") Integer id) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
-        if(curUser == null)
+        if (curUser == null)
             throw new UserNotAvailableException();
 
-        if(!userService.checkCourseOwned(curUser, id)){
+        if (!userService.checkCourseOwned(curUser, id)) {
             throw new UserCourseNotOwnedException();
         }
 
         Course course = courseService.getById(id);
-        if(course != null) {
-            try{
+        if (course != null) {
+            try {
                 List<LearnTracking> result = learnTrackingService.findAllByUserAndCourse(curUser, course);
 
                 return result;
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 throw new UserGetTrackingFailException();
             }
-        }else{
+        } else {
             throw new CourseNotFoundException(id.toString());
         }
     }
@@ -196,7 +231,7 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "Update fail"),
     })
     @PostMapping(value = "/user/update", produces = "application/json")
-    public UserForm updateUserInfo(@Valid @RequestBody UserForm userForm){
+    public UserForm updateUserInfo(@Valid @RequestBody UserForm userForm) {
 
         if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
             throw new PasswordNotMatchException(userForm.getPasswordText(), userForm.getPasswordTextConf());
@@ -204,7 +239,7 @@ public class UserRestController {
 
         try {
             User savedUser = userService.updateUserForm(userForm);
-            if(savedUser == null){
+            if (savedUser == null) {
                 throw new UserUpdateFailException(userForm.getUserId().toString());
             }
 
@@ -223,9 +258,9 @@ public class UserRestController {
             @ApiResponse(code = 403, message = "You don't have right to do  that"),
     })
     @GetMapping(value = "/users/full", produces = "application/json")
-    public List<UserForm> getAllUserWithFullInfo(){
+    public List<UserForm> getAllUserWithFullInfo() {
         List<UserForm> userForms = new ArrayList<>();
-        for (User user:
+        for (User user :
                 (List<User>) userService.listAll()) {
             userForms.add(userFormConverter.revert(user));
         }
@@ -240,7 +275,7 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "The current user's information was impacted by another progress"),
     })
     @DeleteMapping(value = "/user/delete")
-    public ResponseEntity removeUser(){
+    public ResponseEntity removeUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
@@ -249,11 +284,10 @@ public class UserRestController {
 
             SecurityContextHolder.getContext().setAuthentication(null);
             return ResponseEntity.ok().build();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new UserNotAvailableException();
         }
     }
-
 
 
     // =======================================
@@ -265,10 +299,10 @@ public class UserRestController {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
     })
     @GetMapping(value = "/users", produces = "application/json")
-    public List<UserForm> getAllUser(){
+    public List<UserForm> getAllUser() {
         List<UserForm> userForms = new ArrayList<>();
-        for (User user:
-             (List<User>) userService.listAll()) {
+        for (User user :
+                (List<User>) userService.listAll()) {
             userForms.add(userFormConverter.revertToFewInfo(user));
         }
 
@@ -281,7 +315,7 @@ public class UserRestController {
             @ApiResponse(code = 200, message = "Successfully count"),
     })
     @GetMapping(value = "/users/count")
-    public int countUsers(){
+    public int countUsers() {
         return userService.listAll().size();
     }
 
@@ -292,9 +326,9 @@ public class UserRestController {
             @ApiResponse(code = 404, message = "The resource not found"),
     })
     @GetMapping(value = "/user/find/{username}")
-    public Resource<UserForm> getUserByUsername(@PathVariable String username){
+    public Resource<UserForm> getUserByUsername(@PathVariable String username) {
         User user = userService.findByUserName(username);
-        if(user == null){
+        if (user == null) {
             throw new UserNotFoundException(username);
         }
 
@@ -315,7 +349,7 @@ public class UserRestController {
             @ApiResponse(code = 500, message = "Registration fail"),
     })
     @PostMapping(value = "/user/new", consumes = "application/json")
-    public ResponseEntity createNewUser(@RequestBody UserForm userForm){
+    public ResponseEntity createNewUser(@RequestBody UserForm userForm) {
 
         if (!userForm.getPasswordTextConf().equals(userForm.getPasswordText())) {
             throw new PasswordNotMatchException(userForm.getPasswordText(), userForm.getPasswordTextConf());
@@ -326,7 +360,7 @@ public class UserRestController {
             userForm.setUserId(null);
             User savedUser = userService.saveUserForm(userForm);
 
-            if(savedUser == null){
+            if (savedUser == null) {
                 throw new UserCreateFailException();
             }
 

@@ -106,7 +106,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         configAuthAccessRestResource(http);
         http
                 //.and().formLogin().defaultSuccessUrl("/api/user/show", true).permitAll()
-                .logout().logoutSuccessUrl("/")
+                .logout().logoutUrl("/api/user/logout").logoutSuccessUrl("/").deleteCookies("auth_code", "JSESSIONID")
                 .and().httpBasic()
                 .and().csrf().disable();
     }
@@ -182,6 +182,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users/full").hasAnyAuthority(RoleType.ADMIN.name())
                 .and().authorizeRequests().antMatchers("/api/user/info").authenticated()
+                .and().authorizeRequests().antMatchers("/api/user/logout").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/info/courses").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/info/cart").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/info/orders").authenticated()
