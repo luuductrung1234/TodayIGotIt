@@ -1,8 +1,6 @@
 (function() {
     angular.module("app.course.details")
         .controller("CourseDetails", function($scope, $rootScope, $cookieStore, $routeParams, CourseSvc) {
-            var serverUrl = "http://localhost:3000/";
-
             $scope.current = null;
             $scope.relatedcourses = [];
             $scope.isSubcribed = false;
@@ -73,8 +71,6 @@
                         }
                     })
                 }
-
-                $scope.$apply();
             }
 
             function loadReview(id) {

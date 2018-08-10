@@ -15,12 +15,12 @@
 
             $scope.$on('$viewContentLoaded', function() {
                 $rootScope.learning = true;
-                $scope.$apply();
+                // $scope.$apply();
             });
 
             $scope.outCourse = function() {
                 $rootScope.learning = false;
-                $scope.$apply();
+                // $scope.$apply();
                 $window.location.href = "#/course/" + $scope.current.courseId;
             }
 
@@ -38,6 +38,15 @@
                 CourseSvc.getAllResources(id, username, password)
                     .then(function(response) {
                         $scope.resources = response;
+                        CourseSvc.getResourceVideo($scope.resources[0].courseResources[0].id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                            .then(function(response) {
+                                $scope.sourceVideo = response;
+                                angular.element('video').empty();
+                                angular.element('video').append('<source src="' + $scope.sourceVideo + '" type="video/mp4" />');
+                                angular.element('#btn-init-video').click();
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
                     }, function(err) {
                         console.log("Error: " + err);
                     })
@@ -48,10 +57,24 @@
                 restrict: "A",
                 link: function(scope, elem, attrs) {
                     $(elem).on('click', function() {
+                        CourseSvc.getResourceVideo(attrs.ngClass.id, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                            .then(function(response) {
+                                scope.$parent.$parent.sourceVideo = response;
+                                angular.element('video').empty();
+                                angular.element('video').append('<source src="' + scope.$parent.$parent.sourceVideo + '" type="video/mp4" />');
+                                angular.element('#btn-init-video').click();
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
 
                         return false;
                     })
                 }
             }
         }])
+        .filter('trusted', ['$sce', function($sce) {
+            return function(url) {
+                return $sce.trustAsResourceUrl(url);
+            };
+        }]);
 })();

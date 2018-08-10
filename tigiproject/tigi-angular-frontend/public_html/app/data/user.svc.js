@@ -9,14 +9,30 @@
                 editAction: editAction,
             }
 
-            function findAllUser() {
-                var url = serverUrl + "users";
+            function findAllUser(username, password) {
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "users/full";
 
                 var deferred = $q.defer();
 
-                $http.get(url)
+                var students = [];
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
                     .success(function(response) {
-                        deferred.resolve(response);
+                        response.forEach(item => {
+                            if (item.userRoles[0].type == 'STUDENT') {
+                                students.push(item);
+                            }
+                        });
+
+                        deferred.resolve(students);
                     })
                     .error(function(err) {
                         deferred.reject(err);

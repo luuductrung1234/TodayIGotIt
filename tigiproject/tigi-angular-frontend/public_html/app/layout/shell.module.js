@@ -1,6 +1,6 @@
 (function() {
     var name = "app.shell",
-        requires = ["ngRoute", "ngAnimate"];
+        requires = ["ngRoute", "ngAnimate", "ngSanitize"];
 
     angular.module(name, requires)
         .config(function($routeProvider) {
