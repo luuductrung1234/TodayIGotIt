@@ -164,15 +164,16 @@
                         method: 'GET',
                         url: url,
                         headers: {
-                            'Authorization': 'Basic ' + auth
+                            'Authorization': 'Basic ' + auth,
+                            'Accept': 'text/html'
                         }
                     })
                     .success(function(response) {
-                        // console.log(response);
+                        console.log(response);
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
-                        deferred.reject(err);
+                    .error(function(error) {
+                        deferred.reject(error);
                     });
 
                 return deferred.promise;
