@@ -1,7 +1,5 @@
 package ldt.springframework.tigibusiness.services.machineLearning;
 
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.core.SparseInstance;
 
 /*
  * author: Luu Duc Trung
