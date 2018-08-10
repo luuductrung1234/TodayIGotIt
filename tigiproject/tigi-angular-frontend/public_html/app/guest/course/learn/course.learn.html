@@ -1,24 +1,15 @@
 <div>
     <div id="chapter-nav" class="sidenav">
+        <a id="back-side-nav" href="#" class="backbtn">Back</a>
         <a id="close-side-nav" href="javascript:void(0)" class="closebtn">&times;</a>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
-        <button class="accordion">Chapter </button>
+        <div ng-repeat="chapter in resources">
+            <button class="accordion" style="font-size: 18px;" toggle-chapter>Chapter {{chapter.chapter}}: {{chapter.title}}</button>
+            <div class="panel">
+                <div class="list-group" style="font-size: 16px;">
+                    <a href="#" ng-repeat="subchap in chapter.courseResources" class="list-group-item list-group-item-action" style="font-size: 16px;" navigate-chapter>{{subchap.title}}</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="main">
@@ -27,15 +18,24 @@
         </div>
     </div>
     <script>
+        var video;
+
         $(document).ready(function() {
             $('#media-player-learn').append('<video id="media-video-learn" class="video-js vjs-big-play-centered" controls data-setup="{}">' +
-                '<source src="http://localhost:8080/TigiProject/api/course/1/media/video" type="video/mp4" />' +
+                '<source ng-src="sourceVideo" type="video/mp4" />' +
                 '<p class="vjs-no-js">Please upgrade your browser</p>' +
                 '</video>' +
                 '<span id="toggle-side-nav">&#9776;</span>');
 
             initVideoLearn();
         });
+
+        $('#back-side-nav').on('click', function() {
+            $(this).scope().outCourse();
+
+            video.pause();
+            return false;
+        })
 
         $(document).unload(function() {
             alert("Bye");
@@ -54,7 +54,7 @@
         });
 
         function initVideoLearn() {
-            var video = videojs('media-video-learn', {
+            video = videojs('media-video-learn', {
                 playbackRates: [.5, 1, 1.5, 2],
                 fluid: true,
                 plugins: {

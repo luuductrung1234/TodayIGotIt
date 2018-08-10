@@ -35,16 +35,23 @@
             $scope.signinAction = function() {
                 var userName = $scope.signinUsername;
                 var password = $scope.signinPassword;
-                var fname = $scope.signinfname;
-                var lname = $scope.signinlname;
+                var firstName = $scope.signinfname;
+                var lastName = $scope.signinlname;
                 var gender = $scope.signingender;
                 var dob = $scope.signindob;
                 var email = $scope.signinemail;
-                var phone = $scope.signinphone;
-                var role = ($scope.role == null ||
-                    $scope.role == undefined ||
-                    $scope.role == "") ? "STUDENT" : "ADMIN";
-                var addressLine = ($scope.signinaddressLine == null ||
+                var phoneNumber = $scope.signinphone;
+                var userCart = [];
+                var userOrders = [];
+                var userCourseOwners = [];
+                var userRoles = [{
+                    id: 1,
+                    dateCreated: Date.parse(new Date()),
+                    lastUpdated: Date.parse(new Date()),
+                    type: "STUDENT"
+                }];
+
+                var addressLine1 = ($scope.signinaddressLine == null ||
                     $scope.signinaddressLine == undefined ||
                     $scope.signinaddressLine == "") ? "" : $scope.signinaddressLine;
                 var addressCity = ($scope.signinaddressCity == null ||
@@ -59,20 +66,38 @@
                 var dateCreated = new Date();
                 var lasUpdated = new Date();
 
+                var customer = {
+                    billingAddress: {
+                        addressLine1: addressLine1,
+                        addressLine2: "",
+                        city: addressCity,
+                        state: addressState,
+                        zipCode: addressZipcode
+                    },
+                    dateCreated: Date.parse(new Date()),
+                    email: email,
+                    firstName: firstName,
+                    id: 0,
+                    lastName: lastName,
+                    lastUpdated: Date.parse(new Date()),
+                    phoneNumber: phoneNumber,
+                    shippingAddress: {
+                        addressLine1: addressLine1,
+                        addressLine2: "",
+                        city: addressCity,
+                        state: addressState,
+                        zipCode: addressZipcode
+                    }
+                }
+
                 var data = {
                     userName,
                     password,
-                    fname,
-                    lname,
-                    gender,
-                    dob,
-                    email,
-                    phone,
-                    role,
-                    addressLine,
-                    addressCity,
-                    addressState,
-                    addressZipcode,
+                    userRoles,
+                    userCart,
+                    userCourseOwners,
+                    userOrders,
+                    customer,
                     dateCreated,
                     lasUpdated
                 }

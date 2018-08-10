@@ -74,7 +74,7 @@
                     body: JSON.stringify(data)
                 }
 
-                var url = serverUrl + "users";
+                var url = serverUrl + "user/new";
 
                 var deferred = $q.defer();
 
