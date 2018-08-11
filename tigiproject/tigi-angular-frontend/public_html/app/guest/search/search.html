@@ -1,0 +1,123 @@
+<div ng-init="startSearchCourseFrom=0">
+    <form class="form-filter-course">
+        <div class="row">
+            <div class="col-filter">
+                <h3>Language</h3>
+                <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
+                    <option value="" selected>All</option>
+                    <option value="java">Java</option>
+                    <option value="csharp">CSharp</option>
+                </select>
+            </div>
+            <div class="col-filter">
+                <h3>Instructor</h3>
+                <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
+                    <option value="" selected>All</option>
+                    <option value="jc">JC</option>
+                    <option value="cb">CB</option>
+                </select>
+            </div>
+            <div class="col-filter">
+                <h3>Price</h3>
+                <div>
+                    <input type="number" id="from" name="from" ng-model="formprice" class="input-text from-to mr-pd-input-df" placeholder="form" /> -
+                    <input type="number" id="to" name="to" ng-model="toprice" class="input-text from-to mr-pd-input-df" placeholder="to" />
+                </div>
+            </div>
+            <div class="col-filter">
+                <h3>Type anything</h3>
+                <div>
+                    <input type="text" id="filterText" name="filterText" ng-model="filterText" class="input-text text mr-pd-input-df" placeholder="type anything" />
+                </div>
+            </div>
+            <div class="col-filter">
+                <span>
+                    <a href="#" id="refresh-user-courses" class="refresh-link">
+                        <i class="fas fa-sync"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <div class="ava-courses">
+        <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in courses | 
+                                                                            filter: filterText | 
+                                                                            filter: course.instructor = filterInstructor | 
+                                                                            filter: course.keys = filterLang |  
+                                                                            filter: filterPrice('price', from, to) | 
+                                                                            limitTo: 5: startUserCourseFrom">
+            <div class="display-content">
+                <div class="card-img">
+                    <img src="http://localhost:8080/TigiProject/api/course/{{course.courseId}}/media/image">
+                </div>
+                <h2>{{course.description}}</h2>
+                <p class="title" ng-class="{{course.courseId}}" current-instructor></p>
+                <p class="info">{{course.description}}</p>
+                <div class="card-body">
+                    <!-- <del class="old-price">{{course.price | currency}}</del> -->
+                    <span class="present-price">{{course.price | currency}}</span>
+                </div>
+                <p>
+                    <!-- <a href="#" id="{{course.courseId}}" class="add-to-favorite" add-to-favorite><i class="far fa-heart fa-fw"></i></a> -->
+                    <a href="#" id="{{course.courseId}}" class="add-to-cart" add-to-cart>
+                        <a href="#" id="{{course.courseId}}" class="add-to-cart" add-to-cart>
+                            <a href="#" id="{{course.courseId}}" class="add-to-cart" add-to-cart>
+                                <i class="fas fa-cart-plus fa-fw"></i>
+                            </a>
+                            <a href="#/course/{{course.courseId}}" class="more-info-icon">
+                                <i class="fas fa-info fa-fw"></i>
+                            </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <a href="#" id="user-course-page-prev" style="display: inline-block;">&laquo;</a>
+        <!-- <a href="#" nav-page-link ng-repeat="course in courses" ng-show="($index + 5) % 5 == 0" id="{{'startUserCourseFromIndex' + $index}}" class="startUserCourseFromIndex" ng-class="($index) == 0 ? 'active' : ''"> -->
+        <span id="user-course-nav-page" style="display: inline-block;">{{startUserCourseFrom + 1}} - {{startUserCourseFrom + 5}} of {{courses.length}}</span>
+        <!-- </a> -->
+        <a href="#" id="user-course-page-next" style="display: inline-block;">&raquo;</a>
+    </div>
+
+    <script>
+        $('#user-course-page-prev').on('click', function() {
+            if ($(this).scope().startUserCourseFrom == 0) {
+                $('#user-course-nav-page').empty();
+                $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().startUserCourseFrom + 5) + ' of ' + $(this).scope().courses.length);
+                return false;
+            }
+
+            $(this).scope().startUserCourseFrom -= 5;
+            $(this).scope().$apply();
+
+            $('#user-course-nav-page').empty();
+            $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().startUserCourseFrom + 5) + ' of ' + $(this).scope().courses.length);
+
+            // $('.startUserCourseFromIndex').removeClass('active');
+            // $('#startUserCourseFromIndex' + $(this).scope().startUserCourseFrom).addClass('active');
+
+            return false;
+        });
+
+        $('#user-course-page-next').on('click', function() {
+            if ($(this).scope().courses.length < ($(this).scope().startUserCourseFrom + 5 + 1)) {
+                $('#user-course-nav-page').empty();
+                $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().courses.length) + ' of ' + $(this).scope().courses.length);
+                return false;
+            }
+
+            $(this).scope().startUserCourseFrom += 5;
+            $(this).scope().$apply();
+
+            $('#user-course-nav-page').empty();
+            $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().startUserCourseFrom + 5) + ' of ' + $(this).scope().courses.length);
+
+            // $('.startUserCourseFromIndex').removeClass('active');
+            // $('#startUserCourseFromIndex' + $(this).scope().startUserCourseFrom).addClass('active');
+
+            return false;
+        });
+    </script>
+</div>
