@@ -98,6 +98,7 @@ public class CourseRestController {
         }
     }
 
+
     @ApiOperation(value = "Get Course Resources", response = Integer.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
@@ -140,10 +141,14 @@ public class CourseRestController {
     @GetMapping(value = "/course/info/{id}", produces = "application/json")
     public CourseForm getCourseById(@PathVariable Integer id) {
         Course course = courseService.getById(id);
+
         if (course == null) {
             throw new CourseNotFoundException(id.toString());
         }
 
+        // TODO : Check increase view count
+        course.setViewCount(course.getViewCount() + 1);
+        course = courseService.saveOrUpdate(course);
         return courseFormConverter.revert(course);
     }
 
@@ -178,6 +183,7 @@ public class CourseRestController {
 
         return listCourse;
     }
+
 
     @ApiOperation(value = "Show review of specific course", response = Iterable.class)
     @ApiResponses(value = {
@@ -253,5 +259,6 @@ public class CourseRestController {
             throw new CourseNotFoundException(courseId.toString());
         }
     }
+
 
 }

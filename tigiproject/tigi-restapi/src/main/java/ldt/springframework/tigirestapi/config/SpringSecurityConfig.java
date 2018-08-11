@@ -154,6 +154,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void configWidelyAccessRestResource(HttpSecurity http) throws  Exception{
         http.cors()
+                // Search API
+                .and().authorizeRequests().antMatchers("/api/search").permitAll()
+
                 // Course API
                 .and().authorizeRequests().antMatchers("/api/courses").permitAll()
                 .and().authorizeRequests().antMatchers("/api/course/find/**").permitAll()

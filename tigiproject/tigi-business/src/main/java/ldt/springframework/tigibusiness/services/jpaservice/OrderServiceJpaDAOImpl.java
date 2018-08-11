@@ -141,6 +141,9 @@ public class OrderServiceJpaDAOImpl
         for (OrderDetails orderDetails : newOrder.getOrderDetails()) {
             orderDetails.setOrder(newOrder);
             curUser.addCourseOwer(new CourseOwner(OwerType.BUY, orderDetails.getCourse(), 0f, "", ""));
+
+            // TODO : Check increase buy count
+            orderDetails.getCourse().setBuyCount(orderDetails.getCourse().getBuyCount() + 1);
         }
 
         if (isSinglePay) {

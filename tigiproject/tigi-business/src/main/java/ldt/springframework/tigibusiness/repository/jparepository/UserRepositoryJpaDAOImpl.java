@@ -118,4 +118,9 @@ public class UserRepositoryJpaDAOImpl extends AbstractJpaDAORepository
 
         return em.createQuery("FROM User WHERE username = :username", User.class).getSingleResult();
     }
+
+    @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
+        return null;
+    }
 }

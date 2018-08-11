@@ -65,6 +65,11 @@ public class UserRepositorySpringDataImpl implements UserRepository {
     }
 
     @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
+        return userSpringData.findAllByCustomerFirstNameOrCustomerLastName(firstName, lastName);
+    }
+
+    @Override
     public List<?> listAll() {
         List<User> users = new ArrayList<>();
         userSpringData.findAll().forEach(users::add);

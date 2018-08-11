@@ -23,7 +23,10 @@ public class CourseFormConverterImpl implements CourseFormConverter {
             source.getDescription(),
             new BigDecimal(source.getPrice()),
             source.getImageUrl(),
-            source.getMediaPath()
+            source.getMediaPath(),
+            source.getBuyCount(),
+            source.getViewCount(),
+            source.getCourseTags()
         );
         course.setVersion(source.getCourseVersion());
 
@@ -39,6 +42,9 @@ public class CourseFormConverterImpl implements CourseFormConverter {
         courseForm.setMediaPath(source.getImageUrl());
         courseForm.setPrice(source.getPrice().toString());
         courseForm.setCourseVersion(source.getVersion());
+        courseForm.setBuyCount(source.getBuyCount());
+        courseForm.setViewCount(source.getViewCount());
+        courseForm.setCourseTags(source.getCourseTags());
 
         return courseForm;
     }
