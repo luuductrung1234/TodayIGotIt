@@ -6,6 +6,8 @@
                 findByCourseId: findByCourseId,
                 getIntroVideo: getIntroVideo,
                 getImage: getImage,
+                getAllRate: getAllRate,
+                getRateFull: getRateFull,
                 getAllReview: getAllReview,
                 getAllResources: getAllResources,
                 getResourceVideo: getResourceVideo,
@@ -75,22 +77,46 @@
                 return deferred.promise;
             }
 
-            function findByCourseId(id, username, password) {
-                var auth = btoa(`${username}:${password}`);
-
+            function findByCourseId(id) {
                 var url = serverUrl + "course/info/" + id;
 
                 var deferred = $q.defer();
 
-                $http({
-                        method: 'GET',
-                        url: url,
-                        headers: {
-                            'Authorization': 'Basic ' + auth
-                        }
-                    })
+                $http.get(url)
                     .success(function(response) {
                         // console.log(response);
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getAllRate(id) {
+                var url = serverUrl + "course/" + id + "/rate";
+
+                var deferred = $q.defer();
+
+                $http.get(url)
+                    .success(function(response) {
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getRateFull(id) {
+                var url = serverUrl + "course/" + id + "/rate/full";
+
+                var deferred = $q.defer();
+
+                $http.get(url)
+                    .success(function(response) {
                         deferred.resolve(response);
                     })
                     .error(function(err) {

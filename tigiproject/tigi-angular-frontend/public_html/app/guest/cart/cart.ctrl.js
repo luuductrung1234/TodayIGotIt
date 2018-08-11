@@ -6,8 +6,7 @@
             $scope.totalPrice = 0.0;
 
             if ($cookieStore.get('curUser') == undefined ||
-                $rootScope.curLogin == null ||
-                $rootScope.curLogin.userName === undefined) {
+                $rootScope.curLogin == null) {
                 $window.location.href = "#/home";
             } else {
                 if ($rootScope.curLogin.userRoles[0].type != 'STUDENT') {

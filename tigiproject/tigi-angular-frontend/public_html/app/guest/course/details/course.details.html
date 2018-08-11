@@ -63,15 +63,11 @@
 
     <div id="course-content" class="tabcontent">
         <h2>Course Content</h2>
-        <div ng-repeat="chapter in current.chapter">
-            <button class="accordion" toggle-chapter>
-                <h3>{{chapter}}</h3> <i class="fas fa-angle-down arrow"></i>
-            </button>
+        <div ng-repeat="chapter in allresources">
+            <button class="accordion" style="font-size: 18px;" toggle-chapter>Chapter {{chapter.chapter}}: {{chapter.title}}</button>
             <div class="panel">
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Morbi leo risus</a>
+                <div class="list-group" style="font-size: 16px;">
+                    <a href="#" ng-repeat="subchap in chapter.courseResources" class="list-group-item list-group-item-action" style="font-size: 16px;">{{subchap.title}}</a>
                 </div>
             </div>
         </div>
@@ -80,69 +76,25 @@
     <div id="rating-feedback" class="tabcontent">
         <h2>Rating</h2>
         <div class="container">
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <p>4.1 average based on 254 reviews.</p>
+            <span class="fa fa-star" ng-class="(rate >= 0) ? 'checked' : ''"></span>
+            <span class="fa fa-star" ng-class="(rate >= 2) ? 'checked' : ''"></span>
+            <span class="fa fa-star" ng-class="(rate >= 3) ? 'checked' : ''"></span>
+            <span class="fa fa-star" ng-class="(rate >= 4) ? 'checked' : ''"></span>
+            <span class="fa fa-star" ng-class="(rate == 5) ? 'checked' : ''"></span>
+            <p>{{rate | number:1}} average based on {{norate}} reviews.</p>
             <hr style="border:3px solid #f1f1f1">
 
-            <div class="row">
+            <div class="row" ng-repeat="rate in ratefull">
                 <div class="side">
-                    <div>5 star</div>
+                    <div>{{$index + 1}} star</div>
                 </div>
                 <div class="middle">
-                    <div class="bar-container">
-                        <div class="bar-5"></div>
+                    <div class="bar-container" ng-class="{{rate}}" rate-bar>
+
                     </div>
                 </div>
                 <div class="side right">
-                    <div>150</div>
-                </div>
-                <div class="side">
-                    <div>4 star</div>
-                </div>
-                <div class="middle">
-                    <div class="bar-container">
-                        <div class="bar-4"></div>
-                    </div>
-                </div>
-                <div class="side right">
-                    <div>63</div>
-                </div>
-                <div class="side">
-                    <div>3 star</div>
-                </div>
-                <div class="middle">
-                    <div class="bar-container">
-                        <div class="bar-3"></div>
-                    </div>
-                </div>
-                <div class="side right">
-                    <div>15</div>
-                </div>
-                <div class="side">
-                    <div>2 star</div>
-                </div>
-                <div class="middle">
-                    <div class="bar-container">
-                        <div class="bar-2"></div>
-                    </div>
-                </div>
-                <div class="side right">
-                    <div>6</div>
-                </div>
-                <div class="side">
-                    <div>1 star</div>
-                </div>
-                <div class="middle">
-                    <div class="bar-container">
-                        <div class="bar-1"></div>
-                    </div>
-                </div>
-                <div class="side right">
-                    <div>20</div>
+                    <div>{{rate[0]}}</div>
                 </div>
             </div>
         </div>
@@ -155,11 +107,11 @@
                         <span class="feedback-owner">{{getUserFeedbackInfo()}}</span>
                     </div>
                     <div class="row">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star" ng-class="(feedback.rate >= 0) ? 'checked' : ''"></span>
+                        <span class="fa fa-star" ng-class="(feedback.rate >= 2) ? 'checked' : ''"></span>
+                        <span class="fa fa-star" ng-class="(feedback.rate >= 3) ? 'checked' : ''"></span>
+                        <span class="fa fa-star" ng-class="(feedback.rate >= 4) ? 'checked' : ''"></span>
+                        <span class="fa fa-star" ng-class="(feedback.rate == 5) ? 'checked' : ''"></span>
                     </div>
                 </div>
                 <div class="col" style="width: 85%; padding: 0; margin: 0;">

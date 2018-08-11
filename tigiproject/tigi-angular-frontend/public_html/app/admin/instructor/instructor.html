@@ -55,7 +55,7 @@
     <div class="pagination">
         <a href="#" id="admin-instructor-page-prev">&laquo;</a>
         <!-- <a href="#" nav-page-link ng-repeat="instructor in instructors" ng-show="($index + 5) % 5 == 0" id="{{'startAdminInstructorFromIndex' + $index}}" class="startAdminInstructorFromIndex" ng-class="($index) == 0 ? 'active' : ''"> -->
-        <span>{{startAdminInstructorFrom+ 1}} - {{startAdminInstructorFrom + 6}} of {{instructors.length}}</span>
+        <!-- <span id="admin-instructor-nav-page">{{startAdminInstructorFrom+ 1}} - {{startAdminInstructorFrom + 6}} of {{instructors.length}}</span> -->
         <!-- </a> -->
         <a href="#" id="admin-instructor-page-next">&raquo;</a>
     </div>
@@ -74,9 +74,6 @@
             $(this).scope().startAdminInstructorFrom = 0;
             $(this).scope().$apply();
 
-            // $('.startAdminInstructorFromIndex').removeClass('active');
-            // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
-
             return false;
         });
 
@@ -88,9 +85,6 @@
             $(this).scope().startAdminInstructorFrom -= 5;
             $(this).scope().$apply();
 
-            // $('.startAdminInstructorFromIndex').removeClass('active');
-            // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
-
             return false;
         });
 
@@ -101,9 +95,6 @@
 
             $(this).scope().startAdminInstructorFrom += 5;
             $(this).scope().$apply();
-
-            // $('.startAdminInstructorFromIndex').removeClass('active');
-            // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
 
             return false;
         });

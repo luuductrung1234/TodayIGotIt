@@ -21,25 +21,12 @@
                         console.log("Error: " + err);
                     });
             });
-        })
-        .directive("navPageLink", function() {
-            return {
-                restrict: "A",
-                link: function(scope, elem, attrs) {
-                    $(elem).on('click', function() {
-                        // var aa = $(this).attr('id').substr(14);
-                        // $(elem).scope().startAdminInstructorFrom = +aa;
-                        // $(elem).scope().$apply();
-
-                        // $('.startAdminInstructorFromIndex').removeClass('active');
-                        // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
-
-                        // console.log($(this));
-                        // console.log(aa);
-
-                        return false;
-                    })
-                }
-            }
         });
+    // .directive("navPageLink", function() {
+    //     return {
+    //         restrict: "A",
+    //         link: function(scope, elem, attrs) {
+    //         }
+    //     }
+    // });
 })();

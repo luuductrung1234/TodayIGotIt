@@ -6,16 +6,13 @@
     </div>
 
     <div id="subscribed" class="tabcontent">
-        <div ng-show="{{mycourses.length != 0}}">
+        <div ng-show="{{$root.userCourseOwners.length != 0}}">
             <h2>Subscribed Course</h2>
             <form class="form-filter-course">
                 <div class="row">
                     <div class="col-filter">
                         <h3>Language</h3>
-                        <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
-                            <option value="" selected>All</option>
-                            <option value="java">Java</option>
-                            <option value="csharp">CSharp</option>
+                        <select class="c-cbo mr-pd-input-df" ng-model="filterLang" all-instructor>
                         </select>
                     </div>
                     <div class="col-filter">
@@ -36,21 +33,19 @@
             </form>
 
             <div class="ava-courses">
-                <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in mycourses">
-                    <div class="display-content">
-                        <img src="">
-                        <h2>{{course.instructor}}</h2>
-                        <p class="title" ng-class="{{course.courseId}}" current-instructor></p>
-                        <p class="info">{{course.description}}</p>
-                        <p>
-                            <a href="#/course/{{course.id}}" class="more-info">Continue</a>
-                        </p>
-                    </div>
+                <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in $root.curLogin.userCourseOwners">
+                    <div class="card-img"><img src="http://localhost:8080/TigiProject/api/course/{{course.id}}/media/image"></div>
+                    <h2 ng-class="{{course.id}}" course-description></h2>
+                    <p class="title" ng-class="{{course.id}}" current-instructor></p>
+                    <!-- <p class="info">{{course.description}}</p> -->
+                    <p>
+                        <a href="#/course/{{course.id}}" class="more-info">Continue</a>
+                    </p>
                 </div>
             </div>
-            <div ng-show="{{mycourses.length == 0}}">
-                <p>Your subscribed courses will be here! Do you want to <a class="">subscribe some courses</a></p>
-            </div>
+        </div>
+        <div ng-show="{{$root.userCourseOwners.length == 0}}">
+            <p>Your subscribed courses will be here! Do you want to <a class="">subscribe some courses</a></p>
         </div>
     </div>
 

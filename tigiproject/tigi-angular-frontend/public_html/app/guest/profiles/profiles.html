@@ -19,12 +19,12 @@
                     <label for="gender"><b>Gender</b></label>
                     <select id="gender" ng-model="$root.curLogin.gender" class="c-cbo mr-pd-input-df">
                         <option>--Select--</option>
-                        <option>Male</option>
-                        <option>Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
 
-                    <label for="dob"><b>Date of Birth</b></label>
-                    <input type="date" id="dob" ng-model="$root.curLogin.dob" name="dob" class="input-text mr-pd-input-df" ng-value="current.dob" required/>
+                    <!-- <label for="dob"><b>Date of Birth</b></label>
+                    <input type="date" id="dob" ng-model="$root.curLogin.dob" name="dob" class="input-text mr-pd-input-df" ng-value="current.dob" required/> -->
 
                     <div style="overflow:auto;">
                         <div style="float:right;">
@@ -63,10 +63,10 @@
                     <input type="text" id="billingAddressLine1" ng-model="$root.curLogin.billingAddressLine1" name="billingAddressLine1" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
 
                     <h3>Additional Contact Info - Shipping Address</h3>
-                    <label for="shippingZipCide">
+                    <label for="shippingZipCode">
                         <b>Address Zipcode</b>
                     </label>
-                    <input type="text" id="shippingZipCide" ng-model="$root.curLogin.shippingZipCide" name="shippingZipCide" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+                    <input type="text" id="shippingZipCode" ng-model="$root.curLogin.shippingZipCode" name="shippingZipCode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
 
                     <label for="shippingState">
                         <b>Address State</b>
@@ -113,7 +113,7 @@
                     <input type="password" id="new-pass" ng-model="newPass" name="new-pass" class="input-text mr-pd-input-df" placeholder="Enter New Password" required>
 
                     <label for="pass-repeat"><b>Password Repeat</b></label>
-                    <input type="password" id="pass-repeat" name="pass-repeat" class="input-text mr-pd-input-df" placeholder="Enter New Password Again" required>
+                    <input type="password" id="pass-repeat" ng-model="passRepeat" name="pass-repeat" class="input-text mr-pd-input-df" placeholder="Enter New Password Again" required>
 
                     <div style="overflow:auto;">
                         <div style="float:right;">

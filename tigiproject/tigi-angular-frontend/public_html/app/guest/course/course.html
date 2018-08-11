@@ -1,4 +1,4 @@
-<div ng-init="startAdminCourseFrom = 0">
+<div ng-init="startUserCourseFrom=0">
     <form class="form-filter-course">
         <div class="row">
             <div class="col-filter">
@@ -38,13 +38,13 @@
 
     <div class="ava-courses">
         <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in courses | 
-        filter: filterText | 
-        filter: course.instructor = filterInstructor | 
-        filter: course.keys = filterLang |  
-        filter: filterPrice('price', from, to) | 
-        limitTo: 5: startUserCourseFrom">
+                                                                            filter: filterText | 
+                                                                            filter: course.instructor = filterInstructor | 
+                                                                            filter: course.keys = filterLang |  
+                                                                            filter: filterPrice('price', from, to) | 
+                                                                            limitTo: 5: startUserCourseFrom">
             <div class="display-content">
-                <img src="http://localhost:8080/TigiProject/api/course/{{course.courseId}}/media/image">
+                <div class="card-img"><img src="http://localhost:8080/TigiProject/api/course/{{course.courseId}}/media/image"></div>
                 <h2>{{course.description}}</h2>
                 <p class="title" ng-class="{{course.courseId}}" current-instructor></p>
                 <p class="info">{{course.description}}</p>
@@ -81,11 +81,11 @@
     </div>
 
     <div class="pagination">
-        <a href="#" id="user-course-page-prev">&laquo;</a>
-        <!-- <a href="#" nav-page-link ng-repeat="course in allcourses" ng-show="($index + 5) % 5 == 0" id="{{'startUserCourseFromIndex' + $index}}" class="startUserCourseFromIndex" ng-class="($index) == 0 ? 'active' : ''"> -->
-        <span>{{startUserCourseFrom + 1}} - {{startUserCourseFrom + 6}} of {{courses.length}}</span>
+        <a href="#" id="user-course-page-prev" style="display: inline-block;">&laquo;</a>
+        <!-- <a href="#" nav-page-link ng-repeat="course in courses" ng-show="($index + 5) % 5 == 0" id="{{'startUserCourseFromIndex' + $index}}" class="startUserCourseFromIndex" ng-class="($index) == 0 ? 'active' : ''"> -->
+        <span id="user-course-nav-page" style="display: inline-block;">{{startUserCourseFrom + 1}} - {{startUserCourseFrom + 5}} of {{courses.length}}</span>
         <!-- </a> -->
-        <a href="#" id="user-course-page-next">&raquo;</a>
+        <a href="#" id="user-course-page-next" style="display: inline-block;">&raquo;</a>
     </div>
 
     <script>
@@ -112,11 +112,16 @@
 
         $('#user-course-page-prev').on('click', function() {
             if ($(this).scope().startUserCourseFrom == 0) {
+                $('#user-course-nav-page').empty();
+                $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().startUserCourseFrom + 5) + ' of ' + $(this).scope().courses.length);
                 return false;
             }
 
             $(this).scope().startUserCourseFrom -= 5;
             $(this).scope().$apply();
+
+            $('#user-course-nav-page').empty();
+            $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().startUserCourseFrom + 5) + ' of ' + $(this).scope().courses.length);
 
             // $('.startUserCourseFromIndex').removeClass('active');
             // $('#startUserCourseFromIndex' + $(this).scope().startUserCourseFrom).addClass('active');
@@ -125,12 +130,17 @@
         });
 
         $('#user-course-page-next').on('click', function() {
-            if ($(this).scope().allcourses.length < ($(this).scope().startUserCourseFrom + 5 + 1)) {
+            if ($(this).scope().courses.length < ($(this).scope().startUserCourseFrom + 5 + 1)) {
+                $('#user-course-nav-page').empty();
+                $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().courses.length) + ' of ' + $(this).scope().courses.length);
                 return false;
             }
 
             $(this).scope().startUserCourseFrom += 5;
             $(this).scope().$apply();
+
+            $('#user-course-nav-page').empty();
+            $('#user-course-nav-page').append(($(this).scope().startUserCourseFrom + 1) + ' - ' + ($(this).scope().startUserCourseFrom + 5) + ' of ' + $(this).scope().courses.length);
 
             // $('.startUserCourseFromIndex').removeClass('active');
             // $('#startUserCourseFromIndex' + $(this).scope().startUserCourseFrom).addClass('active');

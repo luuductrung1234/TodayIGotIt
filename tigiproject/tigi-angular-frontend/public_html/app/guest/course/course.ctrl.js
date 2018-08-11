@@ -2,7 +2,7 @@
     angular.module("app.course")
         .controller("Course", function($scope, CourseSvc) {
             $scope.courses = [];
-            $scope.startAdminCourseFrom = 0;
+            $scope.startUserCourseFrom = 0;
 
             $scope.$on('$viewContentLoaded', function() {
                 CourseSvc.findAllCourse()
@@ -46,5 +46,18 @@
                     })
                 }
             }
-        }]);
+        }])
+        .directive("allInstructor", ['InstructorSvc', function(InstructorSvc) {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+                    InstructorSvc.findAllInstructor()
+                        .then(function(response) {
+
+                        }, function(err) {
+                            console.log("Error: " + err);
+                        })
+                }
+            }
+        }])
 })();
