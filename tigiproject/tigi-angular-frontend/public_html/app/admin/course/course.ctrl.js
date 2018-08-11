@@ -30,25 +30,14 @@
                     return minValue <= item[field] && item[field] <= maxValue;
                 };
             };
-        })
-        .directive("navPageLink", function() {
-            return {
-                restrict: "A",
-                link: function(scope, elem, attrs) {
-                    $(elem).on('click', function() {
-                        // var aa = $(this).attr('id').substr(14);
-                        // $(elem).scope().startAdminCourseFrom = +aa;
-                        // $(elem).scope().$apply();
-
-                        // $('.startAdminCourseFromIndex').removeClass('active');
-                        // $('#startAdminCourseFromIndex' + $(this).scope().startAdminCourseFrom).addClass('active');
-
-                        // console.log($(this));
-                        // console.log(aa);
-
-                        return false;
-                    })
-                }
-            }
         });
+    // .directive("adminCourseNavPage", function() {
+    //     return {
+    //         restrict: "A",
+    //         link: function(scope, elem, attrs) {
+    //             $(elem).empty();
+    //             $(elem).append((scope.startAdminCourseFrom + 1) + ' - ' + (scope.allcourses.length) + ' of ' + scope.allcourses.length);
+    //         }
+    //     }
+    // });
 })();

@@ -210,22 +210,41 @@
 
                                 <h3>Additional Contact Info - Address</h3>
                                 <p style="text-align: center;">You can ignore this.</p>
-                                <label for="signinaddressZipcode">
+                                <label for="signinbillingZipcode">
                                     <b>Address Zipcode</b>
                                 </label>
-                                <input type="text" id="signinaddressZipcode" ng-model="signinaddressZipcode" name="signinaddressZipcode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
-                                <label for="signinaddressState">
+                                <input type="text" id="signinbillingZipcode" ng-model="signinbillingZipcode" name="signinbillingZipcode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+                                <label for="signinbillingState">
                                     <b>Address State</b>
                                 </label>
-                                <input type="text" id="signinaddressState" ng-model="signinaddressState" name="signinaddressState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
-                                <label for="signinaddressCity">
+                                <input type="text" id="signinbillingState" ng-model="signinbillingState" name="signinbillingState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
+                                <label for="signinbillingCity">
                                         <b>Address City</b>
                                     </label>
-                                <input type="text" id="signinaddressCity" ng-model="signinaddressCity" name="signinaddressCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
-                                <label for="signinaddressLine">
+                                <input type="text" id="signinbillingCity" ng-model="signinbillingCity" name="signinbillingCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
+                                <label for="signinbillingLine">
                                     <b>Address Line</b>
                                 </label>
-                                <input type="text" id="signinaddressLine" ng-model="signinaddressLine" name="signinaddressLine" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
+                                <input type="text" id="signinbillingLine" ng-model="signinbillingLine" name="signinbillingLine" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
+
+                                <h3>Additional Contact Info - Address</h3>
+                                <p style="text-align: center;">You can ignore this.</p>
+                                <label for="signinshippingZipcode">
+                                    <b>Address Zipcode</b>
+                                </label>
+                                <input type="text" id="signinshippingZipcode" ng-model="signinshippingZipcode" name="signinshippingZipcode" class="input-text mr-pd-input-df" placeholder="Enter Address Zipcode" required>
+                                <label for="signinshippingState">
+                                    <b>Address State</b>
+                                </label>
+                                <input type="text" id="signinshippingState" ng-model="signinshippingState" name="signinshippingState" class="input-text mr-pd-input-df" placeholder="Enter Address State" required>
+                                <label for="signinshippingCity">
+                                    <b>Address City</b>
+                                </label>
+                                <input type="text" id="signinshippingCity" ng-model="signinshippingCity" name="signinshippingCity" class="input-text mr-pd-input-df" placeholder="Enter Address City" required>
+                                <label for="signinshippingLine">
+                                    <b>Address Line</b>
+                                </label>
+                                <input type="text" id="signinshippingLine" ng-model="signinshippingLine" name="signinshippingLine" class="input-text mr-pd-input-df" placeholder="Enter Address Line" required>
                             </div>
 
                             <!-- <div class="step-tab">
@@ -607,7 +626,7 @@
             validateForm(curTab);
         });
 
-        $('#signinaddressZipcode').on('input', function(event) {
+        $('#signinbillingZipcode').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0 || trim.length > 255) {
                 $(this).removeClass('valid');
@@ -624,7 +643,7 @@
             }
         });
 
-        $('#signinaddressState').on('input', function(event) {
+        $('#signinbillingState').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0 || trim.length > 255) {
                 $(this).removeClass('valid');
@@ -632,7 +651,7 @@
             }
         });
 
-        $('#signinaddressCity').on('input', function(event) {
+        $('#signinbillingCity').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0 || trim.length > 255) {
                 $(this).removeClass('valid');
@@ -643,7 +662,60 @@
             }
         });
 
-        $('#signinaddressLine').on('input', function(event) {
+        $('#signinbillingLine').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[a-zA-Z0-9]{1,255}$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+        });
+
+        $('#signinshippingZipcode').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                var pattern = new RegExp("^[0-9]+$");
+                if (trim.match(pattern)) {
+                    $(this).removeClass('invalid');
+                    $(this).addClass('valid');
+                } else {
+                    $(this).removeClass('valid');
+                    $(this).addClass('invalid');
+                }
+            }
+        });
+
+        $('#signinshippingState').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            }
+        });
+
+        $('#signinshippingCity').on('input', function(event) {
+            var trim = $.trim($(this).val());
+            if (trim.length == 0 || trim.length > 255) {
+                $(this).removeClass('valid');
+                $(this).addClass('invalid');
+            } else {
+                $(this).removeClass('invalid');
+                $(this).addClass('valid');
+            }
+        });
+
+        $('#signinshippingLine').on('input', function(event) {
             var trim = $.trim($(this).val());
             if (trim.length == 0 || trim.length > 255) {
                 $(this).removeClass('valid');

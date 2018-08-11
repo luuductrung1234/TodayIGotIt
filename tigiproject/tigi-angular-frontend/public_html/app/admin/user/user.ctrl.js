@@ -30,25 +30,14 @@
                     return minValue <= item[field].length && item[field].length <= maxValue;
                 };
             };
-        })
-        .directive("navPageLink", function() {
-            return {
-                restrict: "A",
-                link: function(scope, elem, attrs) {
-                    $(elem).on('click', function() {
-                        // var aa = $(this).attr('id').substr(14);
-                        // $(elem).scope().startAdminUserFrom = +aa;
-                        // $(elem).scope().$apply();
-
-                        // $('.startAdminUserFromIndex').removeClass('active');
-                        // $('#startAdminUserFromIndex' + $(this).scope().startAdminUserFrom).addClass('active');
-
-                        // console.log($(this));
-                        // console.log(aa);
-
-                        return false;
-                    })
-                }
-            }
         });
+    // .directive("adminUserNavPage", function() {
+    //     return {
+    //         restrict: "A",
+    //         link: function(scope, elem, attrs) {
+    //             $(elem).empty();
+    //             $(elem).append((scope.startAdminUserFrom + 1) + ' - ' + (scope.users.length) + ' of ' + scope.users.length);
+    //         }
+    //     }
+    // });
 })();

@@ -39,6 +39,30 @@
                 return deferred.promise;
             }
 
+            function findAllIns() {
+                var url = serverUrl + "users";
+
+                var deferred = $q.defer();
+
+                var instructors = [];
+
+                $http.get(url)
+                    .success(function(response) {
+                        response.forEach(item => {
+                            if (item.userRoles[0].type == 'TEACHER') {
+                                instructors.push(item);
+                            }
+                        });
+
+                        deferred.resolve(instructors);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
             function findByUsername(id) {
                 var url = serverUrl + "users" + id;
 

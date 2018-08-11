@@ -105,20 +105,29 @@
                 return deferred.promise;
             }
 
-            function editAction(id, data) {
-                var req = {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                }
+            function editAction(id, data, username, password) {
+                // var req = {
+                //     method: 'PUT',
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                //     body: JSON.stringify(data)
+                // }
 
-                var url = serverUrl + "users/" + id;
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "user/update";
 
                 var deferred = $q.defer();
 
-                $http.put(url, JSON.stringify(data))
+                $http({
+                        method: 'POST',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        },
+                        data: JSON.stringify(data)
+                    })
                     .success(function(response) {
                         deferred.resolve(response);
                     })
