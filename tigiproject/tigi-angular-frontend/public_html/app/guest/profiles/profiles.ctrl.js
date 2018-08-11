@@ -1,8 +1,14 @@
 (function() {
     angular.module("app.profiles")
-        .controller("Profiles", function($window, $scope, $rootScope, $routeParams, UserSvc) {
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined) {
+        .controller("Profiles", function($window, $scope, $rootScope, $cookies, $cookieStore, $routeParams, UserSvc) {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null ||
+                $rootScope.curLogin.userName === undefined) {
                 $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'STUDENT') {
+                    $window.location.href = "#/home";
+                }
             }
 
             $scope.editPersonalInfo = function() {

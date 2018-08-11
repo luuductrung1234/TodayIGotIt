@@ -1,8 +1,13 @@
 (function() {
     angular.module("app.admin.course.details")
-        .controller("AdminCourseDetails", function($window, $scope, $rootScope, $routeParams, CourseSvc) {
-            if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+        .controller("AdminCourseDetails", function($window, $scope, $rootScope, $cookies, $cookieStore, $routeParams, CourseSvc) {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null) {
                 $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+                    $window.location.href = "#/home";
+                }
             }
 
             $scope.current = {};

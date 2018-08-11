@@ -5,11 +5,16 @@
             $scope.totalUsers = 0;
             $scope.totalInstructors = 0;
 
-            $scope.$on('$viewContentLoaded', function() {
-                if ($rootScope.curLogin == null || $rootScope.curLogin.userName === undefined || $rootScope.curLogin.userRoles[0].type != 'ADMIN') {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null) {
+                $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'ADMIN') {
                     $window.location.href = "#/home";
                 }
+            }
 
+            $scope.$on('$viewContentLoaded', function() {
                 CourseSvc.findAllCourse()
                     .then(function(response) {
                         $scope.totalCourses = response.length;
@@ -17,19 +22,32 @@
                         console.log("Error: " + err);
                     });
 
-                UserSvc.findAllUser($cookieStore.get('curUser'), $cookieStore.get('curPass'))
-                    .then(function(response) {
-                        $scope.totalUsers = response.length;
-                    }, function(err) {
-                        console.log("Error: " + err);
-                    });
+                var cntInit = 0;
+                var initInterval = setInterval(function() {
+                    cntInit += 100;
 
-                InstructorSvc.findAllInstructor($cookieStore.get('curUser'), $cookieStore.get('curPass'))
-                    .then(function(response) {
-                        $scope.totalInstructors = response.length;
-                    }, function(err) {
-                        console.log("Error: " + err);
-                    });
+                    if ($rootScope.curLogin.userRoles[0].type == 'ADMIN') {
+                        UserSvc.findAllUser($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                            .then(function(response) {
+                                $scope.totalUsers = response.length;
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
+
+                        InstructorSvc.findAllInstructor($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                            .then(function(response) {
+                                $scope.totalInstructors = response.length;
+                            }, function(err) {
+                                console.log("Error: " + err);
+                            });
+
+                        clearInterval(initInterval);
+                    }
+
+                    if (cntInit >= 5000) {
+                        clearInterval(initInterval);
+                    }
+                }, 100);
             });
         });
 })();

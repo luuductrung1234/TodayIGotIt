@@ -5,8 +5,14 @@
             $scope.order = [];
             $scope.totalPrice = 0.0;
 
-            if ($rootScope.curLogin === null || $rootScope.curLogin.userName === undefined) {
+            if ($cookieStore.get('curUser') == undefined ||
+                $rootScope.curLogin == null ||
+                $rootScope.curLogin.userName === undefined) {
                 $window.location.href = "#/home";
+            } else {
+                if ($rootScope.curLogin.userRoles[0].type != 'STUDENT') {
+                    $window.location.href = "#/home";
+                }
             }
 
             $scope.getCartDetails = function() {

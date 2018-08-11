@@ -17,6 +17,13 @@
                     </select>
                 </div>
                 <div class="col-filter">
+                    <h3>Number of Course</h3>
+                    <div>
+                        <input type="number" id="fromicc" name="fromicc" ng-model="fromicc" class="input-text from-to mr-pd-input-df" placeholder="From" /> -
+                        <input type="number" id="toicc" name="toicc" ng-model="toicc" class="input-text from-to mr-pd-input-df" placeholder="To" />
+                    </div>
+                </div>
+                <div class="col-filter">
                     <span><a href="#" id="refresh-admin-instructors" class="refresh-link"><i class="fas fa-sync"></i></a></span>
                 </div>
             </div>
@@ -30,10 +37,15 @@
             <th>Number of course</th>
             <th colspan="3">Action</th>
         </tr>
-        <tr ng-repeat="instructor in instructors | filter: instructor.userName = filterText | filter: instructor.firstName = filterText | filter: instructor.lastName = filterText | limitTo: 5: startAdminInstructorFrom">
+        <tr ng-repeat="instructor in instructors | 
+        filter: instructor.userName = filterText | 
+        filter: instructor.firstName = filterText | 
+        filter: instructor.lastName = filterText | 
+        filter: filterCoursesOrder('userCourseOwners', fromicc, toicc) | 
+        limitTo: 5: startAdminInstructorFrom">
             <td>{{instructor.userName}}</td>
             <td>{{instructor.firstName}} {{instructor.lastName}}</td>
-            <td>{{$index + 10}}</td>
+            <td>{{instructor.userCourseOwners.length}}</td>
             <td><a href="#/instructor/{{instructor.userName}}" class="action-link"><i class="fas fa-eye"></i></a></td>
             <td><a href="#/instructor/{{instructor.userName}}" class="action-link"><i class="far fa-edit"></i></a></td>
             <td><a href="#" class="action-link"><i class="far fa-trash-alt"></i></a></td>
@@ -42,9 +54,9 @@
 
     <div class="pagination">
         <a href="#" id="admin-instructor-page-prev">&laquo;</a>
-        <a href="#" nav-page-link ng-repeat="instructor in instructors" ng-show="($index + 5) % 5 == 0" id="{{'startAdminInstructorFromIndex' + $index}}" class="startAdminInstructorFromIndex" ng-class="($index) == 0 ? 'active' : ''">
-            <span>{{($index + 5)/5}}</span>
-        </a>
+        <!-- <a href="#" nav-page-link ng-repeat="instructor in instructors" ng-show="($index + 5) % 5 == 0" id="{{'startAdminInstructorFromIndex' + $index}}" class="startAdminInstructorFromIndex" ng-class="($index) == 0 ? 'active' : ''"> -->
+        <span>{{startAdminInstructorFrom+ 1}} - {{startAdminInstructorFrom + 6}} of {{instructors.length}}</span>
+        <!-- </a> -->
         <a href="#" id="admin-instructor-page-next">&raquo;</a>
     </div>
 
@@ -52,14 +64,18 @@
         $('#refresh-admin-instructors').on('click', function() {
             $('#filterLang').val('');
             $('#filterText').val('');
+            $('#formicc').val('');
+            $('#toicc').val('');
 
             $(this).scope().filterLang = '';
             $(this).scope().filterText = '';
-            $(this).scope().startAdminCourseFrom = 0;
+            $(this).scope().formicc = undefined;
+            $(this).scope().toicc = undefined;
+            $(this).scope().startAdminInstructorFrom = 0;
             $(this).scope().$apply();
 
-            $('.startAdminInstructorFromIndex').removeClass('active');
-            $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
+            // $('.startAdminInstructorFromIndex').removeClass('active');
+            // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
 
             return false;
         });
@@ -72,8 +88,8 @@
             $(this).scope().startAdminInstructorFrom -= 5;
             $(this).scope().$apply();
 
-            $('.startAdminInstructorFromIndex').removeClass('active');
-            $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
+            // $('.startAdminInstructorFromIndex').removeClass('active');
+            // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
 
             return false;
         });
@@ -86,8 +102,8 @@
             $(this).scope().startAdminInstructorFrom += 5;
             $(this).scope().$apply();
 
-            $('.startAdminInstructorFromIndex').removeClass('active');
-            $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
+            // $('.startAdminInstructorFromIndex').removeClass('active');
+            // $('#startAdminInstructorFromIndex' + $(this).scope().startAdminInstructorFrom).addClass('active');
 
             return false;
         });

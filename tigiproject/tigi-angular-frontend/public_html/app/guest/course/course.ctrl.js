@@ -2,6 +2,7 @@
     angular.module("app.course")
         .controller("Course", function($scope, CourseSvc) {
             $scope.courses = [];
+            $scope.startAdminCourseFrom = 0;
 
             $scope.$on('$viewContentLoaded', function() {
                 CourseSvc.findAllCourse()
@@ -11,6 +12,15 @@
                         console.log("Error: " + err);
                     });
             });
+
+            $scope.filterPrice = function(field, minValue, maxValue) {
+                if (minValue === undefined || minValue === null) minValue = Number.MIN_VALUE;
+                if (maxValue === undefined || maxValue === null) maxValue = Number.MAX_VALUE;
+
+                return function predicateFunc(item) {
+                    return minValue <= item[field] && item[field] <= maxValue;
+                };
+            };
         })
         .directive("addToCart", ['$cookies', '$cookieStore', 'CourseSvc', 'CartSvc', function($cookies, $cookieStore, CourseSvc, CartSvc) {
             return {

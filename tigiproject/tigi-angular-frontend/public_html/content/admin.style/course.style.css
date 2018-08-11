@@ -97,6 +97,14 @@
     color: #17a2b8;
 }
 
+.intro-link {
+    color: white;
+}
+
+.course-table tr:not(:first-child):hover .intro-link {
+    color: #17a2b8;
+}
+
 .course-table tr:nth-child(even) {
     background-color: #333333;
 }

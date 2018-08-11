@@ -14,19 +14,13 @@
             }
 
             $scope.$on('$viewContentLoaded', function() {
-                checkSubcribed($routeParams.id);
+                var initInterval = setInterval(function() {
+                    if ($rootScope.curLogin != null) {
+                        checkSubcribed($routeParams.id);
+                        clearInterval(initInterval);
+                    }
+                }, 100);
             });
-
-            $scope.getCurrentInstructor = function() {
-                // if ($routeParams.id !== undefined) {
-                //     CourseSvc.getCurInstructor($routeParams.id)
-                //         .then(function(response) {
-                //             return response.firstName + response.lastName;
-                //         }, function(err) {
-                //             console.log("Error: " + err);
-                //         });
-                // }
-            }
 
             $scope.watchIntro = function() {
                 $scope.introVideoLoaded = true;
