@@ -1,5 +1,8 @@
 package ldt.springframework.tigibusiness.services.jpaservice;
 
+import ldt.springframework.tigibusiness.commands.statistic.ReceiptByDay;
+import ldt.springframework.tigibusiness.commands.statistic.ReceiptByMonth;
+import ldt.springframework.tigibusiness.commands.statistic.ReceiptByYear;
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.repository.OrderRepository;
@@ -13,6 +16,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /*
@@ -25,8 +33,7 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class OrderServiceJpaDAOImpl
-    implements OrderService {
+public class OrderServiceJpaDAOImpl implements OrderService {
 
     // =======================================
     // =           Injection Point           =
@@ -161,5 +168,91 @@ public class OrderServiceJpaDAOImpl
             curUser.setCart(new Cart());
             userService.saveOrUpdate(curUser);
         }
+    }
+
+    @Override
+    public List<ReceiptByDay> receiptByDay(int modify) {
+        LocalDate defaultDate = LocalDate.now();
+        int day = defaultDate.getDayOfMonth() + modify;
+        Month month = defaultDate.getMonth();
+        int year = defaultDate.getYear();
+
+        List<ReceiptByDay> receiptByDays = new ArrayList<>();
+        for (int i = -3; i <= 3; i++){
+            List<Order> orders = orderRepository.findAllBetweenDays(LocalDate.of(year, month, day-1+i), LocalDate.of(year, month, day+1+i));
+
+            if(!orders.isEmpty()) {
+                BigDecimal total = new BigDecimal(0);
+                for (Order order :
+                        orders) {
+                    for (OrderDetails orderDetails:
+                            order.getOrderDetails()) {
+                        BigDecimal quan = new BigDecimal(orderDetails.getQuantity());
+                        total = total.add(orderDetails.getCourse().getPrice().multiply(quan));
+                    }
+                }
+
+                receiptByDays.add(new ReceiptByDay(total, day+i, month, year));
+            }
+        }
+
+        return receiptByDays;
+    }
+
+    @Override
+    public List<ReceiptByMonth> receiptByMonth(int modify) {
+        LocalDate defaultDate = LocalDate.now();
+        Month month = defaultDate.getMonth().plus(modify);
+        int year = defaultDate.getYear();
+
+
+        List<ReceiptByMonth> receiptByMonths = new ArrayList<>();
+        for (int i = -3; i <= 3; i++) {
+            List<Order> orders = orderRepository.findAllBetweenDays(LocalDate.of(year, month.plus(-1+i), 1), LocalDate.of(year, month.plus(1+i), 30));
+
+            if(!orders.isEmpty()) {
+                BigDecimal total = new BigDecimal(0);
+                for (Order order :
+                        orders) {
+                    for (OrderDetails orderDetails:
+                            order.getOrderDetails()) {
+                        BigDecimal quan = new BigDecimal(orderDetails.getQuantity());
+                        total = total.add(orderDetails.getCourse().getPrice().multiply(quan));
+                    }
+                }
+
+                receiptByMonths.add(new ReceiptByMonth(total, month.plus(i), year));
+            }
+        }
+
+        return receiptByMonths;
+    }
+
+    @Override
+    public List<ReceiptByYear> receiptByYear(int modify) {
+        LocalDate defaultDate = LocalDate.now();
+        int year = defaultDate.getYear() + modify;
+
+
+        List<ReceiptByYear> receiptByYears = new ArrayList<>();
+        for (int i = -3; i <= 3; i++) {
+            List<Order> orders = orderRepository.findAllBetweenDays(LocalDate.of(year - 1 + i, Month.JANUARY, 1), LocalDate.of(year + 1 + i, Month.DECEMBER, 31));
+
+            if(!orders.isEmpty()) {
+                BigDecimal total = new BigDecimal(0);
+                for (Order order :
+                        orders) {
+                    for (OrderDetails orderDetails:
+                            order.getOrderDetails()) {
+                        BigDecimal quan = new BigDecimal(orderDetails.getQuantity());
+                        total = total.add(orderDetails.getCourse().getPrice().multiply(quan));
+                    }
+                }
+
+                receiptByYears.add(new ReceiptByYear(total, year + i));
+            }
+        }
+
+        return receiptByYears;
     }
 }

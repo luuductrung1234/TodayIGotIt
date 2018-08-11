@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository;
 
 import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import ldt.springframework.tigibusiness.repository.RoleRepository;
 import ldt.springframework.tigibusiness.repository.springdatarepository.data.RoleSpringData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,10 @@ public class RoleRepositorySpringDataImpl implements RoleRepository {
     @Override
     public void delete(Integer id) {
         roleSpringData.deleteById(id);
+    }
+
+    @Override
+    public Role findFirstByType(RoleType roleType) {
+        return roleSpringData.findFirstByType(roleType);
     }
 }

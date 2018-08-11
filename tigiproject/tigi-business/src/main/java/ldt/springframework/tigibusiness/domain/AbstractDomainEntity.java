@@ -1,6 +1,8 @@
 package ldt.springframework.tigibusiness.domain;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 /*
@@ -23,8 +25,9 @@ public class AbstractDomainEntity implements DomainObject{
     @Version
     private Integer version;
 
-    private Date dateCreated;
-    private Date lastUpdated;
+    private LocalDate dateCreated;
+
+    private LocalDate lastUpdated;
 
 
     // =======================================
@@ -49,20 +52,20 @@ public class AbstractDomainEntity implements DomainObject{
         this.version = version;
     }
 
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
-    public Date getLastUpdated() {
+    public LocalDate getLastUpdated() {
         return lastUpdated;
     }
 
     @PreUpdate
     @PrePersist
     public void updateTimeStamps() {
-        lastUpdated = new Date();
+        lastUpdated = LocalDate.now();
         if (dateCreated==null) {
-            dateCreated = new Date();
+            dateCreated = LocalDate.now();
         }
     }
 }

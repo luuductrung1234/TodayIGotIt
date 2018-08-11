@@ -1,15 +1,18 @@
 package ldt.springframework.tigirestapi.rest;
 
 import io.swagger.annotations.Api;
-import ldt.springframework.tigibusiness.commands.statistic.CourseBuy;
-import ldt.springframework.tigibusiness.commands.statistic.CourseRate;
-import ldt.springframework.tigibusiness.domain.Course;
-import ldt.springframework.tigibusiness.domain.CourseOwner;
+import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
+import ldt.springframework.tigibusiness.commands.statistic.*;
+import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import ldt.springframework.tigibusiness.services.CourseOwnerService;
 import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigibusiness.services.OrderService;
+import ldt.springframework.tigibusiness.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,6 +44,15 @@ public class StatisticRestController {
 
     @Autowired
     CourseOwnerService courseOwnerService;
+
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    RoleService roleService;
+
+    @Autowired
+    UserFormConverter userFormConverter;
 
 
     // =======================================
@@ -98,6 +110,77 @@ public class StatisticRestController {
 
         return courseSortByRate(courseRates).subList(0, 10);
     }
+
+
+    @GetMapping(value = "/statistic/receipt/day/{modify}")
+    public List<ReceiptByDay> totalReceiptByDay(@PathVariable("modify") int modify){
+        return orderService.receiptByDay(modify);
+    }
+
+    @GetMapping(value = "/statistic/receipt/month")
+    public List<ReceiptByMonth> totalReceiptByMonth(@PathVariable("modify") int modify){
+        return orderService.receiptByMonth(modify);
+    }
+
+    @GetMapping(value = "/statistic/receipt/year")
+    public List<ReceiptByYear> totalReceiptByYear(@PathVariable("modify") int modify){
+        return orderService.receiptByYear(modify);
+    }
+
+
+    @GetMapping(value = "/statistic/instructor/most/buy")
+    public List<InstructorBuy> instructorMostBuy(){
+        Role role = roleService.findFirstByType(RoleType.TEACHER);
+
+        List<InstructorBuy> instructorBuys = new ArrayList<>();
+        for (User instructor:
+             role.getUsers()) {
+
+            Integer buyCount = 0;
+            for (CourseOwner courseOwner :
+                 instructor.getCourseOwners()) {
+                buyCount += courseOwner.getCourse().getBuyCount();
+            }
+
+            instructorBuys.add(new InstructorBuy(buyCount, userFormConverter.revertToFewInfo(instructor)));
+        }
+
+        // TODO : sort
+
+        return instructorBuys;
+    }
+
+
+    @GetMapping(value = "/statistic/student/most/buy")
+    public List<StudentBuy> studentMostBuy(){
+        Role role = roleService.findFirstByType(RoleType.STUDENT);
+
+        List<StudentBuy> studentBuys = new ArrayList<>();
+        for (User student:
+                role.getUsers()) {
+
+            Integer buyCount = 0;
+            for (Order order :
+                    student.getOrders()) {
+                for (OrderDetails orderDetails:
+                     order.getOrderDetails()) {
+                    buyCount += orderDetails.getQuantity();
+                }
+            }
+
+            studentBuys.add(new StudentBuy(buyCount, userFormConverter.revertToFewInfo(student)));
+        }
+
+        // TODO : sort
+
+        return studentBuys;
+    }
+
+
+
+    // =======================================
+    // =          Business Methods           =
+    // =======================================
 
     private List<CourseRate> courseSortByRate(List<CourseRate> courseRates){
         Collections.sort(courseRates, new Comparator() {

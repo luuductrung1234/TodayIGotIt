@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository.data;
 
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

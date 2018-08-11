@@ -800,6 +800,8 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         List<User> users = (List<User>) userService.listAll();
         List<Course> courses = (List<Course>) courseService.listAll();
 
+
+
         users.get(0).addOrders(new Order(users.get(0),
                         users.get(0).getCustomer().getShippingAddress(),
                         new Date(),

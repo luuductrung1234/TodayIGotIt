@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository;
 
 import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.RoleType;
 
 /*
  * author: Luu Duc Trung
@@ -11,4 +12,5 @@ import ldt.springframework.tigibusiness.domain.security.Role;
 
 
 public interface RoleRepository extends CRUDRepository<Role>{
+    Role findFirstByType(RoleType roleType);
 }

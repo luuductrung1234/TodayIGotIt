@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.jparepository;
 
 import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import ldt.springframework.tigibusiness.repository.RoleRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -71,5 +72,10 @@ public class RoleRepositoryJpaDAOImpl extends AbstractJpaDAORepository
         }
 
         em.close();
+    }
+
+    @Override
+    public Role findFirstByType(RoleType roleType) {
+        return null;
     }
 }

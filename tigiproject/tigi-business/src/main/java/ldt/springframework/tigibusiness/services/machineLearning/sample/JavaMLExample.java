@@ -7,6 +7,9 @@ import opennlp.tools.util.Span;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -87,5 +90,10 @@ public class JavaMLExample {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+        LocalDate defaultDate = LocalDate.now();
+        System.out.println(defaultDate.getDayOfMonth());
+        System.out.println(defaultDate.getMonth().plus(-1));
+        System.out.println(defaultDate.getYear());
     }
 }
