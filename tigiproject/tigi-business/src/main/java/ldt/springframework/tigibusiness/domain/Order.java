@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "order_table")
+@Table(name = "OrderTable")
 public class Order  extends AbstractDomainEntity{
 
     // =======================================

@@ -2,20 +2,15 @@ package ldt.springframework.tigirestapi.bootstrap;
 
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.domain.security.Role;
-import ldt.springframework.tigibusiness.enums.OrderStatus;
-import ldt.springframework.tigibusiness.enums.OwerType;
-import ldt.springframework.tigibusiness.enums.ResourceType;
-import ldt.springframework.tigibusiness.enums.RoleType;
-import ldt.springframework.tigibusiness.services.CourseService;
-import ldt.springframework.tigibusiness.services.LearnTrackingService;
-import ldt.springframework.tigibusiness.services.RoleService;
-import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigibusiness.enums.*;
+import ldt.springframework.tigibusiness.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +47,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
     @Autowired
     private LearnTrackingService learnTrackingService;
 
+    @Autowired
+    private TagTrackingService tagTrackingService;
+
 
     // =======================================
     // =          Business Methods           =
@@ -59,6 +57,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        this.loadTagTrack();
         this.loadCourse();
         this.loadUser();
         this.loadCurrentCart();
@@ -68,12 +67,27 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         this.assignUsersToDefaultRole();
     }
 
+    private void loadTagTrack(){
+        TagName[] tagNames = TagName.values();
+
+        for (int i = 0; i < tagNames.length; i++){
+            TagTracking tagTracking = new TagTracking(tagNames[i].name(), 0);
+            tagTrackingService.saveOrUpdate(tagTracking);
+        }
+    }
+
     private void loadCourse() {
+        List<TagTracking> tagTrackings = (List<TagTracking>) tagTrackingService.listAll();
+
+
         Course course1 = new Course();
         course1.setDescription("C# Fundamentals");
         course1.setPrice(new BigDecimal("12.99"));
         course1.setImageUrl("static/images/img1.png");
         course1.setMediaPath("static/videos/tut1.mp4");
+        course1.setViewCount(0);
+        course1.setBuyCount(0);
+        course1.addCourseTag(new CourseTag(tagTrackings.get(1)));
         course1.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -111,6 +125,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course2.setPrice(new BigDecimal("9.99"));
         course2.setImageUrl("static/images/img2.jpg");
         course2.setMediaPath("static/videos/tut2.mp4");
+        course2.setViewCount(0);
+        course2.setBuyCount(0);
+        course2.addCourseTag(new CourseTag(tagTrackings.get(0)));
         course2.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Java Components"))
                 .addCourseDetails(new CourseDetails(3, "Details"))
@@ -147,6 +164,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course3.setPrice(new BigDecimal("10.09"));
         course3.setImageUrl("static/images/img3.png");
         course3.setMediaPath("static/videos/tut3.mp4");
+        course3.setViewCount(0);
+        course3.setBuyCount(0);
+        course3.addCourseTag(new CourseTag(tagTrackings.get(2)));
         course3.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -183,6 +203,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course4.setPrice(new BigDecimal("34.99"));
         course4.setImageUrl("static/images/img4.jpeg");
         course4.setMediaPath("static/videos/tut4.mp4");
+        course4.setViewCount(0);
+        course4.setBuyCount(0);
+        course4.addCourseTag(new CourseTag(tagTrackings.get(5)));
         course4.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic HTML"))
                 .addCourseDetails(new CourseDetails(3, "Basic CSS"))
@@ -219,6 +242,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course5.setPrice(new BigDecimal("14.08"));
         course5.setImageUrl("static/images/img5.jpg");
         course5.setMediaPath("static/videos/tut5.mp4");
+        course5.setViewCount(0);
+        course5.setBuyCount(0);
+        course5.addCourseTag(new CourseTag(tagTrackings.get(28)));
         course5.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -255,6 +281,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course6.setPrice(new BigDecimal("20.05"));
         course6.setImageUrl("static/images/img6.jpg");
         course6.setMediaPath("static/videos/tut6.mp4");
+        course6.setViewCount(0);
+        course6.setBuyCount(0);
+        course6.addCourseTag(new CourseTag(tagTrackings.get(4)));
         course6.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -291,6 +320,10 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course7.setPrice(new BigDecimal("19.99"));
         course7.setImageUrl("static/images/img7.png");
         course7.setMediaPath("static/videos/tut6.mp4");
+        course7.setViewCount(0);
+        course7.setBuyCount(0);
+        course7.addCourseTag(new CourseTag(tagTrackings.get(27)))
+                .addCourseTag(new CourseTag(tagTrackings.get(0)));
         course7.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -327,6 +360,10 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course8.setPrice(new BigDecimal("19.99"));
         course8.setImageUrl("static/images/img8.jpg");
         course8.setMediaPath("static/videos/tut6.mp4");
+        course8.setViewCount(0);
+        course8.setBuyCount(0);
+        course8.addCourseTag(new CourseTag(tagTrackings.get(24)))
+                .addCourseTag(new CourseTag(tagTrackings.get(2)));
         course8.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -363,6 +400,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course9.setPrice(new BigDecimal("20.05"));
         course9.setImageUrl("static/images/img9.png");
         course9.setMediaPath("static/videos/tut6.mp4");
+        course9.setViewCount(0);
+        course9.setBuyCount(0);
+        course9.addCourseTag(new CourseTag(tagTrackings.get(25)))
+                .addCourseTag(new CourseTag(tagTrackings.get(26)))
+                .addCourseTag(new CourseTag(tagTrackings.get(2)));
         course9.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -399,6 +441,10 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course10.setPrice(new BigDecimal("10.50"));
         course10.setImageUrl("static/images/img10.png");
         course10.setMediaPath("static/videos/tut6.mp4");
+        course10.setViewCount(0);
+        course10.setBuyCount(0);
+        course10.addCourseTag(new CourseTag(tagTrackings.get(23)))
+                .addCourseTag(new CourseTag(tagTrackings.get(2)));
         course10.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -435,6 +481,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course11.setPrice(new BigDecimal("2.05"));
         course11.setImageUrl("static/images/img11.png");
         course11.setMediaPath("static/videos/tut6.mp4");
+        course11.setViewCount(0);
+        course11.setBuyCount(0);
+        course11.addCourseTag(new CourseTag(tagTrackings.get(5)))
+                .addCourseTag(new CourseTag(tagTrackings.get(19)))
+                .addCourseTag(new CourseTag(tagTrackings.get(18)));
         course11.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -471,6 +522,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course12.setPrice(new BigDecimal("10.99"));
         course12.setImageUrl("static/images/img12.jpeg");
         course12.setMediaPath("static/videos/tut6.mp4");
+        course12.setViewCount(0);
+        course12.setBuyCount(0);
+        course12.addCourseTag(new CourseTag(tagTrackings.get(14)))
+                .addCourseTag(new CourseTag(tagTrackings.get(15)))
+                .addCourseTag(new CourseTag(tagTrackings.get(17)));
         course12.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -507,6 +563,12 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course13.setPrice(new BigDecimal("90.50"));
         course13.setImageUrl("static/images/img13.png");
         course13.setMediaPath("static/videos/tut6.mp4");
+        course13.setViewCount(0);
+        course13.setBuyCount(0);
+        course13.addCourseTag(new CourseTag(tagTrackings.get(13)))
+                .addCourseTag(new CourseTag(tagTrackings.get(14)))
+                .addCourseTag(new CourseTag(tagTrackings.get(15)))
+                .addCourseTag(new CourseTag(tagTrackings.get(16)));
         course13.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -543,6 +605,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course14.setPrice(new BigDecimal("199.99"));
         course14.setImageUrl("static/images/img14.png");
         course14.setMediaPath("static/videos/tut6.mp4");
+        course14.setViewCount(0);
+        course14.setBuyCount(0);
+        course14.addCourseTag(new CourseTag(tagTrackings.get(8)))
+                .addCourseTag(new CourseTag(tagTrackings.get(9)))
+                .addCourseTag(new CourseTag(tagTrackings.get(33)));
         course14.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))
@@ -579,6 +646,11 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         course15.setPrice(new BigDecimal("9.99"));
         course15.setImageUrl("static/images/img15.png");
         course15.setMediaPath("static/videos/tut6.mp4");
+        course15.setViewCount(0);
+        course15.setBuyCount(0);
+        course15.addCourseTag(new CourseTag(tagTrackings.get(8)))
+                .addCourseTag(new CourseTag(tagTrackings.get(9)))
+                .addCourseTag(new CourseTag(tagTrackings.get(12)));
         course15.addCourseDetails(new CourseDetails(1, "Introduction"))
                 .addCourseDetails(new CourseDetails(2, "Basic Concept"))
                 .addCourseDetails(new CourseDetails(3, "Types"))

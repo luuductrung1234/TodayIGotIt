@@ -80,6 +80,11 @@ public class UserServiceJpaDAOImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
+        return userRepository.findAllByCustomerFirstNameOrCustomerLastName(firstName, lastName);
+    }
+
+    @Override
     public void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser) {
         // there is a login action
         request.getSession().setAttribute("curUser", loginUser);

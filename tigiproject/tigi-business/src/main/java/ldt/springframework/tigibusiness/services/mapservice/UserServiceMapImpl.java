@@ -76,7 +76,10 @@ public class UserServiceMapImpl extends AbstractMapService
         return (User) returnUser.get();
     }
 
-
+    @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
+        return null;
+    }
 
 
     @Override

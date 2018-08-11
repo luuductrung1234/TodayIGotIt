@@ -96,13 +96,18 @@
             <version>2.7.0</version>
         </dependency>
 
-
+        
+        <!-- Machine Learning -->
         <dependency>
             <groupId>nz.ac.waikato.cms.weka</groupId>
             <artifactId>weka-stable</artifactId>
             <version>3.8.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>1.9.0</version>
+        </dependency>
     </dependencies>
 
     <build>

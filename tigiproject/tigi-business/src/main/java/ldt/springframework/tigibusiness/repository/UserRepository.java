@@ -18,4 +18,6 @@ public interface UserRepository extends CRUDRepository<User>{
     User checkUsernamePassword(String usermame, String password);
 
     User findByUserName(String username);
+
+    List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName);
 }

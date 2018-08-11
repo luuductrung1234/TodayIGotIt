@@ -1,10 +1,14 @@
 package ldt.springframework.tigibusiness.commands;
 
+import ldt.springframework.tigibusiness.domain.CourseTag;
+import ldt.springframework.tigibusiness.domain.TagTracking;
+import ldt.springframework.tigibusiness.enums.TagName;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /*
  * author: Luu Duc Trung
@@ -26,6 +30,11 @@ public class CourseForm {
     @NotEmpty
     private String description;
 
+    private Integer buyCount;
+
+    private Integer viewCount;
+
+    private List<CourseTag> courseTags;
 
     @NotEmpty
     @Min(1)
@@ -91,5 +100,29 @@ public class CourseForm {
 
     public void setMediaPath(String mediaPath) {
         this.mediaPath = mediaPath;
+    }
+
+    public Integer getBuyCount() {
+        return buyCount;
+    }
+
+    public void setBuyCount(Integer buyCount) {
+        this.buyCount = buyCount;
+    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public List<CourseTag> getCourseTags() {
+        return courseTags;
+    }
+
+    public void setCourseTags(List<CourseTag> courseTags) {
+        this.courseTags = courseTags;
     }
 }

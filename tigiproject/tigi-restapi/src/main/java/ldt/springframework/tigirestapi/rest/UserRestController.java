@@ -144,6 +144,7 @@ public class UserRestController {
         return curUser.getCart();
     }
 
+
     @ApiOperation(value = "Show orders history of current login user", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved resource"),
