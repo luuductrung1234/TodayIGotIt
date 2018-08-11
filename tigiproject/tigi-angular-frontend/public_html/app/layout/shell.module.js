@@ -37,6 +37,10 @@
                     templateUrl: "app/guest/course/learn/course.learn.html",
                     controller: "CourseLearn"
                 })
+                .when("/search/:filter", {
+                    templateUrl: "app/guest/search/search.html",
+                    controller: "Search"
+                })
                 .when("/admin/home", {
                     templateUrl: "app/admin/home/home.html",
                     controller: "AdminHome"
