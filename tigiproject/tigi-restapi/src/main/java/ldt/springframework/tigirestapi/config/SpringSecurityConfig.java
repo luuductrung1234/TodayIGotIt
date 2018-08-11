@@ -177,6 +177,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void configAuthAccessRestResource(HttpSecurity http) throws  Exception{
         http.cors()
+                // Statistic
+                .and().authorizeRequests().antMatchers("/api/statistic/course/buy").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/course/most/buy").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/course/rate").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/course/most/rate").hasAnyAuthority(RoleType.ADMIN.name())
+
                 // Course API
                 .and().authorizeRequests().antMatchers("/api/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())
                 .and().authorizeRequests().antMatchers("/api/course/*/resources").authenticated()
@@ -201,6 +207,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/api/user/order/checkout").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/order/buynow/**").authenticated()
                 .and().authorizeRequests().antMatchers("/api/user/order/pay").authenticated();
+
+
 
     }
 }
