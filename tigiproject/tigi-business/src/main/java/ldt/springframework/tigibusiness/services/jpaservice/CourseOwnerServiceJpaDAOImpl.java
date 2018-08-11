@@ -64,6 +64,8 @@ public class CourseOwnerServiceJpaDAOImpl implements CourseOwnerService {
             }
         }
 
+        if (count == 0)
+            return 0f;
         avg /= count;
         return avg;
     }

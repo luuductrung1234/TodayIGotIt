@@ -65,6 +65,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         this.loadRoles();
         this.loadOwnedCourse();
         this.assignUsersToDefaultRole();
+        this.loadCourseBuyCount();
     }
 
     private void loadTagTrack(){
@@ -943,6 +944,32 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(13), 0f, "", ""));
         users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(14), 0f, "", ""));
         userService.saveOrUpdate(users.get(4));
+    }
+
+    private void loadCourseBuyCount(){
+        List<Course> courses = (List<Course>) courseService.listAll();
+
+        courses.get(2).setBuyCount(courses.get(2).getBuyCount() + 3);
+        courseService.saveOrUpdate(courses.get(2));
+
+        courses.get(1).setBuyCount(courses.get(1).getBuyCount() + 3);
+        courseService.saveOrUpdate(courses.get(1));
+
+        courses.get(3).setBuyCount(courses.get(3).getBuyCount() + 2);
+        courseService.saveOrUpdate(courses.get(3));
+
+        courses.get(4).setBuyCount(courses.get(4).getBuyCount() + 3);
+        courseService.saveOrUpdate(courses.get(4));
+
+        courses.get(0).setBuyCount(courses.get(0).getBuyCount() + 1);
+        courseService.saveOrUpdate(courses.get(0));
+
+        courses.get(5).setBuyCount(courses.get(5).getBuyCount() + 1);
+        courseService.saveOrUpdate(courses.get(5));
+
+        courses.get(8).setBuyCount(courses.get(8).getBuyCount() + 1);
+        courseService.saveOrUpdate(courses.get(8));
+
     }
 
     private void loadRoles(){

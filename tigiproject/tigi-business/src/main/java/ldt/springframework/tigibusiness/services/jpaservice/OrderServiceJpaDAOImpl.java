@@ -4,6 +4,7 @@ import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.repository.OrderRepository;
 import ldt.springframework.tigibusiness.services.CartService;
+import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigibusiness.services.OrderService;
 import ldt.springframework.tigibusiness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class OrderServiceJpaDAOImpl
 
     @Autowired
     CartService cartService;
+
+    @Autowired
+    CourseService courseService;
 
 
     // =======================================
@@ -144,6 +148,7 @@ public class OrderServiceJpaDAOImpl
 
             // TODO : Check increase buy count
             orderDetails.getCourse().setBuyCount(orderDetails.getCourse().getBuyCount() + 1);
+            orderDetails.setCourse(courseService.saveOrUpdate(orderDetails.getCourse()));
         }
 
         if (isSinglePay) {

@@ -13,6 +13,7 @@ import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.services.CourseService;
 import ldt.springframework.tigibusiness.services.UserService;
 import ldt.springframework.tigibusiness.services.machineLearning.NlpManchineLearningService;
@@ -134,8 +135,10 @@ public class SearchRestController {
             // TODO : Merge Instuctor's Course to Courses result
             for (User instructor : instructors) {
                 for (CourseOwner courseOwner : instructor.getCourseOwners()) {
-                    if(!courses.contains(courseOwner.getCourse())){
-                        courses.add(courseOwner.getCourse());
+                    if(courseOwner.getOwerType().equals(OwerType.CREATE)){
+                        if(!courses.contains(courseOwner.getCourse())){
+                            courses.add(courseOwner.getCourse());
+                        }
                     }
                 }
             }
