@@ -93,6 +93,11 @@ h6,
     background-color: #444444;
 }
 
+.jumbotron .hh {
+    text-align: center;
+    margin: 0;
+}
+
 .jumbotron .h1,
 .jumbotron h1 {
     color: inherit
@@ -429,6 +434,7 @@ h6,
 }
 
 .admin-ctrl {
+    flex: 1;
     color: white;
     background-color: #444444;
     margin: auto 4.1666666666667%;
@@ -508,5 +514,46 @@ h6,
     to {
         bottom: 0;
         opacity: 0;
+    }
+}
+
+
+/* .card-fit-3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 4.16666666667%;
+    margin-right: 4.16666666667%;
+} */
+
+.loading-circle {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    border: 6px solid #fefefe;
+    border-radius: 50%;
+    border-top: 6px solid #17a2b8;
+    border-bottom: 6px solid #17a2b8;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    z-index: 10000;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

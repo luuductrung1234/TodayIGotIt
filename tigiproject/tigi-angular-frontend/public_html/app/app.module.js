@@ -11,6 +11,7 @@
             "app.course.user",
             "app.course.learn",
             "app.cart",
+            "app.search",
             "app.admin.home",
             "app.admin.course",
             "app.admin.instructor",

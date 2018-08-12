@@ -51,6 +51,10 @@ img.avatar {
     width: 50%;
 }
 
+.login-model .modal-content {
+    width: 30%;
+}
+
 .main-container {
     position: relative;
     border-top-left-radius: 15px;
@@ -198,6 +202,11 @@ img.avatar {
     margin: auto;
     padding: 0 50px;
     margin-top: 6px;
+}
+
+.col-df {
+    padding: 0;
+    margin: 0;
 }
 
 

@@ -6,16 +6,16 @@
             }
 
             function searchSth(filter) {
-                var url = serverUrl + "search";
+                var url = serverUrl + "search?filter=" + filter;
 
                 var deferred = $q.defer();
 
-                $http.post(url, filter)
+                $http.post(url)
                     .success(function(response) {
                         deferred.resolve(response);
                     })
-                    .error(function(err) {
-                        deferred.reject(err);
+                    .error(function(error) {
+                        deferred.reject(error);
                     });
 
                 return deferred.promise;

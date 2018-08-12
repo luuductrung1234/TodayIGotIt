@@ -42,7 +42,12 @@
             $rootScope.$on("LearnActivated", function(event) {
                 angular.element('#topnav').css('display', 'none');
                 angular.element('#footer').css('display', 'none');
-            })
+            });
+
+            $scope.searchAction = function() {
+                $window.location.href = "#/search/" + $scope.filter;
+                // $rootScope.$emit('SearchAction', $scope.filter);
+            }
 
             $scope.signinAction = function() {
                 let deferred = $q.defer();
@@ -208,7 +213,7 @@
                                 if (scope.$root.curLogin != null) {
                                     $(elem).removeClass('show');
                                 } else {
-
+                                    alert("Something went wrong! Please try again!");
                                 }
                             }, function(err) {
                                 console.log("Error: " + err);
@@ -227,7 +232,7 @@
                                 if (scope.$root.curLogin != null) {
                                     $(elem).removeClass('show');
                                 } else {
-
+                                    alert("Something went wrong! Please try again!");
                                 }
                             }, function(err) {
                                 console.log("Error: " + err);
@@ -235,5 +240,22 @@
                     })
                 }
             }
-        });
+        })
+        .directive('loading', ['$http', function($http) {
+            return {
+                restrict: 'A',
+                link: function(scope, elm, attrs) {
+                    scope.isLoading = function() {
+                        return $http.pendingRequests.length > 0;
+                    };
+                    scope.$watch(scope.isLoading, function(v) {
+                        if (v) {
+                            elm.show();
+                        } else {
+                            elm.hide();
+                        }
+                    });
+                }
+            };
+        }]);
 })();
