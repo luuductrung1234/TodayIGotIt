@@ -182,6 +182,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/api/statistic/course/most/buy").hasAnyAuthority(RoleType.ADMIN.name())
                 .and().authorizeRequests().antMatchers("/api/statistic/course/rate").hasAnyAuthority(RoleType.ADMIN.name())
                 .and().authorizeRequests().antMatchers("/api/statistic/course/most/rate").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/receipt/day/**").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/receipt/month/**").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/receipt/year/**").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/instructor/most/buy").hasAnyAuthority(RoleType.ADMIN.name())
+                .and().authorizeRequests().antMatchers("/api/statistic/student/most/buy").hasAnyAuthority(RoleType.ADMIN.name())
 
                 // Course API
                 .and().authorizeRequests().antMatchers("/api/course/new").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.TEACHER.name())

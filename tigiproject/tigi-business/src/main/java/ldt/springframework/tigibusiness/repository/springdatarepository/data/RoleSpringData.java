@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository.data;
 
 import ldt.springframework.tigibusiness.domain.security.Role;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import org.springframework.data.repository.CrudRepository;
 
 /*
@@ -10,4 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * 7/25/18
  */
 public interface RoleSpringData extends CrudRepository<Role, Integer> {
+
+    Role findFirstByType(RoleType roleType);
 }

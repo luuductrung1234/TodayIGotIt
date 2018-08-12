@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +59,11 @@ public class OrderRepositorySpringDataImpl implements OrderRepository {
     @Override
     public void delete(Integer id) {
         orderSpringData.deleteById(id);
+    }
+
+
+    @Override
+    public List<Order> findAllBetweenDays(LocalDate dayBefore, LocalDate dayAfter) {
+        return orderSpringData.findAllByDateCreatedAfterAndDateCreatedBefore(dayBefore, dayAfter);
     }
 }

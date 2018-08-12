@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 /*
@@ -72,5 +74,11 @@ public class OrderRepositoryJpaDAOImpl extends AbstractJpaDAORepository
         }
 
         em.close();
+    }
+
+
+    @Override
+    public List<Order> findAllBetweenDays(LocalDate dayBefore, LocalDate dayAfter) {
+        return null;
     }
 }
