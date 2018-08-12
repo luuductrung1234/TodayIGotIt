@@ -5,12 +5,12 @@
             $scope.courseImage = null;
 
             $scope.$on('$viewContentLoaded', function() {
-                CourseSvc.findAllCourse()
-                    .then(function(response) {
-                        $scope.courses = response;
-                    }, function(err) {
-                        console.log("Error: " + err);
-                    });
+                // CourseSvc.findAllCourse()
+                //     .then(function(response) {
+                //         $scope.courses = response;
+                //     }, function(err) {
+                //         console.log("Error: " + err);
+                //     });
             });
 
             $scope.getCourseImage = function(curId) {

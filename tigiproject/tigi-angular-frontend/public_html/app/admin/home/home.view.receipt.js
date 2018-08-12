@@ -1,18 +1,18 @@
 (function() {
     angular.module("app.admin.home")
-        .directive("statisticCourseBuy", function() {
+        .directive("statisticReceipt", function() {
             return {
                 restrict: "AE",
                 replace: true,
                 scope: {
-                    dpmostbuy: "="
+                    dpreceipt: "="
                 },
-                template: "<div class='col col-df'></div>",
+                template: "<div class='col col-df' style='width: 90%'></div>",
                 link: linkFn
             }
 
             function linkFn(scope, elem, attrs) {
-                var optionCourseMostBuy = {
+                var optionReceipt = {
                     chart: {
                         backgroundColor: {
                             linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
@@ -21,11 +21,11 @@
                                 [1, '#333333']
                             ]
                         },
-                        zoomType: 'xy'
-                            // type: 'line'
+                        zoomType: 'xy',
+                        type: 'line'
                     },
                     title: {
-                        text: 'Most Buy',
+                        text: 'Receipt',
                         style: {
                             color: '#E0E0E3',
                             fontFamily: '\'Quicksand\''
@@ -44,13 +44,12 @@
                         lineColor: '#707073',
                         minorGridLineColor: '#505053',
                         tickColor: '#707073',
-                        title: {
-                            text: 'Course(s)',
-                            style: {
-                                color: '#A0A0A3'
-
-                            }
-                        },
+                        // title: {
+                        //     text: '(s)',
+                        //     style: {
+                        //         color: '#A0A0A3'
+                        //     }
+                        // },
                         categories: [],
                         crosshair: true
                     },
@@ -61,7 +60,7 @@
                         tickColor: '#707073',
                         tickWidth: 1,
                         title: {
-                            text: 'Total Buy',
+                            text: 'Total ($)',
                             style: {
                                 color: '#A0A0A3'
                             }
@@ -116,39 +115,48 @@
                         }
                     },
                     series: [{
-                        name: 'Total Buy',
-                        type: 'column',
+                        name: 'Total Receipt',
                         data: []
                     }]
                 }
 
-                scope.$watch('dpmostbuy', onDPmostbuyChange);
+                scope.$watch('dpreceipt', onDPreceiptChange);
 
-                function onDPmostbuyChange(newDPmostbuy) {
-                    if (newDPmostbuy) {
-                        initOptionsCourseMostBuy(newDPmostbuy);
+                function onDPreceiptChange(newDPreceipt) {
+                    if (newDPreceipt) {
+                        initOptionsReceipt(newDPreceipt);
                     }
                 }
 
-                function initOptionsCourseMostBuy(dpmostbuy) {
-                    if (dpmostbuy.length != 0) {
-                        var data;
-                        var courseNames = [];
-                        var buyCounts = [];
+                function initOptionsReceipt(dpreceipt) {
+                    var data;
+                    var totalAmounts = [];
+                    var units = [];
 
-                        dpmostbuy.forEach(item => {
-                            courseNames.push(item.courseName);
-                            buyCounts.push(item.buyCount);
+                    if (scope.$parent.receiptType === 'day') {
+                        dpreceipt.forEach(item => {
+                            totalAmounts.push(item.totalAmount);
+                            units.push(item.day);
                         });
-
-                        optionCourseMostBuy.xAxis.categories = courseNames;
-                        optionCourseMostBuy.series[0].data = buyCounts;
-                        render();
+                    } else if (scope.$parent.receiptType === 'month') {
+                        dpreceipt.forEach(item => {
+                            totalAmounts.push(item.totalAmount);
+                            units.push(item.month);
+                        });
+                    } else if (scope.$parent.receiptType === 'year') {
+                        dpreceipt.forEach(item => {
+                            totalAmounts.push(item.totalAmount);
+                            units.push(item.year);
+                        });
                     }
+
+                    optionReceipt.xAxis.categories = units;
+                    optionReceipt.series[0].data = totalAmounts;
+                    render();
                 }
 
                 function render() {
-                    elem.highcharts(optionCourseMostBuy);
+                    elem.highcharts(optionReceipt);
                 }
             }
         });

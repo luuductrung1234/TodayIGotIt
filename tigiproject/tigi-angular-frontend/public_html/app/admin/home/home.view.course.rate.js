@@ -27,7 +27,8 @@
                     title: {
                         text: 'Most Rate',
                         style: {
-                            color: '#E0E0E3'
+                            color: '#E0E0E3',
+                            fontFamily: '\'Quicksand\''
                         }
                     },
                     // subtitle: {

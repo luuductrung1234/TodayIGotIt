@@ -1,4 +1,4 @@
-<div>
+<div ng-init="modify=0">
     <section class="jumbotron">
         <div class="container">
             <h1 style="text-align: center; margin: 0 auto 2% auto;">Manage
@@ -38,6 +38,16 @@
 
     <section class="jumbotron">
         <h2 class="hh">Receipt</h2>
+        <select ng-model="receiptType" ng-change="changeReceipt()" class="c-cbo mr-pd-input-df">
+            <option value="day" selected>Day</option>
+            <option value="month">Month</option>
+            <option value="year">Year</option>
+        </select>
+        <div class="row">
+            <div class="col col-df" style="width: 5%;"><span class="fas fa-angle-left fa-fw" ng-click="receiptPrev(-1)"></span></div>
+            <statistic-receipt dpreceipt="receipt"></statistic-receipt>
+            <div class="col col-df" style="width: 5%;"><span class="fas fa-angle-right fa-fw" ng-click="receiptNext(1)"></span></div>
+        </div>
     </section>
 
     <script>
