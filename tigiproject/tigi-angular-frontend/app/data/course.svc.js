@@ -12,6 +12,7 @@
                 getAllResources: getAllResources,
                 getResourceVideo: getResourceVideo,
                 getResourceFile: getResourceFile,
+                getMyCourses: getMyCourses,
                 // getCurInstructor: getCurInstructor,
             }
 
@@ -200,6 +201,30 @@
                     })
                     .error(function(error) {
                         deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getMyCourses(username, password) {
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "user/info/courses";
+
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .success(function(response) {
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        deferred.reject(err);
                     });
 
                 return deferred.promise;
