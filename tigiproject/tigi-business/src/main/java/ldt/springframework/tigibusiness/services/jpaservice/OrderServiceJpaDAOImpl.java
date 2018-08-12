@@ -6,10 +6,7 @@ import ldt.springframework.tigibusiness.commands.statistic.ReceiptByYear;
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.enums.OwerType;
 import ldt.springframework.tigibusiness.repository.OrderRepository;
-import ldt.springframework.tigibusiness.services.CartService;
-import ldt.springframework.tigibusiness.services.CourseService;
-import ldt.springframework.tigibusiness.services.OrderService;
-import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigibusiness.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -22,6 +19,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /*
  * author: Luu Duc Trung
@@ -50,6 +48,9 @@ public class OrderServiceJpaDAOImpl implements OrderService {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    LearnTrackingService learnTrackingService = new LearnTrackingJpaDAOImpl();
 
 
     // =======================================
@@ -147,26 +148,50 @@ public class OrderServiceJpaDAOImpl implements OrderService {
     }
 
     @Override
-//    @Transactional
-    public void pay(boolean isSinglePay, User curUser, Order newOrder){
-        for (OrderDetails orderDetails : newOrder.getOrderDetails()) {
-            orderDetails.setOrder(newOrder);
-            curUser.addCourseOwer(new CourseOwner(OwerType.BUY, orderDetails.getCourse(), 0f, "", ""));
-
-            // TODO : Check increase buy count
-            orderDetails.getCourse().setBuyCount(orderDetails.getCourse().getBuyCount() + 1);
-            orderDetails.setCourse(courseService.saveOrUpdate(orderDetails.getCourse()));
-        }
-
+    //@Transactional
+    public User pay(boolean isSinglePay, User curUser, Order newOrder){
         if (isSinglePay) {
             curUser.addOrders(newOrder);
-            userService.saveOrUpdate(curUser);
+            updateOrderDetails(newOrder);
+            return  userService.saveOrUpdate(curUser);
         } else {
             curUser.addOrders(newOrder);
             curUser.removeCart(curUser.getCart());
             userService.saveOrUpdate(curUser);
             curUser.setCart(new Cart());
-            userService.saveOrUpdate(curUser);
+            return userService.saveOrUpdate(curUser);
+        }
+    }
+
+    private void updateOrderDetails(Order newOrder){
+
+        for (OrderDetails orderDetails:
+                newOrder.getOrderDetails()) {
+
+            // update Course
+            Course referCourse = orderDetails.getCourse();
+            referCourse.setBuyCount(referCourse.getBuyCount() + 1);
+            referCourse = courseService.saveOrUpdate(referCourse);
+            orderDetails.setCourse(referCourse);
+
+            // create new CourseOwner
+            // TODO : this is just for demo purpose
+            int minimum = 0;
+            int minvalue = 1;
+            int maxValue = 5;
+            Random r = new Random();
+            newOrder.getUser().addCourseOwer(new CourseOwner(OwerType.BUY, referCourse,
+                    (minimum + r.nextInt(maxValue - minvalue + 1)) *1f, "This is an example review!", ""));
+
+            // create LearnTracking for CourseResource to User
+            for (CourseDetails courseDetails : referCourse.getCourseDetails()) {
+                for (CourseResource courseResource :
+                        courseDetails.getCourseResources()) {
+                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+                    learnTracking.setUser(newOrder.getUser());
+                    learnTrackingService.saveOrUpdate(learnTracking);
+                }
+            }
         }
     }
 

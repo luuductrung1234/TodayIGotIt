@@ -10,9 +10,13 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /*
  * author: Luu Duc Trung
@@ -50,6 +54,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
     @Autowired
     private TagTrackingService tagTrackingService;
 
+    @Autowired
+    private OrderService orderService;
+
 
     // =======================================
     // =          Business Methods           =
@@ -63,9 +70,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         this.loadCurrentCart();
         this.loadOrderHistory();
         this.loadRoles();
-        this.loadOwnedCourse();
+        this.loadInstructorOwnedCourse();
         this.assignUsersToDefaultRole();
-        this.loadCourseBuyCount();
+        this.loadOrderHistoryDate();
     }
 
     private void loadTagTrack(){
@@ -683,6 +690,56 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
         courseService.saveOrUpdate(course15);
 
+
+        for (int i = 16; i < 200; i++) {
+            int minimum = 1;
+            int minvalue = 1;
+            int maxValue = 100;
+            Random r = new Random();
+
+
+            Course course = new Course();
+            course.setDescription("Random Course " + i);
+            course.setPrice(new BigDecimal((minimum + r.nextInt(maxValue - minvalue + 1)) + ".99"));
+            course.setImageUrl("static/images/img.jpg");
+            course.setMediaPath("static/videos/tut6.mp4");
+            course.setViewCount(0);
+            course.setBuyCount(0);
+            course.addCourseTag(new CourseTag(tagTrackings.get(8)))
+                    .addCourseTag(new CourseTag(tagTrackings.get(9)))
+                    .addCourseTag(new CourseTag(tagTrackings.get(12)));
+            course.addCourseDetails(new CourseDetails(1, "Introduction"))
+                    .addCourseDetails(new CourseDetails(2, "Basic Concept"))
+                    .addCourseDetails(new CourseDetails(3, "Types"))
+                    .addCourseDetails(new CourseDetails(4, "First Console App"))
+                    .addCourseDetails(new CourseDetails(5, "File Manipulation"));
+            course.getCourseDetails()
+                    .get(0)
+                    .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+            course.getCourseDetails()
+                    .get(1)
+                    .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"))
+                    .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(2, "Assign 2", ResourceType.FILE, "static/files/assign.html"));
+            course.getCourseDetails()
+                    .get(2)
+                    .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(1, "Assign 1", ResourceType.FILE, "static/files/assign.html"));
+            course.getCourseDetails()
+                    .get(3)
+                    .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(2, "Video 2", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(3, "Video 3", ResourceType.VIDEO, "static/videos/tut1.mp4"))
+                    .addCourseResources(new CourseResource(4, "Video 4", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+            course.getCourseDetails()
+                    .get(4)
+                    .addCourseResources(new CourseResource(1, "Video 1", ResourceType.VIDEO, "static/videos/tut1.mp4"));
+            courseService.saveOrUpdate(course);
+        }
+
     }
 
     private void loadUser() {
@@ -710,7 +767,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
         User user3 = new User();
         user3.setUsername("dungct");
-        user3.setPassword("ttg");
+        user3.setPassword("123");
         Customer customer3 = new Customer(null, "Dung", "CT",
                 "dungct@gmail.com", "012323774078",
                 new Address("789 DHE p3", "", "Ha Noi", "North", "738382"),
@@ -720,9 +777,9 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
 
         User user4 = new User();
-        user4.setUsername("trananhdung");
+        user4.setUsername("micheal123");
         user4.setPassword("123");
-        Customer customer4 = new Customer(null, "Dung", "Tran",
+        Customer customer4 = new Customer(null, "Micheal", "Jackson",
                 "trananhdung@gmail.com", "023423423134",
                 new Address("133 VKL p4", "", "HCM", "South", "700000"),
                 new Address("444 DDW ltd p4", "", "HCM", "South", "700000"));
@@ -731,7 +788,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
         User user5 = new User();
         user5.setUsername("johndoe");
-        user5.setPassword("aaa");
+        user5.setPassword("123");
         Customer customer5 = new Customer(null, "John", "Doe",
                 "johndoe123@gmail.com", "023423423134",
                 new Address("221 KKA p4", "", "HCM", "South", "700000"),
@@ -748,40 +805,70 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
         user6.setCustomer(customer6);
         userService.saveOrUpdate(user6);
+
+        User user7 = new User();
+        user7.setUsername("jamesjr");
+        user7.setPassword("123");
+        Customer customer7 = new Customer(null, "James", "Johnson",
+                "jamesjr123@gmail.com", "023423423134",
+                new Address("221 KKA p4", "", "HCM", "South", "700000"),
+                new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
+        user7.setCustomer(customer7);
+        userService.saveOrUpdate(user7);
+
+        User user8 = new User();
+        user8.setUsername("skeptify");
+        user8.setPassword("123");
+        Customer customer8 = new Customer(null, "Kyle", "Simon",
+                "skeptify@gmail.com", "023423423134",
+                new Address("221 KKA p4", "", "HCM", "South", "700000"),
+                new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
+        user8.setCustomer(customer8);
+        userService.saveOrUpdate(user8);
+
+        User user9 = new User();
+        user9.setUsername("miraclestuff");
+        user9.setPassword("123");
+        Customer customer9 = new Customer(null, "Kenny", "Doe",
+                "miraclestuff@gmail.com", "023423423134",
+                new Address("221 KKA p4", "", "HCM", "South", "700000"),
+                new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
+        user9.setCustomer(customer9);
+        userService.saveOrUpdate(user9);
     }
 
     private void loadCurrentCart(){
-        List<User> users = (List<User>) userService.listAll();
-        List<Course> courses = (List<Course>) courseService.listAll();
-
-        users.get(0).setCart(new Cart());
-        users.get(0).getCart()
-                .addCartDetail(new CartDetails(1, users.get(0).getCart(), courses.get(10)));
-        users.get(0).getCart()
-                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(9)));
-        users.get(0).getCart()
-                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(7)));
-        userService.saveOrUpdate(users.get(0));
-
-
-        users.get(1).setCart(new Cart());
-        users.get(1).getCart()
-                .addCartDetail(new CartDetails(1, users.get(1).getCart(), courses.get(0)));
-        users.get(1).getCart()
-                .addCartDetail(new CartDetails(4, users.get(1).getCart(), courses.get(7)));
-        users.get(1).getCart()
-                .addCartDetail(new CartDetails(3, users.get(1).getCart(), courses.get(13)));
-        userService.saveOrUpdate(users.get(1));
-
-
-        users.get(2).setCart(new Cart());
-        users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(3)));
-        users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(5)));
-        users.get(2).getCart()
-                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(6)));
-        userService.saveOrUpdate(users.get(2));
+//        List<User> users = (List<User>) userService.listAll();
+//        List<Course> courses = (List<Course>) courseService.listAll();
+//
+//        users.get(0).setCart(new Cart());
+//        users.get(0).getCart()
+//                .addCartDetail(new CartDetails(1, users.get(0).getCart(), courses.get(10)));
+//        users.get(0).getCart()
+//                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(9)));
+//        users.get(0).getCart()
+//                .addCartDetail(new CartDetails(2, users.get(0).getCart(), courses.get(7)));
+//        userService.saveOrUpdate(users.get(0));
+//
+//
+//        users.get(1).setCart(new Cart());
+//        users.get(1).getCart()
+//                .addCartDetail(new CartDetails(1, users.get(1).getCart(), courses.get(0)));
+//        users.get(1).getCart()
+//                .addCartDetail(new CartDetails(4, users.get(1).getCart(), courses.get(7)));
+//        users.get(1).getCart()
+//                .addCartDetail(new CartDetails(3, users.get(1).getCart(), courses.get(13)));
+//        userService.saveOrUpdate(users.get(1));
+//
+//
+//        users.get(2).setCart(new Cart());
+//        users.get(2).getCart()
+//                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(3)));
+//        users.get(2).getCart()
+//                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(5)));
+//        users.get(2).getCart()
+//                .addCartDetail(new CartDetails(2, users.get(2).getCart(), courses.get(6)));
+//        userService.saveOrUpdate(users.get(2));
 
 
 //        users.get(3).setCart(new Cart());
@@ -798,181 +885,108 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
     private void loadOrderHistory(){
         List<User> users = (List<User>) userService.listAll();
-        List<Course> courses = (List<Course>) courseService.listAll();
 
-
-
-        users.get(0).addOrders(new Order(users.get(0),
-                        users.get(0).getCustomer().getShippingAddress(),
-                        new Date(),
-                        OrderStatus.SHIPPED));
-        users.get(0).addOrders(new Order(users.get(0),
-                        users.get(0).getCustomer().getShippingAddress(),
-                        new Date(),
-                        OrderStatus.SHIPPED));
-        users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(0), courses.get(2)));
-        users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(0), courses.get(1)));
-        users.get(0).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(4, users.get(0).getOrders().get(0), courses.get(3)));
-        users.get(0).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(2, users.get(0).getOrders().get(1), courses.get(4)));
-        users.get(0).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(1, users.get(0).getOrders().get(1), courses.get(0)));
-        userService.saveOrUpdate(users.get(0));
-
-
-        users.get(1).addOrders(new Order(users.get(1),
-                        users.get(1).getCustomer().getShippingAddress(),
-                        new Date(),
-                        OrderStatus.SHIPPED));
-        users.get(1).addOrders(new Order(users.get(1),
-                        users.get(1).getCustomer().getShippingAddress(),
-                        new Date(),
-                        OrderStatus.SHIPPED));
-        users.get(1).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), courses.get(5)));
-        users.get(1).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(0), courses.get(2)));
-        users.get(1).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(1).getOrders().get(0), courses.get(1)));
-        users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(6, users.get(1).getOrders().get(1), courses.get(4)));
-        users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(4, users.get(1).getOrders().get(1), courses.get(8)));
-        users.get(1).getOrders().get(1)
-                .addOrderDetails(new OrderDetails(1, users.get(1).getOrders().get(1), courses.get(3)));
-        userService.saveOrUpdate(users.get(1));
-
-
-        users.get(2).addOrders(new Order(users.get(2),
-                        users.get(2).getCustomer().getShippingAddress(),
-                        new Date(),
-                        OrderStatus.SHIPPED));
-        users.get(2).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(2, users.get(2).getOrders().get(0), courses.get(1)));
-        users.get(2).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), courses.get(4)));
-        users.get(2).getOrders().get(0)
-                .addOrderDetails(new OrderDetails(1, users.get(2).getOrders().get(0), courses.get(2)));
-        userService.saveOrUpdate(users.get(2));
+        createUserOrderHistoryRandom(users.get(0), 10, 5);
+        createUserOrderHistoryRandom(users.get(1), 20, 5);
+        createUserOrderHistoryRandom(users.get(2), 20, 5);
     }
 
-    private void loadOwnedCourse(){
+
+    private void loadInstructorOwnedCourse(){
         List<User> users = (List<User>) userService.listAll();
         List<Course> courses  = (List<Course>) courseService.listAll();
 
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Nice course!", ""));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 4f, "Very comprehensive", ""));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 5f, "Thank you for create this course", ""));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 2f, "This course just an introduction course", ""));
-        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(0), 3f, "I expect more real world example", "Thank you for you feed back, we will improve soon"));
-        for (CourseOwner courseOwner :
-            users.get(0).getCourseOwners()){
+//        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Nice course!", ""));
+//        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 4f, "Very comprehensive", ""));
+//        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 5f, "Thank you for create this course", ""));
+//        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 2f, "This course just an introduction course", ""));
+//        users.get(0).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(0), 3f, "I expect more real world example", "Thank you for you feed back, we will improve soon"));
+//        for (CourseOwner courseOwner :
+//            users.get(0).getCourseOwners()){
+//
+//            for (CourseDetails courseDetails:
+//                 courseOwner.getCourse().getCourseDetails()) {
+//
+//                for (CourseResource courseResource:
+//                        courseDetails.getCourseResources()) {
+//                    //users.get(0).addLearnTracking(new LearnTracking(false, 0l, courseResource));
+//                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+//                    learnTracking.setUser(users.get(0));
+//                    learnTrackingService.saveOrUpdate(learnTracking);
+//                }
+//            }
+//        }
+//        userService.saveOrUpdate(users.get(0));
+//
+//        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(5), 0f, "", ""));
+//        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "I will recommend this course for my friend", ""));
+//        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 4.5f, "Good explanation", ""));
+//        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 3f, "This course is good but you accent is too hard to understand", ""));
+//        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(8), 0f, "", ""));
+//        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 0f, "", ""));
+//        for (CourseOwner courseOwner :
+//                users.get(1).getCourseOwners()){
+//
+//            for (CourseDetails courseDetails:
+//                    courseOwner.getCourse().getCourseDetails()) {
+//
+//                for (CourseResource courseResource:
+//                        courseDetails.getCourseResources()) {
+//                    //users.get(1).addLearnTracking(new LearnTracking(false, 0l, courseResource));
+//                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+//                    learnTracking.setUser(users.get(1));
+//                    learnTrackingService.saveOrUpdate(learnTracking);
+//                }
+//            }
+//        }
+//        userService.saveOrUpdate(users.get(1));
+//
+//        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 3f, "This course not complete at all", ""));
+//        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 4.5f, "Well explanation", ""));
+//        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Very engagement", ""));
+//        for (CourseOwner courseOwner :
+//                users.get(2).getCourseOwners()){
+//
+//            for (CourseDetails courseDetails:
+//                    courseOwner.getCourse().getCourseDetails()) {
+//
+//                for (CourseResource courseResource:
+//                        courseDetails.getCourseResources()) {
+//                    //users.get(2).addLearnTracking(new LearnTracking(false, 0l, courseResource));
+//                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
+//                    learnTracking.setUser(users.get(2));
+//                    learnTrackingService.saveOrUpdate(learnTracking);
+//                }
+//            }
+//        }
+//        userService.saveOrUpdate(users.get(2));
 
-            for (CourseDetails courseDetails:
-                 courseOwner.getCourse().getCourseDetails()) {
-
-                for (CourseResource courseResource:
-                        courseDetails.getCourseResources()) {
-                    //users.get(0).addLearnTracking(new LearnTracking(false, 0l, courseResource));
-                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
-                    learnTracking.setUser(users.get(0));
-                    learnTrackingService.saveOrUpdate(learnTracking);
-                }
-            }
+        for(int i = 0; i < 20; i++){
+            users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(i), 0f, "", ""));
         }
-        userService.saveOrUpdate(users.get(0));
-
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(5), 0f, "", ""));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "I will recommend this course for my friend", ""));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 4.5f, "Good explanation", ""));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 3f, "This course is good but you accent is too hard to understand", ""));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(8), 0f, "", ""));
-        users.get(1).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(3), 0f, "", ""));
-        for (CourseOwner courseOwner :
-                users.get(1).getCourseOwners()){
-
-            for (CourseDetails courseDetails:
-                    courseOwner.getCourse().getCourseDetails()) {
-
-                for (CourseResource courseResource:
-                        courseDetails.getCourseResources()) {
-                    //users.get(1).addLearnTracking(new LearnTracking(false, 0l, courseResource));
-                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
-                    learnTracking.setUser(users.get(1));
-                    learnTrackingService.saveOrUpdate(learnTracking);
-                }
-            }
-        }
-        userService.saveOrUpdate(users.get(1));
-
-        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(1), 3f, "This course not complete at all", ""));
-        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(4), 4.5f, "Well explanation", ""));
-        users.get(2).addCourseOwer(new CourseOwner(OwerType.BUY, courses.get(2), 4f, "Very engagement", ""));
-        for (CourseOwner courseOwner :
-                users.get(2).getCourseOwners()){
-
-            for (CourseDetails courseDetails:
-                    courseOwner.getCourse().getCourseDetails()) {
-
-                for (CourseResource courseResource:
-                        courseDetails.getCourseResources()) {
-                    //users.get(2).addLearnTracking(new LearnTracking(false, 0l, courseResource));
-                    LearnTracking learnTracking = new LearnTracking(false, 0l, courseResource);
-                    learnTracking.setUser(users.get(2));
-                    learnTrackingService.saveOrUpdate(learnTracking);
-                }
-            }
-        }
-        userService.saveOrUpdate(users.get(2));
-
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(0), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(1), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(2), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(3), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(4), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(5), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(6), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(7), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(8), 0f, "", ""));
-        users.get(3).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(9), 0f, "", ""));
         userService.saveOrUpdate(users.get(3));
 
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(10), 0f, "", ""));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(11), 0f, "", ""));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(12), 0f, "", ""));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(13), 0f, "", ""));
-        users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(14), 0f, "", ""));
+        for(int i = 20; i < 40; i++){
+            users.get(4).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(i), 0f, "", ""));
+        }
         userService.saveOrUpdate(users.get(4));
+
+        for(int i = 40; i < 60; i++){
+            users.get(6).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(i), 0f, "", ""));
+        }
+        userService.saveOrUpdate(users.get(6));
+
+        for(int i = 60; i < 80; i++){
+            users.get(7).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(i), 0f, "", ""));
+        }
+        userService.saveOrUpdate(users.get(7));
+
+        for(int i = 80; i < 100; i++){
+            users.get(8).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(i), 0f, "", ""));
+        }
+        userService.saveOrUpdate(users.get(8));
     }
 
-    private void loadCourseBuyCount(){
-        List<Course> courses = (List<Course>) courseService.listAll();
-
-        courses.get(2).setBuyCount(courses.get(2).getBuyCount() + 3);
-        courseService.saveOrUpdate(courses.get(2));
-
-        courses.get(1).setBuyCount(courses.get(1).getBuyCount() + 3);
-        courseService.saveOrUpdate(courses.get(1));
-
-        courses.get(3).setBuyCount(courses.get(3).getBuyCount() + 2);
-        courseService.saveOrUpdate(courses.get(3));
-
-        courses.get(4).setBuyCount(courses.get(4).getBuyCount() + 3);
-        courseService.saveOrUpdate(courses.get(4));
-
-        courses.get(0).setBuyCount(courses.get(0).getBuyCount() + 1);
-        courseService.saveOrUpdate(courses.get(0));
-
-        courses.get(5).setBuyCount(courses.get(5).getBuyCount() + 1);
-        courseService.saveOrUpdate(courses.get(5));
-
-        courses.get(8).setBuyCount(courses.get(8).getBuyCount() + 1);
-        courseService.saveOrUpdate(courses.get(8));
-
-    }
 
     private void loadRoles(){
         Role role1 = new Role(RoleType.STUDENT);
@@ -1005,7 +1019,88 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         users.get(4).addRole(roles.get(2));
         userService.saveOrUpdate(users.get(4));
 
+        users.get(6).addRole(roles.get(2));
+        userService.saveOrUpdate(users.get(6));
+        users.get(7).addRole(roles.get(2));
+        userService.saveOrUpdate(users.get(7));
+        users.get(8).addRole(roles.get(2));
+        userService.saveOrUpdate(users.get(8));
+
         users.get(5).addRole(roles.get(1));
         userService.saveOrUpdate(users.get(5));
+    }
+
+    private void loadOrderHistoryDate(){
+        List<Order> orders = (List<Order>) orderService.listAll();
+
+        for (Order order:
+             orders) {
+            int modifyDay = createNextIntegerRandom(-20, 0, 20);
+            int modifyMonth = createNextIntegerRandom(-10, 0, 10);
+            int modifyYear = createNextIntegerRandom(-3, 0, 3);
+            LocalDate orderDate = order.getDateCreated();
+            int day = orderDate.getDayOfMonth() + modifyDay;
+            Month month = orderDate.getMonth().plus(modifyMonth);
+            int year = orderDate.getYear() + modifyYear;
+            if(day == 0 || day < 0){
+                day = 1;
+            }
+            order.setDateCreated(LocalDate.of(year, month, day));
+            orderService.saveOrUpdate(order);
+        }
+    }
+
+
+
+
+
+
+    // =======================================
+    // =           Random Methods            =
+    // =======================================
+
+    private int createNextIntegerRandom(int minimum, int minValue, int maxValue){
+        Random r = new Random();
+        return (minimum + r.nextInt(maxValue - minValue + 1));
+    }
+
+    private void createUserOrderHistoryRandom(User user, int ordersNum, int maxDetailsNum){
+        // 5 Orders this User
+        for(int i = 0; i < ordersNum; i++){
+            Order newOrder = new Order(user,
+                    user.getCustomer().getShippingAddress(),
+                    new Date(),
+                    OrderStatus.SHIPPED);
+
+            // random OrderDetails number
+            for(int j = 0; j < createNextIntegerRandom(1, 1, maxDetailsNum); j++){
+                int courseId = createNextIntegerRandom(1, 1,100);
+
+                // check course
+                if(userService.checkCourseOwned(user, courseId)){
+                    continue;
+                }
+                boolean isOwned = false;
+                for (OrderDetails orderDetails:
+                     newOrder.getOrderDetails()) {
+                    if(orderDetails.getCourse().getId().equals(courseId)){
+                        isOwned = true;
+                        break;
+                    }
+                }
+                if(isOwned)
+                    continue;
+
+
+                Course orderCourse = courseService.getById(courseId);
+                newOrder.addOrderDetails(new OrderDetails(1,
+                        orderCourse));
+            }
+
+            if(newOrder.getOrderDetails().isEmpty())
+                return;
+
+            user = orderService.pay(true, user, newOrder);
+        }
     }
 }

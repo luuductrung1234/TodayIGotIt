@@ -3,6 +3,7 @@ package ldt.springframework.tigibusiness.repository.jparepository;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.repository.CourseRepository;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -75,6 +76,16 @@ public class CourseRepositoryJpaDAOImpl extends AbstractJpaDAORepository
 
     @Override
     public List<Course> findByDesc(String desc) {
+        return null;
+    }
+
+    @Override
+    public List<Course> findByDesc(String desc, PageRequest pageRequest) {
+        return null;
+    }
+
+    @Override
+    public List<?> listAll(PageRequest pageRequest) {
         return null;
     }
 }

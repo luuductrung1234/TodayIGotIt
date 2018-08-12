@@ -6,10 +6,7 @@ import ldt.springframework.tigibusiness.commands.statistic.*;
 import ldt.springframework.tigibusiness.domain.*;
 import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.RoleType;
-import ldt.springframework.tigibusiness.services.CourseOwnerService;
-import ldt.springframework.tigibusiness.services.CourseService;
-import ldt.springframework.tigibusiness.services.OrderService;
-import ldt.springframework.tigibusiness.services.RoleService;
+import ldt.springframework.tigibusiness.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +50,9 @@ public class StatisticRestController {
 
     @Autowired
     UserFormConverter userFormConverter;
+
+    @Autowired
+    UserService userService;
 
 
     // =======================================
@@ -117,12 +117,12 @@ public class StatisticRestController {
         return orderService.receiptByDay(modify);
     }
 
-    @GetMapping(value = "/statistic/receipt/month")
+    @GetMapping(value = "/statistic/receipt/month/{modify}")
     public List<ReceiptByMonth> totalReceiptByMonth(@PathVariable("modify") int modify){
         return orderService.receiptByMonth(modify);
     }
 
-    @GetMapping(value = "/statistic/receipt/year")
+    @GetMapping(value = "/statistic/receipt/year/{modify}")
     public List<ReceiptByYear> totalReceiptByYear(@PathVariable("modify") int modify){
         return orderService.receiptByYear(modify);
     }
@@ -131,10 +131,11 @@ public class StatisticRestController {
     @GetMapping(value = "/statistic/instructor/most/buy")
     public List<InstructorBuy> instructorMostBuy(){
         Role role = roleService.findFirstByType(RoleType.TEACHER);
+        List<User> instructors = userService.findAllByRolesContaining(role);
 
         List<InstructorBuy> instructorBuys = new ArrayList<>();
         for (User instructor:
-             role.getUsers()) {
+             instructors) {
 
             Integer buyCount = 0;
             for (CourseOwner courseOwner :
@@ -154,10 +155,11 @@ public class StatisticRestController {
     @GetMapping(value = "/statistic/student/most/buy")
     public List<StudentBuy> studentMostBuy(){
         Role role = roleService.findFirstByType(RoleType.STUDENT);
+        List<User> students = userService.findAllByRolesContaining(role);
 
         List<StudentBuy> studentBuys = new ArrayList<>();
         for (User student:
-                role.getUsers()) {
+                students) {
 
             Integer buyCount = 0;
             for (Order order :

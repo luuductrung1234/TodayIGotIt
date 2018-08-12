@@ -60,6 +60,10 @@ public class AbstractDomainEntity implements DomainObject{
         return lastUpdated;
     }
 
+    public void setDateCreated(LocalDate dateCreated){
+        this.dateCreated = dateCreated;
+    }
+
     @PreUpdate
     @PrePersist
     public void updateTimeStamps() {

@@ -13,8 +13,11 @@ import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.CourseOwner;
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.OwerType;
+import ldt.springframework.tigibusiness.enums.RoleType;
 import ldt.springframework.tigibusiness.services.CourseService;
+import ldt.springframework.tigibusiness.services.RoleService;
 import ldt.springframework.tigibusiness.services.UserService;
 import ldt.springframework.tigibusiness.services.machineLearning.NlpManchineLearningService;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
@@ -58,6 +61,9 @@ public class SearchRestController {
     @Autowired
     private CourseFormConverter courseFormConverter;
 
+    @Autowired
+    private RoleService roleService;
+
 
     // =======================================
     // =         Non-Auth REST Method        =
@@ -71,6 +77,7 @@ public class SearchRestController {
     @PostMapping(value = "/search", produces = "application/json")
     public SearchResult showInstructorForCourse(@RequestParam("filter") String filterSentence) {
         try {
+            Role role = roleService.findFirstByType(RoleType.TEACHER);
             List<Course> courses = doFindCourse(filterSentence);
             List<User> instructors = new ArrayList<>();
 
@@ -89,7 +96,7 @@ public class SearchRestController {
             if (!persons.isEmpty()) {
                 for (String person : persons) {
                     // TODO : search instructor
-                    instructors = mergeIns(instructors, doFindIns(person));
+                    instructors = mergeIns(instructors, doFindIns(person, role));
                 }
             }
 
@@ -108,7 +115,7 @@ public class SearchRestController {
                     courses = mergeCourses(courses, doFindCourse(proNoun));
 
                     // TODO : search instructor
-                    instructors = mergeIns(instructors, doFindIns(proNoun));
+                    instructors = mergeIns(instructors, doFindIns(proNoun,role));
                 }
             }
 
@@ -119,12 +126,12 @@ public class SearchRestController {
                     courses = mergeCourses(courses, doFindCourse(noun));
 
                     // TODO : search instructor
-                    instructors = mergeIns(instructors, doFindIns(noun));
+                    instructors = mergeIns(instructors, doFindIns(noun,role));
                 }
             }
 
             List<String> phrases = nlpManchineLearningService.detectNounPhraseChunk(filterSentence);
-            if(!phrases.isEmpty()){
+            if (!phrases.isEmpty()) {
                 for (String phrase : phrases) {
                     // TODO : search course
                     courses = mergeCourses(courses, doFindCourse(phrase));
@@ -134,9 +141,9 @@ public class SearchRestController {
 
             // TODO : Merge Instuctor's Course to Courses result
             for (User instructor : instructors) {
-                for (CourseOwner courseOwner : instructor.getCourseOwners()) {
-                    if(courseOwner.getOwerType().equals(OwerType.CREATE)){
-                        if(!courses.contains(courseOwner.getCourse())){
+                if (instructor.getRoles().contains(role)) {
+                    for (CourseOwner courseOwner : instructor.getCourseOwners().subList(0, 4)) {
+                        if (!courses.contains(courseOwner.getCourse())) {
                             courses.add(courseOwner.getCourse());
                         }
                     }
@@ -144,24 +151,23 @@ public class SearchRestController {
             }
 
 
-
             // TODO : Rating
 
 
             List<UserForm> insts = new ArrayList<>();
-            for (User inst:
-                 instructors) {
+            for (User inst :
+                    instructors) {
                 insts.add(userFormConverter.revertToFewInfo(inst));
             }
 
             List<CourseForm> crs = new ArrayList<>();
-            for (Course course:
+            for (Course course :
                     courses) {
                 crs.add(courseFormConverter.revert(course));
             }
 
 
-             return new SearchResult(crs, insts);
+            return new SearchResult(crs, insts);
         } catch (Exception e) {
             e.printStackTrace();
             throw new CourseNotFoundException("");
@@ -169,26 +175,26 @@ public class SearchRestController {
     }
 
 
-    private List<Course> doFindCourse(String filter){
-        return  courseService.findByDesc(filter);
+    private List<Course> doFindCourse(String filter) {
+        return courseService.findByDesc(filter);
     }
 
-    private List<User> doFindIns(String filter){
-        return userService.findAllByCustomerFirstNameOrCustomerLastName(filter, filter);
+    private List<User> doFindIns(String filter, Role role) {
+        return userService.findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(filter, filter, role);
     }
 
-    private List<Course> mergeCourses(List<Course> currentList, List<Course> newList){
+    private List<Course> mergeCourses(List<Course> currentList, List<Course> newList) {
         for (Course course : newList) {
-            if(!currentList.contains(course)){
+            if (!currentList.contains(course)) {
                 currentList.add(course);
             }
         }
         return currentList;
     }
 
-    private List<User> mergeIns(List<User> currentList, List<User> newList){
+    private List<User> mergeIns(List<User> currentList, List<User> newList) {
         for (User instructor : newList) {
-            if(!currentList.contains(instructor)){
+            if (!currentList.contains(instructor)) {
                 currentList.add(instructor);
             }
         }

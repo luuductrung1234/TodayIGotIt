@@ -5,6 +5,7 @@ import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.DomainObject;
 import ldt.springframework.tigibusiness.services.CourseService;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,6 +60,16 @@ public class CourseServiceMapImpl extends AbstractMapService implements CourseSe
 
     @Override
     public List<Course> findByDesc(String desc) {
+        return null;
+    }
+
+    @Override
+    public List<Course> findByDesc(String desc, PageRequest pageRequest) {
+        return null;
+    }
+
+    @Override
+    public List<Course> listAll(PageRequest pageRequest) {
         return null;
     }
 }

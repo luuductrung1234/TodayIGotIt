@@ -3,6 +3,7 @@ package ldt.springframework.tigibusiness.repository.springdatarepository;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.LearnTracking;
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.repository.UserRepository;
 import ldt.springframework.tigibusiness.repository.springdatarepository.data.UserSpringData;
 import ldt.springframework.tigibusiness.security.encrypt.EncryptionService;
@@ -67,6 +68,16 @@ public class UserRepositorySpringDataImpl implements UserRepository {
     @Override
     public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
         return userSpringData.findAllByCustomerFirstNameOrCustomerLastName(firstName, lastName);
+    }
+
+    @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(String firstName, String lastname, Role role) {
+        return userSpringData.findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(firstName, lastname, role);
+    }
+
+    @Override
+    public List<User> findAllByRolesContaining(Role role) {
+        return userSpringData.findAllByRolesContaining(role);
     }
 
     @Override

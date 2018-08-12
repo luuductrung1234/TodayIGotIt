@@ -8,6 +8,7 @@ import ldt.springframework.tigibusiness.repository.CourseRepository;
 import ldt.springframework.tigibusiness.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,6 +69,16 @@ public class CourseServiceJpaDAOImpl implements CourseService {
     @Override
     public List<Course> findByDesc(String desc) {
         return courseRepository.findByDesc(desc);
+    }
+
+    @Override
+    public List<Course> findByDesc(String desc, PageRequest pageRequest) {
+        return courseRepository.findByDesc(desc, pageRequest);
+    }
+
+    @Override
+    public List<Course> listAll(PageRequest pageRequest) {
+        return (List<Course>) courseRepository.listAll(pageRequest);
     }
 
 }

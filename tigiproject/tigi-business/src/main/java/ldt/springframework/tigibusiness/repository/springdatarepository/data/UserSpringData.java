@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository.data;
 
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.enums.RoleType;
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,4 +17,8 @@ public interface UserSpringData extends CrudRepository<User, Integer> {
     User findByUsername(String username);
 
     List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastname);
+
+    List<User> findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(String firstName, String lastname, Role role);
+
+    List<User> findAllByRolesContaining(Role role);
 }

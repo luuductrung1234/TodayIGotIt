@@ -28,7 +28,7 @@ public interface OrderService extends CRUDService<Order> {
 
     boolean orderIsEmpty(Order order);
 
-    void pay(boolean isSinglePay, User curUser, Order newOrder);
+    User pay(boolean isSinglePay, User curUser, Order newOrder);
 
     List<ReceiptByDay> receiptByDay(int modify);
 

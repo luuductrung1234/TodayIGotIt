@@ -21,6 +21,8 @@ import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
 import ldt.springframework.tigirestapi.exception.user.UserCourseNotOwnedException;
 import ldt.springframework.tigirestapi.exception.user.UserNotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -168,6 +170,24 @@ public class CourseRestController {
         return courseForms;
     }
 
+    @ApiOperation(value = "Show all courses (Pagination)", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/courses/page/{pnum}/size/{snum}", produces = "application/json")
+    public List<CourseForm> getAllCourseWithPagination(@PathVariable("pnum") Integer pnum,
+                                                        @PathVariable("snum") Integer snum) {
+        List<CourseForm> courseForms = new ArrayList<>();
+        for (Course course :
+                courseService.listAll(PageRequest.of(pnum, snum,
+                        Sort.by(new Sort.Order(Sort.Direction.DESC, "buyCount"),
+                                new Sort.Order(Sort.Direction.DESC, "viewCount"))))) {
+            courseForms.add(courseFormConverter.revert(course));
+        }
+
+        return courseForms;
+    }
+
 
     @ApiOperation(value = "Search course by description", response = Iterable.class)
     @ApiResponses(value = {
@@ -178,6 +198,26 @@ public class CourseRestController {
         List<CourseForm> listCourse = new ArrayList<>();
         for (Course course :
                 courseService.findByDesc(desc)) {
+            listCourse.add(courseFormConverter.revert(course));
+        }
+
+        return listCourse;
+    }
+
+    @ApiOperation(value = "Search course by description", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/course/find/{desc}/page/{pnum}/size/{snum}", produces = "application/json")
+    public List<CourseForm> getCourseByDescWithPagination(@PathVariable("desc") String desc,
+                                                          @PathVariable("pnum") Integer pnum,
+                                                          @PathVariable("snum") Integer snum) {
+        List<CourseForm> listCourse = new ArrayList<>();
+        for (Course course :
+                courseService.findByDesc(desc,
+                        PageRequest.of(pnum, snum,
+                                Sort.by(new Sort.Order(Sort.Direction.DESC, "buyCount"),
+                                        new Sort.Order(Sort.Direction.DESC, "viewCount"))))) {
             listCourse.add(courseFormConverter.revert(course));
         }
 

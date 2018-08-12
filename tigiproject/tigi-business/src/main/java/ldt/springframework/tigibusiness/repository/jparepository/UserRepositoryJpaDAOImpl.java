@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.jparepository;
 
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.repository.UserRepository;
 import ldt.springframework.tigibusiness.security.encrypt.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,16 @@ public class UserRepositoryJpaDAOImpl extends AbstractJpaDAORepository
 
     @Override
     public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
+        return null;
+    }
+
+    @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(String firstName, String lastname, Role role) {
+        return null;
+    }
+
+    @Override
+    public List<User> findAllByRolesContaining(Role role) {
         return null;
     }
 }

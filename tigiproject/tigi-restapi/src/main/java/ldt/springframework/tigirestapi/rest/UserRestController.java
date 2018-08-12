@@ -310,6 +310,23 @@ public class UserRestController {
         return userForms;
     }
 
+    @ApiOperation(value = "List users with few information (Pagination)", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/users/page/{pnum}/size/{snum}", produces = "application/json")
+    public List<UserForm> getAllUserWithPagination(@PathVariable("pnum") int pnum,
+                                                   @PathVariable("snum") int snum) {
+
+        List<UserForm> userForms = new ArrayList<>();
+        for (User user :
+                (List<User>) userService.listAll()) {
+            userForms.add(userFormConverter.revertToFewInfo(user));
+        }
+
+        return userForms;
+    }
+
 
     @ApiOperation(value = "Count number of users", response = Integer.class)
     @ApiResponses(value = {

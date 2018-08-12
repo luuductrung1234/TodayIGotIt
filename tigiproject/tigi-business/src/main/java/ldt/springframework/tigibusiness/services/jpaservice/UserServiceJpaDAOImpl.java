@@ -3,6 +3,7 @@ package ldt.springframework.tigibusiness.services.jpaservice;
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
 import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.repository.UserRepository;
 import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.UserService;
@@ -82,6 +83,11 @@ public class UserServiceJpaDAOImpl implements UserService {
     @Override
     public List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName) {
         return userRepository.findAllByCustomerFirstNameOrCustomerLastName(firstName, lastName);
+    }
+
+    @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(String firstName, String lastname, Role role) {
+        return userRepository.findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(firstName, lastname, role);
     }
 
     @Override
@@ -176,5 +182,10 @@ public class UserServiceJpaDAOImpl implements UserService {
         }
 
         return false;
+    }
+
+    @Override
+    public List<User> findAllByRolesContaining(Role role) {
+        return userRepository.findAllByRolesContaining(role);
     }
 }

@@ -4,6 +4,7 @@ import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.LearnTracking;
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
@@ -24,6 +25,8 @@ public interface UserService extends CRUDService<User>{
 
     List<User> findAllByCustomerFirstNameOrCustomerLastName(String firstName, String lastName);
 
+    List<User> findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(String firstName, String lastname, Role role);
+
     void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser);
 
     void updateCurrentUserDataToSession(HttpServletRequest request, CartService cartService, Integer userId);
@@ -37,4 +40,6 @@ public interface UserService extends CRUDService<User>{
     User updateUserForm(UserForm userForm);
 
     boolean checkCourseOwned(User user, Integer courseId);
+
+    List<User> findAllByRolesContaining(Role role);
 }

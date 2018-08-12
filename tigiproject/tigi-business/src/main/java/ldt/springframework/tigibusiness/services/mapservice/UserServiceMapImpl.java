@@ -5,6 +5,7 @@ import ldt.springframework.tigibusiness.domain.Course;
 import ldt.springframework.tigibusiness.domain.DomainObject;
 import ldt.springframework.tigibusiness.domain.LearnTracking;
 import ldt.springframework.tigibusiness.domain.User;
+import ldt.springframework.tigibusiness.domain.security.Role;
 import ldt.springframework.tigibusiness.services.CartService;
 import ldt.springframework.tigibusiness.services.UserService;
 import org.springframework.context.annotation.Profile;
@@ -81,6 +82,11 @@ public class UserServiceMapImpl extends AbstractMapService
         return null;
     }
 
+    @Override
+    public List<User> findAllByCustomerFirstNameOrCustomerLastNameAndRolesContaining(String firstName, String lastname, Role role) {
+        return null;
+    }
+
 
     @Override
     public void updateLoginUserDataToSession(HttpServletRequest request, CartService cartService, User loginUser) {
@@ -115,5 +121,10 @@ public class UserServiceMapImpl extends AbstractMapService
     @Override
     public boolean checkCourseOwned(User user, Integer courseId) {
         return false;
+    }
+
+    @Override
+    public List<User> findAllByRolesContaining(Role role) {
+        return null;
     }
 }
