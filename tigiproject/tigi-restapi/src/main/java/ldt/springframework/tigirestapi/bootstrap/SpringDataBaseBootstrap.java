@@ -691,7 +691,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         courseService.saveOrUpdate(course15);
 
 
-        for (int i = 16; i < 200; i++) {
+        for (int i = 16; i < 100; i++) {
             int minimum = 1;
             int minvalue = 1;
             int maxValue = 100;
@@ -751,6 +751,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("123 ABC p1", "", "HCM", "South", "700000"),
                 new Address("111 CA ltd p1", "", "HCM", "South", "700000"));
         user1.setCustomer(customer1);
+        user1.setCart(new Cart());
         userService.saveOrUpdate(user1);
 
 
@@ -762,6 +763,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("456 VCD p2", "", "HCM", "South", "700000"),
                 new Address("222 DUW ltd p2", "", "HCM", "South", "700000"));
         user2.setCustomer(customer2);
+        user2.setCart(new Cart());
         userService.saveOrUpdate(user2);
 
 
@@ -773,6 +775,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("789 DHE p3", "", "Ha Noi", "North", "738382"),
                 new Address("333 DUW ltd p3", "", "Ha Noi", "North", "738382"));
         user3.setCustomer(customer3);
+        user3.setCart(new Cart());
         userService.saveOrUpdate(user3);
 
 
@@ -784,6 +787,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("133 VKL p4", "", "HCM", "South", "700000"),
                 new Address("444 DDW ltd p4", "", "HCM", "South", "700000"));
         user4.setCustomer(customer4);
+        user4.setCart(new Cart());
         userService.saveOrUpdate(user4);
 
         User user5 = new User();
@@ -794,6 +798,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("221 KKA p4", "", "HCM", "South", "700000"),
                 new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
         user5.setCustomer(customer5);
+        user5.setCart(new Cart());
         userService.saveOrUpdate(user5);
 
         User user6 = new User();
@@ -804,6 +809,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("221 KKA p4", "", "HCM", "South", "700000"),
                 new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
         user6.setCustomer(customer6);
+        user6.setCart(new Cart());
         userService.saveOrUpdate(user6);
 
         User user7 = new User();
@@ -814,6 +820,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("221 KKA p4", "", "HCM", "South", "700000"),
                 new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
         user7.setCustomer(customer7);
+        user7.setCart(new Cart());
         userService.saveOrUpdate(user7);
 
         User user8 = new User();
@@ -824,6 +831,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("221 KKA p4", "", "HCM", "South", "700000"),
                 new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
         user8.setCustomer(customer8);
+        user8.setCart(new Cart());
         userService.saveOrUpdate(user8);
 
         User user9 = new User();
@@ -834,6 +842,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
                 new Address("221 KKA p4", "", "HCM", "South", "700000"),
                 new Address("120 SDU ltd p4", "", "HCM", "South", "700000"));
         user9.setCustomer(customer9);
+        user9.setCart(new Cart());
         userService.saveOrUpdate(user9);
     }
 
@@ -981,7 +990,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
         }
         userService.saveOrUpdate(users.get(7));
 
-        for(int i = 80; i < 100; i++){
+        for(int i = 80; i < 99; i++){
             users.get(8).addCourseOwer(new CourseOwner(OwerType.CREATE, courses.get(i), 0f, "", ""));
         }
         userService.saveOrUpdate(users.get(8));
@@ -1074,7 +1083,7 @@ public class SpringDataBaseBootstrap implements ApplicationListener<ContextRefre
 
             // random OrderDetails number
             for(int j = 0; j < createNextIntegerRandom(1, 1, maxDetailsNum); j++){
-                int courseId = createNextIntegerRandom(1, 1,100);
+                int courseId = createNextIntegerRandom(1, 1,99);
 
                 // check course
                 if(userService.checkCourseOwned(user, courseId)){

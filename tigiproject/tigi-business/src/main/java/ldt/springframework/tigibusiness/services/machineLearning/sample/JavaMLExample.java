@@ -90,10 +90,5 @@ public class JavaMLExample {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-
-        LocalDate defaultDate = LocalDate.now();
-        System.out.println(defaultDate.getDayOfMonth());
-        System.out.println(defaultDate.getMonth().plus(-1));
-        System.out.println(defaultDate.getYear());
     }
 }

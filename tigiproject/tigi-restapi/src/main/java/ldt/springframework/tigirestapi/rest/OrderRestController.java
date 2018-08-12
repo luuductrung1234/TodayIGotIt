@@ -130,6 +130,10 @@ public class OrderRestController {
         User curUser = userService.findByUserName(userDetails.getUsername());
 
         try{
+            for (OrderDetails orderDetails:
+                 newOrder.getOrderDetails()) {
+                orderDetails.setOrder(newOrder);
+            }
             orderService.pay(isSinglePay, curUser, newOrder);
         }catch (Exception ex){
             ex.printStackTrace();

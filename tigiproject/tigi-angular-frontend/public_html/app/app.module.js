@@ -38,7 +38,11 @@
 
                 $rootScope.getCartCount = function() {
                     if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
-                        return $rootScope.curLogin.userCart.cartDetails.length;
+                        if($rootScope.curLogin.userCart != null) {
+                            return $rootScope.curLogin.userCart.cartDetails.length;
+                        } else {
+                            return 0;
+                        }
                     } else {
                         return 0;
                     }

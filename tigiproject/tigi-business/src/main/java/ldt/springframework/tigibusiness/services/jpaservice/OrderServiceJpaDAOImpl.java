@@ -156,6 +156,7 @@ public class OrderServiceJpaDAOImpl implements OrderService {
             return  userService.saveOrUpdate(curUser);
         } else {
             curUser.addOrders(newOrder);
+            updateOrderDetails(newOrder);
             curUser.removeCart(curUser.getCart());
             userService.saveOrUpdate(curUser);
             curUser.setCart(new Cart());
