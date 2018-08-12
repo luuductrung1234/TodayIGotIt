@@ -52,6 +52,8 @@
                                         console.log("Error: " + err);
                                     });
 
+                                loadInstructor(id);
+
                                 clearInterval(init);
                             }
                         }, 100);
@@ -172,6 +174,11 @@
 
                 return personalRate;
             }
+
+            function loadInstructor(id) {
+                angular.element('#ins-in-course-details').empty();
+                angular.element('#ins-in-course-details').append('Instructor: <span ng-class="' + id + '" current-instructor-in-course-details></span>');
+            }
         })
         .directive("toggleChapter", function() {
             return {
@@ -196,6 +203,22 @@
                 }
             }
         })
+        .directive("currentInstructorInCourseDetails", ['InstructorSvc', function(InstructorSvc) {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+                    var curIns = null;
+
+                    InstructorSvc.findCourseOwner(attrs.ngClass)
+                        .then(function(response) {
+                            curIns = response;
+                            $(elem).append('<a href="#" class="intro-link">' + curIns.firstName + " " + curIns.lastName + '</a>');
+                        }, function(err) {
+                            console.log("Error: " + err);
+                        });
+                }
+            }
+        }])
         // .directive("courseContent", ['$cookies', '$cookieStore', 'CourseSvc', function($cookies, $cookieStore, CourseSvc) {
         //     return {
         //         restrict: "A",

@@ -60,4 +60,20 @@
                 }
             }
         }])
+        .directive("currentInstructorInCourse", ['InstructorSvc', function(InstructorSvc) {
+            return {
+                restrict: "A",
+                link: function(scope, elem, attrs) {
+                    var curIns = null;
+
+                    InstructorSvc.findCourseOwner(attrs.ngClass)
+                        .then(function(response) {
+                            curIns = response;
+                            $(elem).append('<a href="#" class="intro-link">' + curIns.firstName + " " + curIns.lastName + '</a>');
+                        }, function(err) {
+                            console.log("Error: " + err);
+                        });
+                }
+            }
+        }])
 })();
