@@ -18,8 +18,8 @@
             </span>
         </div>
         <div class="topnav-form" ng-class="($root.curLogin.userRoles[0].type === 'ADMIN') ? ['hidden'] : ['show']">
-            <form>
-                <input id="topnav-search" class="topnav-search" type="text" placeholder="Search..." />
+            <form ng-submit="searchAction()">
+                <input id="topnav-search" class="topnav-search" type="text" ng-model="filter" placeholder="Search..." />
                 <button class="c-btn c-btn-sm" type="submit">Search</button>
             </form>
         </div>
@@ -57,6 +57,7 @@
     </div>
 
     <div id="admin-dropdown" class="c-dropdown-content">
+        <a ng-href="#/admin/home">Dashboard</a>
         <a ng-href="#/profiles/{{$root.curLogin.userName}}">Profiles</a>
         <hr/>
         <a ng-href="#/admin/course">Manage Course</a>
@@ -75,32 +76,34 @@
         <a href="#" id="logout-user">Logout</a>
     </div>
 
+    <div data-loading class="loading-circle"></div>
+
     <div id="login-model" class="login-model" login-model>
         <div class="model-content animate">
             <div class="main-container">
-                <form id="login-form" class="form-full-width">
+                <form id="login-form" class="form-full-width" style="margin-left: auto; margin-right: auto;">
                     <div class="row">
-                        <h2 style="text-align:center">Login with Social Media or <span class="topnav-brand" style="font-size: 30px;">TodayIGotIt</span> account</h2>
-                        <div class="vl">
+                        <h2 style="text-align:center">Login with <span class="topnav-brand" style="font-size: 30px;">TodayIGotIt</span> account</h2>
+                        <!-- <div class="vl">
                             <span class="vl-innertext">or</span>
-                        </div>
+                        </div> -->
 
-                        <div class="col">
+                        <!-- <div class="col">
                             <fb:login-button id="login" scope="public_profile,email,user_birthday,user_gender" onlogin="checkLoginState();"></fb:login-button>
-                            <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div> -->
-                            <!-- <a href="#" class="fb btn-sc">
+                            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                            <a href="#" class="fb btn-sc">
                                 <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                            </a> -->
-                            <!-- <a href="#" class="twitter btn-sc">
+                            </a>
+                            <a href="#" class="twitter btn-sc">
                                 <i class="fa fa-twitter fa-fw"></i> Login with Twitter
-                            </a> -->
+                            </a>
                             <a href="#" class="google btn-sc">
                                 <i class="fab fa-google fa-fw">
                                 </i> Login with Google+
                             </a>
-                        </div>
+                        </div> -->
 
-                        <div class="col">
+                        <div class="col" style="margin-left: auto; margin-right: auto;">
                             <div class="hide-md-lg">
                                 <p>Or sign in manually:</p>
                             </div>

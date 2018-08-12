@@ -1,6 +1,7 @@
 .ver-tab {
     float: left;
     width: 20%;
+    padding: 12px 0px;
     min-height: 300px;
 }
 
@@ -29,5 +30,7 @@
     padding: 0px 12px;
     width: 80%;
     min-height: 300px;
+    border: 1px dotted #17a2b8;
+    border-radius: 12px;
     transition: 0.3s;
 }

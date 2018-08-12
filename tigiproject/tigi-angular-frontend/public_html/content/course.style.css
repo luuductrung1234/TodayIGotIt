@@ -154,7 +154,7 @@
 
 .ava-courses {
     display: flex;
-    overflow: auto;
+    overflow: hidden;
     padding: 0;
     margin: 0;
     flex-wrap: wrap;
@@ -170,13 +170,6 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-}
-
-.card-fit-2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 1.66666666667%;
-    margin-right: 1.66666666667%;
 }
 
 .card.ng-enter {
@@ -209,7 +202,7 @@
 
 .card .card-img {
     width: auto;
-    height: 40%;
+    height: 30%;
     padding-top: auto;
     padding-bottom: auto;
     -webkit-box-align: center;
@@ -220,8 +213,7 @@
 .card .card-img img {
     width: 100%;
     height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: 0;
 }
 
 .card h2 {
@@ -364,6 +356,20 @@
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
+}
+
+.card-fit-2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 1.66666666667%;
+    margin-right: 1.66666666667%;
+}
+
+.card-fit-3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 1.66666666667%;
+    margin-right: 1.66666666667%;
 }
 
 .main-content:hover .info-box {

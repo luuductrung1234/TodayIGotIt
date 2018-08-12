@@ -36,16 +36,24 @@
     </div>
     <div class="ava-courses">
         <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in relatedcourses">
-            <img ng-src="{{course.img}}">
-            <h2>{{course.name}}</h2>
-            <p class="title">{{course.instructor}}</p>
-            <p class="info">{{course.smalldescription}}</p>
+            <div class="card-img">
+                <img src="http://localhost:8080/TigiProject/api/course/{{course.courseId}}/media/image">
+            </div>
+            <h2>{{course.description}}</h2>
+            <p class="title" ng-class="{{course.courseId}}" current-instructor></p>
+            <p class="info">{{course.description}}</p>
             <div class="card-body">
-                <del class="old-price">{{course.old | currency}}</del>
-                <span class="present-price">{{course.present | currency}}</span>
+                <!-- <del class="old-price">{{course.price | currency}}</del> -->
+                <span class="present-price">{{course.price | currency}}</span>
             </div>
             <p>
-                <a href="#/course/{{course.id}}" class="more-info">More info...</a>
+                <!-- <a href="#" id="{{course.courseId}}" class="add-to-favorite" add-to-favorite><i class="far fa-heart fa-fw"></i></a> -->
+                <a href="#" id="{{course.courseId}}" class="add-to-cart" add-to-cart>
+                    <i class="fas fa-cart-plus fa-fw"></i>
+                </a>
+                <a href="#/course/{{course.courseId}}" class="more-info-icon">
+                    <i class="fas fa-info fa-fw"></i>
+                </a>
             </p>
         </div>
     </div>

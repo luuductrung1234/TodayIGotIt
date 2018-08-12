@@ -1,27 +1,24 @@
 <div>
     <section class="jumbotron">
         <div class="container">
-            <h1 style="text-align: center; margin-bottom: 5%;">Manage
+            <h1 style="text-align: center; margin: 0 auto 2% auto;">Manage
                 <span class="topnav-brand">ToDayIGotIt</span>
             </h1>
-            <p class="lead text-muted">
-                TiGi - TodayIGotIt is an online learning website that supply our free courses. The place you can become a teach when publish your own courses and earn profit The place you can find your need courses and start learning immediately
-            </p>
 
-            <div class="row">
-                <div id="course-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3">
+            <div class="row" style="display: flex;">
+                <div id="course-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3" style="flex: 1;">
                     <h2>{{totalCourses}} Courses
                         <i class="fas fa-code"></i>
                     </h2>
                     <p>Manage all courses on website</p>
                 </div>
-                <div id="instructor-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3">
+                <div id="instructor-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3" style="flex: 1;">
                     <h2>{{totalInstructors}} Instructors
                         <i class="fas fa-chalkboard-teacher"></i>
                     </h2>
                     <p>Manage all instructor on website</p>
                 </div>
-                <div id="user-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3">
+                <div id="user-ctrl" class="admin-ctrl col-lg-3 col-md-3 col-sm-3" style="flex: 1;">
                     <h2>{{totalUsers}} Users
                         <i class="fas fa-user"></i>
                     </h2>
@@ -29,6 +26,18 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <section class="jumbotron">
+        <h2 class="hh">Course's Statistic</h2>
+        <div class="row">
+            <statistic-course-buy dpmostbuy="courseMostBuy"></statistic-course-buy>
+            <statictic-course-rate dpmostrate="courseMostRate"></statictic-course-rate>
+        </div>
+    </section>
+
+    <section class="jumbotron">
+        <h2 class="hh">Receipt</h2>
     </section>
 
     <script>

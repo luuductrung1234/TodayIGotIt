@@ -4,7 +4,7 @@
             <h1>Most Popular: <span class="more-link"><a href="#"><i class="fas fa-plus"></i> More...</a></span></h1>
         </div>
         <div class="ava-courses">
-            <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in courses">
+            <div class="card col-lg-2 col-md-4 col-sm-6 card-fit-2" ng-repeat="course in courses">
                 <div class="card-img"><img src="http://localhost:8080/TigiProject/api/course/{{course.courseId}}/media/image"></div>
                 <h2>{{course.description}}</h2>
                 <p class="title" ng-class="{{course.courseId}}" current-instructor></p>
