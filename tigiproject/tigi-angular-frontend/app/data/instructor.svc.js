@@ -33,6 +33,7 @@
                         deferred.resolve(instructors);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -57,6 +58,7 @@
                         deferred.resolve(instructors);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -73,6 +75,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -89,6 +92,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -113,6 +117,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 

@@ -37,16 +37,32 @@
     </section>
 
     <section class="jumbotron">
-        <h2 class="hh">Receipt</h2>
-        <select ng-model="receiptType" ng-change="changeReceipt()" class="c-cbo mr-pd-input-df">
-            <option value="day" selected>Day</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
-        </select>
+        <div class="row" style="display: flex">
+            <h2 class="hh col">Receipt</h2>
+            <select ng-model="receiptType" ng-change="changeReceipt()" class="c-cbo mr-pd-input-df col" style="width: auto; height:auto;">
+                <option value="day" selected>Day</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+            </select>
+        </div>
         <div class="row">
-            <div class="col col-df" style="width: 5%;"><span class="fas fa-angle-left fa-fw" ng-click="receiptPrev(-1)"></span></div>
+            <div class="col col-df" style="width: 5%;"><span class="fas fa-angle-left fa-fw" ng-click="receiptPrevNext(-1)"></span></div>
             <statistic-receipt dpreceipt="receipt"></statistic-receipt>
-            <div class="col col-df" style="width: 5%;"><span class="fas fa-angle-right fa-fw" ng-click="receiptNext(1)"></span></div>
+            <div class="col col-df" style="width: 5%;"><span class="fas fa-angle-right fa-fw" ng-click="receiptPrevNext(1)"></span></div>
+        </div>
+    </section>
+
+    <section class="jumbotron">
+        <h2 class="hh">Instructor(s) has best seller course</h2>
+        <div class="row">
+            <statistic-ins-most-buy dpins="insmostbuy"></statistic-ins-most-buy>
+        </div>
+    </section>
+
+    <section class="jumbotron">
+        <h2 class="hh">Student(s) has most buyed course</h2>
+        <div class="row">
+            <statistic-user-most-buy dpuser="usermostbuy"></statistic-user-most-buy>
         </div>
     </section>
 

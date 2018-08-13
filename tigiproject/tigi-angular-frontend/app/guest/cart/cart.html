@@ -1,5 +1,5 @@
 <div>
-    <table class="course-table">
+    <table class="course-table" ng-show="getCartDetails().length != 0">
         <tr>
             <th>Course Id</th>
             <th>Course Name</th>
@@ -52,11 +52,13 @@
         </div>
     </div>
 
-    <div style="overflow:auto;">
+    <div style="overflow:auto;" ng-show="getCartDetails() != 0">
         <div style="float:right;">
             <input type="button" id="btn-buy-all" name="btn-buy-all" value="Buy All" class="c-btn c-btn-sm" style="width: auto;" />
         </div>
     </div>
+
+    <div ng-show="getCartDetails() == 0" style="text-align: center;">Your cart will be here! Do you want to <a href="#/course" class="refresh-link">order some course</a>?</div>
 
     <script>
         $(window).on('click', function() {

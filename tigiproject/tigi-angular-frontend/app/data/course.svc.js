@@ -31,11 +31,10 @@
                         }
                     })
                     .success(function(response) {
-                        // console.log(response);
-
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -72,6 +71,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -85,10 +85,10 @@
 
                 $http.get(url)
                     .success(function(response) {
-                        // console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -105,6 +105,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -121,6 +122,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -137,6 +139,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -158,10 +161,10 @@
                         }
                     })
                     .success(function(response) {
-                        // console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -199,8 +202,9 @@
                         console.log(response);
                         deferred.resolve(response);
                     })
-                    .error(function(error) {
-                        deferred.reject(error);
+                    .error(function(err) {
+                        alert(err.message);
+                        deferred.reject(err);
                     });
 
                 return deferred.promise;
@@ -224,6 +228,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 

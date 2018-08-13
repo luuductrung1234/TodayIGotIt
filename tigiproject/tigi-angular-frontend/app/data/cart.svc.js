@@ -22,11 +22,10 @@
                         }
                     })
                     .success(function(response) {
-                        console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
-                        console.log(err);
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -47,10 +46,10 @@
                         }
                     })
                     .success(function(response) {
-                        console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -71,10 +70,10 @@
                         }
                     })
                     .success(function(response) {
-                        console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -96,10 +95,10 @@
                         data: JSON.stringify(order)
                     })
                     .success(function(response) {
-                        console.log(response);
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 

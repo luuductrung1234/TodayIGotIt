@@ -14,8 +14,7 @@
                 }
             }
 
-            $scope.mycourses = [];
-            $scope.completedcourses = [];
+            $scope.startMyCourseFrom = 0;
 
             $scope.$on('$viewContentLoaded', function() {
                 var cnt = 0;
@@ -25,7 +24,7 @@
                         if ($rootScope.curLogin.userRoles[0].type == 'STUDENT') {
                             CourseSvc.getMyCourses($cookieStore.get('curUser'), $cookieStore.get('curPass'))
                                 .then(function(response) {
-                                    $scope.mycourses = response;
+                                    $rootScope.mycourses = response;
                                 }, function(err) {
                                     console.log("Error: " + err);
                                 });

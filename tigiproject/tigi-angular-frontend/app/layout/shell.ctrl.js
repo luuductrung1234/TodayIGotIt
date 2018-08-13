@@ -1,6 +1,6 @@
 (function() {
     angular.module("app.shell")
-        .controller("Shell", ['$q', '$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', '$routeParams', 'UserSvc', function($q, $window, $scope, $rootScope, $filter, $cookies, $cookieStore, $routeParams, UserSvc) {
+        .controller("Shell", ['$q', '$window', '$scope', '$rootScope', '$filter', '$cookies', '$cookieStore', '$routeParams', 'UserSvc', 'CourseSvc', function($q, $window, $scope, $rootScope, $filter, $cookies, $cookieStore, $routeParams, UserSvc, CourseSvc) {
             $scope.win = $window;
             $scope.cook = $cookieStore;
 
@@ -161,6 +161,7 @@
 
                             if ($rootScope.curLogin == null) {
                                 $rootScope.curLogin = null;
+                                $rootScope.mycourses = [];
                                 $window.location.href = "#/home";
                                 $rootScope.hasError = true;
                                 $rootScope.errMess = "Wrong Info";
@@ -176,10 +177,8 @@
                                 $rootScope.isUserLogged = true;
                                 $cookieStore.put('curUser', user);
                                 $cookieStore.put('curPass', pass);
+                                loadMycourses(userName, password);
                             }
-
-                            console.log($cookieStore.get('curUser'));
-                            console.log($cookieStore.get('curPass'));
 
                             deferred.resolve();
                         },
@@ -197,10 +196,20 @@
                 UserSvc.loginAction(userName, password)
                     .then(function(response) {
                             $rootScope.curLogin = response;
+                            loadMycourses(userName, password);
                         },
                         function(err) {
                             console.log(err);
                         });
+            }
+
+            function loadMycourses(userName, password) {
+                CourseSvc.getMyCourses(userName, password)
+                    .then(function(response) {
+                        $rootScope.mycourses = response;
+                    }, function(err) {
+                        console.log("Error: " + err);
+                    })
             }
         }])
         .directive("loginModel", function() {

@@ -6,8 +6,9 @@
         .config(function($routeProvider) {
             $routeProvider
                 .when("/home", {
-                    templateUrl: "app/guest/home/home.html",
-                    controller: "Home"
+                    // templateUrl: "app/guest/home/home.html",
+                    // controller: "Home"
+                    redirectTo: "/course"
                 })
                 .when("/course", {
                     templateUrl: "app/guest/course/course.html",

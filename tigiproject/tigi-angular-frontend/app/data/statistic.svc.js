@@ -7,6 +7,8 @@
                 getReceiptDay: getReceiptDay,
                 getReceiptMonth: getReceiptMonth,
                 getReceiptYear: getReceiptYear,
+                getInsMostBuy: getInsMostBuy,
+                getUserMostBuy: getUserMostBuy,
             }
 
             function getMostCourseBuy(username, password) {
@@ -27,6 +29,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -51,6 +54,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -75,6 +79,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -99,6 +104,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 
@@ -123,6 +129,57 @@
                         deferred.resolve(response);
                     })
                     .error(function(err) {
+                        alert(err.message);
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getInsMostBuy(username, password) {
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "statistic/instructor/most/buy";
+
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .success(function(response) {
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        alert(err.message);
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getUserMostBuy(username, password) {
+                var auth = btoa(`${username}:${password}`);
+
+                var url = serverUrl + "statistic/student/most/buy";
+
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Authorization': 'Basic ' + auth
+                        }
+                    })
+                    .success(function(response) {
+                        deferred.resolve(response);
+                    })
+                    .error(function(err) {
+                        alert(err.message);
                         deferred.reject(err);
                     });
 

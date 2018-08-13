@@ -15,6 +15,7 @@
                         deferred.resolve(response);
                     })
                     .error(function(error) {
+                        alert(err.message);
                         deferred.reject(error);
                     });
 
