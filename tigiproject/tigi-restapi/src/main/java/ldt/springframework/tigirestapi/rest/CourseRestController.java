@@ -9,13 +9,9 @@ import ldt.springframework.tigibusiness.commands.RateForm;
 import ldt.springframework.tigibusiness.commands.UserForm;
 import ldt.springframework.tigibusiness.commands.converters.CourseFormConverter;
 import ldt.springframework.tigibusiness.commands.converters.UserFormConverter;
-import ldt.springframework.tigibusiness.domain.Course;
-import ldt.springframework.tigibusiness.domain.CourseDetails;
-import ldt.springframework.tigibusiness.domain.CourseOwner;
-import ldt.springframework.tigibusiness.domain.User;
-import ldt.springframework.tigibusiness.services.CourseOwnerService;
-import ldt.springframework.tigibusiness.services.CourseService;
-import ldt.springframework.tigibusiness.services.UserService;
+import ldt.springframework.tigibusiness.domain.*;
+import ldt.springframework.tigibusiness.enums.TagName;
+import ldt.springframework.tigibusiness.services.*;
 import ldt.springframework.tigirestapi.exception.course.CourseNotFoundException;
 import ldt.springframework.tigirestapi.exception.course.CourseSaveFailException;
 import ldt.springframework.tigirestapi.exception.user.UserCourseNotOwnedException;
@@ -60,11 +56,16 @@ public class CourseRestController {
     CourseOwnerService courseOwnerService;
 
     @Autowired
+    TagTrackingService tagTrackingService;
+
+    @Autowired
+    CourseTagService courseTagService;
+
+    @Autowired
     CourseFormConverter courseFormConverter;
 
     @Autowired
     UserFormConverter userFormConverter;
-
 
 
     // =======================================
@@ -114,21 +115,19 @@ public class CourseRestController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User curUser = userService.findByUserName(userDetails.getUsername());
 
-        if(curUser == null)
+        if (curUser == null)
             throw new UserNotAvailableException();
 
-        if(!userService.checkCourseOwned(curUser, id)){
+        if (!userService.checkCourseOwned(curUser, id)) {
             throw new UserCourseNotOwnedException();
         }
 
         Course course = courseService.getById(id);
-        if(course == null)
+        if (course == null)
             throw new CourseNotFoundException(id.toString());
 
         return course.getCourseDetails();
     }
-
-
 
 
     // =======================================
@@ -176,7 +175,7 @@ public class CourseRestController {
     })
     @GetMapping(value = "/courses/page/{pnum}/size/{snum}", produces = "application/json")
     public List<CourseForm> getAllCourseWithPagination(@PathVariable("pnum") Integer pnum,
-                                                        @PathVariable("snum") Integer snum) {
+                                                       @PathVariable("snum") Integer snum) {
         List<CourseForm> courseForms = new ArrayList<>();
         for (Course course :
                 courseService.listAll(PageRequest.of(pnum, snum,
@@ -224,6 +223,39 @@ public class CourseRestController {
         return listCourse;
     }
 
+
+    @ApiOperation(value = "Search course by TagName", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/course/find/tag/{tagName}", produces = "application/json")
+    public List<CourseForm> getCourseByTagName(@PathVariable("tagName") String tagName) {
+
+        List<CourseTag> courseTags = (List<CourseTag>) courseTagService.findAllByTagTracking_TagName(tagName);
+        List<CourseForm> result = new ArrayList<>();
+
+        if(courseTags.isEmpty()){
+            // TODO : exception
+        }
+        for (CourseTag courseTag :
+                courseTags) {
+            result.add(courseFormConverter.revert(courseTag.getCourse()));
+        }
+
+        return result;
+    }
+
+    @ApiOperation(value = "Show Tag", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved resource"),
+    })
+    @GetMapping(value = "/course/tags", produces = "application/json")
+    public List<TagTracking> showAllTag() {
+
+        List<TagTracking> listTag = (List<TagTracking>) tagTrackingService.listAll();
+
+        return listTag;
+    }
 
     @ApiOperation(value = "Show review of specific course", response = Iterable.class)
     @ApiResponses(value = {

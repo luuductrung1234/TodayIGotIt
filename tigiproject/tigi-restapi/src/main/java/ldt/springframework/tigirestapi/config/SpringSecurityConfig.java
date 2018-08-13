@@ -169,6 +169,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("api/course/*/rate").permitAll()
                 .and().authorizeRequests().antMatchers("api/course/*/rate/full").permitAll()
                 .and().authorizeRequests().antMatchers("api/course/*/instructor").permitAll()
+                .and().authorizeRequests().antMatchers("api/course/tags").permitAll()
+                .and().authorizeRequests().antMatchers("api/course/find/tag/**").permitAll()
 
                 // User API
                 .and().authorizeRequests().antMatchers("/api/users").permitAll()
