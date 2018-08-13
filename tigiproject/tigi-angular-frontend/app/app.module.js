@@ -29,16 +29,19 @@
         .run(['$window', '$rootScope', '$cookies', '$cookieStore', 'UserSvc',
             function($window, $rootScope, $cookies, $cookieStore, UserSvc) {
                 $rootScope.curLogin = null;
+                $rootScope.mycourses = [];
+                $rootScope.completedcourses = [];
                 $rootScope.hasError = false;
                 $rootScope.errMess = null;
                 $rootScope.isAdminLogged = false;
                 $rootScope.isUserLogged = false;
                 $rootScope.learning = false;
                 $rootScope.isSubcribed = false;
+                $rootScope.completedcourses = [];
 
                 $rootScope.getCartCount = function() {
                     if ($rootScope.curLogin != null && $rootScope.curLogin.userRoles[0].type !== 'ADMIN') {
-                        if($rootScope.curLogin.userCart != null) {
+                        if ($rootScope.curLogin.userCart != null) {
                             return $rootScope.curLogin.userCart.cartDetails.length;
                         } else {
                             return 0;
@@ -56,13 +59,14 @@
                     $rootScope.isSubcribed = false;
 
                     if ($rootScope.curLogin != null) {
-                        $rootScope.curLogin.userCourseOwners.forEach(function(i) {
-                            if (i.id == curId) {
-                                if (i.owerType == 'BUY') {
-                                    $rootScope.isSubcribed = true;
+                        if ($rootScope.curLogin.userRoles[0].type === 'STUDENT') {
+                            $rootScope.mycourses.forEach(item => {
+                                if (item.coursId === curId) {
+                                    isSubcribed = true;
+                                    break;
                                 }
-                            }
-                        })
+                            });
+                        }
                     }
                 }
             }

@@ -64,10 +64,9 @@
 /*media player*/
 
 #media-player-learn {
-    width: auto;
+    width: 100%;
     height: 100%;
-    margin: auto auto;
-    padding: auto auto;
+    object-fit: contain;
 }
 
 #media-player-learn:focus {
@@ -75,10 +74,9 @@
 }
 
 #media-video-learn {
-    width: auto;
+    width: 100%;
     height: 100%;
-    margin: auto auto;
-    padding: auto auto;
+    object-fit: contain;
 }
 
 #media-player-learn #toggle-side-nav {

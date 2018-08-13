@@ -1,4 +1,4 @@
-<div>
+<div ng-init="startMyCourseFrom = 0">
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'subscribed')" id="default">Subscribed Course</button>
         <!-- <button class="tablinks" onclick="openTab(event, 'favorite')">Favorite Course</button> -->
@@ -6,21 +6,18 @@
     </div>
 
     <div id="subscribed" class="tabcontent">
-        <div ng-show="mycourses.length != 0">
+        <div ng-show="$root.mycourses.length != 0">
             <h2>Subscribed Course</h2>
             <form class="form-filter-course">
                 <div class="row">
                     <div class="col-filter">
                         <h3>Language</h3>
-                        <select class="c-cbo mr-pd-input-df" ng-model="filterLang" all-instructor>
+                        <select class="c-cbo mr-pd-input-df" ng-model="filterLang">
                         </select>
                     </div>
                     <div class="col-filter">
                         <h3>Instructor</h3>
-                        <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor">
-                            <option value="" selected>All</option>
-                            <option value="jc">JC</option>
-                            <option value="cb">CB</option>
+                        <select class="c-cbo mr-pd-input-df" ng-model="filterInstructor" all-instructor>
                         </select>
                     </div>
                     <div class="col-filter">
@@ -29,11 +26,18 @@
                             <input type="text" id="filterTextSubscribed" name="filterTextSubscribed" ng-model="filterTextSubscribed" class="input-text text mr-pd-input-df" placeholder="type anything" />
                         </div>
                     </div>
+                    <div class="col-filter">
+                        <span>
+                            <a href="#" id="refresh-mycourses" class="refresh-link"><i class="fas fa-sync"></i></a>
+                        </span>
+                    </div>
                 </div>
             </form>
 
             <div class="ava-courses">
-                <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in mycourses">
+                <div class="card card-fit-2 col-lg-2 col-md-4 col-sm-6" ng-repeat="course in $root.mycourses | 
+                                                                                    filter: course.description = filterTextSubscribed | 
+                                                                                    limitTo: 15: startMyCourseFrom">
                     <div class="card-img"><img src="http://localhost:8080/TigiProject/api/course/{{course.id}}/media/image"></div>
                     <h2 ng-class="{{course.id}}" course-description></h2>
                     <p class="title" ng-class="{{course.id}}" current-instructor></p>
@@ -43,8 +47,15 @@
                     </p>
                 </div>
             </div>
+            <div class="pagination">
+                <a href="#" id="mycourses-page-prev" style="display: inline-block;">&laquo;</a>
+                <!-- <a href="#" nav-page-link ng-repeat="course in courses" ng-show="($index + 5) % 5 == 0" id="{{'startMyCourseFromIndex' + $index}}" class="startMyCourseFromIndex" ng-class="($index) == 0 ? 'active' : ''"> -->
+                <!-- <span id="mycourses-nav-page" style="display: inline-block;">{{startMyCourseFrom + 1}} - {{startMyCourseFrom + 5}} of {{courses.length}}</span> -->
+                <!-- </a> -->
+                <a href="#" id="mycourses-page-next" style="display: inline-block;">&raquo;</a>
+            </div>
         </div>
-        <div ng-show="mycourses.length == 0">
+        <div ng-show="$root.mycourses.length == 0">
             <p>Your subscribed courses will be here! Do you want to <a class="">subscribe some courses</a></p>
         </div>
     </div>
@@ -102,5 +113,41 @@
             $('#' + tabName).css('display', 'block');
             $(evt.target).addClass('active');
         }
+
+        $('#refresh-mycourses').on('click', function() {
+            $('#filterLang').val('');
+            $('#filterInstructor').val('');
+            $('#filterTextSubscribed').val('');
+
+            $(this).scope().filterLang = '';
+            $(this).scope().filterInstructor = '';
+            $(this).scope().filterTextSubscribed = '';
+            $(this).scope().startMyCourseFrom = 0;
+            $(this).scope().$apply();
+
+            return false;
+        });
+
+        $('#mycourses-page-prev').on('click', function() {
+            if ($(this).scope().startMyCourseFrom == 0) {
+                return false;
+            }
+
+            $(this).scope().startMyCourseFrom -= 5;
+            $(this).scope().$apply();
+
+            return false;
+        });
+
+        $('#mycourses-page-next').on('click', function() {
+            if ($(this).scope().courses.length < ($(this).scope().startMyCourseFrom + 5 + 1)) {
+                return false;
+            }
+
+            $(this).scope().startMyCourseFrom += 5;
+            $(this).scope().$apply();
+
+            return false;
+        });
     </script>
 </div>

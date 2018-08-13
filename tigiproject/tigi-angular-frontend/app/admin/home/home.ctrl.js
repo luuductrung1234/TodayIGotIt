@@ -9,6 +9,8 @@
             $scope.modify = 0;
             $scope.receipt = [];
             $scope.receiptType = 'day';
+            $scope.insmostbuy = [];
+            $scope.usermostbuy = [];
 
             if ($cookieStore.get('curUser') == undefined ||
                 $rootScope.curLogin == null) {
@@ -28,8 +30,6 @@
                         clearInterval(init);
                     }
                 }, 100);
-
-
             }
 
             $scope.$on('$viewContentLoaded', function() {
@@ -79,6 +79,20 @@
                             StatisticSvc.getReceiptDay($scope.modify, $cookieStore.get('curUser'), $cookieStore.get('curPass'))
                                 .then(function(response) {
                                     $scope.receipt = response;
+                                }, function(err) {
+                                    console.log("Error: " + err);
+                                });
+
+                            StatisticSvc.getInsMostBuy($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                                .then(function(response) {
+                                    $scope.insmostbuy = response;
+                                }, function(err) {
+                                    console.log("Error: " + err);
+                                });
+
+                            StatisticSvc.getUserMostBuy($cookieStore.get('curUser'), $cookieStore.get('curPass'))
+                                .then(function(response) {
+                                    $scope.usermostbuy = response;
                                 }, function(err) {
                                     console.log("Error: " + err);
                                 });
@@ -139,7 +153,7 @@
                 }
             }
 
-            $scope.receiptPrev = function(remodify) {
+            $scope.receiptPrevNext = function(remodify) {
                 $scope.modify += remodify;
 
                 if ($scope.receiptType === 'day') {
