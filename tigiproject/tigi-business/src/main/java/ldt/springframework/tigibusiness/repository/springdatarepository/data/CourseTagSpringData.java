@@ -1,6 +1,8 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository.data;
 
 import ldt.springframework.tigibusiness.domain.CourseTag;
+import ldt.springframework.tigibusiness.domain.TagTracking;
+import ldt.springframework.tigibusiness.enums.TagName;
 import org.springframework.data.repository.CrudRepository;
 
 /*
@@ -9,5 +11,7 @@ import org.springframework.data.repository.CrudRepository;
  * ---
  * 8/10/18
  */
-public interface CourseTagSpringData extends CrudRepository<CourseTag, Integer> {
+public interface CourseTagSpringData extends
+        CrudRepository<CourseTag, Integer> {
+    Iterable<CourseTag> findAllByTagTracking_TagName(String tagName);
 }

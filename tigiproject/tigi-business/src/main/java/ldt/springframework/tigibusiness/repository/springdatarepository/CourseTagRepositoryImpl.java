@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.repository.springdatarepository;
 
 import ldt.springframework.tigibusiness.domain.CourseTag;
+import ldt.springframework.tigibusiness.enums.TagName;
 import ldt.springframework.tigibusiness.repository.CourseTagRepository;
 import ldt.springframework.tigibusiness.repository.springdatarepository.data.CourseTagSpringData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,12 @@ public class CourseTagRepositoryImpl implements CourseTagRepository {
     @Override
     public void delete(Integer id) {
         courseTagSpringData.deleteById(id);
+    }
+
+    @Override
+    public Iterable<CourseTag> findAllByTagTracking_TagName(String tagName) {
+        List<CourseTag> courseTags = new ArrayList<>();
+        courseTagSpringData.findAllByTagTracking_TagName(tagName).forEach(courseTags::add);
+        return courseTags;
     }
 }

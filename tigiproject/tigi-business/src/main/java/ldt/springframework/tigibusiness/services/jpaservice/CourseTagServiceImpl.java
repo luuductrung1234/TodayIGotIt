@@ -1,6 +1,7 @@
 package ldt.springframework.tigibusiness.services.jpaservice;
 
 import ldt.springframework.tigibusiness.domain.CourseTag;
+import ldt.springframework.tigibusiness.enums.TagName;
 import ldt.springframework.tigibusiness.repository.CourseTagRepository;
 import ldt.springframework.tigibusiness.services.CourseTagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,10 @@ public class CourseTagServiceImpl implements CourseTagService {
     @Override
     public void delete(Integer id) {
         courseTagRepository.delete(id);
+    }
+
+    @Override
+    public Iterable<CourseTag> findAllByTagTracking_TagName(String tagName) {
+        return courseTagRepository.findAllByTagTracking_TagName(tagName);
     }
 }
